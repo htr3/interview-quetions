@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microservices — Interview Prep</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body data-page="microservices">
+  <div class="layout">
+    <aside class="sidebar"><h2>Interview Prep</h2><nav id="site-nav"></nav></aside>
+    <main class="main">
+      <header class="page-header">
+        <h1>Microservices Interview Prep</h1>
+        <p><strong>58</strong> questions in <strong>8 sections</strong> — fundamentals, resilience, Camel, consistency, and your Amdocs experience. Click to expand. Apache Camel 1M+ txn/day focus.</p>
+      </header>
+      <div class="toolbar">
+        <input type="search" id="search" placeholder="Search questions & answers...">
+        <select id="level-filter" class="filter-select">
+          <option value="all">All levels</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <label><input type="checkbox" id="vimp-only"> ⭐ Very important</label>
+        <label><input type="checkbox" id="practice-mode"> Practice mode</label>
+        <button type="button" class="btn" id="expand-all">Expand all</button>
+        <button type="button" class="btn" id="collapse-all">Collapse all</button>
+      </div>
+      <div class="legend">
+        <span><span class="level level-easy">Easy</span> fundamentals</span>
+        <span><span class="level level-medium">Medium</span> 3 YOE depth</span>
+        <span><span class="level level-hard">Hard</span> senior / tricky</span>
+        <span><span class="level-vimp">⭐ VI</span> must practice before interview</span>
+      </div>
+      <div class="stats">
+        <div class="stat-card"><strong id="stat-done">0</strong><span>Practiced</span></div>
+        <div class="stat-card"><strong id="stat-total">0</strong><span>Total</span></div>
+        <div class="stat-card"><strong id="stat-visible">0</strong><span>Showing</span></div>
+        <div class="stat-card"><strong id="stat-pct">0%</strong><span>Progress</span></div>
+      </div>
+      <nav class="section-nav" aria-label="Microservices sections">
+        <a href="#section-fundamentals">Microservices Fundamentals</a>
+        <a href="#section-communication">Communication & APIs</a>
+        <a href="#section-resilience">Resilience & Scale</a>
+        <a href="#section-consistency">Data & Consistency</a>
+        <a href="#section-camel">Apache Camel & Integration</a>
+        <a href="#section-observability">Observability & DevOps</a>
+        <a href="#section-kafka-ms">Events & Messaging</a>
+        <a href="#section-experience">Your Experience (Amdocs)</a>
+      </nav>
+
+      <section class="topic-section" id="section-fundamentals">
+        <h2>Microservices Fundamentals</h2>
+        <p class="section-desc">When to split, bounded contexts, migration — architecture basics.</p>
+        <p class="section-meta">8 questions in this section</p>
+        <div class="qa-list">
+        <article class="qa-card" data-id="ms-vs-monolith" data-level="easy" data-section="fundamentals" data-vimp="true">
+          <div class="qa-question"><h3>Microservices vs monolith — trade-offs?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p><strong>Monolith:</strong> single deployable, simple debugging, ACID transactions in one DB. <strong>Microservices:</strong> independent deploy/scale per service, team ownership per bounded context.</p><h4>Costs of microservices</h4><ul><li>Distributed failures, networking latency</li><li>Data consistency across services harder</li><li>Need observability, CI/CD maturity, API contracts</li></ul><h4>When to split</h4><p>When scaling, release cadence, or team boundaries are blocked by monolith — not because it is fashionable.</p><h4>Your angle</h4><p>Telco BSS is already distributed; you worked integration microservices (Camel) around legacy cores, not a greenfield Netflix stack.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="bounded-context" data-level="medium" data-section="fundamentals" data-vimp="true">
+          <div class="qa-question"><h3>What is a bounded context (DDD)?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Each microservice owns one business capability with its own ubiquitous language and data model. <code>Order</code> in billing ≠ <code>Order</code> in provisioning — don't share one giant entity table across teams.</p><p>APIs translate between contexts; anti-pattern is shared database with tight coupling.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="when-split-service" data-level="medium" data-section="fundamentals">
+          <div class="qa-question"><h3>When should you split into a new microservice?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><ul><li>Clear bounded context and independent scaling need</li><li>Different release cadence or team ownership</li><li>Technology fit (e.g. integration engine vs CRUD API)</li></ul><p><strong>Don't split</strong> for tiny features — operational tax (deploy, monitor, on-call) per service is real.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="strangler-fig" data-level="medium" data-section="fundamentals">
+          <div class="qa-question"><h3>Strangler fig pattern for legacy migration?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Put facade/gateway in front of legacy; route incrementally to new services. Old system shrinks over time. Common in telecom when replacing BSS modules without big-bang cutover.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="twelve-factor" data-level="easy" data-section="fundamentals">
+          <div class="qa-question"><h3>12-factor app principles relevant to microservices?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><ul><li>Config in environment (not baked in JAR)</li><li>Stateless processes — session in Redis if needed</li><li>Logs as event streams to aggregator</li><li>Dev/prod parity, disposable processes</li></ul><p>Spring Boot + externalized <code>application.yml</code> aligns well.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="coupling-cohesion" data-level="easy" data-section="fundamentals">
+          <div class="qa-question"><h3>Loose coupling vs high cohesion?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p><strong>Cohesion:</strong> everything inside one service relates to one job. <strong>Coupling:</strong> minimize knowledge of other services' internals — interact via stable APIs/events only.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="shared-db-anti" data-level="medium" data-section="fundamentals" data-vimp="true">
+          <div class="qa-question"><h3>Why is a shared database an anti-pattern?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Services can't evolve schema independently; one team's migration breaks another. Hidden coupling via joins across domains. Prefer database-per-service + APIs/events for cross-domain reads.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="independent-deploy" data-level="easy" data-section="fundamentals">
+          <div class="qa-question"><h3>What does independent deployability mean?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Deploy service A without redeploying B. Requires backward-compatible APIs, feature flags, contract tests. Jenkins pipelines per repo at Optima/Vodafone style orgs.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+      <section class="topic-section" id="section-communication">
+        <h2>Communication & APIs</h2>
+        <p class="section-desc">REST, events, gateway, discovery, contracts between services.</p>
+        <p class="section-meta">10 questions in this section</p>
+        <div class="qa-list">
+        <article class="qa-card" data-id="sync-async" data-level="medium" data-section="communication" data-vimp="true">
+          <div class="qa-question"><h3>Sync REST vs async messaging between services?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Sync REST</h4><p>Simple request-response, easy to debug. Downside: cascading latency, tight runtime coupling, both must be up.</p><h4>Async messaging</h4><p>Decouples peak load, buffers with queue, multiple subscribers. Harder tracing; need idempotency.</p><h4>Telco pattern</h4><p>Sync for real-time eligibility; async JMS/Kafka for provisioning steps taking minutes.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="api-gateway" data-level="easy" data-section="communication">
+          <div class="qa-question"><h3>API gateway role in microservices?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Single north-south entry: TLS, auth, rate limit, routing to internal services. No business logic. Vodafone REST likely behind corporate gateway + LDAP/JWT.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="rest-design-ms" data-level="medium" data-section="communication">
+          <div class="qa-question"><h3>REST API design between microservices?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><ul><li>Resource URLs, correct HTTP verbs/status</li><li>Timeouts on client (always)</li><li>Pagination for list endpoints</li><li>Version in path <code>/v1/</code></li><li>Correlation header propagated</li></ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="grpc-when" data-level="medium" data-section="communication">
+          <div class="qa-question"><h3>When gRPC instead of REST?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Binary, HTTP/2, strong contracts (protobuf), lower latency — great service-to-service. REST better for browser/public partners. Telco partners often still XML/REST/SOAP.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="event-driven" data-level="medium" data-section="communication" data-vimp="true">
+          <div class="qa-question"><h3>Event-driven architecture basics?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Service A publishes <code>OrderCreated</code>; B and C subscribe without A knowing them. Loose coupling; eventual consistency. Need schema registry/versioning for events.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="versioning" data-level="medium" data-section="communication">
+          <div class="qa-question"><h3>API versioning and backward compatibility?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Prefer additive changes. Breaking changes → new version or parallel endpoint. Deprecation timeline + consumer contract tests. Partner integrations (XL Axiata) need certification windows.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="contract-testing" data-level="medium" data-section="communication">
+          <div class="qa-question"><h3>What is consumer-driven contract testing?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Consumer defines expected API shape; provider verifies in CI (Pact). Catches breaking changes before deploy — critical when 10+ teams consume your integration API.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="service-discovery" data-level="medium" data-section="communication">
+          <div class="qa-question"><h3>Service discovery and load balancing?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Dynamic: Eureka, Consul, K8s DNS — client asks registry for healthy instances. Static: hardware LB + config — common on-prem telco. Health checks remove bad pods/nodes.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="bff-pattern" data-level="medium" data-section="communication">
+          <div class="qa-question"><h3>Backend for Frontend (BFF) pattern?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Separate API tailored per client (mobile vs web) aggregating multiple microservices — avoids fat generic API and over-fetching. One BFF per client type, not per developer.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="service-mesh-intro" data-level="hard" data-section="communication">
+          <div class="qa-question"><h3>What is a service mesh (Istio/Linkerd)?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Sidecar proxy handles mTLS, retries, telemetry uniformly — policy without changing app code. Trade-off: operational complexity. Many telco on-prem stacks use LB + libraries (Resilience4j) instead.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+      <section class="topic-section" id="section-resilience">
+        <h2>Resilience & Scale</h2>
+        <p class="section-desc">Timeouts, retries, idempotency, 1M+ txn/day operations.</p>
+        <p class="section-meta">8 questions in this section</p>
+        <div class="qa-list">
+        <article class="qa-card" data-id="circuit-breaker" data-level="medium" data-section="resilience" data-vimp="true">
+          <div class="qa-question"><h3>Circuit breaker, bulkhead, timeout — resilience triad?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><ul><li><strong>Timeout</strong> — cap wait, fail fast</li><li><strong>Circuit breaker</strong> — stop calling failing dependency (closed → open → half-open probe)</li><li><strong>Bulkhead</strong> — limit concurrent calls per partner so one slow API doesn't exhaust thread pool</li></ul><p>Resilience4j or Camel <code>circuitBreaker</code> policy — align timeouts with partner SLA.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="retry-backoff" data-level="medium" data-section="resilience" data-vimp="true">
+          <div class="qa-question"><h3>Retry with exponential backoff?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Retry transient failures (network blip) with increasing delay + jitter. Max attempts cap. Never retry non-idempotent POST without idempotency key. Pair with circuit breaker when partner is down.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="idempotency" data-level="medium" data-section="resilience" data-vimp="true">
+          <div class="qa-question"><h3>Idempotency in distributed integrations?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Same message twice → same outcome. Store idempotency key (messageId, orderId) in DB/Redis with TTL. Camel: <code>idempotentConsumer</code>. Critical for billing/charge routes.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="dlq-poison" data-level="medium" data-section="resilience" data-vimp="true">
+          <div class="qa-question"><h3>Dead letter queue and poison messages?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>After max redeliveries, move message to DLQ for manual inspection/replay. Poison message = always fails validation — fix data or skip with audit. Don't infinite redelivery loop.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="1m-txn" data-level="hard" data-section="resilience" data-vimp="true">
+          <div class="qa-question"><h3>Operating integrations at 1M+ transactions per day?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><ul><li><strong>Scale:</strong> ~12 avg TPS, peaks much higher — size thread pools and DB pools for peaks</li><li><strong>Reliability:</strong> DLQ, max redelivery, idempotent consumers</li><li><strong>Observability:</strong> correlation ID, queue lag alerts</li><li><strong>Performance:</strong> avoid chatty sync chains; cache reference data</li></ul><h4>Your experience</h4><p>Optima Camel prod at 1M+ txn/day; Fuse Logger reduced MTTR.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="backpressure" data-level="medium" data-section="resilience">
+          <div class="qa-question"><h3>Backpressure when consumer is slow?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Queue depth grows; apply consumer scaling, throttle producers, or temporary shed load. Monitor queue age — oldest message age is key SLO.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="fallback-degrade" data-level="medium" data-section="resilience">
+          <div class="qa-question"><h3>Graceful degradation vs fail fast?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Degrade: return cached/stale data when non-critical dependency down. Fail fast: return 503 when cannot fulfill safely (payments). Document which paths allow degraded mode.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="chaos-engineering" data-level="hard" data-section="resilience">
+          <div class="qa-question"><h3>Chaos engineering in microservices?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Inject failures (kill pod, latency) in controlled env to verify resilience. Start with game days; don't chaos prod without maturity. Validates timeouts and fallbacks actually work.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+      <section class="topic-section" id="section-consistency">
+        <h2>Data & Consistency</h2>
+        <p class="section-desc">Saga, outbox, eventual consistency, CAP in distributed systems.</p>
+        <p class="section-meta">8 questions in this section</p>
+        <div class="qa-list">
+        <article class="qa-card" data-id="saga" data-level="hard" data-section="consistency" data-vimp="true">
+          <div class="qa-question"><h3>Distributed transactions: 2PC vs Saga?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p><strong>2PC:</strong> blocking, fragile across heterogeneous systems — rare in microservices. <strong>Saga:</strong> sequence of local transactions; on failure run compensating steps (cancel reservation, reverse charge).</p><h4>Styles</h4><p>Choreography (events) vs orchestration (Camunda). XL Axiata: BPMN for long order flows.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="saga-pattern" data-level="hard" data-section="consistency" data-vimp="true">
+          <div class="qa-question"><h3>Saga pattern — choreography vs orchestration?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Choreography</h4><p>Services react to events; no central brain — can become hard to trace.</p><h4>Orchestration</h4><p>Central coordinator (Camunda, custom) calls participants — clearer visibility, single place for timeouts/compensation.</p><h4>Your pitch</h4><p>Telecom order: reserve → charge → provision → notify; compensating cancel if provision fails.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="eventual-consistency" data-level="medium" data-section="consistency">
+          <div class="qa-question"><h3>What is eventual consistency?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Replicas/services converge over time; reads may be stale briefly. Acceptable for analytics, notifications; not for account balance without careful design. UI: show pending state.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="outbox-pattern" data-level="hard" data-section="consistency" data-vimp="true">
+          <div class="qa-question"><h3>Transactional outbox pattern?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Write business row + outbox event in <strong>same DB transaction</strong>. Separate publisher reads outbox and sends to Kafka/JMS — avoids dual-write (DB committed, message lost).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="cqrs-intro" data-level="hard" data-section="consistency">
+          <div class="qa-question"><h3>CQRS — when separate read and write models?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Write model normalized; read model denormalized for fast queries/reports. Sync via events. Vodafone reporting: tuned SQL/read replicas vs OLTP write schema.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="database-per-service" data-level="medium" data-section="consistency">
+          <div class="qa-question"><h3>Database per service — practical reality?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Ideal: each service owns schema. Reality in telco: legacy shared Oracle still exists — strangle and wrap with APIs. New microservices get own schema/user credentials.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="cap-theorem" data-level="medium" data-section="consistency">
+          <div class="qa-question"><h3>CAP theorem — what do you say in interviews?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>During partition, choose consistency (CP) or availability (AP). Most microservices under partition pick availability + eventual consistency for non-critical paths; payment paths favor consistency with careful design.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="exactly-once" data-level="hard" data-section="consistency" data-vimp="true">
+          <div class="qa-question"><h3>Exactly-once delivery — possible?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>True end-to-end exactly-once is extremely hard. Practical: <strong>at-least-once</strong> transport + <strong>idempotent</strong> consumers + dedup store. Kafka idempotent producer helps but consumer still must dedupe.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+      <section class="topic-section" id="section-camel">
+        <h2>Apache Camel & Integration</h2>
+        <p class="section-desc">Routes, EIPs, error handling — your Optima strength.</p>
+        <p class="section-meta">10 questions in this section</p>
+        <div class="qa-list">
+        <article class="qa-card" data-id="camel-overview" data-level="medium" data-section="camel" data-vimp="true">
+          <div class="qa-question"><h3>What is Apache Camel? Why in telecom integrations?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Integration framework with Enterprise Integration Patterns: routes, endpoints (HTTP, JMS, FTP, Kafka), transformers, error handlers — Java DSL or XML.</p><h4>Core concepts</h4><p><strong>Route:</strong> from → processors → to. <strong>Exchange:</strong> message body + headers. Reduces boilerplate for retry, multicast, wire tap.</p><h4>Your experience</h4><p>Optima: Camel microservices bridging OSS/BSS at 1M+ txn/day on Fuse/Karaf-style stacks.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="camel-route-structure" data-level="easy" data-section="camel">
+          <div class="qa-question"><h3>Structure of a Camel route?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p><code>from('jms:queue:in')</code> consumer → <code>process/transform</code> → <code>to('http://partner/api')</code> producer. <code>routeId</code> for monitoring; <code>onException</code> for error handling; headers carry correlation metadata.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="camel-eip-list" data-level="medium" data-section="camel" data-vimp="true">
+          <div class="qa-question"><h3>Important Camel EIPs you should name?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><ul><li>Content-Based Router — route by header/type</li><li>Message Translator — map formats</li><li>Splitter / Aggregator — batch lines</li><li>Dead Letter Channel — failed messages</li><li>Idempotent Consumer</li><li>Circuit Breaker (Camel 3+)</li></ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="camel-error-handler" data-level="medium" data-section="camel" data-vimp="true">
+          <div class="qa-question"><h3>Camel error handling and redelivery?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p><code>onException</code> defines handlers; default redelivery with max attempts; then DLQ. <code>handled(true)</code> vs propagate. Log exchangeId + correlationId on every failure path.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="camel-correlation" data-level="medium" data-section="camel" data-vimp="true">
+          <div class="qa-question"><h3>Correlation ID across Camel routes?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Generate or read <code>correlationId</code> header at entry; copy to HTTP/JMS outbound headers; MDC for logs. Enables Fuse Logger search across envs — your tool's value prop.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="camel-spring-boot" data-level="medium" data-section="camel">
+          <div class="qa-question"><h3>Camel embedded in Spring Boot?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p><code>camel-spring-boot-starter</code> — REST controllers + Camel routes in one JVM. Vodafone-style Boot API + Optima-style integration in same deployable when needed.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="spring-vs-camel" data-level="hard" data-section="camel" data-vimp="true">
+          <div class="qa-question"><h3>When Spring Boot microservice vs Camel route?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p><strong>Spring Boot:</strong> domain CRUD, REST APIs, business rules. <strong>Camel:</strong> protocol mediation, legacy adapters, high-volume async pipelines, EIP-heavy flows. Often coexist in telco landscape.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="camel-testing" data-level="medium" data-section="camel">
+          <div class="qa-question"><h3>How do you test Camel routes?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p><code>CamelTestSupport</code>, adviceWith to mock endpoints, assert exchanges at mock:// endpoints. Test transformation logic and error branches without hitting real JMS/HTTP.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="camel-performance" data-level="hard" data-section="camel">
+          <div class="qa-question"><h3>Camel performance tuning for high volume?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><ul><li>Right threading model (SEDA for throttling)</li><li>Stream caching for large payloads</li><li>Avoid unnecessary body conversions</li><li>Connection pool limits aligned with partner</li><li>Idempotent repo on fast DB/Redis</li></ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="fuse-karaf" data-level="easy" data-section="camel">
+          <div class="qa-question"><h3>Red Hat Fuse / Karaf in telco context?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>OSGi-based runtime hosting Camel routes as bundles — common in older telco integration platforms. Know you maintained routes in clustered Fuse with shared config and monitoring.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+      <section class="topic-section" id="section-observability">
+        <h2>Observability & DevOps</h2>
+        <p class="section-desc">Logs, metrics, CI/CD, MTTR — operating distributed systems.</p>
+        <p class="section-meta">6 questions in this section</p>
+        <div class="qa-list">
+        <article class="qa-card" data-id="observability" data-level="hard" data-section="observability" data-vimp="true">
+          <div class="qa-question"><h3>Observability: logs, metrics, traces?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Three pillars</h4><ul><li><strong>Logs</strong> — correlation ID every line</li><li><strong>Metrics</strong> — rate, errors, duration (RED); queue depth</li><li><strong>Traces</strong> — distributed trace across HTTP/JMS hops</li></ul><h4>Your experience</h4><p>Fuse Logger + API Visualizer because generic tools missed Camel route names and telco correlation IDs.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="golden-signals" data-level="medium" data-section="observability">
+          <div class="qa-question"><h3>Four golden signals (Google SRE)?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Latency, traffic, errors, saturation. For integrations add: queue lag, partner timeout rate, DLQ count.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="health-readiness" data-level="easy" data-section="observability">
+          <div class="qa-question"><h3>Liveness vs readiness for integration pods?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Readiness: can process messages (DB up, partner reachable). Liveness: JVM not deadlocked. K8s removes not-ready pods from LB while keeping process alive for debug.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="centralized-config" data-level="medium" data-section="observability">
+          <div class="qa-question"><h3>Centralized config for many microservices?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Spring Cloud Config, Consul, K8s ConfigMaps — single source of truth; refresh without rebuild. Secrets from vault, never git. Profile per env (dev/test/prod).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="ci-cd-jenkins" data-level="medium" data-section="observability">
+          <div class="qa-question"><h3>CI/CD pipeline for microservices (Jenkins)?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Build → unit tests → contract tests → deploy to dev → smoke (Actuator health) → promote with approval. Optima experience: automated deploy reduced manual errors; rollback plan per service.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="mttr-incident" data-level="medium" data-section="observability" data-vimp="true">
+          <div class="qa-question"><h3>How do you reduce MTTR in distributed incidents?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><ul><li>Correlation ID search (Fuse Logger)</li><li>Dashboards per route/partner</li><li>Runbooks for DLQ replay</li><li>Clear ownership per service</li></ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+      <section class="topic-section" id="section-kafka-ms">
+        <h2>Events & Messaging</h2>
+        <p class="section-desc">Kafka vs JMS, ordering — links to your Kafka page.</p>
+        <p class="section-meta">3 questions in this section</p>
+        <div class="qa-list">
+        <article class="qa-card" data-id="kafka-role-ms" data-level="easy" data-section="kafka-ms">
+          <div class="qa-question"><h3>Kafka's role in microservices?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">kafka-ms</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Durable event log between services — decouple producers/consumers, replay, multiple consumer groups. See also your <strong>Kafka</strong> topic page for deep dive.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="kafka-vs-jms" data-level="medium" data-section="kafka-ms">
+          <div class="qa-question"><h3>Kafka vs traditional JMS (ActiveMQ)?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">kafka-ms</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>JMS: queue/topic, broker deletes after ack — good for task queues. Kafka: log retained, replay, high throughput — good for event streaming. Telco often has both; Camel abstracts via same route DSL.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="event-ordering" data-level="medium" data-section="kafka-ms">
+          <div class="qa-question"><h3>Ordering guarantees across microservices?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">kafka-ms</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Kafka: order within partition only — use same partition key (customerId). Global order is expensive; design for eventual consistency and idempotent handlers.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+      <section class="topic-section" id="section-experience">
+        <h2>Your Experience (Amdocs)</h2>
+        <p class="section-desc">Optima, Vodafone, XL Axiata — STAR-ready stories.</p>
+        <p class="section-meta">5 questions in this section</p>
+        <div class="qa-list">
+        <article class="qa-card" data-id="optima-architecture" data-level="hard" data-section="experience" data-vimp="true">
+          <div class="qa-question"><h3>Describe Optima integration architecture (60 sec)?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Apache Camel routes on Fuse-style runtime, JMS/HTTP to BSS/OSS partners, 1M+ txn/day. Jenkins CI/CD, correlation logging, DLQ for failures. You built Fuse Logger for multi-env log search and maintained high-volume routes with timeout/circuit patterns.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="vodafone-ms" data-level="medium" data-section="experience" data-vimp="true">
+          <div class="qa-question"><h3>Vodafone Germany microservices — your role?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>Spring Boot REST microservices for reporting features; JPA + tuned SQL; TestNG coverage 60→90%; Actuator health in deploy pipeline. Gateway/auth at platform layer; your focus was service code + DB performance + tests.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="xl-camunda" data-level="medium" data-section="experience">
+          <div class="qa-question"><h3>XL Axiata — Camunda and long-running flows?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><p>BPMN orchestration for multi-step integrations with wait states, timeouts, human tasks. Complements Camel event-driven routes — orchestration when flow visibility and compensation paths matter.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="fuse-logger-story" data-level="medium" data-section="experience" data-vimp="true">
+          <div class="qa-question"><h3>Fuse Logger — STAR for microservices interview?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Situation</h4><p>Debugging Camel prod required SSH/grep across envs — slow MTTR.</p><h4>Action</h4><p>Built Spring Boot tool: search by correlation ID, route, env, time range.</p><h4>Result</h4><p>Faster triage; less senior bottleneck; mention in distributed systems / observability questions.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="design-new-integration" data-level="hard" data-section="experience" data-vimp="true">
+          <div class="qa-question"><h3>How would you design a new partner integration service?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+<h4>Answer</h4><ol><li>API contract + error codes with partner</li><li>Idempotency + DLQ + correlation ID</li><li>Timeouts/circuit breaker per SLA</li><li>Metrics/alerts on lag and error rate</li><li>Contract tests + staged certification</li><li>Runbook for replay</li></ol>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+    </main>
+  </div>
+  <button class="mobile-toggle" id="sidebar-toggle" type="button">Menu</button>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

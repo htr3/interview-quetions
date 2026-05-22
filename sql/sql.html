@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL — Interview Prep</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body data-page="sql">
+  <div class="layout">
+    <aside class="sidebar"><h2>Interview Prep</h2><nav id="site-nav"></nav></aside>
+    <main class="main">
+      <header class="page-header">
+        <h1>SQL Interview Prep</h1>
+        <p><strong>66</strong> items in <strong>2 sections</strong> — interview Q&amp;A plus <strong>50 basic SQL queries</strong> to practice. Filter by level or ⭐ Very Important. Vodafone &amp; XL Axiata tuning stories.</p>
+      </header>
+      <div class="toolbar">
+        <input type="search" id="search" placeholder="Search questions & answers...">
+        <select id="level-filter" class="filter-select">
+          <option value="all">All levels</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <label><input type="checkbox" id="vimp-only"> ⭐ Very important</label>
+        <label><input type="checkbox" id="practice-mode"> Practice mode</label>
+        <button type="button" class="btn" id="expand-all">Expand all</button>
+        <button type="button" class="btn" id="collapse-all">Collapse all</button>
+      </div>
+      <div class="legend">
+        <span><span class="level level-easy">Easy</span> fundamentals</span>
+        <span><span class="level level-medium">Medium</span> 3 YOE depth</span>
+        <span><span class="level level-hard">Hard</span> senior / tricky</span>
+        <span><span class="level-vimp">⭐ VI</span> must practice before interview</span>
+      </div>
+      <div class="stats">
+        <div class="stat-card"><strong id="stat-done">0</strong><span>Practiced</span></div>
+        <div class="stat-card"><strong id="stat-total">0</strong><span>Total</span></div>
+        <div class="stat-card"><strong id="stat-visible">0</strong><span>Showing</span></div>
+        <div class="stat-card"><strong id="stat-pct">0%</strong><span>Progress</span></div>
+      </div>
+      <nav class="section-nav" aria-label="SQL sections">
+        <a href="#section-interview">Interview Questions</a>
+        <a href="#section-basic-queries">50 Basic SQL Queries</a>
+      </nav>
+
+      <section class="topic-section" id="section-interview">
+        <h2>Interview Questions</h2>
+        <p class="section-desc">Indexing, joins, transactions, and your telecom reporting experience.</p>
+        <p class="section-meta">16 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-section="interview" data-id="explain" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>How do you use EXPLAIN to tune a slow query?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Tuning</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Run <code>EXPLAIN ANALYZE</code> (or <code>EXPLAIN FORMAT=JSON</code>), look for full table scans, high rows examined, filesort, temporary tables, bad join order — then index or rewrite.</p>
+            <h4>Detailed explanation</h4>
+            <p>MySQL: check <code>type</code> (ALL vs range vs ref), <code>key</code>, <code>rows</code>, <code>Extra</code> (Using filesort). Compare before/after row counts and actual time. Validate on prod-like data volume, not empty dev DB.</p>
+            <h4>Example</h4>
+            <pre><code>EXPLAIN SELECT r.* FROM report_fact r
+JOIN account a ON r.account_id = a.id
+WHERE r.report_date BETWEEN '2025-01-01' AND '2025-01-31'
+  AND a.region = 'DE';
+-- Add: INDEX idx_report_date_account (report_date, account_id)</code></pre>
+            <h4>From your experience</h4>
+            <p>Vodafone Germany reporting: EXPLAIN showed full scans on date filters — composite indexes + join rewrite → report time &gt;10% faster, lower peak CPU.</p>
+            <h4>Follow-ups</h4>
+            <p>Covering index? Index includes all SELECT columns — avoids table lookup.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="indexes" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>B-tree indexes, composite indexes, and leftmost prefix rule</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Indexes</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Composite index <code>(a, b, c)</code> helps queries filtering on <code>a</code>, or <code>a,b</code>, not usually on <code>b</code> alone. Order columns by selectivity and equality-before-range.</p>
+            <h4>Detailed explanation</h4>
+            <p>Too many indexes slow writes. Duplicate/redundant indexes waste space. For reporting: often <code>(report_date, account_id)</code> matches WHERE + JOIN. Avoid indexing low-cardinality alone unless combined.</p>
+            <h4>Example</h4>
+            <pre><code>CREATE INDEX idx_fact_date_acct ON report_fact (report_date, account_id);</code></pre>
+            <h4>From your experience</h4>
+            <p>XL Axiata: indexing on hot lookup keys cut response ~10% and reduced fallouts from timeouts.</p>
+            <h4>Follow-ups</h4>
+            <p>When not to index? Small tables, heavy write tables with rare reads, columns updated constantly.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="joins" data-level="easy">
+          <div class="qa-question"><h3>INNER vs LEFT JOIN — practical difference?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Basics</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>INNER keeps only matching rows both sides. LEFT keeps all left rows; NULLs on right when no match — useful for optional dimensions but can hide data issues if not intended.</p>
+            <h4>Example</h4>
+            <pre><code>-- Reports only for accounts that exist
+SELECT * FROM report_fact r
+INNER JOIN account a ON r.account_id = a.id;
+
+-- All accounts even without reports this month
+SELECT * FROM account a
+LEFT JOIN report_fact r ON a.id = r.account_id AND r.report_date = CURDATE();</code></pre>
+            <h4>Follow-ups</h4>
+            <p>LEFT JOIN + WHERE on right table turns into INNER effectively — filter in ON vs WHERE carefully.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="vodafone-story" data-level="hard" data-vimp="true">
+          <div class="qa-question"><h3>STAR story: Vodafone reporting SQL optimization (&gt;10% faster)</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Vodafone</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Slow reports at peak → EXPLAIN + indexes + query rewrite → &gt;10% faster generation, lower DB CPU — no business logic change.</p>
+            <h4>Detailed explanation</h4>
+            <ul>
+              <li><strong>Situation:</strong> Large MySQL datasets, business users waiting on monthly/daily reports</li>
+              <li><strong>Task:</strong> Improve time and peak resource use</li>
+              <li><strong>Action:</strong> Identified full scans, added composite indexes, tuned JOIN order and filters, validated in lower env, monitored post-release</li>
+              <li><strong>Result:</strong> Measurable &gt;10% improvement; repeatable playbook for future reports</li>
+            </ul>
+            <h4>Follow-ups</h4>
+            <p>How prove improvement? Before/after p95 query time, rows examined, DB CPU during batch window.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="normalization" data-level="easy">
+          <div class="qa-question"><h3>Normalization vs denormalization for reporting</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Design</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>OLTP: normalize (3NF) to reduce redundancy. Reporting: often denormalized fact tables or materialized summaries for read performance.</p>
+            <h4>Detailed explanation</h4>
+            <p>Telecom reporting may use star schema: fact (usage, charges) + dimensions (account, product). ETL nightly populates facts — trades storage for fast dashboards.</p>
+            <h4>From your experience</h4>
+            <p>Vodafone reporting paths hit pre-aggregated tables where possible instead of joining 10 OLTP tables live.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="transactions-isolation" data-level="medium">
+          <div class="qa-question"><h3>ACID and isolation levels — what breaks at each level?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Transactions</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>READ UNCOMMITTED: dirty reads. READ COMMITTED: non-repeatable reads. REPEATABLE READ (MySQL InnoDB default): phantoms possible. SERIALIZABLE: safest, slowest.</p>
+            <h4>Detailed explanation</h4>
+            <p>Long-running report in REPEATABLE READ may hold gap locks — impacts writes. Use read-only replica or snapshot isolation for heavy analytics off primary OLTP.</p>
+            <h4>Follow-ups</h4>
+            <p>Deadlock? InnoDB picks victim — retry with backoff; keep transactions short.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="pagination" data-level="medium">
+          <div class="qa-question"><h3>OFFSET vs keyset pagination for large tables</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">API</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p><code>LIMIT 100000, 50</code> scans/skips 100k rows — slow. Keyset: <code>WHERE id &gt; :lastId ORDER BY id LIMIT 50</code> uses index.</p>
+            <h4>Example</h4>
+            <pre><code>SELECT * FROM subscriber_event
+WHERE id &gt; :cursor
+ORDER BY id
+LIMIT 50;</code></pre>
+            <h4>Follow-ups</h4>
+            <p>Multi-column sort cursor? Encode (created_at, id) tuple in opaque cursor token.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="n-plus-one" data-level="medium">
+          <div class="qa-question"><h3>N+1 query problem — how do you fix it in apps?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">ORM</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>One query loads parents, then N queries for children. Fix: JOIN fetch, batch IN query, or single SQL with aggregation.</p>
+            <h4>Example</h4>
+            <pre><code>-- Bad: loop accounts, query reports each time
+-- Good:
+SELECT * FROM report_fact WHERE account_id IN (...);</code></pre>
+            <h4>From your experience</h4>
+            <p>Spring/JPA paths for reporting preferred explicit SQL over lazy collections — predictable performance under load.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="locking" data-level="hard">
+          <div class="qa-question"><h3>Row locks, gap locks, and hot-row contention</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">InnoDB</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Updates on same index range serialize. High-contention counters: avoid updating single row — shard counters or use atomic <code>INSERT ... ON DUPLICATE KEY UPDATE</code> per bucket.</p>
+            <h4>Detailed explanation</h4>
+            <p>Integration fallout queues sometimes hammer one status row — spread by partition key or batch status updates.</p>
+            <h4>Follow-ups</h4>
+            <p><code>SELECT FOR UPDATE</code> in reporting job? Hold locks minimal time; prefer MVCC read without lock for pure reads.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="subscriber-lookup" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Safe production lookups by MIN / accountId (Subscriber Tool angle)</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Production</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Read-only DB user, indexed equality lookups only, query timeout, audit log, optional read replica — no ad-hoc wildcard SQL on prod.</p>
+            <h4>Detailed explanation</h4>
+            <p>Telecom IDs (MIN, MSISDN, accountId) need exact match indexes. Reject <code>LIKE '%...%'</code> patterns that scan millions of subscribers.</p>
+            <h4>Example</h4>
+            <pre><code>SELECT col1, col2 FROM subscriber
+WHERE account_id = :id
+LIMIT 1;
+-- max_execution_time = 5000</code></pre>
+            <h4>From your experience</h4>
+            <p>Built Subscriber Tool at Optima so support stops writing risky manual SQL — same principles apply in interviews as production maturity.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="aggregate-window" data-level="hard">
+          <div class="qa-question"><h3>Aggregations and window functions for reporting</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Analytics</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p><code>GROUP BY</code> for totals; window functions (<code>ROW_NUMBER</code>, <code>SUM() OVER</code>) for rankings and running totals without self-joins.</p>
+            <h4>Example</h4>
+            <pre><code>SELECT account_id, report_date, revenue,
+  SUM(revenue) OVER (PARTITION BY account_id ORDER BY report_date) AS running_total
+FROM report_fact;</code></pre>
+            <h4>Follow-ups</h4>
+            <p>MySQL 8+ window support — confirm version in interview; mention alternative subqueries on older DBs.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="axiata-story" data-level="medium">
+          <div class="qa-question"><h3>XL Axiata: query tuning and fallout reduction (~10%)</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">XL Axiata</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Profiled slow queries with team, added indexes, peer-reviewed changes, monitored prod — ~10% faster responses, fewer operational fallouts.</p>
+            <h4>Detailed explanation</h4>
+            <p>Collaboration mattered: DBAs owned capacity; devs owned query shape. Documented before/after metrics for release notes.</p>
+            <h4>Follow-ups</h4>
+            <p>How prioritize which queries? Error rate × latency × business criticality.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="group-by-having" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>WHERE vs GROUP BY vs HAVING — order of execution?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">SQL</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p><strong>WHERE</strong> filters rows before grouping. <strong>GROUP BY</strong> aggregates. <strong>HAVING</strong> filters groups after aggregation.</p>
+            <pre><code>SELECT dept, COUNT(*) AS cnt FROM employees
+WHERE active = 1
+GROUP BY dept
+HAVING COUNT(*) &gt; 5;</code></pre>
+            <p>Common mistake: putting aggregate condition in WHERE — use HAVING for <code>COUNT(*) &gt; 5</code>.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="union-all" data-level="easy">
+          <div class="qa-question"><h3>UNION vs UNION ALL?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">SQL</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p><strong>UNION</strong> merges two result sets and removes duplicate rows (extra sort/distinct cost). <strong>UNION ALL</strong> keeps duplicates — faster when you know sets don't overlap (e.g. Jan sales UNION ALL Feb sales).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="delete-truncate-drop" data-level="medium">
+          <div class="qa-question"><h3>DELETE vs TRUNCATE vs DROP?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">SQL</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong>DELETE</strong> — row-level, can use WHERE, triggers fire, rollback possible</li>
+              <li><strong>TRUNCATE</strong> — all rows fast, resets auto-increment, minimal logging</li>
+              <li><strong>DROP</strong> — removes table structure and data entirely</li>
+            </ul>
+            <p>In prod telecom DBs: never TRUNCATE without change ticket — billing tables are sensitive.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-section="interview" data-id="subquery-types" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>What is a correlated subquery?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">SQL</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Inner query references outer query row — runs per outer row (can be slow). Example: customers who placed an order in last 30 days.</p>
+            <pre><code>SELECT c.name FROM customers c
+WHERE EXISTS (
+  SELECT 1 FROM orders o
+  WHERE o.customer_id = c.id AND o.created_at &gt; NOW() - INTERVAL 30 DAY
+);</code></pre>
+            <p>Often rewrite as JOIN for performance on large reporting tables — your Vodafone tuning experience.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+      </div>
+      </section>
+
+      <section class="topic-section" id="section-basic-queries">
+        <h2>50 Basic SQL Queries</h2>
+        <p class="section-desc">Hands-on patterns: SELECT, JOINs, aggregates, DML, DDL, windows, and transactions. Sample tables: employees, departments, customers, orders, products.</p>
+        <p class="section-meta">50 queries in this section</p>
+        <div class="qa-list">
+        <article class="qa-card" data-id="bq-01" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>SELECT all rows from a table</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">SELECT</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT * FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-02" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>SELECT specific columns</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">SELECT</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT id, name, dept, salary FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-03" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>SELECT DISTINCT values</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">SELECT</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT DISTINCT dept FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-04" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>WHERE — filter by equality</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT * FROM employees WHERE dept = 'Engineering';</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-05" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>WHERE — AND / OR conditions</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT * FROM employees
+WHERE dept = 'Sales' AND salary > 50000
+   OR (dept = 'HR' AND active = 1);</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-06" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>WHERE — IN list</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT * FROM employees WHERE dept IN ('HR', 'Finance', 'IT');</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-07" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>WHERE — BETWEEN range</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT * FROM orders
+WHERE created_at BETWEEN '2025-01-01' AND '2025-01-31';</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-08" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>WHERE — LIKE pattern match</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT * FROM customers WHERE name LIKE 'A%';</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-09" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>WHERE — IS NULL / IS NOT NULL</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT * FROM employees WHERE manager_id IS NULL;
+SELECT * FROM employees WHERE email IS NOT NULL;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-10" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>ORDER BY ascending</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">ORDER BY</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT * FROM employees ORDER BY hire_date ASC;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-11" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>ORDER BY descending (multiple columns)</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">ORDER BY</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT * FROM employees ORDER BY dept ASC, salary DESC;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-12" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>LIMIT and OFFSET (pagination)</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">LIMIT</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT * FROM orders ORDER BY id LIMIT 10 OFFSET 20;
+-- MySQL: LIMIT offset, count → LIMIT 20, 10</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-13" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>COUNT rows</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Aggregate</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT COUNT(*) AS total_employees FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-14" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>SUM — total amount</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Aggregate</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT SUM(amount) AS total_revenue FROM orders;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-15" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>AVG — average salary</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Aggregate</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT AVG(salary) AS avg_salary FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-16" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>MIN and MAX</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Aggregate</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT MIN(salary) AS min_sal, MAX(salary) AS max_sal FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-17" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>GROUP BY — count per department</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">GROUP BY</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT dept, COUNT(*) AS headcount
+FROM employees
+GROUP BY dept;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-18" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>HAVING — filter grouped results</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">HAVING</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT dept, AVG(salary) AS avg_sal
+FROM employees
+GROUP BY dept
+HAVING AVG(salary) > 60000;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-19" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>INNER JOIN — employees and departments</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT e.name, d.name AS dept_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.id;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-20" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>LEFT JOIN — all customers, even without orders</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT c.name, o.id AS order_id
+FROM customers c
+LEFT JOIN orders o ON c.id = o.customer_id;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-21" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>RIGHT JOIN — all orders with customer info</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT c.name, o.amount
+FROM customers c
+RIGHT JOIN orders o ON c.id = o.customer_id;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-22" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>JOIN three tables</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT c.name, o.id, p.name AS product
+FROM orders o
+JOIN customers c ON o.customer_id = c.id
+JOIN order_items oi ON o.id = oi.order_id
+JOIN products p ON oi.product_id = p.id;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-23" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>Self JOIN — employee and manager names</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT e.name AS employee, m.name AS manager
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.id;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-24" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>CROSS JOIN — every combination</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT e.name, d.name AS dept
+FROM employees e
+CROSS JOIN departments d;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-25" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>UNION — combine two result sets (dedupe)</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Set ops</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT name FROM employees WHERE dept = 'IT'
+UNION
+SELECT name FROM contractors WHERE team = 'IT';</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-26" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>UNION ALL — keep duplicates</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Set ops</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT city FROM customers
+UNION ALL
+SELECT city FROM suppliers;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-27" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>Scalar subquery in SELECT</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Subquery</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT name, salary,
+  (SELECT AVG(salary) FROM employees) AS company_avg
+FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-28" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>Subquery with IN</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Subquery</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT name FROM customers
+WHERE id IN (SELECT customer_id FROM orders WHERE amount > 1000);</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-29" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>EXISTS — customers who placed orders</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Subquery</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT name FROM customers c
+WHERE EXISTS (
+  SELECT 1 FROM orders o WHERE o.customer_id = c.id
+);</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-30" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>NOT EXISTS — customers with no orders</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Subquery</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT name FROM customers c
+WHERE NOT EXISTS (
+  SELECT 1 FROM orders o WHERE o.customer_id = c.id
+);</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-31" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>INSERT — single row</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DML</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>INSERT INTO employees (name, dept, salary)
+VALUES ('Alice', 'Engineering', 75000);</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-32" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>INSERT — multiple rows</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DML</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>INSERT INTO employees (name, dept, salary) VALUES
+  ('Bob', 'Sales', 55000),
+  ('Carol', 'HR', 48000);</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-33" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>UPDATE — change salary</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DML</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>UPDATE employees SET salary = salary * 1.05 WHERE dept = 'Engineering';</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-34" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>UPDATE with JOIN (MySQL)</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DML</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>UPDATE orders o
+JOIN customers c ON o.customer_id = c.id
+SET o.status = 'VIP'
+WHERE c.country = 'DE';</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-35" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>DELETE — remove old rows</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DML</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>DELETE FROM orders WHERE status = 'CANCELLED' AND created_at < '2024-01-01';</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-36" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>CREATE TABLE</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>CREATE TABLE employees (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  dept VARCHAR(50),
+  salary DECIMAL(10,2),
+  hire_date DATE
+);</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-37" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>ALTER TABLE — add column</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>ALTER TABLE employees ADD COLUMN email VARCHAR(150) AFTER name;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-38" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>DROP TABLE</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>DROP TABLE IF EXISTS temp_import_staging;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-39" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>CREATE INDEX</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>CREATE INDEX idx_emp_dept ON employees (dept);</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-40" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>Composite index</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>CREATE INDEX idx_orders_cust_date ON orders (customer_id, created_at);</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-41" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>FOREIGN KEY constraint</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>ALTER TABLE orders
+ADD CONSTRAINT fk_orders_customer
+FOREIGN KEY (customer_id) REFERENCES customers(id);</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-42" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>CASE WHEN — salary band label</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Functions</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT name, salary,
+  CASE
+    WHEN salary >= 80000 THEN 'Senior'
+    WHEN salary >= 50000 THEN 'Mid'
+    ELSE 'Junior'
+  END AS band
+FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-43" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>COALESCE / IFNULL — default value</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Functions</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT name, COALESCE(phone, 'N/A') AS phone FROM customers;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-44" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>Date functions — filter and format</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Functions</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT * FROM orders WHERE YEAR(created_at) = 2025;
+SELECT DATE_FORMAT(hire_date, '%Y-%m') AS hire_month FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-45" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>CONCAT — full name</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Functions</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-46" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>UPPER, LOWER, TRIM</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Functions</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT UPPER(dept), LOWER(email), TRIM(name) FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-47" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>ROW_NUMBER — rank employees by salary per dept</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Window</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT name, dept, salary,
+  ROW_NUMBER() OVER (PARTITION BY dept ORDER BY salary DESC) AS rn
+FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-48" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>RANK and DENSE_RANK</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Window</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>SELECT name, salary,
+  RANK() OVER (ORDER BY salary DESC) AS rnk,
+  DENSE_RANK() OVER (ORDER BY salary DESC) AS drnk
+FROM employees;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-49" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>CTE (WITH clause)</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">CTE</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>WITH dept_avg AS (
+  SELECT dept, AVG(salary) AS avg_sal FROM employees GROUP BY dept
+)
+SELECT e.name, e.salary, d.avg_sal
+FROM employees e
+JOIN dept_avg d ON e.dept = d.dept
+WHERE e.salary > d.avg_sal;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+        <article class="qa-card" data-id="bq-50" data-level="easy" data-section="basic-queries">
+          <div class="qa-question"><h3>Transaction — BEGIN, COMMIT, ROLLBACK</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Transaction</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>START TRANSACTION;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;
+-- On error: ROLLBACK;</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+    </main>
+  </div>
+  <button class="mobile-toggle" id="sidebar-toggle" type="button">Menu</button>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

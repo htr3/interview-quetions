@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DSA — Interview Prep</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body data-page="dsa">
+  <div class="layout">
+    <aside class="sidebar"><h2>Interview Prep</h2><nav id="site-nav"></nav></aside>
+    <main class="main">
+      <header class="page-header">
+        <h1>DSA Interview Prep</h1>
+        <p><strong>50+</strong> questions in <strong>11 sections</strong> — basics through greedy algorithms. Click to expand. Filter by <strong>Easy / Medium / Hard</strong> or <strong>⭐ Very Important</strong>. Java solutions with complexity.</p>
+      </header>
+      <div class="diagram-banner">
+        <span>Want to <em>see</em> how structures work?</span>
+        <a href="dsa-visuals.html"><strong>Interactive 3D visuals →</strong></a>
+        <span class="diagram-banner-sep">32 step-by-step demos — all 11 sections</span>
+      </div>
+      <div class="toolbar">
+        <input type="search" id="search" placeholder="Search questions & answers...">
+        <select id="level-filter" class="filter-select">
+          <option value="all">All levels</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <label><input type="checkbox" id="vimp-only"> ⭐ Very important</label>
+        <label><input type="checkbox" id="practice-mode"> Practice mode</label>
+        <button type="button" class="btn" id="expand-all">Expand all</button>
+        <button type="button" class="btn" id="collapse-all">Collapse all</button>
+      </div>
+      <div class="legend">
+        <span><span class="level level-easy">Easy</span> fundamentals</span>
+        <span><span class="level level-medium">Medium</span> 3 YOE depth</span>
+        <span><span class="level level-hard">Hard</span> senior / tricky</span>
+        <span><span class="level-vimp">⭐ VI</span> must practice before interview</span>
+      </div>
+      <div class="stats">
+        <div class="stat-card"><strong id="stat-done">0</strong><span>Practiced</span></div>
+        <div class="stat-card"><strong id="stat-total">0</strong><span>Total</span></div>
+        <div class="stat-card"><strong id="stat-visible">0</strong><span>Showing</span></div>
+        <div class="stat-card"><strong id="stat-pct">0%</strong><span>Progress</span></div>
+      </div>
+      <nav class="section-nav" aria-label="DSA sections">
+        <a href="#section-basics">1. Basic Concepts</a>
+        <a href="#section-arrays">2. Arrays &amp; Strings</a>
+        <a href="#section-linkedlist">3. Linked List</a>
+        <a href="#section-stackqueue">4. Stack &amp; Queue</a>
+        <a href="#section-trees">5. Trees</a>
+        <a href="#section-heap">6. Heap</a>
+        <a href="#section-hashing">7. Hashing</a>
+        <a href="#section-graphs">8. Graphs</a>
+        <a href="#section-sortsearch">9. Sorting &amp; Searching</a>
+        <a href="#section-dp">10. Dynamic Programming</a>
+        <a href="#section-greedy">11. Greedy Algorithms</a>
+      </nav>
+
+      <!-- 1. Basic Concepts -->
+      <section class="topic-section" id="section-basics">
+        <h2>1. Basic Concepts</h2>
+        <p class="section-desc">Time &amp; space complexity (Big O), recursion &amp; backtracking, mathematical basics (GCD, primes).</p>
+        <p class="section-meta">6 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="complexity" data-level="easy" data-vimp="true">
+          <div class="qa-question"><h3>Big O — explain time and space with examples</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Basics</span><a class="visual-link" href="dsa-visuals.html#visual-big-o">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Describes growth rate as input grows — worst-case upper bound. O(1) constant, O(log n) halving, O(n) single pass, O(n log n) efficient sort, O(n²) nested loops on n.</p>
+            <h4>Examples</h4>
+            <pre><code>// O(n) — single loop
+for (int x : arr) sum += x;
+
+// O(n²) — nested loops on same n
+for (int i = 0; i &lt; n; i++)
+  for (int j = i + 1; j &lt; n; j++) ...</code></pre>
+            <h4>Space complexity</h4>
+            <p>Extra memory beyond input — e.g. HashMap of size n → O(n) auxiliary space; in-place swap → O(1).</p>
+            <h4>Follow-ups</h4>
+            <p>Amortized O(1) ArrayList append — occasional resize copies all elements.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="complexity-cheat" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Time complexity order to memorize</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Basics</span><a class="visual-link" href="dsa-visuals.html#visual-big-o">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>O(1) &lt; O(log n) &lt; O(n) &lt; O(n log n) &lt; O(n²) &lt; O(2ⁿ). Always state <strong>both</strong> time and space after every solution.</p>
+            <h4>Common operations</h4>
+            <ul>
+              <li>Binary search: O(log n)</li>
+              <li>HashMap get/put: O(1) average</li>
+              <li>Merge sort / heap sort: O(n log n)</li>
+              <li>BFS/DFS on graph: O(V + E)</li>
+            </ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="recursion-backtracking" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Recursion vs backtracking — when to use each?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Basics</span><a class="visual-link" href="dsa-visuals.html#visual-recursion-backtrack">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Recursion</h4>
+            <p>Function calls itself on smaller subproblem — tree height, factorial, merge sort divide step. Needs base case + progress toward base case.</p>
+            <h4>Backtracking</h4>
+            <p>Try choice → recurse → <strong>undo</strong> choice if path fails. Used for subsets, permutations, N-Queens, maze paths.</p>
+            <h4>Template</h4>
+            <pre><code>void backtrack(int idx, List&lt;Integer&gt; path) {
+  if (idx == nums.length) { result.add(new ArrayList&lt;&gt;(path)); return; }
+  path.add(nums[idx]);
+  backtrack(idx + 1, path);
+  path.remove(path.size() - 1); // undo
+  backtrack(idx + 1, path);    // skip
+}</code></pre>
+            <h4>Complexity</h4>
+            <p>Often exponential — prune early (sort + skip duplicates, bounds check).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="gcd-primes" data-level="easy">
+          <div class="qa-question"><h3>GCD and prime numbers — interview math basics</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Math</span><a class="visual-link" href="dsa-visuals.html#visual-big-o">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>GCD (Euclidean algorithm)</h4>
+            <pre><code>int gcd(int a, int b) {
+  while (b != 0) { int t = b; b = a % b; a = t; }
+  return a;
+}</code></pre>
+            <p>O(log min(a,b)). LCM(a,b) = a*b / gcd(a,b).</p>
+            <h4>Prime check</h4>
+            <p>Test divisors up to √n — O(√n). Sieve of Eratosthenes for many primes up to N — O(N log log N).</p>
+            <h4>Where it appears</h4>
+            <p>Modular arithmetic, coprime pairs, scheduling problems, cryptography basics.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="approach-framework" data-level="easy" data-vimp="true">
+          <div class="qa-question"><h3>How to approach any DSA problem in interviews</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Meta</span><a class="visual-link" href="dsa-visuals.html#visual-recursion-backtrack">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ol>
+              <li>Clarify input/output, constraints, edge cases (empty, duplicates, negatives)</li>
+              <li>Walk through a small example on whiteboard</li>
+              <li>Brute force → optimize; pattern match: sliding window, two pointers, BFS/DFS, DP, heap</li>
+              <li>Code cleanly in Java; extract helpers</li>
+              <li>Test edge case verbally; state time &amp; space complexity</li>
+            </ol>
+            <p>Mention Amdocs India Coding Champion — structured thinking under time pressure.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="space-complexity-examples" data-level="easy">
+          <div class="qa-question"><h3>Space complexity — common examples</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Basics</span><a class="visual-link" href="dsa-visuals.html#visual-big-o">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong>O(1):</strong> two pointers, iterative reverse list, swap in array</li>
+              <li><strong>O(n):</strong> HashMap for Two Sum, recursion stack depth n, BFS queue</li>
+              <li><strong>O(n²):</strong> DP table n×n, adjacency matrix</li>
+            </ul>
+            <p>Recursion depth = tree height — skewed tree O(n), balanced O(log n).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+
+      <!-- 2. Arrays & Strings -->
+      <section class="topic-section" id="section-arrays">
+        <h2>2. Arrays &amp; Strings</h2>
+        <p class="section-desc">Traversal, sliding window, prefix sum, two pointers, string manipulation &amp; pattern matching.</p>
+        <p class="section-meta">6 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="two-sum" data-level="easy" data-vimp="true">
+          <div class="qa-question"><h3>Two Sum — HashMap approach</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Array</span><a class="visual-link" href="dsa-visuals.html#visual-two-sum">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Store value→index; for each x check if (target − x) seen. O(n) time, O(n) space.</p>
+            <pre><code>public int[] twoSum(int[] nums, int target) {
+  Map&lt;Integer, Integer&gt; seen = new HashMap&lt;&gt;();
+  for (int i = 0; i &lt; nums.length; i++) {
+    int need = target - nums[i];
+    if (seen.containsKey(need)) return new int[] { seen.get(need), i };
+    seen.put(nums[i], i);
+  }
+  return new int[0];
+}</code></pre>
+            <h4>Follow-up</h4>
+            <p>Sorted array → two pointers O(n) O(1) space.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="sliding-window" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Sliding window — longest substring without repeating characters</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Array</span><a class="visual-link" href="dsa-visuals.html#visual-sliding-window">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Pattern</h4>
+            <p>Expand right, shrink left when constraint breaks. Fixed window = subarray sum exactly K; variable window = longest/shortest satisfying condition.</p>
+            <pre><code>int left = 0, best = 0;
+Map&lt;Character, Integer&gt; last = new HashMap&lt;&gt;();
+for (int right = 0; right &lt; s.length(); right++) {
+  char c = s.charAt(right);
+  if (last.containsKey(c)) left = Math.max(left, last.get(c) + 1);
+  last.put(c, right);
+  best = Math.max(best, right - left + 1);
+}</code></pre>
+            <p>O(n) time, O(1) space (charset size bounded).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="prefix-sum" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Prefix sum — range sum queries &amp; subarray sum equals K</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Array</span><a class="visual-link" href="dsa-visuals.html#visual-prefix-sum">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Prefix array</h4>
+            <p>prefix[i] = sum(nums[0..i]). Range sum [l,r] = prefix[r] − prefix[l−1] in O(1) after O(n) preprocess.</p>
+            <h4>Count subarrays with sum K</h4>
+            <p>Running prefix + HashMap count of prefix values seen. If (currSum − K) exists in map, add its frequency.</p>
+            <pre><code>Map&lt;Long, Integer&gt; freq = new HashMap&lt;&gt;();
+freq.put(0L, 1);
+long sum = 0, count = 0;
+for (int x : nums) {
+  sum += x;
+  count += freq.getOrDefault(sum - K, 0);
+  freq.merge(sum, 1, Integer::sum);
+}</code></pre>
+            <p>O(n) time, O(n) space.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="two-pointers" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Two-pointer technique — container with most water</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Array</span><a class="visual-link" href="dsa-visuals.html#visual-two-pointers">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Idea</h4>
+            <p>Start left=0, right=n−1. Area = min(height[l], height[r]) × (r−l). Move the shorter line inward — only that move can increase area.</p>
+            <p>Also used: sorted array pair sum, remove duplicates in-place, merge two sorted arrays.</p>
+            <p>O(n) time, O(1) space.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="valid-anagram" data-level="easy">
+          <div class="qa-question"><h3>Valid Anagram — string manipulation</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">String</span><a class="visual-link" href="dsa-visuals.html#visual-hashmap">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Count char frequencies — equal counts iff anagram. O(n) time, O(1) space (26 letters).</p>
+            <pre><code>int[] count = new int[26];
+for (char c : s.toCharArray()) count[c - 'a']++;
+for (char c : t.toCharArray()) if (--count[c - 'a'] &lt; 0) return false;
+return true;</code></pre>
+            <h4>Pattern matching intro</h4>
+            <p>KMP / Rabin-Karp for single-pattern search — mention if asked; HashMap + sliding window covers most interviews.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="array-traversal-ops" data-level="easy">
+          <div class="qa-question"><h3>Array traversal, insertion, deletion — complexity</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Array</span><a class="visual-link" href="dsa-visuals.html#visual-array">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong>Access by index:</strong> O(1)</li>
+              <li><strong>Search unsorted:</strong> O(n)</li>
+              <li><strong>Insert/delete at end (ArrayList):</strong> amortized O(1)</li>
+              <li><strong>Insert/delete at middle:</strong> O(n) — shift elements</li>
+            </ul>
+            <p>Prefer ArrayList over raw array in Java interviews unless problem fixes size.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+
+      <!-- 3. Linked List -->
+      <section class="topic-section" id="section-linkedlist">
+        <h2>3. Linked List</h2>
+        <p class="section-desc">Singly, doubly, circular lists; reversal; Floyd's cycle detection.</p>
+        <p class="section-meta">4 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="linked-list-types" data-level="easy">
+          <div class="qa-question"><h3>Singly vs doubly vs circular linked list</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Linked List</span><a class="visual-link" href="dsa-visuals.html#visual-linked-list">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong>Singly:</strong> one next pointer — less memory, can't traverse backward</li>
+              <li><strong>Doubly:</strong> next + prev — O(1) delete at known node (LRU cache), bidirectional traversal</li>
+              <li><strong>Circular:</strong> last node points to head — round-robin schedulers, Josephus problem</li>
+            </ul>
+            <p>Java: <code>LinkedList&lt;E&gt;</code> is doubly-linked; no built-in singly-linked list — define <code>ListNode { int val; ListNode next; }</code>.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="reverse-linked-list" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Reverse linked list (iterative)</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Linked List</span><a class="visual-link" href="dsa-visuals.html#visual-linked-list">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Three pointers: prev, curr, next. O(n) time, O(1) space.</p>
+            <pre><code>public ListNode reverse(ListNode head) {
+  ListNode prev = null, curr = head;
+  while (curr != null) {
+    ListNode next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+  }
+  return prev;
+}</code></pre>
+            <h4>Follow-up</h4>
+            <p>Reverse between positions m and n — find node before m, reverse sublist length (n−m+1).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="cycle-detection" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Cycle detection — Floyd's tortoise and hare</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Linked List</span><a class="visual-link" href="dsa-visuals.html#visual-cycle-floyd">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Has cycle?</h4>
+            <p>Slow moves 1, fast moves 2. If they meet → cycle. O(n) time, O(1) space.</p>
+            <h4>Find cycle start</h4>
+            <p>After meeting, reset slow to head; move both 1 step until they meet — that node is cycle entry.</p>
+            <pre><code>boolean hasCycle(ListNode head) {
+  ListNode slow = head, fast = head;
+  while (fast != null &amp;&amp; fast.next != null) {
+    slow = slow.next;
+    fast = fast.next.next;
+    if (slow == fast) return true;
+  }
+  return false;
+}</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="merge-two-lists" data-level="easy">
+          <div class="qa-question"><h3>Merge two sorted linked lists</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Linked List</span><a class="visual-link" href="dsa-visuals.html#visual-linked-list">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Dummy head + tail pointer; pick smaller node each step. O(n+m) time, O(1) space.</p>
+            <p>Extension: merge K sorted lists → min-heap of size K (see Heap section).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+
+      <!-- 4. Stack & Queue -->
+      <section class="topic-section" id="section-stackqueue">
+        <h2>4. Stack &amp; Queue</h2>
+        <p class="section-desc">LIFO stack, FIFO queue, circular queue, deque; applications like balanced parentheses.</p>
+        <p class="section-meta">5 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="stack-queue-uses" data-level="easy" data-vimp="true">
+          <div class="qa-question"><h3>Real uses of stack and queue in backend systems</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Stack</span><a class="visual-link" href="dsa-visuals.html#visual-stack">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p><strong>Stack (LIFO):</strong> undo operations, DFS, parsing nested XML/JSON, JVM call stack, expression evaluation.</p>
+            <p><strong>Queue (FIFO):</strong> thread pools, message buffers, BFS, async job pipelines, Camel route pipelines.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="valid-parentheses" data-level="easy" data-vimp="true">
+          <div class="qa-question"><h3>Valid parentheses — stack application</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Stack</span><a class="visual-link" href="dsa-visuals.html#visual-stack">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Push opening brackets; on closing, pop must match. O(n) time, O(n) space.</p>
+            <pre><code>Deque&lt;Character&gt; stack = new ArrayDeque&lt;&gt;();
+for (char c : s.toCharArray()) {
+  if (isOpen(c)) stack.push(c);
+  else if (stack.isEmpty() || !matches(stack.pop(), c)) return false;
+}
+return stack.isEmpty();</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="queue-bfs-ring" data-level="easy">
+          <div class="qa-question"><h3>Queue, circular queue, and deque</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Queue</span><a class="visual-link" href="dsa-visuals.html#visual-queue">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong>Queue:</strong> offer/poll O(1) — <code>ArrayDeque</code> in Java (faster than synchronized <code>Queue</code>)</li>
+              <li><strong>Circular queue:</strong> fixed-size buffer, front/rear wrap with modulo — bounded memory in embedded systems</li>
+              <li><strong>Deque:</strong> double-ended — sliding window max (monotonic deque), palindrome check both ends</li>
+            </ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="min-stack" data-level="medium">
+          <div class="qa-question"><h3>Min stack — O(1) getMin</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Stack</span><a class="visual-link" href="dsa-visuals.html#visual-stack">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Second stack tracks current minimum. On push(x): push min(x, peekMinStack). On pop: pop both. O(1) per operation.</p>
+            <p>Variant: evaluate RPN, daily temperatures (monotonic stack).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="implement-queue-stacks" data-level="medium">
+          <div class="qa-question"><h3>Implement queue using two stacks</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Queue</span><a class="visual-link" href="dsa-visuals.html#visual-queue">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>inStack for enqueue; on dequeue, if outStack empty pour inStack → outStack. Amortized O(1) per op.</p>
+            <p>Classic design interview — shows understanding of amortized analysis.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+
+      <!-- 5. Trees -->
+      <section class="topic-section" id="section-trees">
+        <h2>5. Trees</h2>
+        <p class="section-desc">Binary tree, BST, traversals, height/depth/diameter, lowest common ancestor (LCA).</p>
+        <p class="section-meta">6 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="tree-traversals" data-level="easy" data-vimp="true">
+          <div class="qa-question"><h3>Tree traversals — inorder, preorder, postorder</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Tree</span><a class="visual-link" href="dsa-visuals.html#visual-tree-traversal">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong>Inorder (L, root, R):</strong> BST → sorted order</li>
+              <li><strong>Preorder (root, L, R):</strong> copy tree, prefix expression</li>
+              <li><strong>Postorder (L, R, root):</strong> delete tree, postfix expression</li>
+            </ul>
+            <pre><code>void inorder(TreeNode node, List&lt;Integer&gt; out) {
+  if (node == null) return;
+  inorder(node.left, out);
+  out.add(node.val);
+  inorder(node.right, out);
+}</code></pre>
+            <p>Iterative inorder: stack + go left until null, pop, go right. O(n) time.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="bfs-tree" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Level order traversal (BFS on tree)</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Tree</span><a class="visual-link" href="dsa-visuals.html#visual-bfs-tree">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Queue + process <code>size</code> nodes each level. O(n) time, O(n) space worst (last level).</p>
+            <pre><code>Queue&lt;TreeNode&gt; q = new LinkedList&lt;&gt;();
+q.offer(root);
+while (!q.isEmpty()) {
+  int size = q.size();
+  List&lt;Integer&gt; level = new ArrayList&lt;&gt;();
+  for (int i = 0; i &lt; size; i++) {
+    TreeNode node = q.poll();
+    level.add(node.val);
+    if (node.left != null) q.offer(node.left);
+    if (node.right != null) q.offer(node.right);
+  }
+  result.add(level);
+}</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="bst-operations" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Binary Search Tree (BST) — search, insert, validate</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Tree</span><a class="visual-link" href="dsa-visuals.html#visual-bst">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Left &lt; root &lt; right at every node. Search/insert O(h) — O(log n) if balanced, O(n) if skewed.</p>
+            <h4>Validate BST</h4>
+            <p>Pass min/max bounds down recursion — not just compare parent.</p>
+            <pre><code>boolean isValid(TreeNode node, long min, long max) {
+  if (node == null) return true;
+  if (node.val &lt;= min || node.val &gt;= max) return false;
+  return isValid(node.left, min, node.val)
+      &amp;&amp; isValid(node.right, node.val, max);
+}</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="tree-height-diameter" data-level="medium">
+          <div class="qa-question"><h3>Height, depth, and diameter of a binary tree</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Tree</span><a class="visual-link" href="dsa-visuals.html#visual-bfs-tree">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong>Height:</strong> max edges root to leaf — recursive max(left, right)+1</li>
+              <li><strong>Depth of node:</strong> distance from root to that node</li>
+              <li><strong>Diameter:</strong> longest path between any two nodes — at each node: leftHeight + rightHeight, track global max</li>
+            </ul>
+            <p>Balanced tree check: |height(left) − height(right)| ≤ 1 at every node.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="lca-bst" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Lowest Common Ancestor (LCA)</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Tree</span><a class="visual-link" href="dsa-visuals.html#visual-bst">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>BST</h4>
+            <p>Walk from root: if both &lt; root go left; both &gt; root go right; else root is LCA. O(h).</p>
+            <h4>Binary tree</h4>
+            <p>Postorder: if node is p or q return node; left/right recursive; if both non-null current is LCA else return non-null child.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="max-depth-tree" data-level="easy">
+          <div class="qa-question"><h3>Maximum depth of binary tree</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Tree</span><a class="visual-link" href="dsa-visuals.html#visual-tree-traversal">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>int maxDepth(TreeNode root) {
+  if (root == null) return 0;
+  return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+}</code></pre>
+            <p>O(n) time. DFS recursion depth = tree height — watch stack overflow on skewed million-node tree (rare in interviews).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+
+      <!-- 6. Heap -->
+      <section class="topic-section" id="section-heap">
+        <h2>6. Heap (Priority Queue)</h2>
+        <p class="section-desc">Min/max heap, heap operations, heap sort, top-K problems.</p>
+        <p class="section-meta">4 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="heap-basics" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Min heap vs max heap — operations and Java API</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Heap</span><a class="visual-link" href="dsa-visuals.html#visual-heap">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Complete binary tree: parent ≤ children (min-heap) or parent ≥ children (max-heap).</p>
+            <ul>
+              <li><strong>insert / poll:</strong> O(log n)</li>
+              <li><strong>peek min/max:</strong> O(1)</li>
+              <li><strong>build heap from array:</strong> O(n)</li>
+            </ul>
+            <pre><code>// Min-heap (default)
+PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();
+// Max-heap
+PriorityQueue&lt;Integer&gt; maxHeap =
+    new PriorityQueue&lt;&gt;(Collections.reverseOrder());</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="k-largest-heap" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Kth largest element — heap of size K</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Heap</span><a class="visual-link" href="dsa-visuals.html#visual-heap">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Maintain min-heap of size K — root is Kth largest after scanning. O(n log K) time.</p>
+            <p>Quickselect average O(n) — mention as follow-up.</p>
+            <p>Patterns: top K frequent (map + heap), merge K sorted lists, median from stream (two heaps).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="heap-sort" data-level="medium">
+          <div class="qa-question"><h3>Heap sort — how it works</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Heap</span><a class="visual-link" href="dsa-visuals.html#visual-sorting">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ol>
+              <li>Build max-heap from array — O(n)</li>
+              <li>Swap root with end, heapify reduced size — n−1 times</li>
+            </ol>
+            <p>O(n log n) time, <strong>O(1)</strong> extra space if in-place — unlike merge sort's O(n) aux.</p>
+            <p>Not stable. Java <code>Arrays.sort</code> uses dual-pivot quicksort for primitives, TimSort for objects.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="lru-cache" data-level="hard" data-vimp="true">
+          <div class="qa-question"><h3>LRU cache — HashMap + doubly linked list</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Heap</span><a class="visual-link" href="dsa-visuals.html#visual-doubly-ll">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>get/put O(1): map key→node; move node to head on access; evict tail when over capacity.</p>
+            <p>Real systems: Redis LRU, HTTP caches, DB buffer pool — ties DSA to system design.</p>
+            <h4>Java shortcut (interview only if allowed)</h4>
+            <p><code>LinkedHashMap</code> with access-order=true + removeEldestEntry override.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+
+      <!-- 7. Hashing -->
+      <section class="topic-section" id="section-hashing">
+        <h2>7. Hashing</h2>
+        <p class="section-desc">Hash tables/maps, collision handling, frequency counting.</p>
+        <p class="section-meta">4 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="hashmap-how" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>How does a hash table work?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Hashing</span><a class="visual-link" href="dsa-visuals.html#visual-hashmap">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>hash(key) % bucketCount → index. Store (key, value) in bucket. Average O(1) get/put when load factor low.</p>
+            <h4>Java HashMap</h4>
+            <ul>
+              <li>Default load factor 0.75 — resize/rehash when exceeded</li>
+              <li>JDK 8+: linked list → red-black tree when bucket &gt; 8 nodes</li>
+              <li>Not thread-safe — <code>ConcurrentHashMap</code> for concurrency</li>
+            </ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="collision-handling" data-level="medium">
+          <div class="qa-question"><h3>Collision handling — chaining vs open addressing</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Hashing</span><a class="visual-link" href="dsa-visuals.html#visual-hash-collision">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong>Chaining:</strong> bucket holds list/tree of entries — Java HashMap approach</li>
+              <li><strong>Open addressing:</strong> probe next slot (linear, quadratic, double hashing) — used in some embedded DBs</li>
+            </ul>
+            <p>Good hash function + load factor control keeps chains short.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="frequency-count" data-level="easy" data-vimp="true">
+          <div class="qa-question"><h3>Frequency counting — top K frequent elements</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Hashing</span><a class="visual-link" href="dsa-visuals.html#visual-hashmap">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ol>
+              <li>Count with HashMap — O(n)</li>
+              <li>Min-heap of size K on counts, or bucket sort by frequency O(n)</li>
+            </ol>
+            <p>Same pattern: anagram groups (sort string → key), first unique char, majority element (Boyer-Moore).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="group-anagrams" data-level="medium">
+          <div class="qa-question"><h3>Group anagrams — hash map of signature</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Hashing</span><a class="visual-link" href="dsa-visuals.html#visual-hashmap">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Key = sorted string or char count array. O(n × k log k) with sort per word, O(n × k) with count key.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+
+      <!-- 8. Graphs -->
+      <section class="topic-section" id="section-graphs">
+        <h2>8. Graphs</h2>
+        <p class="section-desc">Adjacency list/matrix, BFS, DFS, shortest path, MST, topological sort.</p>
+        <p class="section-meta">6 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="graph-representation" data-level="easy" data-vimp="true">
+          <div class="qa-question"><h3>Graph representation — adjacency list vs matrix</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Graph</span><a class="visual-link" href="dsa-visuals.html#visual-graph">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <ul>
+              <li><strong>Adjacency list:</strong> Map&lt;Integer, List&lt;Integer&gt;&gt; — O(V+E) space, best for sparse graphs</li>
+              <li><strong>Adjacency matrix:</strong> boolean[V][V] — O(V²) space, O(1) edge lookup</li>
+            </ul>
+            <pre><code>Map&lt;Integer, List&lt;Integer&gt;&gt; graph = new HashMap&lt;&gt;();
+void addEdge(int u, int v) {
+  graph.computeIfAbsent(u, k -&gt; new ArrayList&lt;&gt;()).add(v);
+}</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="bfs-dfs" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>BFS vs DFS on graphs</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Graph</span><a class="visual-link" href="dsa-visuals.html#visual-graph">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p><strong>BFS:</strong> queue, shortest path in <strong>unweighted</strong> graph, level-by-level. <strong>DFS:</strong> stack/recursion, detect cycle, connected components, topological sort.</p>
+            <p>Both O(V + E). Visited set prevents cycles.</p>
+            <pre><code>void dfs(int node, Set&lt;Integer&gt; vis, Map&lt;Integer, List&lt;Integer&gt;&gt; g) {
+  vis.add(node);
+  for (int nei : g.getOrDefault(node, List.of()))
+    if (!vis.contains(nei)) dfs(nei, vis, g);
+}</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="dijkstra" data-level="hard">
+          <div class="qa-question"><h3>Dijkstra's algorithm — shortest path (non-negative weights)</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Graph</span><a class="visual-link" href="dsa-visuals.html#visual-dijkstra">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Min-heap of (distance, node). Relax neighbors if shorter path found. O((V+E) log V) with binary heap.</p>
+            <p><strong>Bellman-Ford:</strong> handles negative edges, detects negative cycles — O(VE). Use when weights can be negative.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="mst-algorithms" data-level="hard">
+          <div class="qa-question"><h3>Minimum Spanning Tree — Kruskal vs Prim</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Graph</span><a class="visual-link" href="dsa-visuals.html#visual-union-find">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p><strong>Kruskal:</strong> sort edges by weight, Union-Find add edge if connects different components. O(E log E).</p>
+            <p><strong>Prim:</strong> grow tree from start node with min-heap of frontier edges. O(E log V).</p>
+            <p>MST connects all vertices with minimum total edge weight — network design analogy.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="topological-sort" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Topological sort — course schedule / dependency order</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Graph</span><a class="visual-link" href="dsa-visuals.html#visual-toposort">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>DAG only. Kahn's algorithm: BFS on nodes with indegree 0, reduce neighbor indegree. Or DFS postorder reverse.</p>
+            <p>Cycle detection: if processed nodes &lt; V → cycle exists. Used for build pipelines, task schedulers.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="num-islands" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Number of islands — grid DFS/BFS</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Graph</span><a class="visual-link" href="dsa-visuals.html#visual-graph">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Scan grid; on '1' increment count and sink island (DFS flood fill). O(rows × cols).</p>
+            <p>Template for rotten oranges, word search, connected components in 2D.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+
+      <!-- 9. Sorting & Searching -->
+      <section class="topic-section" id="section-sortsearch">
+        <h2>9. Sorting &amp; Searching</h2>
+        <p class="section-desc">Bubble, selection, insertion; merge &amp; quick sort; binary search.</p>
+        <p class="section-meta">5 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="sorting-comparison" data-level="easy" data-vimp="true">
+          <div class="qa-question"><h3>Sorting algorithms — compare complexities</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Sorting</span><a class="visual-link" href="dsa-visuals.html#visual-sorting">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <table style="width:100%;font-size:0.88rem;border-collapse:collapse">
+              <tr><th style="text-align:left;padding:4px">Algorithm</th><th>Time</th><th>Space</th><th>Stable?</th></tr>
+              <tr><td>Bubble / Selection / Insertion</td><td>O(n²)</td><td>O(1)</td><td>Insertion yes</td></tr>
+              <tr><td>Merge sort</td><td>O(n log n)</td><td>O(n)</td><td>Yes</td></tr>
+              <tr><td>Quick sort</td><td>O(n log n) avg</td><td>O(log n) stack</td><td>No</td></tr>
+              <tr><td>Heap sort</td><td>O(n log n)</td><td>O(1)</td><td>No</td></tr>
+            </table>
+            <p>Interviews: know merge vs quick trade-offs; implement merge sort or quick sort if asked.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="merge-sort" data-level="medium">
+          <div class="qa-question"><h3>Merge sort — divide and conquer</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Sorting</span><a class="visual-link" href="dsa-visuals.html#visual-sorting">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Split array in half, sort halves, merge two sorted arrays. O(n log n) always, O(n) extra space.</p>
+            <p>Used in merge step of external sort, TimSort runs in Java 7+.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="quick-sort" data-level="medium">
+          <div class="qa-question"><h3>Quick sort — partition around pivot</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Sorting</span><a class="visual-link" href="dsa-visuals.html#visual-sorting">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Pick pivot (last or random), partition so left ≤ pivot ≤ right, recurse. Average O(n log n), worst O(n²) on bad pivot — mitigated by random pivot.</p>
+            <p>In-place, cache-friendly — why Arrays.sort uses it for primitives.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="binary-search" data-level="easy" data-vimp="true">
+          <div class="qa-question"><h3>Binary search (iterative)</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Search</span><a class="visual-link" href="dsa-visuals.html#visual-binary-search">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>public int binarySearch(int[] a, int target) {
+  int lo = 0, hi = a.length - 1;
+  while (lo &lt;= hi) {
+    int mid = lo + (hi - lo) / 2;
+    if (a[mid] == target) return mid;
+    if (a[mid] &lt; target) lo = mid + 1;
+    else hi = mid - 1;
+  }
+  return -1;
+}</code></pre>
+            <h4>Follow-ups</h4>
+            <p>First/last position of target — binary search then bias left or right. Search in rotated sorted array.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="merge-intervals" data-level="medium">
+          <div class="qa-question"><h3>Merge intervals</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Sorting</span><a class="visual-link" href="dsa-visuals.html#visual-greedy-intervals">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Sort by start; merge if overlap with last in result. O(n log n).</p>
+            <pre><code>Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+List&lt;int[]&gt; res = new ArrayList&lt;&gt;();
+for (int[] in : intervals) {
+  if (res.isEmpty() || res.get(res.size() - 1)[1] &lt; in[0]) res.add(in);
+  else res.get(res.size() - 1)[1] = Math.max(res.get(res.size() - 1)[1], in[1]);
+}</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+
+      <!-- 10. Dynamic Programming -->
+      <section class="topic-section" id="section-dp">
+        <h2>10. Dynamic Programming (DP)</h2>
+        <p class="section-desc">Memoization vs tabulation, knapsack, LCS, Fibonacci, grid DP.</p>
+        <p class="section-meta">6 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="dp-intro" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>What is DP? Memoization vs tabulation</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">DP</span><a class="visual-link" href="dsa-visuals.html#visual-fib-dp">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Optimal substructure + overlapping subproblems → cache results instead of recomputing.</p>
+            <ul>
+              <li><strong>Memoization (top-down):</strong> recursion + HashMap/array cache</li>
+              <li><strong>Tabulation (bottom-up):</strong> fill table from base case up</li>
+            </ul>
+            <p>Identify state: dp[i] or dp[i][j] meaning. Transition from smaller states.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="fibonacci-dp" data-level="easy">
+          <div class="qa-question"><h3>Fibonacci — naive vs DP</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DP</span><a class="visual-link" href="dsa-visuals.html#visual-fib-dp">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Naive recursion O(2ⁿ). DP: dp[i]=dp[i-1]+dp[i-2], O(n) time O(1) space with two variables.</p>
+            <pre><code>int a = 0, b = 1;
+for (int i = 2; i &lt;= n; i++) {
+  int c = a + b;
+  a = b;
+  b = c;
+}</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="max-subarray" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Maximum subarray — Kadane's algorithm</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">DP</span><a class="visual-link" href="dsa-visuals.html#visual-kadane">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>int best = nums[0], curr = nums[0];
+for (int i = 1; i &lt; nums.length; i++) {
+  curr = Math.max(nums[i], curr + nums[i]);
+  best = Math.max(best, curr);
+}
+return best;</code></pre>
+            <p>O(n) time O(1) space. dp[i] = max ending at i.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="knapsack-01" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>0/1 Knapsack problem</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">DP</span><a class="visual-link" href="dsa-visuals.html#visual-knapsack">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>dp[w] = max value with capacity w. For each item, iterate w from W down to weight (avoid reuse).</p>
+            <pre><code>int[] dp = new int[W + 1];
+for (int i = 0; i &lt; n; i++)
+  for (int w = W; w &gt;= weight[i]; w--)
+    dp[w] = Math.max(dp[w], dp[w - weight[i]] + value[i]);</code></pre>
+            <p>O(n × W) pseudo-polynomial. Subset sum is special case.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="lcs" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Longest Common Subsequence (LCS)</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">DP</span><a class="visual-link" href="dsa-visuals.html#visual-lcs">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <pre><code>if (a[i] == b[j]) dp[i][j] = 1 + dp[i-1][j-1];
+else dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);</code></pre>
+            <p>O(m×n) time and space; roll array to O(n) space. Used in diff tools, DNA sequence alignment basics.</p>
+            <h4>Related</h4>
+            <p>Edit distance (Levenshtein) — insert/delete/replace costs.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="grid-dp" data-level="medium">
+          <div class="qa-question"><h3>DP on grids — unique paths &amp; min path sum</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">DP</span><a class="visual-link" href="dsa-visuals.html#visual-knapsack">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Unique paths: dp[i][j] = dp[i-1][j] + dp[i][j-1]. Min path sum: dp[i][j] += min(top, left).</p>
+            <p>O(rows×cols) time; optimize to one row if only previous row needed.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+
+      <!-- 11. Greedy -->
+      <section class="topic-section" id="section-greedy">
+        <h2>11. Greedy Algorithms</h2>
+        <p class="section-desc">Activity selection, fractional knapsack, Huffman coding — locally optimal → globally optimal (when provable).</p>
+        <p class="section-meta">4 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="greedy-vs-dp" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Greedy vs DP — when to use greedy?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Greedy</span><a class="visual-link" href="dsa-visuals.html#visual-greedy-intervals">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Greedy picks best local choice each step. Works when problem has <strong>greedy choice property</strong> and <strong>optimal substructure</strong> (often after sorting).</p>
+            <p>If greedy fails counterexample → use DP. Example: 0/1 knapsack needs DP; fractional knapsack allows greedy by value/weight ratio.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="activity-selection" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Activity selection — maximum non-overlapping intervals</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Greedy</span><a class="visual-link" href="dsa-visuals.html#visual-greedy-intervals">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Sort by end time. Take next activity that starts after last end. O(n log n).</p>
+            <p>Same pattern: meeting rooms (min heaps), non-overlapping arrows/balloons.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="fractional-knapsack" data-level="medium">
+          <div class="qa-question"><h3>Fractional knapsack — greedy by value/weight ratio</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Greedy</span><a class="visual-link" href="dsa-visuals.html#visual-fractional-knapsack">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Sort items by value/weight descending; take full item or fraction of next to fill capacity. O(n log n).</p>
+            <p>Contrast 0/1 knapsack — cannot take fractions, need DP.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="huffman-coding" data-level="hard">
+          <div class="qa-question"><h3>Huffman coding — build optimal prefix codes</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Greedy</span><a class="visual-link" href="dsa-visuals.html#visual-heap">▶ Visual</a><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <p>Repeatedly merge two least frequent symbols into a tree (min-heap). Higher frequency → shorter bit code.</p>
+            <p>Used in compression (ZIP, JPEG stages). Greedy: always combine lowest two frequencies — proven optimal prefix code.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <button class="mobile-toggle" id="sidebar-toggle" type="button">Menu</button>
+  <script src="../assets/app.js"></script>
+</body>
+</html>

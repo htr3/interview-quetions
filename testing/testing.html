@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testing — Interview Prep</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body data-page="testing">
+  <div class="layout">
+    <aside class="sidebar"><h2>Interview Prep</h2><nav id="site-nav"></nav></aside>
+    <main class="main">
+      <header class="page-header">
+        <h1>Testing Interview Prep</h1>
+        <p>Click questions for full answers. Filter by <strong>Easy / Medium / Hard</strong> or <strong>⭐ Very Important</strong>. TestNG 60%→90% at Vodafone.</p>
+      </header>
+      <div class="toolbar">
+        <input type="search" id="search" placeholder="Search questions & answers...">
+        <select id="level-filter" class="filter-select">
+          <option value="all">All levels</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+        <label><input type="checkbox" id="vimp-only"> ⭐ Very important</label>
+        <label><input type="checkbox" id="practice-mode"> Practice mode</label>
+        <button type="button" class="btn" id="expand-all">Expand all</button>
+        <button type="button" class="btn" id="collapse-all">Collapse all</button>
+      </div>
+      <div class="legend">
+        <span><span class="level level-easy">Easy</span> fundamentals</span>
+        <span><span class="level level-medium">Medium</span> 3 YOE depth</span>
+        <span><span class="level level-hard">Hard</span> senior / tricky</span>
+        <span><span class="level-vimp">⭐ VI</span> must practice before interview</span>
+      </div>
+      <div class="stats">
+        <div class="stat-card"><strong id="stat-done">0</strong><span>Practiced</span></div>
+        <div class="stat-card"><strong id="stat-total">0</strong><span>Total</span></div>
+        <div class="stat-card"><strong id="stat-visible">0</strong><span>Showing</span></div>
+        <div class="stat-card"><strong id="stat-pct">0%</strong><span>Progress</span></div>
+      </div>
+      <div class="qa-list">
+
+        <article class="qa-card" data-id="test-pyramid" data-level="easy">
+          <div class="qa-question"><h3>Explain the test pyramid</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Basics</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Many fast unit tests, fewer integration tests, fewest E2E/UI — balance speed, cost, confidence.</p>
+            <h4>Detailed explanation</h4>
+            <p>Anti-pattern: ice-cream cone (mostly manual/E2E). For REST services: unit (Mockito) + API integration (MockMvc/TestRestTemplate) + selective E2E in staging.</p>
+            <h4>From your experience</h4>
+            <p>Vodafone: grew unit + API tests with TestNG to hit 90% coverage on critical paths without slowing every commit.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="testng-story" data-level="hard" data-vimp="true">
+          <div class="qa-question"><h3>STAR: Raising TestNG coverage from 60% to 90%</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Vodafone</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Risk-based TestNG suites on reporting/payment APIs, CI gate on failures, measurable 60→90% coverage, fewer prod regressions.</p>
+            <h4>Detailed explanation</h4>
+            <ul>
+              <li>Audited untested controllers and service branches</li>
+              <li>Mockito for units; TestNG groups for smoke vs regression</li>
+              <li>Jenkins ran tests every build — failures blocked bad merges</li>
+              <li>Result: ~5% faster delivery confidence; safer refactors on SQL-tuned code</li>
+            </ul>
+            <h4>Follow-ups</h4>
+            <p>Is 90% always good? No — focus on critical paths; mutation testing for quality of assertions.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="junit-vs-testng" data-level="easy">
+          <div class="qa-question"><h3>JUnit vs TestNG — differences you used</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Framework</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>TestNG: test groups, parallel suites, flexible XML suites, dependencies between tests. JUnit 5: modern extensions, widespread in Spring Boot greenfield.</p>
+            <h4>Example</h4>
+            <pre><code>@Test(groups = {"smoke", "reporting"})
+public void shouldReturnReport() { ... }</code></pre>
+            <h4>From your experience</h4>
+            <p>Vodafone stack standardized on TestNG — know both for interviews; Spring Boot docs often show JUnit 5.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="mockito" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>How do you use Mockito effectively?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Unit</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Mock dependencies, assert interactions and return values. Prefer testing behavior not implementation — avoid over-verifying internal calls.</p>
+            <h4>Example</h4>
+            <pre><code>@Mock ReportRepository repo;
+@InjectMocks ReportService service;
+
+@Test
+void returnsDto() {
+  when(repo.find("id")).thenReturn(entity);
+  assertThat(service.fetch("id").getTotal()).isEqualTo(100);
+  verify(repo).find("id");
+}</code></pre>
+            <h4>Follow-ups</h4>
+            <p><code>@Spy</code> partial mock; <code>ArgumentCaptor</code> for complex payloads; static mocks (Mockito 3.4+) sparingly.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="integration-rest" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>Integration testing REST APIs (Spring + TestNG)</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Integration</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p><code>@SpringBootTest</code> + <code>MockMvc</code> or <code>TestRestTemplate</code>; test DB via Testcontainers or embedded H2 with caution.</p>
+            <h4>Example</h4>
+            <pre><code>mockMvc.perform(get("/api/v1/reports/1"))
+  .andExpect(status().isOk())
+  .andExpect(jsonPath("$.accountId").value("DE123"));</code></pre>
+            <h4>Detailed explanation</h4>
+            <p>Test happy path + 400 validation + 404 + 500 mapping. Use test data builders; rollback DB per test with <code>@Transactional</code> on test class.</p>
+            <h4>From your experience</h4>
+            <p>Critical Vodafone reporting endpoints had integration tests before release — caught contract breaks when SQL columns changed.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="coverage" data-level="medium">
+          <div class="qa-question"><h3>Code coverage — JaCoCo and what it does NOT tell you</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Metrics</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Coverage = lines/branches executed by tests. High coverage ≠ good tests — can miss assertions and edge cases.</p>
+            <h4>Detailed explanation</h4>
+            <p>Gate at 80–90% on critical modules; exclude generated code. Pair with review of test quality and prod incident history.</p>
+            <h4>From your experience</h4>
+            <p>60→90% initiative included branch coverage on payment filters and date boundary reports.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="tdd" data-level="easy">
+          <div class="qa-question"><h3>Do you practice TDD? When is it worth it?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Process</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Red-green-refactor: write failing test, minimal code, refactor. Best for pure logic; less strict for exploratory spikes — add tests before merge.</p>
+            <h4>From your experience</h4>
+            <p>Pragmatic: test-first for bug fixes (reproduce with test) and new API contracts; retro tests when inheriting legacy Vodafone modules.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="contract-tests" data-level="hard">
+          <div class="qa-question"><h3>Contract testing for microservices / partner APIs</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Microservices</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Consumer-driven contracts (Pact) ensure provider doesn't break JSON schema/status codes consumers expect.</p>
+            <h4>Detailed explanation</h4>
+            <p>XL Axiata third-party integrations: certification env + contract tests on sample payloads reduced ambiguous prod failures.</p>
+            <h4>Follow-ups</h4>
+            <p>vs E2E? Contracts faster; E2E still needed for few golden paths.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="camunda-perf" data-level="medium">
+          <div class="qa-question"><h3>Performance testing workflows (Camunda / XL Axiata)</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Perf</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer">
+            <h4>Quick answer</h4>
+            <p>Load test BPMN paths with realistic concurrency; monitor engine DB growth, job executor lag, external task timeouts.</p>
+            <h4>From your experience</h4>
+            <p>Optimized Camunda workflows and test framework — ~5% faster perf test execution, better reliability before prod.</p>
+            <h4>Follow-ups</h4>
+            <p>Bottleneck in engine vs external API? Profile SQL on ACT_RU_* tables, tune async continuations.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+      </div>
+    </main>
+  </div>
+  <button class="mobile-toggle" id="sidebar-toggle" type="button">Menu</button>
+  <script src="../assets/app.js"></script>
+</body>
+</html>
