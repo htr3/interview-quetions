@@ -62,16 +62,15 @@
         <article class="qa-card" data-id="framework" data-level="easy" data-section="fundamentals" data-vimp="true">
           <div class="qa-question"><h3>System design interview framework (45 min)</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Meta</span><a class="diagram-link" href="system-design-diagrams.html#interview-framework">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Requirements → estimates → API → high-level diagram → deep dive critical path → bottlenecks → trade-offs.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Functional:</span></li><li><span class="kw">Non-functional:</span></li><li><span class="kw">Back-of-envelope:</span></li><li><span class="kw">Design:</span></li><li><span class="kw">Deep dive:</span></li><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">System design interview framework (45 min)</strong>. Requirements → estimates → API → high-level diagram → deep dive critical path → bottlenecks → trade-offs.</p><p>Requirements → estimates → API → high-level diagram → deep dive critical path → bottlenecks → trade-offs.</p>
 <h4>Detailed explanation</h4>
 <ol>
-<li><strong>Functional:</strong> features, users, workflows</li>
-<li><strong>Non-functional:</strong> scale (QPS), latency, availability, consistency</li>
-<li><strong>Back-of-envelope:</strong> storage/day, bandwidth</li>
-<li><strong>Design:</strong> LB, app servers, DB, cache, queue, CDN</li>
-<li><strong>Deep dive:</strong> data model, sharding, caching, failure modes</li>
+<li><strong class="kw">Functional:</strong> features, users, workflows</li>
+<li><strong class="kw">Non-functional:</strong> scale (QPS), latency, availability, consistency</li>
+<li><strong class="kw">Back-of-envelope:</strong> storage/day, bandwidth</li>
+<li><strong class="kw">Design:</strong> LB, app servers, DB, cache, queue, CDN</li>
+<li><strong class="kw">Deep dive:</strong> data model, sharding, caching, failure modes</li>
 </ol>
 <h4>Interview flow</h4>
 <pre class="flow-diagram">Clarify (5m) --> Estimate (5m) --> API sketch (5m)
@@ -86,14 +85,13 @@ High-level diagram (10m) --> Deep dive (15m) --> Wrap trade-offs (5m)</pre>
         <article class="qa-card" data-id="what-is-sd" data-level="easy" data-section="fundamentals">
           <div class="qa-question"><h3>What is system design (and what interviewers test)?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Basics</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>How you architect software to meet <strong>functional</strong> needs at <strong>scale</strong> with acceptable latency, availability, and cost — not drawing boxes for fun.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">functional</span></li><li><span class="kw">scale</span></li><li><span class="kw">3 YOE:</span></li><li><span class="kw">They probe:</span></li><li><span class="kw">Not:</span></li><li><span class="kw">telco</span></li><li><span class="kw">BSS</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">system design</strong> is a core concept to understand for interviews. How you architect software to meet functional needs at scale with acceptable latency, availability, and cost — not drawing boxes for fun.</p><p>How you architect software to meet <strong class="kw">functional</strong> needs at <strong class="kw">scale</strong> with acceptable latency, availability, and cost — not drawing boxes for fun.</p>
 <h4>Detailed explanation</h4>
 <ul>
-<li><strong>3 YOE:</strong> solid single-service + integration + DB tuning story</li>
-<li><strong>They probe:</strong> trade-offs, failure modes, observability, data model</li>
-<li><strong>Not:</strong> memorizing every FAANG design — adapt to telco/BSS context</li>
+<li><strong class="kw">3 YOE:</strong> solid single-service + integration + DB tuning story</li>
+<li><strong class="kw">They probe:</strong> trade-offs, failure modes, observability, data model</li>
+<li><strong class="kw">Not:</strong> memorizing every FAANG design — adapt to telco/BSS context</li>
 </ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -101,9 +99,8 @@ High-level diagram (10m) --> Deep dive (15m) --> Wrap trade-offs (5m)</pre>
         <article class="qa-card" data-id="func-vs-nonfunc" data-level="easy" data-section="fundamentals" data-vimp="true">
           <div class="qa-question"><h3>Functional vs non-functional requirements?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Basics</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p><strong>Functional:</strong> what the system does (generate report, provision SIM). <strong>Non-functional:</strong> how well (p99 &lt; 2s, 99.9% uptime, 1M txn/day).</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Functional:</span></li><li><span class="kw">Non-functional:</span></li><li><span class="kw">SQL</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Functional:</strong> what the system does (generate report, provision SIM). <strong class="kw">Non-functional:</strong> how well (p99 &lt; 2s, 99.9% uptime, 1M txn/day).</p>
 <h4>Examples from your work</h4>
 <ul>
 <li>Vodafone: functional = subscriber usage report; non-functional = SQL response time, batch window</li>
@@ -115,9 +112,8 @@ High-level diagram (10m) --> Deep dive (15m) --> Wrap trade-offs (5m)</pre>
         <article class="qa-card" data-id="cap" data-level="medium" data-section="fundamentals">
           <div class="qa-question"><h3>CAP theorem and eventual consistency</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Theory</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Under network partition, choose Consistency (CP) or Availability (AP). Most distributed systems are AP with eventual consistency.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">CAP</span></li><li><span class="kw">saga</span></li><li><span class="kw">ACID</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">CAP theorem and eventual consistency</strong>. Reporting tolerates seconds delay (eventual).</p><ul class="brief-bullets"><li>Under network partition, choose Consistency (CP) or Availability (AP).</li><li>Most distributed systems are AP with eventual consistency.</li></ul>
 <h4>Detailed explanation</h4>
 <p>Reporting tolerates seconds delay (eventual). Payment balance needs stronger consistency — leader DB or saga.</p>
 <h4>Follow-ups</h4>
@@ -128,9 +124,8 @@ High-level diagram (10m) --> Deep dive (15m) --> Wrap trade-offs (5m)</pre>
         <article class="qa-card" data-id="scalability-basics" data-level="easy" data-section="fundamentals">
           <div class="qa-question"><h3>Vertical vs horizontal scalability?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Scale</span><a class="diagram-link" href="system-design-diagrams.html#horizontal-scaling">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p><strong>Vertical:</strong> bigger machine. <strong>Horizontal:</strong> more machines + load balancer. Cloud-native prefers horizontal with stateless app tier.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Vertical:</span></li><li><span class="kw">Horizontal:</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Vertical:</strong> bigger machine. <strong class="kw">Horizontal:</strong> more machines + load balancer. Cloud-native prefers horizontal with stateless app tier.</p>
 <pre class="flow-diagram">Vertical:  [App+DB on bigger VM]
 Horizontal: [LB] --> [App1] [App2] [App3] --> shared DB / cache</pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -139,9 +134,8 @@ Horizontal: [LB] --> [App1] [App2] [App3] --> shared DB / cache</pre>
         <article class="qa-card" data-id="back-of-envelope" data-level="medium" data-section="fundamentals" data-vimp="true">
           <div class="qa-question"><h3>Back-of-envelope estimation (QPS, storage)</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Estimation</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>DAU × actions/day ÷ 86400 ≈ avg QPS; peak ≈ 2–5× avg. Storage = records/day × bytes × retention.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Back-of-envelope estimation (QPS, storage)</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Back-of-envelope estimation (QPS, storage)</strong>. 1M txn/day → ~12 avg TPS, ~50 peak TPS (your Optima scale).</p><ul class="brief-bullets"><li>DAU × actions/day ÷ 86400 ≈ avg QPS; peak ≈ 2–5× avg.</li><li>Storage = records/day × bytes × retention.</li></ul>
 <h4>Example</h4>
 <p>1M txn/day → ~12 avg TPS, ~50 peak TPS (your Optima scale). Report 10M rows/day × 500B ≈ 5 GB/day raw.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -157,9 +151,8 @@ Horizontal: [LB] --> [App1] [App2] [App3] --> shared DB / cache</pre>
         <article class="qa-card" data-id="rest-principles" data-level="easy" data-section="api" data-vimp="true">
           <div class="qa-question"><h3>REST API design principles for system design</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">API</span><a class="diagram-link" href="system-design-diagrams.html#api-gateway-auth">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Resources as nouns, HTTP verbs correctly, stateless, cacheable GETs, standard status codes, pagination for lists.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">REST</span></li><li><span class="kw">API</span></li><li><span class="kw">HTTP</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">REST API design principles for system design</strong>. Resources as nouns, HTTP verbs correctly, stateless, cacheable GETs, standard status codes, pagination for lists.</p><p>Resources as nouns, HTTP verbs correctly, stateless, cacheable GETs, standard status codes, pagination for lists.</p>
 <pre class="flow-diagram">Client --GET /reports/{id}--> API Gateway --> Report Service --> Read Replica
 Client --POST /orders--> API Gateway --> Order Service --> DB + event</pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -168,9 +161,8 @@ Client --POST /orders--> API Gateway --> Order Service --> DB + event</pre>
         <article class="qa-card" data-id="api-versioning" data-level="medium" data-section="api">
           <div class="qa-question"><h3>API versioning in large systems?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">API</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Path <code>/v1/</code> or header; additive changes preferred; deprecation timeline; contract tests in CI.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/v1/</span></li><li><span class="kw">API</span></li><li><span class="kw">CI</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">API versioning in large systems</strong>. Path or header; additive changes preferred; deprecation timeline; contract tests in CI.</p><p>Path <code class="kw-code">/v1/</code> or header; additive changes preferred; deprecation timeline; contract tests in CI.</p>
 <h4>From your experience</h4>
 <p>Partner integrations (XL Axiata) need certification windows — parallel versions during migration.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -179,9 +171,8 @@ Client --POST /orders--> API Gateway --> Order Service --> DB + event</pre>
         <article class="qa-card" data-id="idempotent-api" data-level="medium" data-section="api" data-vimp="true">
           <div class="qa-question"><h3>Design idempotent HTTP APIs</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">API</span><a class="diagram-link" href="system-design-diagrams.html#idempotent-api-flow">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Client sends <code>Idempotency-Key</code>; server stores key → response mapping; duplicate POST returns same result.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Idempotency-Key</span></li><li><span class="kw">idempotent</span></li><li><span class="kw">HTTP</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Design idempotent HTTP APIs.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><p>Client sends <code class="kw-code">Idempotency-Key</code>; server stores key → response mapping; duplicate POST returns same result.</p>
 <pre class="flow-diagram">POST /activate  + Idempotency-Key: abc-123
   |-- first: process, store key, 201
   |-- retry: lookup key, return cached 201 (no double charge)</pre>
@@ -191,27 +182,24 @@ Client --POST /orders--> API Gateway --> Order Service --> DB + event</pre>
         <article class="qa-card" data-id="pagination-api" data-level="easy" data-section="api">
           <div class="qa-question"><h3>Pagination and filtering at scale?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">API</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Cursor/keyset pagination for deep pages (not OFFSET on huge tables). Filters indexed — align with DB composite indexes.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Pagination and filtering at scale</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Pagination and filtering at scale</strong>.</p><ul class="brief-bullets"><li>Cursor/keyset pagination for deep pages (not OFFSET on huge tables).</li><li>Filters indexed — align with DB composite indexes.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="http-status-design" data-level="easy" data-section="api">
           <div class="qa-question"><h3>HTTP status codes in API design?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">API</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>200 OK, 201 Created, 202 Accepted (async), 400 client error, 401/403 auth, 404, 409 conflict, 429 rate limit, 503 downstream down.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">HTTP</span></li><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">HTTP status codes in API design</strong>. 200 OK, 201 Created, 202 Accepted (async), 400 client error, 401/403 auth, 404, 409 conflict, 429 rate limit, 503 downstream down.</p><p>200 OK, 201 Created, 202 Accepted (async), 400 client error, 401/403 auth, 404, 409 conflict, 429 rate limit, 503 downstream down.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="openapi-contracts" data-level="medium" data-section="api">
           <div class="qa-question"><h3>OpenAPI / API contracts between teams?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">API</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Single source of truth for request/response; generates clients; Pact or schema diff in CI catches breaking changes.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">CI</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">OpenAPI / API contracts between teams</strong>. Single source of truth for request/response; generates clients; Pact or schema diff in CI catches breaking changes.</p><p>Single source of truth for request/response; generates clients; Pact or schema diff in CI catches breaking changes.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -225,9 +213,8 @@ Client --POST /orders--> API Gateway --> Order Service --> DB + event</pre>
         <article class="qa-card" data-id="caching" data-level="medium" data-section="databases" data-vimp="true">
           <div class="qa-question"><h3>Caching strategies — where and what to cache?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Cache</span><a class="diagram-link" href="system-design-diagrams.html#cache-aside">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Cache-aside: read cache, on miss load DB and fill. TTL + invalidation on writes.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">Thundering herd</span></li><li><span class="kw">Penetration</span></li><li><span class="kw">Avalanche</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Caching strategies — where and what to cache</strong>. Reference data in Camel routes — short TTL reduced partner call volume at Optima.</p><ul class="brief-bullets"><li>Cache-aside: read cache, on miss load DB and fill.</li><li>TTL + invalidation on writes.</li></ul>
 <h4>Cache-aside flow</h4>
 <div class="mermaid">
 flowchart LR
@@ -248,9 +235,8 @@ flowchart LR
         <article class="qa-card" data-id="sql-tuning" data-level="medium" data-section="databases" data-vimp="true">
           <div class="qa-question"><h3>SQL tuning for reporting (your Vodafone angle)</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Database</span><a class="diagram-link" href="system-design-diagrams.html#vodafone-reporting-microservice">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>EXPLAIN plans, composite indexes matching WHERE/JOIN, avoid SELECT *, pre-aggregate heavy dashboards, partition by date.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SQL</span></li><li><span class="kw">API</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">SQL tuning for reporting (your Vodafone angle)</strong>. EXPLAIN plans, composite indexes matching WHERE/JOIN, avoid SELECT *, pre-aggregate heavy dashboards, partition by date.</p><p>EXPLAIN plans, composite indexes matching WHERE/JOIN, avoid SELECT *, pre-aggregate heavy dashboards, partition by date.</p>
 <pre class="flow-diagram">Report API --> Query agg_daily_usage (indexed date, account_id)
               | miss index --> full scan (fix: composite index)
 Heavy ad-hoc --> Read replica (not primary OLTP)</pre>
@@ -262,18 +248,16 @@ Heavy ad-hoc --> Read replica (not primary OLTP)</pre>
         <article class="qa-card" data-id="indexing-strategies" data-level="medium" data-section="databases">
           <div class="qa-question"><h3>Database indexing strategies?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Database</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>B-tree for equality/range; composite index column order = most selective first; covering indexes reduce table lookups.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Database indexing strategies</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Database indexing strategies</strong>. B-tree for equality/range; composite index column order = most selective first; covering indexes reduce table lookups.</p><p>B-tree for equality/range; composite index column order = most selective first; covering indexes reduce table lookups.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="replication" data-level="medium" data-section="databases">
           <div class="qa-question"><h3>Primary-replica replication for read scale?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Database</span><a class="diagram-link" href="system-design-diagrams.html#db-read-replica-reporting">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Writes to primary; reads to replicas; replication lag means eventual read consistency — route critical reads to primary if needed.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Primary-replica replication for read scale</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Primary-replica replication for read scale</strong>. Writes to primary; reads to replicas; replication lag means eventual read consistency — route critical reads to primary if needed.</p><p>Writes to primary; reads to replicas; replication lag means eventual read consistency — route critical reads to primary if needed.</p>
 <pre class="flow-diagram">Write --> Primary MySQL --async binlog--> Replica1, Replica2
 Analytics/report queries --> Replicas only</pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -282,9 +266,8 @@ Analytics/report queries --> Replicas only</pre>
         <article class="qa-card" data-id="db-scaling" data-level="hard" data-section="databases" data-vimp="true">
           <div class="qa-question"><h3>Scale a relational DB — replication, sharding, partitioning</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Database</span><a class="diagram-link" href="system-design-diagrams.html#db-read-replica-reporting">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Vertical scale first; read replicas for reporting; shard by tenant/region when write limit hit; partition large tables by date.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Scale a relational DB — replication, sharding, partitioning</strong>. Vertical scale first; read replicas for reporting; shard by tenant/region when write limit hit; partition large tables by date.</p><p>Vertical scale first; read replicas for reporting; shard by tenant/region when write limit hit; partition large tables by date.</p>
 <h4>From your experience</h4>
 <p>Vodafone: indexes + query rewrite before shard complexity; read replica for Subscriber Tool lookups.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -293,18 +276,16 @@ Analytics/report queries --> Replicas only</pre>
         <article class="qa-card" data-id="write-through-cache" data-level="medium" data-section="databases">
           <div class="qa-question"><h3>Write-through vs write-behind caching?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Cache</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p><strong>Write-through:</strong> update cache + DB together — consistent, slower writes. <strong>Write-behind:</strong> fast write to cache, async DB — risk on crash.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Write-through:</span></li><li><span class="kw">Write-behind:</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Write-through:</strong> update cache + DB together — consistent, slower writes. <strong class="kw">Write-behind:</strong> fast write to cache, async DB — risk on crash.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="acid-base" data-level="medium" data-section="databases">
           <div class="qa-question"><h3>ACID vs BASE in distributed systems?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Database</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>ACID on single-node RDBMS. Microservices often BASE across services — compensate with sagas, idempotency, reconciliation jobs.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">ACID</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul class="brief-bullets"><li>ACID on single-node RDBMS.</li><li>Microservices often BASE across services — compensate with sagas, idempotency, reconciliation jobs.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -318,9 +299,8 @@ Analytics/report queries --> Replicas only</pre>
         <article class="qa-card" data-id="kafka-role-sd" data-level="medium" data-section="messaging" data-vimp="true">
           <div class="qa-question"><h3>Where does Kafka fit in system design?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Messaging</span><a class="diagram-link" href="system-design-diagrams.html#event-driven-kafka">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Durable event log for async integration, audit trail, fan-out, decoupling peak load. Not a replacement for every REST call.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Kafka</span></li><li><span class="kw">REST</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Where does Kafka fit in system design?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Durable event log for async integration, audit trail, fan-out, decoupling peak load.</li><li>Not a replacement for every REST call.</li></ul>
 <pre class="flow-diagram">Order Svc --publish OrderCreated--> Kafka Topic
    |--> Billing consumer
    |--> Notification consumer
@@ -331,27 +311,24 @@ Analytics/report queries --> Replicas only</pre>
         <article class="qa-card" data-id="queue-vs-topic" data-level="easy" data-section="messaging">
           <div class="qa-question"><h3>Message queue vs pub/sub topic?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Messaging</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p><strong>Queue:</strong> one consumer per message (work distribution). <strong>Topic:</strong> many subscribers see same event.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Queue:</span></li><li><span class="kw">Topic:</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Queue:</strong> one consumer per message (work distribution). <strong class="kw">Topic:</strong> many subscribers see same event.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="async-benefits" data-level="easy" data-section="messaging">
           <div class="qa-question"><h3>Why use async processing in system design?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Messaging</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Decouple peak load, improve API latency (202 + poll/webhook), survive downstream slowness with buffered queue.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">why</strong> use async processing in system design. Decouple peak load, improve API latency (202 + poll/webhook), survive downstream slowness with buffered queue.</p><p>Decouple peak load, improve API latency (202 + poll/webhook), survive downstream slowness with buffered queue.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="event-driven-flow" data-level="medium" data-section="messaging" data-vimp="true">
           <div class="qa-question"><h3>Event-driven architecture request flow?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Messaging</span><a class="diagram-link" href="system-design-diagrams.html#event-driven-kafka">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Command saved → event published → consumers react; no synchronous chain of 5 REST hops.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">REST</span></li><li><span class="kw">API</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">Camel</span></li><li><span class="kw">BSS</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Event-driven architecture request flow</strong>. Command saved → event published → consumers react; no synchronous chain of 5 REST hops.</p><p>Command saved → event published → consumers react; no synchronous chain of 5 REST hops.</p>
 <div class="mermaid">
 sequenceDiagram
   participant C as Client
@@ -371,18 +348,16 @@ sequenceDiagram
         <article class="qa-card" data-id="ordering-guarantees" data-level="medium" data-section="messaging">
           <div class="qa-question"><h3>Message ordering guarantees in design?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Messaging</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Partition by business key (accountId) so related events stay ordered; global order usually unnecessary and expensive.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Message ordering guarantees in design</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Message ordering guarantees in design</strong>. Partition by business key (accountId) so related events stay ordered; global order usually unnecessary and expensive.</p><p>Partition by business key (accountId) so related events stay ordered; global order usually unnecessary and expensive.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="dlq-retry" data-level="medium" data-section="messaging" data-vimp="true">
           <div class="qa-question"><h3>DLQ and retry in messaging design?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Messaging</span><a class="diagram-link" href="system-design-diagrams.html#dlq-retry-flow">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Retry with exponential backoff; after N failures → DLQ for manual replay; never infinite retry blocking queue.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">DLQ</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">DLQ and retry in messaging design</strong>. Retry with exponential backoff; after N failures → DLQ for manual replay; never infinite retry blocking queue.</p><p>Retry with exponential backoff; after N failures → DLQ for manual replay; never infinite retry blocking queue.</p>
 <pre class="flow-diagram">Consumer --> process fail --> retry topic (backoff)
                     | max retries --> DLQ --> ops replay tool</pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -398,9 +373,8 @@ sequenceDiagram
         <article class="qa-card" data-id="api-gateway-design" data-level="medium" data-section="microservices" data-vimp="true">
           <div class="qa-question"><h3>Design API gateway layer?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Microservices</span><a class="diagram-link" href="system-design-diagrams.html#api-gateway-auth">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>North-south entry: TLS termination, auth, rate limit, routing, request logging — no domain business logic.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">Camel</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Design API gateway layer</strong>. North-south entry: TLS termination, auth, rate limit, routing, request logging — no domain business logic.</p><p>North-south entry: TLS termination, auth, rate limit, routing, request logging — no domain business logic.</p>
 <div class="mermaid">
 flowchart LR
   C[Client/Partner] --> G[API Gateway]
@@ -415,18 +389,16 @@ flowchart LR
         <article class="qa-card" data-id="service-discovery" data-level="medium" data-section="microservices">
           <div class="qa-question"><h3>Service discovery in microservices?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Microservices</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Registry (Eureka/Consul/K8s DNS) so callers find healthy instances; client-side or mesh-side load balancing.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Service discovery in microservices</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Service discovery in microservices</strong>. Registry (Eureka/Consul/K8s DNS) so callers find healthy instances; client-side or mesh-side load balancing.</p><p>Registry (Eureka/Consul/K8s DNS) so callers find healthy instances; client-side or mesh-side load balancing.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="saga-sd" data-level="hard" data-section="microservices" data-vimp="true">
           <div class="qa-question"><h3>Saga pattern for distributed transactions?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Microservices</span><a class="diagram-link" href="system-design-diagrams.html#saga-order-provisioning">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Choreography (events) or orchestration (Camunda) — each step has compensating action on failure.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Saga</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Saga pattern for distributed transactions</strong>. Choreography (events) or orchestration (Camunda) — each step has compensating action on failure.</p><p>Choreography (events) or orchestration (Camunda) — each step has compensating action on failure.</p>
 <pre class="flow-diagram">CreateOrder --> ReserveCredit --> ProvisionNetwork --> Activate
      | fail at Provision --> Compensate ReserveCredit --> CancelOrder</pre>
 <h4>From your experience</h4>
@@ -437,18 +409,16 @@ flowchart LR
         <article class="qa-card" data-id="idempotency-sd" data-level="medium" data-section="microservices" data-vimp="true">
           <div class="qa-question"><h3>Idempotency in microservices integration?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Microservices</span><a class="diagram-link" href="system-design-diagrams.html#idempotent-api-flow">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>At-least-once delivery + idempotent consumers = safe retries. Store processed messageId or business key.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">idempotent</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Idempotency in microservices integration</strong>.</p><ul class="brief-bullets"><li>At-least-once delivery + idempotent consumers = safe retries.</li><li>Store processed messageId or business key.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="integration-flow" data-level="hard" data-section="microservices" data-vimp="true">
           <div class="qa-question"><h3>Design order provisioning flow (Camel / microservices)</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Telco</span><a class="diagram-link" href="system-design-diagrams.html#order-provisioning-flow">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Gateway → order service → Camunda/Camel → BSS/partner → async status events → idempotent handlers → DLQ.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">BSS</span></li><li><span class="kw">idempotent</span></li><li><span class="kw">DLQ</span></li><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Design order provisioning flow (Camel / microservices)</strong>. Gateway → order service → Camunda/Camel → BSS/partner → async status events → idempotent handlers → DLQ.</p><p>Gateway → order service → Camunda/Camel → BSS/partner → async status events → idempotent handlers → DLQ.</p>
 <div class="mermaid">
 flowchart TB
   subgraph sync
@@ -471,18 +441,16 @@ flowchart TB
         <article class="qa-card" data-id="db-per-service-sd" data-level="medium" data-section="microservices">
           <div class="qa-question"><h3>Database per service — when and trade-offs?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Microservices</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Each service owns schema; cross-service queries via APIs/events, not joins. Operational cost: more DB instances to manage.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Database per service — when and trade-offs</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Database per service — when and trade-offs</strong>.</p><ul class="brief-bullets"><li>Each service owns schema; cross-service queries via APIs/events, not joins.</li><li>Operational cost: more DB instances to manage.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bff-pattern-sd" data-level="medium" data-section="microservices">
           <div class="qa-question"><h3>Backend for Frontend (BFF) pattern?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Microservices</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Separate API aggregation per client type (mobile vs portal) to avoid one giant generic API.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Backend for Frontend (BFF) pattern</strong>. Separate API aggregation per client type (mobile vs portal) to avoid one giant generic API.</p><p>Separate API aggregation per client type (mobile vs portal) to avoid one giant generic API.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -496,9 +464,8 @@ flowchart TB
         <article class="qa-card" data-id="load-balancer" data-level="easy" data-section="reliability">
           <div class="qa-question"><h3>Load balancing algorithms and layers?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Infra</span><a class="diagram-link" href="system-design-diagrams.html#load-balancer-scale">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Round robin, least connections, consistent hash. L4 vs L7 — HTTP routing at L7.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">HTTP</span></li><li><span class="kw">api</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Load balancing algorithms and layers?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Round robin, least connections, consistent hash.</li><li>L4 vs L7 — HTTP routing at L7.</li></ul>
 <pre class="flow-diagram">Clients --> L7 LB (path /api/* --> cluster A)
               --> health check removes bad pod</pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -507,9 +474,8 @@ flowchart TB
         <article class="qa-card" data-id="rate-limiter" data-level="hard" data-section="reliability" data-vimp="true">
           <div class="qa-question"><h3>Design a rate limiter for public APIs</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">API</span><a class="diagram-link" href="system-design-diagrams.html#rate-limiter">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Token bucket or sliding window in Redis; key = userId or API key; 429 + Retry-After.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Design a rate limiter for public APIs.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><p>Token bucket or sliding window in Redis; key = userId or API key; 429 + Retry-After.</p>
 <pre class="flow-diagram">Request --> Gateway --> Redis INCR key:apiKey:window
               | under limit --> forward to service
               | over limit  --> 429 Too Many Requests</pre>
@@ -519,36 +485,32 @@ flowchart TB
         <article class="qa-card" data-id="cdn-edge" data-level="medium" data-section="reliability">
           <div class="qa-question"><h3>CDN and edge caching in system design?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Infra</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Static assets and cacheable GETs at edge PoPs; reduces origin load and latency globally.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">CDN and edge caching in system design</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">CDN and edge caching in system design</strong>. Static assets and cacheable GETs at edge PoPs; reduces origin load and latency globally.</p><p>Static assets and cacheable GETs at edge PoPs; reduces origin load and latency globally.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="horizontal-scaling" data-level="medium" data-section="reliability">
           <div class="qa-question"><h3>Horizontal scaling stateless application tier?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Scale</span><a class="diagram-link" href="system-design-diagrams.html#horizontal-scaling">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Session in Redis if needed; app pods behind LB; autoscale on CPU/RPS; 12-factor stateless processes.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Horizontal scaling stateless application tier</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Horizontal scaling stateless application tier</strong>. Session in Redis if needed; app pods behind LB; autoscale on CPU/RPS; 12-factor stateless processes.</p><p>Session in Redis if needed; app pods behind LB; autoscale on CPU/RPS; 12-factor stateless processes.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="circuit-breaker-sd" data-level="medium" data-section="reliability" data-vimp="true">
           <div class="qa-question"><h3>Circuit breaker in system design?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Resilience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Stop calling failing downstream; fail fast; half-open probe after cooldown — protects thread pools at 1M txn/day.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Circuit breaker in system design</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Circuit breaker in system design</strong>. Stop calling failing downstream; fail fast; half-open probe after cooldown — protects thread pools at 1M txn/day.</p><p>Stop calling failing downstream; fail fast; half-open probe after cooldown — protects thread pools at 1M txn/day.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="graceful-degradation" data-level="medium" data-section="reliability">
           <div class="qa-question"><h3>Graceful degradation under load?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Resilience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Drop non-critical features (recommendations) before core (order submit); queue or return cached stale data with disclaimer.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Graceful degradation under load</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Graceful degradation under load</strong>. Drop non-critical features (recommendations) before core (order submit); queue or return cached stale data with disclaimer.</p><p>Drop non-critical features (recommendations) before core (order submit); queue or return cached stale data with disclaimer.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -562,18 +524,16 @@ flowchart TB
         <article class="qa-card" data-id="observability-pillars" data-level="medium" data-section="observability" data-vimp="true">
           <div class="qa-question"><h3>Observability pillars — logs, metrics, traces?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Ops</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p><strong>Logs:</strong> what happened. <strong>Metrics:</strong> aggregates over time. <strong>Traces:</strong> one request across services.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Logs:</span></li><li><span class="kw">Metrics:</span></li><li><span class="kw">Traces:</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Observability pillars — logs, metrics, traces</strong>. Logs: what happened.</p><p><strong class="kw">Logs:</strong> what happened. <strong class="kw">Metrics:</strong> aggregates over time. <strong class="kw">Traces:</strong> one request across services.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="distributed-tracing" data-level="hard" data-section="observability" data-vimp="true">
           <div class="qa-question"><h3>Distributed tracing design (Fuse Logger angle)?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Ops</span><a class="diagram-link" href="system-design-diagrams.html#fuse-logger-tracing">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Propagate correlation/trace ID on every hop; central log index; span per service boundary.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">HTTP</span></li><li><span class="kw">Camel</span></li><li><span class="kw">API</span></li><li><span class="kw">telco</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Distributed tracing design (Fuse Logger angle)</strong>. Propagate correlation/trace ID on every hop; central log index; span per service boundary.</p><p>Propagate correlation/trace ID on every hop; central log index; span per service boundary.</p>
 <pre class="flow-diagram">HTTP X-Correlation-Id --> Gateway --> Order Svc --> Camel route --> Partner
               |______________ same ID in all logs (Fuse Logger) ______________|</pre>
 <h4>From your experience</h4>
@@ -584,27 +544,24 @@ flowchart TB
         <article class="qa-card" data-id="security-auth-sd" data-level="medium" data-section="observability">
           <div class="qa-question"><h3>Security in system design — authN vs authZ?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Security</span><a class="diagram-link" href="system-design-diagrams.html#api-gateway-auth">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>AuthN = who (JWT/LDAP). AuthZ = what role can do. Gateway validates token; services check scopes.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JWT</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul class="brief-bullets"><li>AuthN = who (JWT/LDAP).</li><li>AuthZ = what role can do.</li><li>Gateway validates token; services check scopes.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="correlation-id" data-level="easy" data-section="observability" data-vimp="true">
           <div class="qa-question"><h3>Correlation ID across microservices?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Ops</span><a class="diagram-link" href="system-design-diagrams.html#fuse-logger-tracing">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Generate at edge or accept from client; pass in headers and message metadata; include in every log line.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Correlation ID across microservices</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Correlation ID across microservices</strong>. Generate at edge or accept from client; pass in headers and message metadata; include in every log line.</p><p>Generate at edge or accept from client; pass in headers and message metadata; include in every log line.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="actuator-health" data-level="easy" data-section="observability">
           <div class="qa-question"><h3>Health checks and readiness in design?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Ops</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p><strong>Liveness:</strong> process up. <strong>Readiness:</strong> can serve traffic (DB connected). LB uses readiness for routing.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Liveness:</span></li><li><span class="kw">Readiness:</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">Jenkins</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Health checks and readiness in design</strong>. Liveness: process up.</p><p><strong class="kw">Liveness:</strong> process up. <strong class="kw">Readiness:</strong> can serve traffic (DB connected). LB uses readiness for routing.</p>
 <h4>From your experience</h4>
 <p>Spring Boot Actuator at Vodafone — /health for Jenkins deploy gates.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -620,9 +577,8 @@ flowchart TB
         <article class="qa-card" data-id="reporting-system" data-level="hard" data-section="classic" data-vimp="true">
           <div class="qa-question"><h3>Design a telecom reporting system (Vodafone domain)</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Reporting</span><a class="diagram-link" href="system-design-diagrams.html#reporting-architecture">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Spring Boot APIs + MySQL star schema + batch ETL + read replicas + pre-aggregated tables + cached dashboards.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">API</span></li><li><span class="kw">REST</span></li><li><span class="kw">SQL</span></li><li><span class="kw">TestNG</span></li><li><span class="kw">Jenkins</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Design a telecom reporting system (Vodafone domain)</strong>. Spring Boot APIs + MySQL star schema + batch ETL + read replicas + pre-aggregated tables + cached dashboards.</p><p>Spring Boot APIs + MySQL star schema + batch ETL + read replicas + pre-aggregated tables + cached dashboards.</p>
 <div class="mermaid">
 flowchart LR
   subgraph ingest
@@ -643,9 +599,8 @@ flowchart LR
         <article class="qa-card" data-id="url-shortener" data-level="medium" data-section="classic">
           <div class="qa-question"><h3>Design a URL shortener</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Classic</span><a class="diagram-link" href="system-design-diagrams.html#url-shortener">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Base62 encode ID; 301 redirect; cache hot links; DB by ID range; analytics async via Kafka.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Kafka</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Design a URL shortener</strong>. Base62 encode ID; 301 redirect; cache hot links; DB by ID range; analytics async via Kafka.</p><p>Base62 encode ID; 301 redirect; cache hot links; DB by ID range; analytics async via Kafka.</p>
 <pre class="flow-diagram">POST /shorten --> App --> DB insert id --> return short code
 GET /{code}  --> CDN/LB --> App --> Redis? --> DB --> 301 Location</pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -654,9 +609,8 @@ GET /{code}  --> CDN/LB --> App --> Redis? --> DB --> 301 Location</pre>
         <article class="qa-card" data-id="notification-system" data-level="hard" data-section="classic" data-vimp="true">
           <div class="qa-question"><h3>Design a notification system (SMS/email/push)</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Classic</span><a class="diagram-link" href="system-design-diagrams.html#notification-system">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>API accepts notification request → persist → queue by channel → workers call providers → delivery status events.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">Telco</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Design a notification system (SMS/email/push)</strong>. API accepts notification request → persist → queue by channel → workers call providers → delivery status events.</p><p>API accepts notification request → persist → queue by channel → workers call providers → delivery status events.</p>
 <div class="mermaid">
 flowchart TB
   API[Notification API] --> DB[(Outbox DB)]
@@ -675,9 +629,8 @@ flowchart TB
         <article class="qa-card" data-id="chat-system" data-level="hard" data-section="classic">
           <div class="qa-question"><h3>Design a real-time chat / messaging system?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Classic</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>WebSocket gateway, message service, persistent store, fan-out via pub/sub, presence service.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Design a real-time chat / messaging system</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Design a real-time chat / messaging system</strong>. WebSocket gateway, message service, persistent store, fan-out via pub/sub, presence service.</p><p>WebSocket gateway, message service, persistent store, fan-out via pub/sub, presence service.</p>
 <pre class="flow-diagram">User A --WS--> Chat Gateway --> Message Svc --> DB
                               --> Pub/Sub --> Gateway --> User B WS</pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -686,18 +639,16 @@ flowchart TB
         <article class="qa-card" data-id="distributed-cache-design" data-level="hard" data-section="classic">
           <div class="qa-question"><h3>Design a distributed cache (Redis cluster)?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Classic</span><a class="diagram-link" href="system-design-diagrams.html#distributed-cache-redis">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Consistent hashing across shards; replication for HA; TTL per key; cache-aside at app.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Design a distributed cache (Redis cluster)</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Design a distributed cache (Redis cluster)</strong>. Consistent hashing across shards; replication for HA; TTL per key; cache-aside at app.</p><p>Consistent hashing across shards; replication for HA; TTL per key; cache-aside at app.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="search-system" data-level="hard" data-section="classic">
           <div class="qa-question"><h3>Design search (Elasticsearch) for catalog?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Classic</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>CDC or events from OLTP → search index; query service hits ES; eventual consistency acceptable.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Design search (Elasticsearch) for catalog</strong>. CDC or events from OLTP → search index; query service hits ES; eventual consistency acceptable.</p><p>CDC or events from OLTP → search index; query service hits ES; eventual consistency acceptable.</p>
 <pre class="flow-diagram">MySQL --binlog/CDC--> Indexer --> Elasticsearch
 User search --> Search API --> ES (not OLTP for full-text)</pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -706,9 +657,8 @@ User search --> Search API --> ES (not OLTP for full-text)</pre>
         <article class="qa-card" data-id="api-visualizer-sd" data-level="medium" data-section="classic" data-vimp="true">
           <div class="qa-question"><h3>Design API Visualizer for distributed flows?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Tooling</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Ingest OpenAPI + trace metadata; build service graph; show request path and latency per hop.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Design API Visualizer for distributed flows</strong>. Ingest OpenAPI + trace metadata; build service graph; show request path and latency per hop.</p><p>Ingest OpenAPI + trace metadata; build service graph; show request path and latency per hop.</p>
 <pre class="flow-diagram">Trace/log metadata --> Parser --> Service Graph DB
 OpenAPI specs      -->/
 Engineer UI <-- query graph for orderId XYZ hops</pre>
@@ -727,9 +677,8 @@ Engineer UI <-- query graph for orderId XYZ hops</pre>
         <article class="qa-card" data-id="story-vodafone-reporting" data-level="hard" data-section="experience" data-vimp="true">
           <div class="qa-question"><h3>Tell: Vodafone Spring Boot reporting system</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Story</span><a class="diagram-link" href="system-design-diagrams.html#vodafone-reporting-microservice">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>STAR skeleton</h4>
-<p><strong>Situation:</strong> Heavy MySQL reports timing out for ops. <strong>Task:</strong> Improve API latency. <strong>Action:</strong> EXPLAIN, composite indexes, query rewrite, read replica for analytics. <strong>Result:</strong> &gt;10% improvement, stable Jenkins deploys with TestNG.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Situation:</span></li><li><span class="kw">Task:</span></li><li><span class="kw">Action:</span></li><li><span class="kw">Result:</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">API</span></li><li><span class="kw">Jenkins</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Tell: Vodafone Spring Boot reporting system</strong>. Situation: Heavy MySQL reports timing out for ops.</p><h4>STAR skeleton</h4>
+<p><strong class="kw">Situation:</strong> Heavy MySQL reports timing out for ops. <strong class="kw">Task:</strong> Improve API latency. <strong class="kw">Action:</strong> EXPLAIN, composite indexes, query rewrite, read replica for analytics. <strong class="kw">Result:</strong> &gt;10% improvement, stable Jenkins deploys with TestNG.</p>
 <h4>SD talking points</h4>
 <ul><li>Chose replica before sharding</li><li>Pre-aggregation for dashboard endpoints</li><li>Actuator health in deploy pipeline</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -738,9 +687,8 @@ Engineer UI <-- query graph for orderId XYZ hops</pre>
         <article class="qa-card" data-id="story-optima-camel" data-level="hard" data-section="experience" data-vimp="true">
           <div class="qa-question"><h3>Tell: Optima Camel 1M+ transactions/day</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Story</span><a class="diagram-link" href="system-design-diagrams.html#optima-camel-integration">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>STAR skeleton</h4>
-<p><strong>Situation:</strong> High-volume BSS integration. <strong>Action:</strong> Async routes, idempotent consumers, circuit breakers on partner calls, correlation IDs, DLQ monitoring. <strong>Result:</strong> Stable throughput at peak, faster incident resolution.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Situation:</span></li><li><span class="kw">Action:</span></li><li><span class="kw">Result:</span></li><li><span class="kw">Camel</span></li><li><span class="kw">BSS</span></li><li><span class="kw">idempotent</span></li><li><span class="kw">DLQ</span></li><li><span class="kw">JMS</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Tell: Optima Camel 1M+ transactions/day</strong>. Situation: High-volume BSS integration.</p><h4>STAR skeleton</h4>
+<p><strong class="kw">Situation:</strong> High-volume BSS integration. <strong class="kw">Action:</strong> Async routes, idempotent consumers, circuit breakers on partner calls, correlation IDs, DLQ monitoring. <strong class="kw">Result:</strong> Stable throughput at peak, faster incident resolution.</p>
 <pre class="flow-diagram">Peak traffic --> JMS/Kafka buffer --> Camel consumer pool scale-out
 Partner timeout --> circuit open --> queue for retry (not thread exhaustion)</pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -749,9 +697,8 @@ Partner timeout --> circuit open --> queue for retry (not thread exhaustion)</pr
         <article class="qa-card" data-id="story-xl-camunda" data-level="hard" data-section="experience" data-vimp="true">
           <div class="qa-question"><h3>Tell: XL Axiata Camunda workflow design</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Story</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Long-running provisioning workflows — human tasks, timers, compensations; BPMN as orchestrated saga.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">saga</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Tell: XL Axiata Camunda workflow design</strong>. Long-running provisioning workflows — human tasks, timers, compensations; BPMN as orchestrated saga.</p><p>Long-running provisioning workflows — human tasks, timers, compensations; BPMN as orchestrated saga.</p>
 <h4>SD angle</h4>
 <p>When interview asks workflow vs choreography — cite Camunda orchestration with visible process state.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -760,9 +707,8 @@ Partner timeout --> circuit open --> queue for retry (not thread exhaustion)</pr
         <article class="qa-card" data-id="story-fuse-logger" data-level="medium" data-section="experience" data-vimp="true">
           <div class="qa-question"><h3>Tell: Fuse Logger debugging production flows</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Story</span><a class="diagram-link" href="system-design-diagrams.html#fuse-logger-tracing">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Centralized structured logs with correlation across Camel routes and HTTP steps — reduced MTTR on partner failures.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">HTTP</span></li><li><span class="kw">MTTR</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Tell: Fuse Logger debugging production flows</strong>. Centralized structured logs with correlation across Camel routes and HTTP steps — reduced MTTR on partner failures.</p><p>Centralized structured logs with correlation across Camel routes and HTTP steps — reduced MTTR on partner failures.</p>
 <h4>Link to SD</h4>
 <p>Observability is not optional at integration scale — you lived it.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -771,27 +717,24 @@ Partner timeout --> circuit open --> queue for retry (not thread exhaustion)</pr
         <article class="qa-card" data-id="story-api-visualizer" data-level="medium" data-section="experience" data-vimp="true">
           <div class="qa-question"><h3>Tell: API Visualizer personal project</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Story</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Built tool to map distributed API flows for learning and debugging — shows initiative on topology and tracing concepts.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Tell: API Visualizer personal project</strong>. Built tool to map distributed API flows for learning and debugging — shows initiative on topology and tracing concepts.</p><p>Built tool to map distributed API flows for learning and debugging — shows initiative on topology and tracing concepts.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="story-jenkins-deploy" data-level="medium" data-section="experience">
           <div class="qa-question"><h3>Tell: CI/CD and deployment in your system design stories?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Story</span><a class="diagram-link" href="system-design-diagrams.html#cicd-deploy-flow">📊 Detailed diagram</a><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Blue/green or rolling deploy behind LB; health check before traffic; automated rollback on failed Actuator health.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">CI</span></li><li><span class="kw">CD</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Tell: CI/CD and deployment in your system design stories</strong>. Blue/green or rolling deploy behind LB; health check before traffic; automated rollback on failed Actuator health.</p><p>Blue/green or rolling deploy behind LB; health check before traffic; automated rollback on failed Actuator health.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="story-testng-quality" data-level="medium" data-section="experience">
           <div class="qa-question"><h3>How testing fits system design (TestNG)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Story</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Quick answer</h4>
-<p>Contract + integration tests at boundaries; load test critical paths before peak (billing cycle); quality gate in Jenkins.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">TestNG</span></li><li><span class="kw">Jenkins</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How testing fits system design (TestNG). Contract + integration tests at boundaries; load test critical paths before peak (billing cycle); quality gate in Jenkins.</p><p>Contract + integration tests at boundaries; load test critical paths before peak (billing cycle); quality gate in Jenkins.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>

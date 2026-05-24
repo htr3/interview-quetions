@@ -58,8 +58,8 @@
         <article class="qa-card" data-id="ms-vs-monolith" data-level="easy" data-section="fundamentals" data-vimp="true">
           <div class="qa-question"><h3>Microservices vs monolith — trade-offs?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><strong>Monolith:</strong> single deployable, simple debugging, ACID transactions in one DB. <strong>Microservices:</strong> independent deploy/scale per service, team ownership per bounded context.</p><h4>Costs of microservices</h4><ul><li>Distributed failures, networking latency</li><li>Data consistency across services harder</li><li>Need observability, CI/CD maturity, API contracts</li></ul><h4>When to split</h4><p>When scaling, release cadence, or team boundaries are blocked by monolith — not because it is fashionable.</p><h4>Your angle</h4><p>Telco BSS is already distributed; you worked integration microservices (Camel) around legacy cores, not a greenfield Netflix stack.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Monolith:</span></li><li><span class="kw">Microservices:</span></li><li><span class="kw">monolith</span></li><li><span class="kw">ACID</span></li><li><span class="kw">CI</span></li><li><span class="kw">CD</span></li><li><span class="kw">API</span></li><li><span class="kw">Telco</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Monolith:</strong> single deployable, simple debugging, ACID transactions in one DB. <strong class="kw">Microservices:</strong> independent deploy/scale per service, team ownership per bounded context.</p><h4>Costs of microservices</h4><ul><li>Distributed failures, networking latency</li><li>Data consistency across services harder</li><li>Need observability, CI/CD maturity, API contracts</li></ul><h4>When to split</h4><p>When scaling, release cadence, or team boundaries are blocked by monolith — not because it is fashionable.</p><h4>Your angle</h4><p>Telco BSS is already distributed; you worked integration microservices (Camel) around legacy cores, not a greenfield Netflix stack.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -67,8 +67,8 @@
         <article class="qa-card" data-id="bounded-context" data-level="medium" data-section="fundamentals" data-vimp="true">
           <div class="qa-question"><h3>What is a bounded context (DDD)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Each microservice owns one business capability with its own ubiquitous language and data model. <code>Order</code> in billing ≠ <code>Order</code> in provisioning — don't share one giant entity table across teams.</p><p>APIs translate between contexts; anti-pattern is shared database with tight coupling.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Order</span></li><li><span class="kw">microservice</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">a bounded context</strong> is a core concept to understand for interviews. Each microservice owns one business capability with its own ubiquitous language and data model.</p><p>Each microservice owns one business capability with its own ubiquitous language and data model. <code class="kw-code">Order</code> in billing ≠ <code class="kw-code">Order</code> in provisioning — don't share one giant entity table across teams.</p><p>APIs translate between contexts; anti-pattern is shared database with tight coupling.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -76,8 +76,8 @@
         <article class="qa-card" data-id="when-split-service" data-level="medium" data-section="fundamentals">
           <div class="qa-question"><h3>When should you split into a new microservice?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li>Clear bounded context and independent scaling need</li><li>Different release cadence or team ownership</li><li>Technology fit (e.g. integration engine vs CRUD API)</li></ul><p><strong>Don't split</strong> for tiny features — operational tax (deploy, monitor, on-call) per service is real.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Don't split</span></li><li><span class="kw">microservice</span></li><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">When should you split into a new microservice</strong>. Don&#x27;t split for tiny features — operational tax (deploy, monitor, on-call) per service is real.</p><ul><li>Clear bounded context and independent scaling need</li><li>Different release cadence or team ownership</li><li>Technology fit (e.g. integration engine vs CRUD API)</li></ul><p><strong class="kw">Don't split</strong> for tiny features — operational tax (deploy, monitor, on-call) per service is real.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -85,8 +85,8 @@
         <article class="qa-card" data-id="strangler-fig" data-level="medium" data-section="fundamentals">
           <div class="qa-question"><h3>Strangler fig pattern for legacy migration?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Put facade/gateway in front of legacy; route incrementally to new services. Old system shrinks over time. Common in telecom when replacing BSS modules without big-bang cutover.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">BSS</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Strangler fig pattern for legacy migration</strong>.</p><ul class="brief-bullets"><li>Put facade/gateway in front of legacy; route incrementally to new services.</li><li>Old system shrinks over time.</li><li>Common in telecom when replacing BSS modules without big-bang cutover.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -94,8 +94,8 @@
         <article class="qa-card" data-id="twelve-factor" data-level="easy" data-section="fundamentals">
           <div class="qa-question"><h3>12-factor app principles relevant to microservices?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li>Config in environment (not baked in JAR)</li><li>Stateless processes — session in Redis if needed</li><li>Logs as event streams to aggregator</li><li>Dev/prod parity, disposable processes</li></ul><p>Spring Boot + externalized <code>application.yml</code> aligns well.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">application.yml</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">Stateless processes</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">12-factor app principles relevant to microservices</strong>. Spring Boot + externalized aligns well.</p><ul><li>Config in environment (not baked in JAR)</li><li>Stateless processes — session in Redis if needed</li><li>Logs as event streams to aggregator</li><li>Dev/prod parity, disposable processes</li></ul><p>Spring Boot + externalized <code class="kw-code">application.yml</code> aligns well.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -103,8 +103,8 @@
         <article class="qa-card" data-id="coupling-cohesion" data-level="easy" data-section="fundamentals">
           <div class="qa-question"><h3>Loose coupling vs high cohesion?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><strong>Cohesion:</strong> everything inside one service relates to one job. <strong>Coupling:</strong> minimize knowledge of other services' internals — interact via stable APIs/events only.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Cohesion:</span></li><li><span class="kw">Coupling:</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Cohesion:</strong> everything inside one service relates to one job. <strong class="kw">Coupling:</strong> minimize knowledge of other services' internals — interact via stable APIs/events only.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -112,8 +112,8 @@
         <article class="qa-card" data-id="shared-db-anti" data-level="medium" data-section="fundamentals" data-vimp="true">
           <div class="qa-question"><h3>Why is a shared database an anti-pattern?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Services can't evolve schema independently; one team's migration breaks another. Hidden coupling via joins across domains. Prefer database-per-service + APIs/events for cross-domain reads.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">why</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">why</strong> is a shared database an anti-pattern.</p><ul class="brief-bullets"><li>Services can't evolve schema independently; one team's migration breaks another.</li><li>Hidden coupling via joins across domains.</li><li>Prefer database-per-service + APIs/events for cross-domain reads.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -121,8 +121,8 @@
         <article class="qa-card" data-id="independent-deploy" data-level="easy" data-section="fundamentals">
           <div class="qa-question"><h3>What does independent deployability mean?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">fundamentals</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Deploy service A without redeploying B. Requires backward-compatible APIs, feature flags, contract tests. Jenkins pipelines per repo at Optima/Vodafone style orgs.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Jenkins</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">What does independent deployability mean</strong>.</p><ul class="brief-bullets"><li>Deploy service A without redeploying B.</li><li>Requires backward-compatible APIs, feature flags, contract tests.</li><li>Jenkins pipelines per repo at Optima/Vodafone style orgs.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -137,8 +137,7 @@
         <article class="qa-card" data-id="sync-async" data-level="medium" data-section="communication" data-vimp="true">
           <div class="qa-question"><h3>Sync REST vs async messaging between services?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Sync REST</h4><p>Simple request-response, easy to debug. Downside: cascading latency, tight runtime coupling, both must be up.</p><h4>Async messaging</h4><p>Decouples peak load, buffers with queue, multiple subscribers. Harder tracing; need idempotency.</p><h4>Telco pattern</h4><p>Sync for real-time eligibility; async JMS/Kafka for provisioning steps taking minutes.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">REST</span></li><li><span class="kw">Telco</span></li><li><span class="kw">JMS</span></li><li><span class="kw">Kafka</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><h4>Sync REST</h4><p>Simple request-response, easy to debug. Downside: cascading latency, tight runtime coupling, both must be up.</p><h4>Async messaging</h4><p>Decouples peak load, buffers with queue, multiple subscribers. Harder tracing; need idempotency.</p><h4>Telco pattern</h4><p>Sync for real-time eligibility; async JMS/Kafka for provisioning steps taking minutes.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -146,8 +145,8 @@
         <article class="qa-card" data-id="api-gateway" data-level="easy" data-section="communication">
           <div class="qa-question"><h3>API gateway role in microservices?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Single north-south entry: TLS, auth, rate limit, routing to internal services. No business logic. Vodafone REST likely behind corporate gateway + LDAP/JWT.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">REST</span></li><li><span class="kw">JWT</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">API gateway role in microservices</strong>.</p><ul class="brief-bullets"><li>Single north-south entry: TLS, auth, rate limit, routing to internal services.</li><li>No business logic.</li><li>Vodafone REST likely behind corporate gateway + LDAP/JWT.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -155,8 +154,8 @@
         <article class="qa-card" data-id="rest-design-ms" data-level="medium" data-section="communication">
           <div class="qa-question"><h3>REST API design between microservices?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li>Resource URLs, correct HTTP verbs/status</li><li>Timeouts on client (always)</li><li>Pagination for list endpoints</li><li>Version in path <code>/v1/</code></li><li>Correlation header propagated</li></ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/v1/</span></li><li><span class="kw">REST</span></li><li><span class="kw">API</span></li><li><span class="kw">HTTP</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">REST API design between microservices</strong>.</p><ul><li>Resource URLs, correct HTTP verbs/status</li><li>Timeouts on client (always)</li><li>Pagination for list endpoints</li><li>Version in path <code class="kw-code">/v1/</code></li><li>Correlation header propagated</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -164,8 +163,8 @@
         <article class="qa-card" data-id="grpc-when" data-level="medium" data-section="communication">
           <div class="qa-question"><h3>When gRPC instead of REST?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Binary, HTTP/2, strong contracts (protobuf), lower latency — great service-to-service. REST better for browser/public partners. Telco partners often still XML/REST/SOAP.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">REST</span></li><li><span class="kw">HTTP</span></li><li><span class="kw">Telco</span></li><li><span class="kw">XML</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">When gRPC instead of REST</strong>.</p><ul class="brief-bullets"><li>Binary, HTTP/2, strong contracts (protobuf), lower latency — great service-to-service.</li><li>REST better for browser/public partners.</li><li>Telco partners often still XML/REST/SOAP.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -173,8 +172,8 @@
         <article class="qa-card" data-id="event-driven" data-level="medium" data-section="communication" data-vimp="true">
           <div class="qa-question"><h3>Event-driven architecture basics?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Service A publishes <code>OrderCreated</code>; B and C subscribe without A knowing them. Loose coupling; eventual consistency. Need schema registry/versioning for events.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">OrderCreated</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Event-driven architecture basics</strong>. Service A publishes ; B and C subscribe without A knowing them.</p><p>Service A publishes <code class="kw-code">OrderCreated</code>; B and C subscribe without A knowing them. Loose coupling; eventual consistency. Need schema registry/versioning for events.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -182,8 +181,8 @@
         <article class="qa-card" data-id="versioning" data-level="medium" data-section="communication">
           <div class="qa-question"><h3>API versioning and backward compatibility?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Prefer additive changes. Breaking changes → new version or parallel endpoint. Deprecation timeline + consumer contract tests. Partner integrations (XL Axiata) need certification windows.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">API versioning and backward compatibility</strong>.</p><ul class="brief-bullets"><li>Prefer additive changes.</li><li>Breaking changes → new version or parallel endpoint.</li><li>Deprecation timeline + consumer contract tests.</li><li>Partner integrations (XL Axiata) need certification windows.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -191,8 +190,8 @@
         <article class="qa-card" data-id="contract-testing" data-level="medium" data-section="communication">
           <div class="qa-question"><h3>What is consumer-driven contract testing?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Consumer defines expected API shape; provider verifies in CI (Pact). Catches breaking changes before deploy — critical when 10+ teams consume your integration API.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">CI</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">consumer-driven contract testing</strong> is a core concept to understand for interviews.</p><ul class="brief-bullets"><li>Consumer defines expected API shape; provider verifies in CI (Pact).</li><li>Catches breaking changes before deploy — critical when 10+ teams consume your integration API.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -200,8 +199,8 @@
         <article class="qa-card" data-id="service-discovery" data-level="medium" data-section="communication">
           <div class="qa-question"><h3>Service discovery and load balancing?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Dynamic: Eureka, Consul, K8s DNS — client asks registry for healthy instances. Static: hardware LB + config — common on-prem telco. Health checks remove bad pods/nodes.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">telco</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Service discovery and load balancing</strong>.</p><ul class="brief-bullets"><li>Dynamic: Eureka, Consul, K8s DNS — client asks registry for healthy instances.</li><li>Static: hardware LB + config — common on-prem telco.</li><li>Health checks remove bad pods/nodes.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -209,8 +208,8 @@
         <article class="qa-card" data-id="bff-pattern" data-level="medium" data-section="communication">
           <div class="qa-question"><h3>Backend for Frontend (BFF) pattern?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Separate API tailored per client (mobile vs web) aggregating multiple microservices — avoids fat generic API and over-fetching. One BFF per client type, not per developer.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Backend for Frontend (BFF) pattern</strong>.</p><ul class="brief-bullets"><li>Separate API tailored per client (mobile vs web) aggregating multiple microservices — avoids fat generic API and over-fetching.</li><li>One BFF per client type, not per developer.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -218,8 +217,8 @@
         <article class="qa-card" data-id="service-mesh-intro" data-level="hard" data-section="communication">
           <div class="qa-question"><h3>What is a service mesh (Istio/Linkerd)?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">communication</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Sidecar proxy handles mTLS, retries, telemetry uniformly — policy without changing app code. Trade-off: operational complexity. Many telco on-prem stacks use LB + libraries (Resilience4j) instead.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">telco</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">a service mesh</strong> is a core concept to understand for interviews.</p><ul class="brief-bullets"><li>Sidecar proxy handles mTLS, retries, telemetry uniformly — policy without changing app code.</li><li>Trade-off: operational complexity.</li><li>Many telco on-prem stacks use LB + libraries (Resilience4j) instead.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -234,8 +233,8 @@
         <article class="qa-card" data-id="circuit-breaker" data-level="medium" data-section="resilience" data-vimp="true">
           <div class="qa-question"><h3>Circuit breaker, bulkhead, timeout — resilience triad?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li><strong>Timeout</strong> — cap wait, fail fast</li><li><strong>Circuit breaker</strong> — stop calling failing dependency (closed → open → half-open probe)</li><li><strong>Bulkhead</strong> — limit concurrent calls per partner so one slow API doesn't exhaust thread pool</li></ul><p>Resilience4j or Camel <code>circuitBreaker</code> policy — align timeouts with partner SLA.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">circuitBreaker</span></li><li><span class="kw">Timeout</span></li><li><span class="kw">Circuit breaker</span></li><li><span class="kw">Bulkhead</span></li><li><span class="kw">cap</span></li><li><span class="kw">API</span></li><li><span class="kw">Camel</span></li><li><span class="kw">SLA</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Circuit breaker, bulkhead, timeout — resilience triad</strong>. Resilience4j or Camel policy — align timeouts with partner SLA.</p><ul><li><strong class="kw">Timeout</strong> — cap wait, fail fast</li><li><strong class="kw">Circuit breaker</strong> — stop calling failing dependency (closed → open → half-open probe)</li><li><strong class="kw">Bulkhead</strong> — limit concurrent calls per partner so one slow API doesn't exhaust thread pool</li></ul><p>Resilience4j or Camel <code class="kw-code">circuitBreaker</code> policy — align timeouts with partner SLA.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -243,8 +242,8 @@
         <article class="qa-card" data-id="retry-backoff" data-level="medium" data-section="resilience" data-vimp="true">
           <div class="qa-question"><h3>Retry with exponential backoff?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Retry transient failures (network blip) with increasing delay + jitter. Max attempts cap. Never retry non-idempotent POST without idempotency key. Pair with circuit breaker when partner is down.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">cap</span></li><li><span class="kw">idempotent</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Retry with exponential backoff</strong>.</p><ul class="brief-bullets"><li>Retry transient failures (network blip) with increasing delay + jitter.</li><li>Max attempts cap.</li><li>Never retry non-idempotent POST without idempotency key.</li><li>Pair with circuit breaker when partner is down.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -252,8 +251,8 @@
         <article class="qa-card" data-id="idempotency" data-level="medium" data-section="resilience" data-vimp="true">
           <div class="qa-question"><h3>Idempotency in distributed integrations?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Same message twice → same outcome. Store idempotency key (messageId, orderId) in DB/Redis with TTL. Camel: <code>idempotentConsumer</code>. Critical for billing/charge routes.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">idempotentConsumer</span></li><li><span class="kw">Camel</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Idempotency in distributed integrations</strong>. Same message twice → same outcome.</p><p>Same message twice → same outcome. Store idempotency key (messageId, orderId) in DB/Redis with TTL. Camel: <code class="kw-code">idempotentConsumer</code>. Critical for billing/charge routes.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -261,8 +260,8 @@
         <article class="qa-card" data-id="dlq-poison" data-level="medium" data-section="resilience" data-vimp="true">
           <div class="qa-question"><h3>Dead letter queue and poison messages?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>After max redeliveries, move message to DLQ for manual inspection/replay. Poison message = always fails validation — fix data or skip with audit. Don't infinite redelivery loop.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">DLQ</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Dead letter queue and poison messages</strong>.</p><ul class="brief-bullets"><li>After max redeliveries, move message to DLQ for manual inspection/replay.</li><li>Poison message = always fails validation — fix data or skip with audit.</li><li>Don't infinite redelivery loop.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -270,8 +269,8 @@
         <article class="qa-card" data-id="1m-txn" data-level="hard" data-section="resilience" data-vimp="true">
           <div class="qa-question"><h3>Operating integrations at 1M+ transactions per day?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li><strong>Scale:</strong> ~12 avg TPS, peaks much higher — size thread pools and DB pools for peaks</li><li><strong>Reliability:</strong> DLQ, max redelivery, idempotent consumers</li><li><strong>Observability:</strong> correlation ID, queue lag alerts</li><li><strong>Performance:</strong> avoid chatty sync chains; cache reference data</li></ul><h4>Your experience</h4><p>Optima Camel prod at 1M+ txn/day; Fuse Logger reduced MTTR.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Scale:</span></li><li><span class="kw">Reliability:</span></li><li><span class="kw">Observability:</span></li><li><span class="kw">Performance:</span></li><li><span class="kw">DLQ</span></li><li><span class="kw">idempotent</span></li><li><span class="kw">Camel</span></li><li><span class="kw">MTTR</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Operating integrations at 1M+ transactions per day</strong>. Optima Camel prod at 1M+ txn/day; Fuse Logger reduced MTTR.</p><ul><li><strong class="kw">Scale:</strong> ~12 avg TPS, peaks much higher — size thread pools and DB pools for peaks</li><li><strong class="kw">Reliability:</strong> DLQ, max redelivery, idempotent consumers</li><li><strong class="kw">Observability:</strong> correlation ID, queue lag alerts</li><li><strong class="kw">Performance:</strong> avoid chatty sync chains; cache reference data</li></ul><h4>Your experience</h4><p>Optima Camel prod at 1M+ txn/day; Fuse Logger reduced MTTR.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -279,8 +278,8 @@
         <article class="qa-card" data-id="backpressure" data-level="medium" data-section="resilience">
           <div class="qa-question"><h3>Backpressure when consumer is slow?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Queue depth grows; apply consumer scaling, throttle producers, or temporary shed load. Monitor queue age — oldest message age is key SLO.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SLO</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Backpressure when consumer is slow</strong>.</p><ul class="brief-bullets"><li>Queue depth grows; apply consumer scaling, throttle producers, or temporary shed load.</li><li>Monitor queue age — oldest message age is key SLO.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -288,8 +287,8 @@
         <article class="qa-card" data-id="fallback-degrade" data-level="medium" data-section="resilience">
           <div class="qa-question"><h3>Graceful degradation vs fail fast?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Degrade: return cached/stale data when non-critical dependency down. Fail fast: return 503 when cannot fulfill safely (payments). Document which paths allow degraded mode.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">trade-offs</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul class="brief-bullets"><li>Degrade: return cached/stale data when non-critical dependency down.</li><li>Fail fast: return 503 when cannot fulfill safely (payments).</li><li>Document which paths allow degraded mode.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -297,8 +296,8 @@
         <article class="qa-card" data-id="chaos-engineering" data-level="hard" data-section="resilience">
           <div class="qa-question"><h3>Chaos engineering in microservices?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">resilience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Inject failures (kill pod, latency) in controlled env to verify resilience. Start with game days; don't chaos prod without maturity. Validates timeouts and fallbacks actually work.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Chaos engineering in microservices</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Chaos engineering in microservices</strong>.</p><ul class="brief-bullets"><li>Inject failures (kill pod, latency) in controlled env to verify resilience.</li><li>Start with game days; don't chaos prod without maturity.</li><li>Validates timeouts and fallbacks actually work.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -313,8 +312,8 @@
         <article class="qa-card" data-id="saga" data-level="hard" data-section="consistency" data-vimp="true">
           <div class="qa-question"><h3>Distributed transactions: 2PC vs Saga?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><strong>2PC:</strong> blocking, fragile across heterogeneous systems — rare in microservices. <strong>Saga:</strong> sequence of local transactions; on failure run compensating steps (cancel reservation, reverse charge).</p><h4>Styles</h4><p>Choreography (events) vs orchestration (Camunda). XL Axiata: BPMN for long order flows.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">2PC:</span></li><li><span class="kw">Saga:</span></li><li><span class="kw">Saga</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">2PC:</strong> blocking, fragile across heterogeneous systems — rare in microservices. <strong class="kw">Saga:</strong> sequence of local transactions; on failure run compensating steps (cancel reservation, reverse charge).</p><h4>Styles</h4><p>Choreography (events) vs orchestration (Camunda). XL Axiata: BPMN for long order flows.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -322,8 +321,7 @@
         <article class="qa-card" data-id="saga-pattern" data-level="hard" data-section="consistency" data-vimp="true">
           <div class="qa-question"><h3>Saga pattern — choreography vs orchestration?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Choreography</h4><p>Services react to events; no central brain — can become hard to trace.</p><h4>Orchestration</h4><p>Central coordinator (Camunda, custom) calls participants — clearer visibility, single place for timeouts/compensation.</p><h4>Your pitch</h4><p>Telecom order: reserve → charge → provision → notify; compensating cancel if provision fails.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Saga</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><h4>Choreography</h4><p>Services react to events; no central brain — can become hard to trace.</p><h4>Orchestration</h4><p>Central coordinator (Camunda, custom) calls participants — clearer visibility, single place for timeouts/compensation.</p><h4>Your pitch</h4><p>Telecom order: reserve → charge → provision → notify; compensating cancel if provision fails.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -331,8 +329,8 @@
         <article class="qa-card" data-id="eventual-consistency" data-level="medium" data-section="consistency">
           <div class="qa-question"><h3>What is eventual consistency?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Replicas/services converge over time; reads may be stale briefly. Acceptable for analytics, notifications; not for account balance without careful design. UI: show pending state.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">eventual consistency</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">eventual consistency</strong> is a core concept to understand for interviews.</p><ul class="brief-bullets"><li>Replicas/services converge over time; reads may be stale briefly.</li><li>Acceptable for analytics, notifications; not for account balance without careful design.</li><li>UI: show pending state.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -340,8 +338,8 @@
         <article class="qa-card" data-id="outbox-pattern" data-level="hard" data-section="consistency" data-vimp="true">
           <div class="qa-question"><h3>Transactional outbox pattern?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Write business row + outbox event in <strong>same DB transaction</strong>. Separate publisher reads outbox and sends to Kafka/JMS — avoids dual-write (DB committed, message lost).</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">same DB transaction</span></li><li><span class="kw">Transactional</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">JMS</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Transactional outbox pattern</strong>. Write business row + outbox event in same DB transaction .</p><p>Write business row + outbox event in <strong class="kw">same DB transaction</strong>. Separate publisher reads outbox and sends to Kafka/JMS — avoids dual-write (DB committed, message lost).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -349,8 +347,8 @@
         <article class="qa-card" data-id="cqrs-intro" data-level="hard" data-section="consistency">
           <div class="qa-question"><h3>CQRS — when separate read and write models?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Write model normalized; read model denormalized for fast queries/reports. Sync via events. Vodafone reporting: tuned SQL/read replicas vs OLTP write schema.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SQL</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">CQRS — when separate read and write models</strong>.</p><ul class="brief-bullets"><li>Write model normalized; read model denormalized for fast queries/reports.</li><li>Sync via events.</li><li>Vodafone reporting: tuned SQL/read replicas vs OLTP write schema.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -358,8 +356,8 @@
         <article class="qa-card" data-id="database-per-service" data-level="medium" data-section="consistency">
           <div class="qa-question"><h3>Database per service — practical reality?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Ideal: each service owns schema. Reality in telco: legacy shared Oracle still exists — strangle and wrap with APIs. New microservices get own schema/user credentials.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">telco</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Database per service — practical reality</strong>.</p><ul class="brief-bullets"><li>Ideal: each service owns schema.</li><li>Reality in telco: legacy shared Oracle still exists — strangle and wrap with APIs.</li><li>New microservices get own schema/user credentials.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -367,8 +365,8 @@
         <article class="qa-card" data-id="cap-theorem" data-level="medium" data-section="consistency">
           <div class="qa-question"><h3>CAP theorem — what do you say in interviews?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>During partition, choose consistency (CP) or availability (AP). Most microservices under partition pick availability + eventual consistency for non-critical paths; payment paths favor consistency with careful design.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">CAP</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">CAP theorem — what do you say in interviews</strong>.</p><ul class="brief-bullets"><li>During partition, choose consistency (CP) or availability (AP).</li><li>Most microservices under partition pick availability + eventual consistency for non-critical paths; payment paths favor consistency with careful design.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -376,8 +374,8 @@
         <article class="qa-card" data-id="exactly-once" data-level="hard" data-section="consistency" data-vimp="true">
           <div class="qa-question"><h3>Exactly-once delivery — possible?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">consistency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>True end-to-end exactly-once is extremely hard. Practical: <strong>at-least-once</strong> transport + <strong>idempotent</strong> consumers + dedup store. Kafka idempotent producer helps but consumer still must dedupe.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">at-least-once</span></li><li><span class="kw">idempotent</span></li><li><span class="kw">Kafka</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Exactly-once delivery — possible</strong>. True end-to-end exactly-once is extremely hard.</p><p>True end-to-end exactly-once is extremely hard. Practical: <strong class="kw">at-least-once</strong> transport + <strong class="kw">idempotent</strong> consumers + dedup store. Kafka idempotent producer helps but consumer still must dedupe.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -392,8 +390,8 @@
         <article class="qa-card" data-id="camel-overview" data-level="medium" data-section="camel" data-vimp="true">
           <div class="qa-question"><h3>What is Apache Camel? Why in telecom integrations?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Integration framework with Enterprise Integration Patterns: routes, endpoints (HTTP, JMS, FTP, Kafka), transformers, error handlers — Java DSL or XML.</p><h4>Core concepts</h4><p><strong>Route:</strong> from → processors → to. <strong>Exchange:</strong> message body + headers. Reduces boilerplate for retry, multicast, wire tap.</p><h4>Your experience</h4><p>Optima: Camel microservices bridging OSS/BSS at 1M+ txn/day on Fuse/Karaf-style stacks.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Route:</span></li><li><span class="kw">Exchange:</span></li><li><span class="kw">Camel</span></li><li><span class="kw">HTTP</span></li><li><span class="kw">JMS</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">XML</span></li><li><span class="kw">OSS</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">Apache Camel? Why in telecom integrations</strong> is a core concept to understand for interviews. Integration framework with Enterprise Integration Patterns: routes, endpoints (HTTP, JMS, FTP, Kafka), transformers, error handlers — Java DSL or XML.</p><p>Integration framework with Enterprise Integration Patterns: routes, endpoints (HTTP, JMS, FTP, Kafka), transformers, error handlers — Java DSL or XML.</p><h4>Core concepts</h4><p><strong class="kw">Route:</strong> from → processors → to. <strong class="kw">Exchange:</strong> message body + headers. Reduces boilerplate for retry, multicast, wire tap.</p><h4>Your experience</h4><p>Optima: Camel microservices bridging OSS/BSS at 1M+ txn/day on Fuse/Karaf-style stacks.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -401,8 +399,8 @@
         <article class="qa-card" data-id="camel-route-structure" data-level="easy" data-section="camel">
           <div class="qa-question"><h3>Structure of a Camel route?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><code>from('jms:queue:in')</code> consumer → <code>process/transform</code> → <code>to('http://partner/api')</code> producer. <code>routeId</code> for monitoring; <code>onException</code> for error handling; headers carry correlation metadata.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">from('jms:queue:in')</span></li><li><span class="kw">process/transform</span></li><li><span class="kw">to('http://partner/api')</span></li><li><span class="kw">routeId</span></li><li><span class="kw">onException</span></li><li><span class="kw">Camel</span></li><li><span class="kw">jms</span></li><li><span class="kw">http</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Structure of a Camel route</strong>. consumer → → producer.</p><p><code class="kw-code">from('jms:queue:in')</code> consumer → <code class="kw-code">process/transform</code> → <code class="kw-code">to('http://partner/api')</code> producer. <code class="kw-code">routeId</code> for monitoring; <code class="kw-code">onException</code> for error handling; headers carry correlation metadata.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -410,8 +408,8 @@
         <article class="qa-card" data-id="camel-eip-list" data-level="medium" data-section="camel" data-vimp="true">
           <div class="qa-question"><h3>Important Camel EIPs you should name?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li>Content-Based Router — route by header/type</li><li>Message Translator — map formats</li><li>Splitter / Aggregator — batch lines</li><li>Dead Letter Channel — failed messages</li><li>Idempotent Consumer</li><li>Circuit Breaker (Camel 3+)</li></ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">Idempotent</span></li><li><span class="kw">Content</span></li><li><span class="kw">Message Translator</span></li><li><span class="kw">Splitter / Aggregator</span></li><li><span class="kw">Dead Letter Channel</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Important Camel EIPs you should name</strong>.</p><ul><li>Content-Based Router — route by header/type</li><li>Message Translator — map formats</li><li>Splitter / Aggregator — batch lines</li><li>Dead Letter Channel — failed messages</li><li>Idempotent Consumer</li><li>Circuit Breaker (Camel 3+)</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -419,8 +417,8 @@
         <article class="qa-card" data-id="camel-error-handler" data-level="medium" data-section="camel" data-vimp="true">
           <div class="qa-question"><h3>Camel error handling and redelivery?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><code>onException</code> defines handlers; default redelivery with max attempts; then DLQ. <code>handled(true)</code> vs propagate. Log exchangeId + correlationId on every failure path.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">onException</span></li><li><span class="kw">handled(true)</span></li><li><span class="kw">Camel</span></li><li><span class="kw">DLQ</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Camel error handling and redelivery</strong>. defines handlers; default redelivery with max attempts; then DLQ.</p><p><code class="kw-code">onException</code> defines handlers; default redelivery with max attempts; then DLQ. <code class="kw-code">handled(true)</code> vs propagate. Log exchangeId + correlationId on every failure path.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -428,8 +426,8 @@
         <article class="qa-card" data-id="camel-correlation" data-level="medium" data-section="camel" data-vimp="true">
           <div class="qa-question"><h3>Correlation ID across Camel routes?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Generate or read <code>correlationId</code> header at entry; copy to HTTP/JMS outbound headers; MDC for logs. Enables Fuse Logger search across envs — your tool's value prop.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">correlationId</span></li><li><span class="kw">Camel</span></li><li><span class="kw">HTTP</span></li><li><span class="kw">JMS</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Correlation ID across Camel routes</strong>. Generate or read header at entry; copy to HTTP/JMS outbound headers; MDC for logs.</p><p>Generate or read <code class="kw-code">correlationId</code> header at entry; copy to HTTP/JMS outbound headers; MDC for logs. Enables Fuse Logger search across envs — your tool's value prop.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -437,8 +435,8 @@
         <article class="qa-card" data-id="camel-spring-boot" data-level="medium" data-section="camel">
           <div class="qa-question"><h3>Camel embedded in Spring Boot?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><code>camel-spring-boot-starter</code> — REST controllers + Camel routes in one JVM. Vodafone-style Boot API + Optima-style integration in same deployable when needed.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">camel-spring-boot-starter</span></li><li><span class="kw">Camel</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">REST</span></li><li><span class="kw">JVM</span></li><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Camel embedded in Spring Boot</strong>. — REST controllers + Camel routes in one JVM.</p><p><code class="kw-code">camel-spring-boot-starter</code> — REST controllers + Camel routes in one JVM. Vodafone-style Boot API + Optima-style integration in same deployable when needed.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -446,8 +444,8 @@
         <article class="qa-card" data-id="spring-vs-camel" data-level="hard" data-section="camel" data-vimp="true">
           <div class="qa-question"><h3>When Spring Boot microservice vs Camel route?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><strong>Spring Boot:</strong> domain CRUD, REST APIs, business rules. <strong>Camel:</strong> protocol mediation, legacy adapters, high-volume async pipelines, EIP-heavy flows. Often coexist in telco landscape.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Spring Boot:</span></li><li><span class="kw">Camel:</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">microservice</span></li><li><span class="kw">Camel</span></li><li><span class="kw">REST</span></li><li><span class="kw">telco</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Spring Boot:</strong> domain CRUD, REST APIs, business rules. <strong class="kw">Camel:</strong> protocol mediation, legacy adapters, high-volume async pipelines, EIP-heavy flows. Often coexist in telco landscape.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -455,8 +453,8 @@
         <article class="qa-card" data-id="camel-testing" data-level="medium" data-section="camel">
           <div class="qa-question"><h3>How do you test Camel routes?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><code>CamelTestSupport</code>, adviceWith to mock endpoints, assert exchanges at mock:// endpoints. Test transformation logic and error branches without hitting real JMS/HTTP.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">CamelTestSupport</span></li><li><span class="kw">Camel</span></li><li><span class="kw">JMS</span></li><li><span class="kw">HTTP</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you test Camel routes. , adviceWith to mock endpoints, assert exchanges at mock:// endpoints.</p><p><code class="kw-code">CamelTestSupport</code>, adviceWith to mock endpoints, assert exchanges at mock:// endpoints. Test transformation logic and error branches without hitting real JMS/HTTP.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -464,8 +462,8 @@
         <article class="qa-card" data-id="camel-performance" data-level="hard" data-section="camel">
           <div class="qa-question"><h3>Camel performance tuning for high volume?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li>Right threading model (SEDA for throttling)</li><li>Stream caching for large payloads</li><li>Avoid unnecessary body conversions</li><li>Connection pool limits aligned with partner</li><li>Idempotent repo on fast DB/Redis</li></ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">Idempotent</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Camel performance tuning for high volume</strong>.</p><ul><li>Right threading model (SEDA for throttling)</li><li>Stream caching for large payloads</li><li>Avoid unnecessary body conversions</li><li>Connection pool limits aligned with partner</li><li>Idempotent repo on fast DB/Redis</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -473,8 +471,8 @@
         <article class="qa-card" data-id="fuse-karaf" data-level="easy" data-section="camel">
           <div class="qa-question"><h3>Red Hat Fuse / Karaf in telco context?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">camel</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>OSGi-based runtime hosting Camel routes as bundles — common in older telco integration platforms. Know you maintained routes in clustered Fuse with shared config and monitoring.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">telco</span></li><li><span class="kw">Camel</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Red Hat Fuse / Karaf in telco context</strong>.</p><ul class="brief-bullets"><li>OSGi-based runtime hosting Camel routes as bundles — common in older telco integration platforms.</li><li>Know you maintained routes in clustered Fuse with shared config and monitoring.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -489,8 +487,7 @@
         <article class="qa-card" data-id="observability" data-level="hard" data-section="observability" data-vimp="true">
           <div class="qa-question"><h3>Observability: logs, metrics, traces?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Three pillars</h4><ul><li><strong>Logs</strong> — correlation ID every line</li><li><strong>Metrics</strong> — rate, errors, duration (RED); queue depth</li><li><strong>Traces</strong> — distributed trace across HTTP/JMS hops</li></ul><h4>Your experience</h4><p>Fuse Logger + API Visualizer because generic tools missed Camel route names and telco correlation IDs.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Logs</span></li><li><span class="kw">Metrics</span></li><li><span class="kw">Traces</span></li><li><span class="kw">HTTP</span></li><li><span class="kw">JMS</span></li><li><span class="kw">API</span></li><li><span class="kw">Camel</span></li><li><span class="kw">telco</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Observability: logs, metrics, traces</strong>. Fuse Logger + API Visualizer because generic tools missed Camel route names and telco correlation IDs.</p><h4>Three pillars</h4><ul><li><strong class="kw">Logs</strong> — correlation ID every line</li><li><strong class="kw">Metrics</strong> — rate, errors, duration (RED); queue depth</li><li><strong class="kw">Traces</strong> — distributed trace across HTTP/JMS hops</li></ul><h4>Your experience</h4><p>Fuse Logger + API Visualizer because generic tools missed Camel route names and telco correlation IDs.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -498,8 +495,8 @@
         <article class="qa-card" data-id="golden-signals" data-level="medium" data-section="observability">
           <div class="qa-question"><h3>Four golden signals (Google SRE)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Latency, traffic, errors, saturation. For integrations add: queue lag, partner timeout rate, DLQ count.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">DLQ</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Four golden signals (Google SRE)</strong>.</p><ul class="brief-bullets"><li>Latency, traffic, errors, saturation.</li><li>For integrations add: queue lag, partner timeout rate, DLQ count.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -507,8 +504,8 @@
         <article class="qa-card" data-id="health-readiness" data-level="easy" data-section="observability">
           <div class="qa-question"><h3>Liveness vs readiness for integration pods?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Readiness: can process messages (DB up, partner reachable). Liveness: JVM not deadlocked. K8s removes not-ready pods from LB while keeping process alive for debug.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JVM</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul class="brief-bullets"><li>Readiness: can process messages (DB up, partner reachable).</li><li>Liveness: JVM not deadlocked.</li><li>K8s removes not-ready pods from LB while keeping process alive for debug.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -516,8 +513,8 @@
         <article class="qa-card" data-id="centralized-config" data-level="medium" data-section="observability">
           <div class="qa-question"><h3>Centralized config for many microservices?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Spring Cloud Config, Consul, K8s ConfigMaps — single source of truth; refresh without rebuild. Secrets from vault, never git. Profile per env (dev/test/prod).</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Spring</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Centralized config for many microservices</strong>.</p><ul class="brief-bullets"><li>Spring Cloud Config, Consul, K8s ConfigMaps — single source of truth; refresh without rebuild.</li><li>Secrets from vault, never git.</li><li>Profile per env (dev/test/prod).</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -525,8 +522,8 @@
         <article class="qa-card" data-id="ci-cd-jenkins" data-level="medium" data-section="observability">
           <div class="qa-question"><h3>CI/CD pipeline for microservices (Jenkins)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Build → unit tests → contract tests → deploy to dev → smoke (Actuator health) → promote with approval. Optima experience: automated deploy reduced manual errors; rollback plan per service.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">CI</span></li><li><span class="kw">CD</span></li><li><span class="kw">Jenkins</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">CI/CD pipeline for microservices (Jenkins)</strong>.</p><ul class="brief-bullets"><li>Build → unit tests → contract tests → deploy to dev → smoke (Actuator health) → promote with approval.</li><li>Optima experience: automated deploy reduced manual errors; rollback plan per service.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -534,8 +531,8 @@
         <article class="qa-card" data-id="mttr-incident" data-level="medium" data-section="observability" data-vimp="true">
           <div class="qa-question"><h3>How do you reduce MTTR in distributed incidents?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">observability</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li>Correlation ID search (Fuse Logger)</li><li>Dashboards per route/partner</li><li>Runbooks for DLQ replay</li><li>Clear ownership per service</li></ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">MTTR</span></li><li><span class="kw">DLQ</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you reduce MTTR in distributed incidents.</p><ul><li>Correlation ID search (Fuse Logger)</li><li>Dashboards per route/partner</li><li>Runbooks for DLQ replay</li><li>Clear ownership per service</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -550,8 +547,8 @@
         <article class="qa-card" data-id="kafka-role-ms" data-level="easy" data-section="kafka-ms">
           <div class="qa-question"><h3>Kafka's role in microservices?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">kafka-ms</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Durable event log between services — decouple producers/consumers, replay, multiple consumer groups. See also your <strong>Kafka</strong> topic page for deep dive.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Kafka</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Kafka&#x27;s role in microservices</strong>. Durable event log between services — decouple producers/consumers, replay, multiple consumer groups.</p><p>Durable event log between services — decouple producers/consumers, replay, multiple consumer groups. See also your <strong class="kw">Kafka</strong> topic page for deep dive.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -559,8 +556,8 @@
         <article class="qa-card" data-id="kafka-vs-jms" data-level="medium" data-section="kafka-ms">
           <div class="qa-question"><h3>Kafka vs traditional JMS (ActiveMQ)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">kafka-ms</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>JMS: queue/topic, broker deletes after ack — good for task queues. Kafka: log retained, replay, high throughput — good for event streaming. Telco often has both; Camel abstracts via same route DSL.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Kafka</span></li><li><span class="kw">JMS</span></li><li><span class="kw">Telco</span></li><li><span class="kw">Camel</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul class="brief-bullets"><li>JMS: queue/topic, broker deletes after ack — good for task queues.</li><li>Kafka: log retained, replay, high throughput — good for event streaming.</li><li>Telco often has both; Camel abstracts via same route DSL.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -568,8 +565,8 @@
         <article class="qa-card" data-id="event-ordering" data-level="medium" data-section="kafka-ms">
           <div class="qa-question"><h3>Ordering guarantees across microservices?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">kafka-ms</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Kafka: order within partition only — use same partition key (customerId). Global order is expensive; design for eventual consistency and idempotent handlers.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Kafka</span></li><li><span class="kw">idempotent</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Ordering guarantees across microservices</strong>.</p><ul class="brief-bullets"><li>Kafka: order within partition only — use same partition key (customerId).</li><li>Global order is expensive; design for eventual consistency and idempotent handlers.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -584,8 +581,8 @@
         <article class="qa-card" data-id="optima-architecture" data-level="hard" data-section="experience" data-vimp="true">
           <div class="qa-question"><h3>Describe Optima integration architecture (60 sec)?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Apache Camel routes on Fuse-style runtime, JMS/HTTP to BSS/OSS partners, 1M+ txn/day. Jenkins CI/CD, correlation logging, DLQ for failures. You built Fuse Logger for multi-env log search and maintained high-volume routes with timeout/circuit patterns.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">JMS</span></li><li><span class="kw">HTTP</span></li><li><span class="kw">BSS</span></li><li><span class="kw">OSS</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">CI</span></li><li><span class="kw">CD</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Describe Optima integration architecture (60 sec)</strong>. Apache Camel routes on Fuse-style runtime, JMS/HTTP to BSS/OSS partners, 1M+ txn/day.</p><p>Apache Camel routes on Fuse-style runtime, JMS/HTTP to BSS/OSS partners, 1M+ txn/day. Jenkins CI/CD, correlation logging, DLQ for failures. You built Fuse Logger for multi-env log search and maintained high-volume routes with timeout/circuit patterns.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -593,8 +590,8 @@
         <article class="qa-card" data-id="vodafone-ms" data-level="medium" data-section="experience" data-vimp="true">
           <div class="qa-question"><h3>Vodafone Germany microservices — your role?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Spring Boot REST microservices for reporting features; JPA + tuned SQL; TestNG coverage 60→90%; Actuator health in deploy pipeline. Gateway/auth at platform layer; your focus was service code + DB performance + tests.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">REST</span></li><li><span class="kw">JPA</span></li><li><span class="kw">SQL</span></li><li><span class="kw">TestNG</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Vodafone Germany microservices — your role</strong>.</p><ul class="brief-bullets"><li>Spring Boot REST microservices for reporting features; JPA + tuned SQL; TestNG coverage 60→90%; Actuator health in deploy pipeline.</li><li>Gateway/auth at platform layer; your focus was service code + DB performance + tests.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -602,8 +599,8 @@
         <article class="qa-card" data-id="xl-camunda" data-level="medium" data-section="experience">
           <div class="qa-question"><h3>XL Axiata — Camunda and long-running flows?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>BPMN orchestration for multi-step integrations with wait states, timeouts, human tasks. Complements Camel event-driven routes — orchestration when flow visibility and compensation paths matter.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">XL Axiata — Camunda and long-running flows</strong>.</p><ul class="brief-bullets"><li>BPMN orchestration for multi-step integrations with wait states, timeouts, human tasks.</li><li>Complements Camel event-driven routes — orchestration when flow visibility and compensation paths matter.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -611,8 +608,7 @@
         <article class="qa-card" data-id="fuse-logger-story" data-level="medium" data-section="experience" data-vimp="true">
           <div class="qa-question"><h3>Fuse Logger — STAR for microservices interview?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Situation</h4><p>Debugging Camel prod required SSH/grep across envs — slow MTTR.</p><h4>Action</h4><p>Built Spring Boot tool: search by correlation ID, route, env, time range.</p><h4>Result</h4><p>Faster triage; less senior bottleneck; mention in distributed systems / observability questions.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">MTTR</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Fuse Logger — STAR for microservices interview</strong>. Debugging Camel prod required SSH/grep across envs — slow MTTR.</p><h4>Situation</h4><p>Debugging Camel prod required SSH/grep across envs — slow MTTR.</p><h4>Action</h4><p>Built Spring Boot tool: search by correlation ID, route, env, time range.</p><h4>Result</h4><p>Faster triage; less senior bottleneck; mention in distributed systems / observability questions.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -620,8 +616,8 @@
         <article class="qa-card" data-id="design-new-integration" data-level="hard" data-section="experience" data-vimp="true">
           <div class="qa-question"><h3>How would you design a new partner integration service?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ol><li>API contract + error codes with partner</li><li>Idempotency + DLQ + correlation ID</li><li>Timeouts/circuit breaker per SLA</li><li>Metrics/alerts on lag and error rate</li><li>Contract tests + staged certification</li><li>Runbook for replay</li></ol>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">DLQ</span></li><li><span class="kw">SLA</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How would you design a new partner integration service.</p><ol><li>API contract + error codes with partner</li><li>Idempotency + DLQ + correlation ID</li><li>Timeouts/circuit breaker per SLA</li><li>Metrics/alerts on lag and error rate</li><li>Contract tests + staged certification</li><li>Runbook for replay</li></ol>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>

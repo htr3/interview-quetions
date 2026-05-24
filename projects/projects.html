@@ -44,17 +44,16 @@
         <article class="qa-card" data-id="fuse-logger" data-level="medium" data-vimp="true">
           <div class="qa-question"><h3>Fuse Logger — what problem, architecture, and impact?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Tool</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <h4>Quick answer (30 sec)</h4>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">UI:</span></li><li><span class="kw">API:</span></li><li><span class="kw">Data:</span></li><li><span class="kw">Security:</span></li><li><span class="kw">Camel</span></li><li><span class="kw">API</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Fuse Logger — what problem, architecture, and impact</strong>. Multi-environment log search tool for Fuse/Camel integrations so engineers find errors by correlation ID without SSH to every server.</p><h4 class="revision-heading">Brief explanation</h4>
             <p>Multi-environment log search tool for Fuse/Camel integrations so engineers find errors by correlation ID without SSH to every server.</p>
             <h4>Problem (detailed)</h4>
             <p>At Optima, production issues required grep across dev/test/prod servers. Average triage took 30–60 minutes. Senior engineers became bottlenecks. New joiners couldn't debug integration chains alone.</p>
             <h4>Solution architecture</h4>
             <ul>
-              <li><strong>UI:</strong> filters — env, time range, correlation ID, route name, log level, keyword</li>
-              <li><strong>API:</strong> Spring Boot service — auth, query orchestration, pagination</li>
-              <li><strong>Data:</strong> log aggregator (ELK / SSH tail / file agents — state your real stack)</li>
-              <li><strong>Security:</strong> prod access only for authorized roles; audit who queried what</li>
+              <li><strong class="kw">UI:</strong> filters — env, time range, correlation ID, route name, log level, keyword</li>
+              <li><strong class="kw">API:</strong> Spring Boot service — auth, query orchestration, pagination</li>
+              <li><strong class="kw">Data:</strong> log aggregator (ELK / SSH tail / file agents — state your real stack)</li>
+              <li><strong class="kw">Security:</strong> prod access only for authorized roles; audit who queried what</li>
             </ul>
             <h4>Technical challenges</h4>
             <ul>
@@ -72,9 +71,8 @@
         <article class="qa-card" data-id="subscriber-tool" data-level="medium" data-vimp="true">
           <div class="qa-question"><h3>Subscriber Tool — safe production lookups by MIN / accountId</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Tool</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <h4>Quick answer</h4>
-            <p>Read-only tool for support/dev to fetch subscriber data by MIN or accountId without writing ad-hoc SQL on production.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SQL</span></li><li><span class="kw">Read</span></li><li><span class="kw">Input validation</span></li><li><span class="kw">PII masking in UI</span></li></ul></div>
+            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Subscriber Tool — safe production lookups by MIN / accountId</strong>. Read-only tool for support/dev to fetch subscriber data by MIN or accountId without writing ad-hoc SQL on production.</p><p>Read-only tool for support/dev to fetch subscriber data by MIN or accountId without writing ad-hoc SQL on production.</p>
             <h4>Why it was needed</h4>
             <p>Telecom identifiers (MIN, MSISDN, accountId) are confusing. Wrong manual SQL caused slow incidents and compliance risk.</p>
             <h4>Design details</h4>
@@ -94,11 +92,10 @@
         <article class="qa-card" data-id="sm-tool" data-level="hard" data-vimp="true">
           <div class="qa-question"><h3>SM Tool — deployment automation (deep dive)</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Tool</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <h4>Quick answer</h4>
-            <p>Orchestrates repeatable deploy steps for Fuse/Camel services — complements Jenkins; part of 60% manual effort reduction.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Before:</span></li><li><span class="kw">After:</span></li><li><span class="kw">Idempotency:</span></li><li><span class="kw">Secrets:</span></li><li><span class="kw">Concurrency:</span></li><li><span class="kw">Camel</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">Pre</span></li></ul></div>
+            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">SM Tool — deployment automation (deep dive)</strong>. Orchestrates repeatable deploy steps for Fuse/Camel services — complements Jenkins; part of 60% manual effort reduction.</p><p>Orchestrates repeatable deploy steps for Fuse/Camel services — complements Jenkins; part of 60% manual effort reduction.</p>
             <h4>Before vs after</h4>
-            <p><strong>Before:</strong> manual JAR copy, config edit, restart, smoke check — 45+ min, error-prone. <strong>After:</strong> one workflow with checks and rollback.</p>
+            <p><strong class="kw">Before:</strong> manual JAR copy, config edit, restart, smoke check — 45+ min, error-prone. <strong class="kw">After:</strong> one workflow with checks and rollback.</p>
             <h4>Pipeline steps (example)</h4>
             <ol>
               <li>Validate env + maintenance window</li>
@@ -111,9 +108,9 @@
             </ol>
             <h4>Hard topics</h4>
             <ul>
-              <li><strong>Idempotency:</strong> re-run deploy doesn't double-apply</li>
-              <li><strong>Secrets:</strong> not in repo — vault or Jenkins credentials</li>
-              <li><strong>Concurrency:</strong> lock so two deploys don't hit same env</li>
+              <li><strong class="kw">Idempotency:</strong> re-run deploy doesn't double-apply</li>
+              <li><strong class="kw">Secrets:</strong> not in repo — vault or Jenkins credentials</li>
+              <li><strong class="kw">Concurrency:</strong> lock so two deploys don't hit same env</li>
             </ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -122,9 +119,8 @@
         <article class="qa-card" data-id="api-visualizer" data-level="hard" data-vimp="true">
           <div class="qa-question"><h3>API Visualizer — mapping distributed flows (system design angle)</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Tool</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <h4>Quick answer</h4>
-            <p>End-to-end map of API/Camel hops for onboarding, design reviews, and incident triage — living documentation.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">Camel</span></li><li><span class="kw">REST</span></li><li><span class="kw">JMS</span></li><li><span class="kw">Update process: PR when route changes</span></li></ul></div>
+            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">API Visualizer — mapping distributed flows (system design angle)</strong>. End-to-end map of API/Camel hops for onboarding, design reviews, and incident triage — living documentation.</p><p>End-to-end map of API/Camel hops for onboarding, design reviews, and incident triage — living documentation.</p>
             <h4>Problem</h4>
             <p>10+ services per flow; wiki outdated; new engineers asked seniors "which service fails after payment?"</p>
             <h4>How you built it</h4>
@@ -145,8 +141,7 @@
         <article class="qa-card" data-id="vodafone-pitch" data-level="easy" data-vimp="true">
           <div class="qa-question"><h3>Vodafone Germany — 2-minute elevator pitch</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Client</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <p><strong>Script:</strong> "On Vodafone Germany I built Spring Boot REST microservices for telecom reporting and operations. I optimized heavy MySQL reporting queries using EXPLAIN and indexing — reports became more than 10% faster and DB CPU dropped in peak hours. I raised TestNG coverage from 60% to 90% on critical paths. Stack: Java, Spring Boot, REST, MySQL, TestNG, Jenkins, Git, Maven."</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Script:</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">REST</span></li><li><span class="kw">TestNG</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">SQL</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Vodafone Germany — 2-minute elevator pitch</strong>. Script: &quot;On Vodafone Germany I built Spring Boot REST microservices for telecom reporting and operations.</p><p><strong class="kw">Script:</strong> "On Vodafone Germany I built Spring Boot REST microservices for telecom reporting and operations. I optimized heavy MySQL reporting queries using EXPLAIN and indexing — reports became more than 10% faster and DB CPU dropped in peak hours. I raised TestNG coverage from 60% to 90% on critical paths. Stack: Java, Spring Boot, REST, MySQL, TestNG, Jenkins, Git, Maven."</p>
             <h4>Memorize these numbers</h4>
             <p>10% SQL, 60→90% coverage, ~5% faster delivery.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -156,8 +151,7 @@
         <article class="qa-card" data-id="optima-pitch" data-level="easy" data-vimp="true">
           <div class="qa-question"><h3>Optima Philippines — 2-minute elevator pitch</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Client</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <p><strong>Script:</strong> "I maintained Apache Camel services doing 1M+ transactions per day between BSS systems — reliability, monitoring, error handling. I built Jenkins CI/CD cutting manual deploy ~60%. I created Fuse Logger, Subscriber Tool, SM Tool, and API Visualizer used daily by the team. Stack: Java, Camel, Jenkins, MySQL, REST."</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Script:</span></li><li><span class="kw">Camel</span></li><li><span class="kw">BSS</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">CI</span></li><li><span class="kw">CD</span></li><li><span class="kw">API</span></li><li><span class="kw">REST</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Optima Philippines — 2-minute elevator pitch</strong>. Script: &quot;I maintained Apache Camel services doing 1M+ transactions per day between BSS systems — reliability, monitoring, error handling.</p><p><strong class="kw">Script:</strong> "I maintained Apache Camel services doing 1M+ transactions per day between BSS systems — reliability, monitoring, error handling. I built Jenkins CI/CD cutting manual deploy ~60%. I created Fuse Logger, Subscriber Tool, SM Tool, and API Visualizer used daily by the team. Stack: Java, Camel, Jenkins, MySQL, REST."</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -165,8 +159,7 @@
         <article class="qa-card" data-id="xl-pitch" data-level="easy">
           <div class="qa-question"><h3>XL Axiata — 2-minute elevator pitch</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Client</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <p><strong>Script:</strong> "Third-party integrations with clear error contracts and timeouts. Camunda workflow optimization ~5% faster perf tests. DB collaboration ~10% faster queries, fewer fallouts. Pune-based. Shows BPM + integration + SQL."</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Script:</span></li><li><span class="kw">SQL</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">XL Axiata — 2-minute elevator pitch</strong>. Script: &quot;Third-party integrations with clear error contracts and timeouts.</p><p><strong class="kw">Script:</strong> "Third-party integrations with clear error contracts and timeouts. Camunda workflow optimization ~5% faster perf tests. DB collaboration ~10% faster queries, fewer fallouts. Pune-based. Shows BPM + integration + SQL."</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -174,16 +167,15 @@
         <article class="qa-card" data-id="walk-through-project" data-level="hard" data-vimp="true">
           <div class="qa-question"><h3>Walk me through your best project end-to-end</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Meta</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <h4>Structure (5–7 min)</h4>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Context:</span></li><li><span class="kw">Problem:</span></li><li><span class="kw">Your role:</span></li><li><span class="kw">Technical:</span></li><li><span class="kw">Trade-offs:</span></li><li><span class="kw">Results:</span></li><li><span class="kw">Learnings:</span></li><li><span class="kw">CI</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Walk me through your best project end-to-end</strong>.</p><h4>Structure (5–7 min)</h4>
             <ol>
-              <li><strong>Context:</strong> Optima, 1M+ txn/day integrations</li>
-              <li><strong>Problem:</strong> slow debugging + manual deploys</li>
-              <li><strong>Your role:</strong> owner of CI/CD + internal tools, not just tickets</li>
-              <li><strong>Technical:</strong> Jenkins stages; Fuse Logger architecture; SM Tool rollback</li>
-              <li><strong>Trade-offs:</strong> build vs buy, security vs speed of lookups</li>
-              <li><strong>Results:</strong> 60% less manual deploy, team adoption, stable prod</li>
-              <li><strong>Learnings:</strong> automate guardrails, document distributed flows</li>
+              <li><strong class="kw">Context:</strong> Optima, 1M+ txn/day integrations</li>
+              <li><strong class="kw">Problem:</strong> slow debugging + manual deploys</li>
+              <li><strong class="kw">Your role:</strong> owner of CI/CD + internal tools, not just tickets</li>
+              <li><strong class="kw">Technical:</strong> Jenkins stages; Fuse Logger architecture; SM Tool rollback</li>
+              <li><strong class="kw">Trade-offs:</strong> build vs buy, security vs speed of lookups</li>
+              <li><strong class="kw">Results:</strong> 60% less manual deploy, team adoption, stable prod</li>
+              <li><strong class="kw">Learnings:</strong> automate guardrails, document distributed flows</li>
             </ol>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -192,8 +184,7 @@
         <article class="qa-card" data-id="nit-project" data-level="easy">
           <div class="qa-question"><h3>NIT Summer School — STR-DFT project (when to mention)</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Academic</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <p>Python/NumPy/pandas signal processing; predictive models &gt;95% accuracy. Use only if interviewer asks Python/research — keep under 60 seconds for backend roles.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">NIT Summer School — STR-DFT project (when to mention)</strong>.</p><ul class="brief-bullets"><li>Python/NumPy/pandas signal processing; predictive models &gt;95% accuracy.</li><li>Use only if interviewer asks Python/research — keep under 60 seconds for backend roles.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -201,9 +192,8 @@
         <article class="qa-card" data-id="tradeoff-build-buy" data-level="hard">
           <div class="qa-question"><h3>Why build internal tools instead of using existing products?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Meta</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <h4>Answer</h4>
-            <ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">Trade</span></li></ul></div>
+            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">why</strong> build internal tools instead of using existing products.</p><ul>
               <li>Generic APM doesn't understand Camel route names / telecom correlation IDs</li>
               <li>Cost/licensing of enterprise tools vs fast internal MVP</li>
               <li>Tight integration with Jenkins, MIN lookup schemas, existing LDAP</li>
@@ -216,12 +206,11 @@
         <article class="qa-card" data-id="hardest-bug-tools" data-level="hard" data-vimp="true">
           <div class="qa-question"><h3>Describe the hardest bug you fixed using your internal tools</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Incident</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <h4>How to structure this answer (use your real incident)</h4>
-            <p><strong>Situation:</strong> Peak-hour order messages stuck in a Camel route; partner timeout errors spiked; business reported delayed activations.</p>
-            <p><strong>Task:</strong> Find failing hop and restore flow without full environment restart.</p>
-            <p><strong>Action:</strong> Used Fuse Logger with correlation ID from one failed request → traced MIN through Subscriber Tool to confirm data was valid → API Visualizer showed delay on external billing hop → partner throttle confirmed with logs → temporary circuit-style backoff + retry policy adjustment.</p>
-            <p><strong>Result:</strong> Queue drained in 2 hours; added alert on that hop latency; documented runbook linked from API Visualizer.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Situation:</span></li><li><span class="kw">Task:</span></li><li><span class="kw">Action:</span></li><li><span class="kw">Result:</span></li><li><span class="kw">Camel</span></li><li><span class="kw">API</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Describe the hardest bug you fixed using your internal tools</strong>. Situation: Peak-hour order messages stuck in a Camel route; partner timeout errors spiked; business reported delayed activations.</p><h4>How to structure this answer (use your real incident)</h4>
+            <p><strong class="kw">Situation:</strong> Peak-hour order messages stuck in a Camel route; partner timeout errors spiked; business reported delayed activations.</p>
+            <p><strong class="kw">Task:</strong> Find failing hop and restore flow without full environment restart.</p>
+            <p><strong class="kw">Action:</strong> Used Fuse Logger with correlation ID from one failed request → traced MIN through Subscriber Tool to confirm data was valid → API Visualizer showed delay on external billing hop → partner throttle confirmed with logs → temporary circuit-style backoff + retry policy adjustment.</p>
+            <p><strong class="kw">Result:</strong> Queue drained in 2 hours; added alert on that hop latency; documented runbook linked from API Visualizer.</p>
             <h4>Why this story works</h4>
             <p>It connects <em>your tools</em> to <em>production outcome</em>, not "I grep logs manually."</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -231,14 +220,13 @@
         <article class="qa-card" data-id="measure-tool-success" data-level="medium">
           <div class="qa-question"><h3>How did you measure success of your internal tools?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Impact</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <h4>Metrics you can cite</h4>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Adoption:</span></li><li><span class="kw">MTTR:</span></li><li><span class="kw">Deploy:</span></li><li><span class="kw">Quality:</span></li><li><span class="kw">Onboarding:</span></li><li><span class="kw">MTTR</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">API</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How did you measure success of your internal tools. Say qualitatively but honestly: &quot;We didn&#x27;t have a formal dashboard at first; after 3 months the on-call lead said they stopped SSH-ing for 80% of integration tickets.&quot;</p><h4>Metrics you can cite</h4>
             <ul>
-              <li><strong>Adoption:</strong> daily active users from integration team (even informal count helps)</li>
-              <li><strong>MTTR:</strong> average incident debug time before vs after Fuse Logger</li>
-              <li><strong>Deploy:</strong> ~60% less manual steps (SM Tool + Jenkins) — time per release</li>
-              <li><strong>Quality:</strong> fewer wrong-env deploys after checklist automation</li>
-              <li><strong>Onboarding:</strong> new joiners use API Visualizer in first week instead of shadowing seniors for 2 weeks</li>
+              <li><strong class="kw">Adoption:</strong> daily active users from integration team (even informal count helps)</li>
+              <li><strong class="kw">MTTR:</strong> average incident debug time before vs after Fuse Logger</li>
+              <li><strong class="kw">Deploy:</strong> ~60% less manual steps (SM Tool + Jenkins) — time per release</li>
+              <li><strong class="kw">Quality:</strong> fewer wrong-env deploys after checklist automation</li>
+              <li><strong class="kw">Onboarding:</strong> new joiners use API Visualizer in first week instead of shadowing seniors for 2 weeks</li>
             </ul>
             <h4>If you lack exact numbers</h4>
             <p>Say qualitatively but honestly: "We didn't have a formal dashboard at first; after 3 months the on-call lead said they stopped SSH-ing for 80% of integration tickets."</p>
@@ -249,14 +237,13 @@
         <article class="qa-card" data-id="tech-stack-tools" data-level="medium">
           <div class="qa-question"><h3>What tech stack did you use for the internal tools?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Stack</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <h4>Typical honest answer for your profile</h4>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Backend:</span></li><li><span class="kw">UI:</span></li><li><span class="kw">Auth:</span></li><li><span class="kw">Data:</span></li><li><span class="kw">Deploy:</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">REST</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">What tech stack did you use for the internal tools</strong>. Replace placeholders with what you actually used — interviewers will ask one level deeper.</p><h4>Typical honest answer for your profile</h4>
             <ul>
-              <li><strong>Backend:</strong> Java + Spring Boot REST APIs (same skills as Vodafone services)</li>
-              <li><strong>UI:</strong> simple web UI or internal portal page (React/Angular if your team used it)</li>
-              <li><strong>Auth:</strong> corporate LDAP/SSO, role-based env access</li>
-              <li><strong>Data:</strong> read-only JDBC to replica for Subscriber Tool; log API/SSH/ELK for Fuse Logger</li>
-              <li><strong>Deploy:</strong> same Jenkins pipelines you maintained</li>
+              <li><strong class="kw">Backend:</strong> Java + Spring Boot REST APIs (same skills as Vodafone services)</li>
+              <li><strong class="kw">UI:</strong> simple web UI or internal portal page (React/Angular if your team used it)</li>
+              <li><strong class="kw">Auth:</strong> corporate LDAP/SSO, role-based env access</li>
+              <li><strong class="kw">Data:</strong> read-only JDBC to replica for Subscriber Tool; log API/SSH/ELK for Fuse Logger</li>
+              <li><strong class="kw">Deploy:</strong> same Jenkins pipelines you maintained</li>
             </ul>
             <p>Replace placeholders with what you actually used — interviewers will ask one level deeper.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -266,13 +253,12 @@
         <article class="qa-card" data-id="prioritize-four-tools" data-level="medium" data-vimp="true">
           <div class="qa-question"><h3>Why four tools? How did you prioritize what to build first?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Product</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <h4>Priority order (example narrative)</h4>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Fuse Logger</span></li><li><span class="kw">Subscriber Tool</span></li><li><span class="kw">SM Tool</span></li><li><span class="kw">API Visualizer</span></li><li><span class="kw">API</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">why</strong> four tools? How did you prioritize what to build first. You listened to on-call pain, shipped MVP, iterated from feedback — shows senior mindset beyond &quot;I coded a utility.&quot;</p><h4>Priority order (example narrative)</h4>
             <ol>
-              <li><strong>Fuse Logger</strong> — highest pain: every incident needed logs first</li>
-              <li><strong>Subscriber Tool</strong> — second: validate data before blaming integration</li>
-              <li><strong>SM Tool</strong> — after repeat deploy mistakes cost a release window</li>
-              <li><strong>API Visualizer</strong> — when team grew and onboarding became expensive</li>
+              <li><strong class="kw">Fuse Logger</strong> — highest pain: every incident needed logs first</li>
+              <li><strong class="kw">Subscriber Tool</strong> — second: validate data before blaming integration</li>
+              <li><strong class="kw">SM Tool</strong> — after repeat deploy mistakes cost a release window</li>
+              <li><strong class="kw">API Visualizer</strong> — when team grew and onboarding became expensive</li>
             </ol>
             <h4>Product thinking</h4>
             <p>You listened to on-call pain, shipped MVP, iterated from feedback — shows senior mindset beyond "I coded a utility."</p>
@@ -283,8 +269,7 @@
         <article class="qa-card" data-id="amdocs-role-clarity" data-level="easy">
           <div class="qa-question"><h3>How do you explain Amdocs + client projects on resume?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Resume</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-            <p>"I'm employed by Amdocs Development Center. I deliver software for telecom operators — Vodafone Germany, Optima Philippines, XL Axiata — as embedded product teams. Same employer, different client contexts, one continuous backend career path."</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">how</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you explain Amdocs + client projects on resume. &quot;I&#x27;m employed by Amdocs Development Center.</p><p>"I'm employed by Amdocs Development Center. I deliver software for telecom operators — Vodafone Germany, Optima Philippines, XL Axiata — as embedded product teams. Same employer, different client contexts, one continuous backend career path."</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>

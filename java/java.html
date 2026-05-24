@@ -59,8 +59,8 @@
         <article class="qa-card" data-id="platform-independent" data-level="easy" data-section="core" data-vimp="true">
           <div class="qa-question"><h3>Why is Java called platform independent?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Source compiles to <strong>bytecode</strong> (.class), not CPU-specific machine code. Any OS with a JVM runs the same bytecode.</p><h4>Flow</h4><ol><li>Write .java</li><li>javac → bytecode</li><li>JVM interprets or JIT-compiles to native code</li></ol><p>Nuance: Java is platform-independent; the <em>JVM</em> is platform-specific (install Windows/Linux JVM).</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">bytecode</span></li><li><span class="kw">JVM</span></li><li><span class="kw">JVM interprets or JIT</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">why</strong> is Java called platform independent. Source compiles to bytecode (.class), not CPU-specific machine code.</p><p>Source compiles to <strong class="kw">bytecode</strong> (.class), not CPU-specific machine code. Any OS with a JVM runs the same bytecode.</p><h4>Flow</h4><ol><li>Write .java</li><li>javac → bytecode</li><li>JVM interprets or JIT-compiles to native code</li></ol><p>Nuance: Java is platform-independent; the <em>JVM</em> is platform-specific (install Windows/Linux JVM).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -68,8 +68,8 @@
         <article class="qa-card" data-id="jdk-jre-jvm" data-level="easy" data-section="core">
           <div class="qa-question"><h3>JDK vs JRE vs JVM?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li><strong>JVM</strong> — runs bytecode</li><li><strong>JRE</strong> — JVM + libraries (legacy term)</li><li><strong>JDK</strong> — JRE + javac, javadoc, tools for development</li></ul><p>You develop with JDK; production containers often need JRE/runtime only.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JVM</span></li><li><span class="kw">JRE</span></li><li><span class="kw">JDK</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul><li><strong class="kw">JVM</strong> — runs bytecode</li><li><strong class="kw">JRE</strong> — JVM + libraries (legacy term)</li><li><strong class="kw">JDK</strong> — JRE + javac, javadoc, tools for development</li></ul><p>You develop with JDK; production containers often need JRE/runtime only.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -77,8 +77,7 @@
         <article class="qa-card" data-id="double-equals-vs-equals" data-level="easy" data-section="core" data-vimp="true">
           <div class="qa-question"><h3>== vs equals() — when to use which?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Rule</h4><p><code>==</code> on objects compares <strong>references</strong>. <code>equals()</code> compares <strong>content</strong> when overridden.</p><h4>Example</h4><pre><code>String a = new String("hi");
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">==</span></li><li><span class="kw">equals()</span></li><li><span class="kw">references</span></li><li><span class="kw">content</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><h4>Rule</h4><p><code class="kw-code">==</code> on objects compares <strong class="kw">references</strong>. <code class="kw-code">equals()</code> compares <strong class="kw">content</strong> when overridden.</p><h4>Example</h4><pre><code class="kw-code">String a = new String("hi");
 String b = new String("hi");
 a == b;       // false
 a.equals(b);  // true
@@ -93,8 +92,7 @@ x == y;       // true — string pool</code></pre><h4>Primitives</h4><p>For int,
         <article class="qa-card" data-id="oop-four" data-level="easy" data-section="core" data-vimp="true">
           <div class="qa-question"><h3>What are the four pillars of OOP?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Encapsulation</h4><p>Hide data (private fields), expose behavior (public methods).</p><h4>Inheritance</h4><p>IS-A reuse — prefer composition when possible.</p><h4>Polymorphism</h4><p>Same interface, different behavior — overriding.</p><h4>Abstraction</h4><p>Hide how, show what — interfaces/abstract classes.</p><h4>Example</h4><pre><code>public interface PaymentService {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Spring</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">the four pillars of OOP</strong> are important building blocks in this topic. Hide data (private fields), expose behavior (public methods).</p><h4>Encapsulation</h4><p>Hide data (private fields), expose behavior (public methods).</p><h4>Inheritance</h4><p>IS-A reuse — prefer composition when possible.</p><h4>Polymorphism</h4><p>Same interface, different behavior — overriding.</p><h4>Abstraction</h4><p>Hide how, show what — interfaces/abstract classes.</p><h4>Example</h4><pre><code class="kw-code">public interface PaymentService {
   void pay(BigDecimal amount);
 }
 // CreditCardPayment, WalletPayment implementations</code></pre><p>Spring services depend on interfaces (DIP).</p>
@@ -105,8 +103,7 @@ x == y;       // true — string pool</code></pre><h4>Primitives</h4><p>For int,
         <article class="qa-card" data-id="interface-abstract" data-level="easy" data-section="core">
           <div class="qa-question"><h3>Interface vs abstract class?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Interface</h4><p>Contract; multiple inheritance; default/static methods (Java 8+). No state (until records/patterns evolve).</p><h4>Abstract class</h4><p>Shared fields + partial implementation; single inheritance.</p><p>Prefer interface for API boundaries between modules.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><h4>Interface</h4><p>Contract; multiple inheritance; default/static methods (Java 8+). No state (until records/patterns evolve).</p><h4>Abstract class</h4><p>Shared fields + partial implementation; single inheritance.</p><p>Prefer interface for API boundaries between modules.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -114,8 +111,7 @@ x == y;       // true — string pool</code></pre><h4>Primitives</h4><p>For int,
         <article class="qa-card" data-id="overload-override" data-level="easy" data-section="core">
           <div class="qa-question"><h3>Method overloading vs overriding?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Overloading</h4><p>Same class, same method name, different parameters — compile-time polymorphism.</p><h4>Overriding</h4><p>Subclass replaces parent method — runtime polymorphism; use @Override.</p><h4>Example</h4><pre><code>class ReportService {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">trade-offs</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><h4>Overloading</h4><p>Same class, same method name, different parameters — compile-time polymorphism.</p><h4>Overriding</h4><p>Subclass replaces parent method — runtime polymorphism; use @Override.</p><h4>Example</h4><pre><code class="kw-code">class ReportService {
   void export(String id) { }
   void export(String id, String format) { } // overload
 }
@@ -129,8 +125,8 @@ class PdfReport extends ReportService {
         <article class="qa-card" data-id="composition-inheritance" data-level="medium" data-section="core">
           <div class="qa-question"><h3>Composition over inheritance?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Instead of extending a fat base class, wrap/has-a collaborator. Flexible, avoids fragile base class hierarchy.</p><h4>Example</h4><pre><code>class OrderService {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Composition over inheritance</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Composition over inheritance?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Instead of extending a fat base class, wrap/has-a collaborator.</li><li>Flexible, avoids fragile base class hierarchy.</li></ul><h4>Example</h4><pre><code class="kw-code">class OrderService {
   private final NotificationSender sender; // composed
   OrderService(NotificationSender sender) {
     this.sender = sender;
@@ -143,8 +139,8 @@ class PdfReport extends ReportService {
         <article class="qa-card" data-id="pass-by-value" data-level="medium" data-section="core" data-vimp="true">
           <div class="qa-question"><h3>Does Java pass by reference or value?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Always <strong>pass by value</strong> — copy of reference for objects. You cannot swap two references from caller side.</p><h4>Example</h4><pre><code>void swap(int[] a, int[] b) {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">pass by value</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Does Java pass by reference or value</strong>. Always pass by value — copy of reference for objects.</p><p>Always <strong class="kw">pass by value</strong> — copy of reference for objects. You cannot swap two references from caller side.</p><h4>Example</h4><pre><code class="kw-code">void swap(int[] a, int[] b) {
   int[] temp = a;
   a = b;  // only local copies change
   b = temp;
@@ -156,8 +152,8 @@ class PdfReport extends ReportService {
         <article class="qa-card" data-id="immutable" data-level="medium" data-section="core" data-vimp="true">
           <div class="qa-question"><h3>How do you make a class immutable?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li>final class, private final fields</li><li>No setters</li><li>Defensive copy of mutable inputs (List, Date)</li><li>Return copies from getters</li></ul><h4>Example</h4><pre><code>public final class Money {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">how</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: How do you make a class immutable?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul><li>final class, private final fields</li><li>No setters</li><li>Defensive copy of mutable inputs (List, Date)</li><li>Return copies from getters</li></ul><h4>Example</h4><pre><code class="kw-code">public final class Money {
   private final BigDecimal amount;
   public Money(BigDecimal amount) {
     this.amount = amount;
@@ -171,8 +167,7 @@ class PdfReport extends ReportService {
         <article class="qa-card" data-id="records-sealed" data-level="medium" data-section="core">
           <div class="qa-question"><h3>Records and sealed classes (Java 17+)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Record</h4><p>Brief immutable data carrier — auto equals/hashCode/toString.</p><h4>Example</h4><pre><code>public record ReportDto(String id, String status) { }</code></pre><h4>Sealed</h4><p>Restrict which classes extend — exhaustive switch in pattern matching.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Records and sealed classes (Java 17+)</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Records and sealed classes (Java 17+)</strong>. Brief immutable data carrier — auto equals/hashCode/toString.</p><h4>Record</h4><p>Brief immutable data carrier — auto equals/hashCode/toString.</p><h4>Example</h4><pre><code class="kw-code">public record ReportDto(String id, String status) { }</code></pre><h4>Sealed</h4><p>Restrict which classes extend — exhaustive switch in pattern matching.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -187,8 +182,8 @@ class PdfReport extends ReportService {
         <article class="qa-card" data-id="string-builder" data-level="easy" data-section="string">
           <div class="qa-question"><h3>String vs StringBuilder vs StringBuffer?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">string</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li><strong>String</strong> — immutable; every concat may create new object</li><li><strong>StringBuilder</strong> — mutable, fast, not thread-safe</li><li><strong>StringBuffer</strong> — synchronized legacy</li></ul><h4>Example</h4><pre><code>StringBuilder sb = new StringBuilder();
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">String</span></li><li><span class="kw">StringBuilder</span></li><li><span class="kw">StringBuffer</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: String vs StringBuilder vs StringBuffer?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul><li><strong class="kw">String</strong> — immutable; every concat may create new object</li><li><strong class="kw">StringBuilder</strong> — mutable, fast, not thread-safe</li><li><strong class="kw">StringBuffer</strong> — synchronized legacy</li></ul><h4>Example</h4><pre><code class="kw-code">StringBuilder sb = new StringBuilder();
 for (String row : rows) {
   sb.append(row).append(",");
 }
@@ -200,8 +195,8 @@ String csv = sb.toString();</code></pre><p>Use StringBuilder in loops building l
         <article class="qa-card" data-id="string-pool" data-level="medium" data-section="string">
           <div class="qa-question"><h3>String pool and intern()?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">string</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Literal strings live in pool; <code>intern()</code> returns pooled instance. Saves memory but pool is global — don't intern unbounded user input.</p><h4>Example</h4><pre><code>String a = "report";
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">intern()</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">String pool and intern()</strong>. Literal strings live in pool; returns pooled instance.</p><p>Literal strings live in pool; <code class="kw-code">intern()</code> returns pooled instance. Saves memory but pool is global — don't intern unbounded user input.</p><h4>Example</h4><pre><code class="kw-code">String a = "report";
 String b = "report";
 a == b; // true — same pool entry</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -211,8 +206,7 @@ a == b; // true — same pool entry</code></pre>
         <article class="qa-card" data-id="equals-hashcode" data-level="medium" data-section="string" data-vimp="true">
           <div class="qa-question"><h3>equals() and hashCode() contract?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">string</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Rule</h4><p>If a.equals(b) then a.hashCode() == b.hashCode(). Override both together for HashMap keys.</p><h4>Example</h4><pre><code>@Override public boolean equals(Object o) {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">HashMap</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">equals() and hashCode() contract</strong>. If a.equals(b) then a.hashCode() == b.hashCode().</p><h4>Rule</h4><p>If a.equals(b) then a.hashCode() == b.hashCode(). Override both together for HashMap keys.</p><h4>Example</h4><pre><code class="kw-code">@Override public boolean equals(Object o) {
   if (this == o) return true;
   if (!(o instanceof User u)) return false;
   return Objects.equals(email, u.email);
@@ -227,8 +221,8 @@ a == b; // true — same pool entry</code></pre>
         <article class="qa-card" data-id="final-finally-finalize" data-level="medium" data-section="string">
           <div class="qa-question"><h3>final vs finally vs finalize?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">string</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li><strong>final</strong> — can't reassign variable; can't override method; can't extend class</li><li><strong>finally</strong> — runs after try/catch (cleanup)</li><li><strong>finalize</strong> — deprecated GC hook — don't use</li></ul><h4>Example</h4><pre><code>try (Connection conn = dataSource.getConnection()) {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">final</span></li><li><span class="kw">finally</span></li><li><span class="kw">finalize</span></li><li><span class="kw">GC</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: final vs finally vs finalize?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul><li><strong class="kw">final</strong> — can't reassign variable; can't override method; can't extend class</li><li><strong class="kw">finally</strong> — runs after try/catch (cleanup)</li><li><strong class="kw">finalize</strong> — deprecated GC hook — don't use</li></ul><h4>Example</h4><pre><code class="kw-code">try (Connection conn = dataSource.getConnection()) {
   // auto-close — prefer try-with-resources
 }</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -238,8 +232,8 @@ a == b; // true — same pool entry</code></pre>
         <article class="qa-card" data-id="autoboxing" data-level="easy" data-section="string">
           <div class="qa-question"><h3>Autoboxing and pitfalls?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">string</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>int ↔ Integer automatic. Null Integer unboxed → NPE. == on Integer outside -128..127 cache compares references.</p><h4>Example</h4><pre><code>Integer a = 200, b = 200;
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Autoboxing and pitfalls</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Autoboxing and pitfalls?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>int ↔ Integer automatic.</li><li>Null Integer unboxed → NPE.</li><li>== on Integer outside -128..127 cache compares references.</li></ul><h4>Example</h4><pre><code class="kw-code">Integer a = 200, b = 200;
 a == b; // false
 Integer x = 100, y = 100;
 x == y; // true — cached</code></pre>
@@ -250,8 +244,8 @@ x == y; // true — cached</code></pre>
         <article class="qa-card" data-id="jit-compiler" data-level="medium" data-section="string">
           <div class="qa-question"><h3>What does the JVM JIT compiler do?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">string</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Hot methods compiled to native code after profiling — faster than interpret. Cold start after deploy slower until warm-up.</p><p>Vodafone/Optima: post-deploy smoke helps JIT + connection pool warm-up.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JVM</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">What does the JVM JIT compiler do</strong>. Vodafone/Optima: post-deploy smoke helps JIT + connection pool warm-up.</p><ul class="brief-bullets"><li>Hot methods compiled to native code after profiling — faster than interpret.</li><li>Cold start after deploy slower until warm-up.</li></ul><p>Vodafone/Optima: post-deploy smoke helps JIT + connection pool warm-up.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -266,8 +260,8 @@ x == y; // true — cached</code></pre>
         <article class="qa-card" data-id="arraylist-linkedlist" data-level="easy" data-section="collections">
           <div class="qa-question"><h3>ArrayList vs LinkedList?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">collections</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><strong>ArrayList:</strong> dynamic array, O(1) get, amortized O(1) append end. <strong>LinkedList:</strong> O(n) get, O(1) insert at known node.</p><p>Default: ArrayList unless you need Deque operations at both ends.</p><h4>Example</h4><pre><code>List<String> reports = new ArrayList<>();
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">ArrayList:</span></li><li><span class="kw">LinkedList:</span></li><li><span class="kw">ArrayList</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">ArrayList:</strong> dynamic array, O(1) get, amortized O(1) append end. <strong class="kw">LinkedList:</strong> O(n) get, O(1) insert at known node.</p><p>Default: ArrayList unless you need Deque operations at both ends.</p><h4>Example</h4><pre><code class="kw-code">List<String> reports = new ArrayList<>();
 reports.add("R001");
 String first = reports.get(0);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -277,8 +271,7 @@ String first = reports.get(0);</code></pre>
         <article class="qa-card" data-id="hashmap-internal" data-level="hard" data-section="collections" data-vimp="true">
           <div class="qa-question"><h3>HashMap internal working (Java 8+)?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">collections</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Structure</h4><p>Array of buckets; index = (n-1) &amp; hash. Collision: linked list → red-black tree if chain &gt; 8 and table ≥ 64.</p><h4>put flow</h4><ol><li>Compute hash</li><li>Find bucket</li><li>Same key (equals) → replace value</li><li>Else add to chain/tree</li></ol><h4>Load factor</h4><p>0.75 → resize double, rehash.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">HashMap</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">HashMap internal working (Java 8+)</strong>. Array of buckets; index = (n-1) &amp;amp; hash.</p><h4>Structure</h4><p>Array of buckets; index = (n-1) &amp; hash. Collision: linked list → red-black tree if chain &gt; 8 and table ≥ 64.</p><h4>put flow</h4><ol><li>Compute hash</li><li>Find bucket</li><li>Same key (equals) → replace value</li><li>Else add to chain/tree</li></ol><h4>Load factor</h4><p>0.75 → resize double, rehash.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -286,8 +279,8 @@ String first = reports.get(0);</code></pre>
         <article class="qa-card" data-id="conc-hashmap" data-level="medium" data-section="collections" data-vimp="true">
           <div class="qa-question"><h3>HashMap vs Hashtable vs ConcurrentHashMap?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">collections</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li><strong>HashMap</strong> — not thread-safe, one null key</li><li><strong>Hashtable</strong> — legacy synchronized — slow</li><li><strong>ConcurrentHashMap</strong> — fine-grained locks/CAS — use for shared caches</li></ul><h4>Example</h4><pre><code>Map<String, Report> cache = new ConcurrentHashMap<>();
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">HashMap</span></li><li><span class="kw">Hashtable</span></li><li><span class="kw">ConcurrentHashMap</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: HashMap vs Hashtable vs ConcurrentHashMap?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul><li><strong class="kw">HashMap</strong> — not thread-safe, one null key</li><li><strong class="kw">Hashtable</strong> — legacy synchronized — slow</li><li><strong class="kw">ConcurrentHashMap</strong> — fine-grained locks/CAS — use for shared caches</li></ul><h4>Example</h4><pre><code class="kw-code">Map<String, Report> cache = new ConcurrentHashMap<>();
 cache.put(id, report);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -296,8 +289,8 @@ cache.put(id, report);</code></pre>
         <article class="qa-card" data-id="hashset-treeset" data-level="medium" data-section="collections">
           <div class="qa-question"><h3>HashSet vs TreeSet?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">collections</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><strong>HashSet:</strong> O(1) add/contains, no order. <strong>TreeSet:</strong> Red-black tree, sorted, O(log n). Use TreeSet when you need range queries or sorted iteration.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">HashSet:</span></li><li><span class="kw">TreeSet:</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">HashSet:</strong> O(1) add/contains, no order. <strong class="kw">TreeSet:</strong> Red-black tree, sorted, O(log n). Use TreeSet when you need range queries or sorted iteration.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -305,8 +298,8 @@ cache.put(id, report);</code></pre>
         <article class="qa-card" data-id="map-of-list" data-level="medium" data-section="collections" data-vimp="true">
           <div class="qa-question"><h3>HashMap of List — common pattern and pitfall?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">collections</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Group records by key. Pitfall: mutating list from getter without checking null.</p><h4>Example</h4><pre><code>Map<String, List<Report>> byAccount = new HashMap<>();
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">HashMap</span></li><li><span class="kw">ArrayList</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: HashMap of List — common pattern and pitfall?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Group records by key.</li><li>Pitfall: mutating list from getter without checking null.</li></ul><h4>Example</h4><pre><code class="kw-code">Map<String, List<Report>> byAccount = new HashMap<>();
 byAccount.computeIfAbsent(accountId, k -> new ArrayList<>()).add(report);</code></pre><p>computeIfAbsent is cleaner than get/put null checks.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -315,8 +308,8 @@ byAccount.computeIfAbsent(accountId, k -> new ArrayList<>()).add(report);</code>
         <article class="qa-card" data-id="comparable-comparator" data-level="medium" data-section="collections">
           <div class="qa-question"><h3>Comparable vs Comparator?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">collections</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><strong>Comparable</strong> — natural order inside class (compareTo). <strong>Comparator</strong> — external, multiple sort orders.</p><h4>Example</h4><pre><code>reports.sort(Comparator.comparing(Report::getCreatedAt).reversed());</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Comparable</span></li><li><span class="kw">Comparator</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Comparable</strong> — natural order inside class (compareTo). <strong class="kw">Comparator</strong> — external, multiple sort orders.</p><h4>Example</h4><pre><code class="kw-code">reports.sort(Comparator.comparing(Report::getCreatedAt).reversed());</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -324,8 +317,7 @@ byAccount.computeIfAbsent(accountId, k -> new ArrayList<>()).add(report);</code>
         <article class="qa-card" data-id="fail-fast" data-level="hard" data-section="collections">
           <div class="qa-question"><h3>fail-fast vs fail-safe iterators?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">collections</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>fail-fast</h4><p>ArrayList iterator throws ConcurrentModificationException if collection structurally modified during iteration (except iterator.remove).</p><h4>fail-safe</h4><p>CopyOnWriteArrayList iterates snapshot — safe under concurrent reads.</p><h4>Example</h4><pre><code>for (String id : ids) {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">ArrayList</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><h4>fail-fast</h4><p>ArrayList iterator throws ConcurrentModificationException if collection structurally modified during iteration (except iterator.remove).</p><h4>fail-safe</h4><p>CopyOnWriteArrayList iterates snapshot — safe under concurrent reads.</p><h4>Example</h4><pre><code class="kw-code">for (String id : ids) {
   if (expired(id)) ids.remove(id); // throws on ArrayList
 }
 ids.removeIf(this::expired); // safe</code></pre>
@@ -336,8 +328,8 @@ ids.removeIf(this::expired); // safe</code></pre>
         <article class="qa-card" data-id="queue-deque" data-level="easy" data-section="collections">
           <div class="qa-question"><h3>Queue and Deque in Java?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">collections</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><strong>Queue:</strong> FIFO — LinkedList, PriorityQueue. <strong>Deque:</strong> double-ended — ArrayDeque for stack/queue. Used in BFS, task scheduling.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Queue:</span></li><li><span class="kw">Deque:</span></li><li><span class="kw">BFS</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Queue and Deque in Java</strong>. Queue: FIFO — LinkedList, PriorityQueue.</p><p><strong class="kw">Queue:</strong> FIFO — LinkedList, PriorityQueue. <strong class="kw">Deque:</strong> double-ended — ArrayDeque for stack/queue. Used in BFS, task scheduling.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -345,8 +337,7 @@ ids.removeIf(this::expired); // safe</code></pre>
         <article class="qa-card" data-id="optional" data-level="medium" data-section="collections">
           <div class="qa-question"><h3>Optional — when and when not?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">collections</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Good</h4><p>Return type when value may be absent — forces caller to handle.</p><h4>Bad</h4><p>Fields, method parameters, collections of Optionals.</p><h4>Example</h4><pre><code>public Optional<Report> findById(String id) {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Optional — when and when not</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Optional — when and when not</strong>. Return type when value may be absent — forces caller to handle.</p><h4>Good</h4><p>Return type when value may be absent — forces caller to handle.</p><h4>Bad</h4><p>Fields, method parameters, collections of Optionals.</p><h4>Example</h4><pre><code class="kw-code">public Optional<Report> findById(String id) {
   return repo.findById(id);
 }
 Report r = findById(id).orElseThrow(() -> new NotFoundException(id));</code></pre>
@@ -364,8 +355,7 @@ Report r = findById(id).orElseThrow(() -> new NotFoundException(id));</code></pr
         <article class="qa-card" data-id="thread-safe" data-level="hard" data-section="concurrency" data-vimp="true">
           <div class="qa-question"><h3>How do you make code thread-safe?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">concurrency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Strategies</h4><ul><li>Immutability (best)</li><li>synchronized / ReentrantLock on critical sections</li><li>ConcurrentHashMap, AtomicLong</li><li>Stateless Spring beans — no mutable instance fields</li></ul><h4>Deadlock</h4><p>Two locks opposite order → deadlock. Fix: consistent lock ordering, tryLock timeout.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Spring</span></li><li><span class="kw">Stateless Spring beans</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you make code thread-safe. Two locks opposite order → deadlock.</p><h4>Strategies</h4><ul><li>Immutability (best)</li><li>synchronized / ReentrantLock on critical sections</li><li>ConcurrentHashMap, AtomicLong</li><li>Stateless Spring beans — no mutable instance fields</li></ul><h4>Deadlock</h4><p>Two locks opposite order → deadlock. Fix: consistent lock ordering, tryLock timeout.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -373,8 +363,8 @@ Report r = findById(id).orElseThrow(() -> new NotFoundException(id));</code></pr
         <article class="qa-card" data-id="executor" data-level="medium" data-section="concurrency" data-vimp="true">
           <div class="qa-question"><h3>Thread pool / ExecutorService?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">concurrency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Reuse threads instead of new Thread() per task. Configure core/max pool and bounded queue.</p><h4>Example</h4><pre><code>ExecutorService pool = Executors.newFixedThreadPool(8);
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Spring</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Thread pool / ExecutorService?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Reuse threads instead of new Thread() per task.</li><li>Configure core/max pool and bounded queue.</li></ul><h4>Example</h4><pre><code class="kw-code">ExecutorService pool = Executors.newFixedThreadPool(8);
 pool.submit(() -> generateReport(id));
 // Spring @Async uses TaskExecutor — configure queue size</code></pre><p>Unbounded queue + slow tasks → OOM.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -384,8 +374,8 @@ pool.submit(() -> generateReport(id));
         <article class="qa-card" data-id="callable-future" data-level="medium" data-section="concurrency">
           <div class="qa-question"><h3>Callable vs Runnable?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">concurrency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Runnable no return value. Callable returns result and throws checked exceptions — used with Future/ExecutorService.</p><h4>Example</h4><pre><code>Future<Report> future = pool.submit(() -> buildReport(id));
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">trade-offs</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Callable vs Runnable?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Runnable no return value.</li><li>Callable returns result and throws checked exceptions — used with Future/ExecutorService.</li></ul><h4>Example</h4><pre><code class="kw-code">Future<Report> future = pool.submit(() -> buildReport(id));
 Report r = future.get(30, TimeUnit.SECONDS);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -394,8 +384,8 @@ Report r = future.get(30, TimeUnit.SECONDS);</code></pre>
         <article class="qa-card" data-id="volatile" data-level="medium" data-section="concurrency">
           <div class="qa-question"><h3>What does volatile do?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">concurrency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Visibility across threads — reads see latest write. Does NOT make compound actions atomic (i++ still needs sync or AtomicInteger).</p><h4>Example</h4><pre><code>private volatile boolean shutdown = false;
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">What does volatile do</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: What does volatile do?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Visibility across threads — reads see latest write.</li><li>Does NOT make compound actions atomic (i++ still needs sync or AtomicInteger).</li></ul><h4>Example</h4><pre><code class="kw-code">private volatile boolean shutdown = false;
 // writer thread sets true; readers see immediately</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -404,8 +394,8 @@ Report r = future.get(30, TimeUnit.SECONDS);</code></pre>
         <article class="qa-card" data-id="atomic" data-level="easy" data-section="concurrency">
           <div class="qa-question"><h3>AtomicInteger vs synchronized counter?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">concurrency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Atomics use CAS — lock-free for simple increments. Good for metrics counters.</p><h4>Example</h4><pre><code>private final AtomicLong processed = new AtomicLong();
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">trade-offs</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: AtomicInteger vs synchronized counter?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Atomics use CAS — lock-free for simple increments.</li><li>Good for metrics counters.</li></ul><h4>Example</h4><pre><code class="kw-code">private final AtomicLong processed = new AtomicLong();
 processed.incrementAndGet();</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -414,8 +404,7 @@ processed.incrementAndGet();</code></pre>
         <article class="qa-card" data-id="deadlock" data-level="hard" data-section="concurrency">
           <div class="qa-question"><h3>Detect and prevent deadlock?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">concurrency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Example deadlock</h4><p>Thread1: lock A then B. Thread2: lock B then A.</p><h4>Prevention</h4><ul><li>Always acquire locks in same global order</li><li>tryLock with timeout</li><li>Reduce lock scope</li></ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Detect and prevent deadlock</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Detect and prevent deadlock</strong>. Thread1: lock A then B.</p><h4>Example deadlock</h4><p>Thread1: lock A then B. Thread2: lock B then A.</p><h4>Prevention</h4><ul><li>Always acquire locks in same global order</li><li>tryLock with timeout</li><li>Reduce lock scope</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -423,8 +412,8 @@ processed.incrementAndGet();</code></pre>
         <article class="qa-card" data-id="threadlocal" data-level="medium" data-section="concurrency">
           <div class="qa-question"><h3>ThreadLocal use case?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">concurrency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Per-thread variable — e.g. SimpleDateFormat (legacy), user context, correlation ID in servlet thread. Clear in finally to avoid leaks in thread pools.</p><h4>Example</h4><pre><code>private static final ThreadLocal<String> CORR = new ThreadLocal<>();
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">ThreadLocal use case</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: ThreadLocal use case?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Per-thread variable — e.g.</li><li>SimpleDateFormat (legacy), user context, correlation ID in servlet thread.</li><li>Clear in finally to avoid leaks in thread pools.</li></ul><h4>Example</h4><pre><code class="kw-code">private static final ThreadLocal<String> CORR = new ThreadLocal<>();
 CORR.set(correlationId);
 try { process(); } finally { CORR.remove(); }</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -434,8 +423,8 @@ try { process(); } finally { CORR.remove(); }</code></pre>
         <article class="qa-card" data-id="completable-future" data-level="hard" data-section="concurrency">
           <div class="qa-question"><h3>CompletableFuture for async composition?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">concurrency</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Chain async steps without blocking threads — thenApply, thenCombine, exceptionally.</p><h4>Example</h4><pre><code>CompletableFuture.supplyAsync(() -> fetchAccount(id))
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">CompletableFuture for async composition</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: CompletableFuture for async composition?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><p>Chain async steps without blocking threads — thenApply, thenCombine, exceptionally.</p><h4>Example</h4><pre><code class="kw-code">CompletableFuture.supplyAsync(() -> fetchAccount(id))
   .thenApply(acc -> buildReport(acc))
   .exceptionally(ex -> Report.error(ex));</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -452,8 +441,8 @@ try { process(); } finally { CORR.remove(); }</code></pre>
         <article class="qa-card" data-id="streams" data-level="medium" data-section="java8" data-vimp="true">
           <div class="qa-question"><h3>Java Streams API?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">java8</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Intermediate ops lazy: filter, map, flatMap. Terminal: collect, reduce, forEach.</p><h4>Example</h4><pre><code>List<String> codes = reports.stream()
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Java Streams API?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Intermediate ops lazy: filter, map, flatMap.</li><li>Terminal: collect, reduce, forEach.</li></ul><h4>Example</h4><pre><code class="kw-code">List<String> codes = reports.stream()
   .filter(r -> "ACTIVE".equals(r.getStatus()))
   .map(Report::getCode)
   .distinct()
@@ -466,8 +455,8 @@ try { process(); } finally { CORR.remove(); }</code></pre>
         <article class="qa-card" data-id="lambda" data-level="easy" data-section="java8">
           <div class="qa-question"><h3>Lambda expressions?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">java8</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Anonymous function for functional interfaces (one abstract method): Predicate, Function, Consumer.</p><h4>Example</h4><pre><code>reports.removeIf(r -> r.getEndDate().isBefore(LocalDate.now()));
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Lambda expressions</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Lambda expressions</strong>. Anonymous function for functional interfaces (one abstract method): Predicate, Function, Consumer.</p><p>Anonymous function for functional interfaces (one abstract method): Predicate, Function, Consumer.</p><h4>Example</h4><pre><code class="kw-code">reports.removeIf(r -> r.getEndDate().isBefore(LocalDate.now()));
 Comparator<Report> byDate = Comparator.comparing(Report::getCreatedAt);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -476,8 +465,7 @@ Comparator<Report> byDate = Comparator.comparing(Report::getCreatedAt);</code></
         <article class="qa-card" data-id="method-reference" data-level="easy" data-section="java8">
           <div class="qa-question"><h3>Method references?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">java8</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Forms</h4><p>Class::staticMethod, instance::method, Class::new, Type[]::new.</p><h4>Example</h4><pre><code>reports.forEach(System.out::println);
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Method references</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Method references?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><h4>Forms</h4><p>Class::staticMethod, instance::method, Class::new, Type[]::new.</p><h4>Example</h4><pre><code class="kw-code">reports.forEach(System.out::println);
 reports.stream().map(Report::getId);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -486,8 +474,8 @@ reports.stream().map(Report::getId);</code></pre>
         <article class="qa-card" data-id="collectors" data-level="medium" data-section="java8" data-vimp="true">
           <div class="qa-question"><h3>Common Collectors?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">java8</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>toList, toSet, toMap (watch duplicate keys), groupingBy, partitioningBy, joining.</p><h4>Example</h4><pre><code>Map<String, Long> countByStatus = reports.stream()
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Common Collectors</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Common Collectors?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><p>toList, toSet, toMap (watch duplicate keys), groupingBy, partitioningBy, joining.</p><h4>Example</h4><pre><code class="kw-code">Map<String, Long> countByStatus = reports.stream()
   .collect(Collectors.groupingBy(Report::getStatus, Collectors.counting()));</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -496,8 +484,8 @@ reports.stream().map(Report::getId);</code></pre>
         <article class="qa-card" data-id="optional-stream" data-level="medium" data-section="java8">
           <div class="qa-question"><h3>flatMap with Optional and Stream?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">java8</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>flatMap flattens nested structure — Optional stream or List of Lists.</p><h4>Example</h4><pre><code>Optional<String> city = Optional.ofNullable(user)
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">flatMap with Optional and Stream</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: flatMap with Optional and Stream?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><p>flatMap flattens nested structure — Optional stream or List of Lists.</p><h4>Example</h4><pre><code class="kw-code">Optional<String> city = Optional.ofNullable(user)
   .flatMap(User::getAddress)
   .map(Address::getCity);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -507,8 +495,8 @@ reports.stream().map(Report::getId);</code></pre>
         <article class="qa-card" data-id="default-interface" data-level="easy" data-section="java8">
           <div class="qa-question"><h3>Default methods in interfaces?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">java8</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Add behavior to interfaces without breaking implementors — e.g. Collection.stream(). Use sparingly to avoid diamond problem ambiguity.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Default methods in interfaces</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Default methods in interfaces</strong>.</p><ul class="brief-bullets"><li>Add behavior to interfaces without breaking implementors — e.g.</li><li>Collection.stream().</li><li>Use sparingly to avoid diamond problem ambiguity.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -516,8 +504,8 @@ reports.stream().map(Report::getId);</code></pre>
         <article class="qa-card" data-id="date-time" data-level="medium" data-section="java8">
           <div class="qa-question"><h3>java.time vs old Date/Calendar?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">java8</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Immutable, thread-safe: LocalDate, LocalDateTime, ZonedDateTime, Instant. Use for report date ranges, billing periods.</p><h4>Example</h4><pre><code>LocalDate from = LocalDate.parse("2024-01-01");
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">trade-offs</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: java.time vs old Date/Calendar?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Immutable, thread-safe: LocalDate, LocalDateTime, ZonedDateTime, Instant.</li><li>Use for report date ranges, billing periods.</li></ul><h4>Example</h4><pre><code class="kw-code">LocalDate from = LocalDate.parse("2024-01-01");
 boolean inRange = !date.isBefore(from) && !date.isAfter(to);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -526,8 +514,8 @@ boolean inRange = !date.isBefore(from) && !date.isAfter(to);</code></pre>
         <article class="qa-card" data-id="functional-interfaces" data-level="medium" data-section="java8">
           <div class="qa-question"><h3>Built-in functional interfaces?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">java8</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li>Predicate&lt;T&gt; — boolean test</li><li>Function&lt;T,R&gt; — transform</li><li>Consumer&lt;T&gt; — side effect</li><li>Supplier&lt;T&gt; — supply value</li></ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Predicate&lt;T&gt;</span></li><li><span class="kw">Function&lt;T,R&gt;</span></li><li><span class="kw">Consumer&lt;T&gt;</span></li><li><span class="kw">Supplier&lt;T&gt;</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Built-in functional interfaces</strong>.</p><ul><li>Predicate&lt;T&gt; — boolean test</li><li>Function&lt;T,R&gt; — transform</li><li>Consumer&lt;T&gt; — side effect</li><li>Supplier&lt;T&gt; — supply value</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -542,8 +530,8 @@ boolean inRange = !date.isBefore(from) && !date.isAfter(to);</code></pre>
         <article class="qa-card" data-id="jvm-memory" data-level="medium" data-section="jvm" data-vimp="true">
           <div class="qa-question"><h3>JVM memory areas?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jvm</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li><strong>Heap</strong> — objects (Young + Old)</li><li><strong>Stack</strong> — per thread frames, local vars</li><li><strong>Metaspace</strong> — class metadata</li><li><strong>PC registers, native stacks</strong></li></ul><p>StackOverflowError vs OutOfMemoryError: different areas.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Heap</span></li><li><span class="kw">Stack</span></li><li><span class="kw">Metaspace</span></li><li><span class="kw">PC registers, native stacks</span></li><li><span class="kw">JVM</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">JVM memory areas</strong>. StackOverflowError vs OutOfMemoryError: different areas.</p><ul><li><strong class="kw">Heap</strong> — objects (Young + Old)</li><li><strong class="kw">Stack</strong> — per thread frames, local vars</li><li><strong class="kw">Metaspace</strong> — class metadata</li><li><strong class="kw">PC registers, native stacks</strong></li></ul><p>StackOverflowError vs OutOfMemoryError: different areas.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -551,8 +539,8 @@ boolean inRange = !date.isBefore(from) && !date.isAfter(to);</code></pre>
         <article class="qa-card" data-id="garbage-collection" data-level="medium" data-section="jvm" data-vimp="true">
           <div class="qa-question"><h3>How does garbage collection work?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jvm</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Objects unreachable from GC roots are collected. Young gen: Eden + Survivor (Minor GC). Old gen: Major/Full GC — longer pauses.</p><h4>Leak</h4><p>Static Map holding references forever — never collected.</p><h4>Example</h4><pre><code>// leak pattern
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">GC</span></li><li><span class="kw">HashMap</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: How does garbage collection work?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Objects unreachable from GC roots are collected.</li><li>Young gen: Eden + Survivor (Minor GC).</li><li>Old gen: Major/Full GC — longer pauses.</li></ul><h4>Leak</h4><p>Static Map holding references forever — never collected.</p><h4>Example</h4><pre><code class="kw-code">// leak pattern
 static Map<String, Object> CACHE = new HashMap<>();
 // fix: bounded cache, Caffeine with TTL</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -562,8 +550,8 @@ static Map<String, Object> CACHE = new HashMap<>();
         <article class="qa-card" data-id="gc-algorithms" data-level="hard" data-section="jvm">
           <div class="qa-question"><h3>G1 vs ZGC — what to mention?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">jvm</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><strong>G1:</strong> default for many servers, balances throughput/latency, regions. <strong>ZGC/Shenandoah:</strong> very low pause targets for large heaps. Tune with -Xmx and GC logs, not guesses.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">G1:</span></li><li><span class="kw">ZGC/Shenandoah:</span></li><li><span class="kw">GC</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">G1:</strong> default for many servers, balances throughput/latency, regions. <strong class="kw">ZGC/Shenandoah:</strong> very low pause targets for large heaps. Tune with -Xmx and GC logs, not guesses.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -571,8 +559,8 @@ static Map<String, Object> CACHE = new HashMap<>();
         <article class="qa-card" data-id="oom-debug" data-level="medium" data-section="jvm" data-vimp="true">
           <div class="qa-question"><h3>Debugging OutOfMemoryError?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jvm</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li>Heap dump: -XX:+HeapDumpOnOutOfMemoryError</li><li>MAT/VisualVM — dominator tree</li><li>Common causes: memory leak, heap too small, large result set loaded to List</li></ul><p>Vodafone reporting: paginate instead of load 1M rows to heap.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Heap dump:</span></li><li><span class="kw">MAT/VisualVM</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Debugging OutOfMemoryError</strong>. Vodafone reporting: paginate instead of load 1M rows to heap.</p><ul><li>Heap dump: -XX:+HeapDumpOnOutOfMemoryError</li><li>MAT/VisualVM — dominator tree</li><li>Common causes: memory leak, heap too small, large result set loaded to List</li></ul><p>Vodafone reporting: paginate instead of load 1M rows to heap.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -580,8 +568,8 @@ static Map<String, Object> CACHE = new HashMap<>();
         <article class="qa-card" data-id="classloader" data-level="hard" data-section="jvm">
           <div class="qa-question"><h3>Class loaders hierarchy?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">jvm</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Bootstrap → Platform → Application. Parent delegation loads core JDK classes. Custom loaders in app servers (Fuse/OSGi) — know for telco integration context.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">telco</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Class loaders hierarchy</strong>.</p><ul class="brief-bullets"><li>Bootstrap → Platform → Application.</li><li>Parent delegation loads core JDK classes.</li><li>Custom loaders in app servers (Fuse/OSGi) — know for telco integration context.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -589,8 +577,8 @@ static Map<String, Object> CACHE = new HashMap<>();
         <article class="qa-card" data-id="heap-vs-stack" data-level="easy" data-section="jvm">
           <div class="qa-question"><h3>Heap vs stack storage?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">jvm</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Objects on heap; method locals and references on stack. Stack frame popped when method returns. Object may survive if referenced from heap.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">trade-offs</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul class="brief-bullets"><li>Objects on heap; method locals and references on stack.</li><li>Stack frame popped when method returns.</li><li>Object may survive if referenced from heap.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -605,8 +593,8 @@ static Map<String, Object> CACHE = new HashMap<>();
         <article class="qa-card" data-id="exceptions" data-level="medium" data-section="exceptions">
           <div class="qa-question"><h3>Checked vs unchecked exceptions?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">exceptions</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p><strong>Checked</strong> — must handle/declare (IOException). <strong>Unchecked</strong> — RuntimeException (NPE, IllegalArgument).</p><h4>Example</h4><pre><code>try {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Checked</span></li><li><span class="kw">Unchecked</span></li><li><span class="kw">Spring</span></li><li><span class="kw">REST</span></li><li><span class="kw">HTTP</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Checked</strong> — must handle/declare (IOException). <strong class="kw">Unchecked</strong> — RuntimeException (NPE, IllegalArgument).</p><h4>Example</h4><pre><code class="kw-code">try {
   Files.readString(path);
 } catch (IOException e) {
   throw new ReportException("Failed to read", e);
@@ -618,8 +606,8 @@ static Map<String, Object> CACHE = new HashMap<>();
         <article class="qa-card" data-id="try-with-resources" data-level="easy" data-section="exceptions">
           <div class="qa-question"><h3>try-with-resources?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">exceptions</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Auto-close resources implementing AutoCloseable — JDBC, streams.</p><h4>Example</h4><pre><code>try (PreparedStatement ps = conn.prepareStatement(sql)) {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">sql</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: try-with-resources?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><p>Auto-close resources implementing AutoCloseable — JDBC, streams.</p><h4>Example</h4><pre><code class="kw-code">try (PreparedStatement ps = conn.prepareStatement(sql)) {
   ps.setString(1, id);
   ResultSet rs = ps.executeQuery();
 }</code></pre>
@@ -630,8 +618,8 @@ static Map<String, Object> CACHE = new HashMap<>();
         <article class="qa-card" data-id="custom-exception" data-level="medium" data-section="exceptions">
           <div class="qa-question"><h3>Design custom exceptions for APIs?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">exceptions</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Domain exceptions with error code + message; map in @ControllerAdvice. Don't expose stack traces to clients.</p><h4>Example</h4><pre><code>public class ReportNotFoundException extends RuntimeException {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Design custom exceptions for APIs</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Design custom exceptions for APIs?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Domain exceptions with error code + message; map in @ControllerAdvice.</li><li>Don't expose stack traces to clients.</li></ul><h4>Example</h4><pre><code class="kw-code">public class ReportNotFoundException extends RuntimeException {
   public ReportNotFoundException(String id) {
     super("Report not found: " + id);
   }
@@ -643,8 +631,8 @@ static Map<String, Object> CACHE = new HashMap<>();
         <article class="qa-card" data-id="nio-files" data-level="medium" data-section="exceptions">
           <div class="qa-question"><h3>java.nio.file for file operations?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">exceptions</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Paths, Files.readString/writeString (Java 11+), walk for directories — cleaner than old File API.</p><h4>Example</h4><pre><code>Path path = Path.of("/data", fileName);
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">java.nio.file for file operations</strong>. Paths, Files.readString/writeString (Java 11+), walk for directories — cleaner than old File API.</p><p>Paths, Files.readString/writeString (Java 11+), walk for directories — cleaner than old File API.</p><h4>Example</h4><pre><code class="kw-code">Path path = Path.of("/data", fileName);
 String content = Files.readString(path);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -660,8 +648,8 @@ String content = Files.readString(path);</code></pre>
         <article class="qa-card" data-id="solid" data-level="medium" data-section="design" data-vimp="true">
           <div class="qa-question"><h3>SOLID principles with examples?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">design</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li><strong>S</strong> — ReportService doesn't send email</li><li><strong>O</strong> — new ExportFormat class, not if-else chain edit</li><li><strong>L</strong> — subclass honors parent contract</li><li><strong>I</strong> — small interfaces, not God interface</li><li><strong>D</strong> — depend on PaymentGateway interface, Spring injects impl</li></ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">S</span></li><li><span class="kw">O</span></li><li><span class="kw">L</span></li><li><span class="kw">I</span></li><li><span class="kw">D</span></li><li><span class="kw">Spring</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">SOLID principles with examples</strong>.</p><ul><li><strong class="kw">S</strong> — ReportService doesn't send email</li><li><strong class="kw">O</strong> — new ExportFormat class, not if-else chain edit</li><li><strong class="kw">L</strong> — subclass honors parent contract</li><li><strong class="kw">I</strong> — small interfaces, not God interface</li><li><strong class="kw">D</strong> — depend on PaymentGateway interface, Spring injects impl</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -669,8 +657,8 @@ String content = Files.readString(path);</code></pre>
         <article class="qa-card" data-id="singleton-pattern" data-level="medium" data-section="design" data-vimp="true">
           <div class="qa-question"><h3>Thread-safe singleton?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">design</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Double-checked locking needs volatile. Enum singleton is simplest safe pattern.</p><h4>Example</h4><pre><code>public enum ConfigHolder {
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Spring</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: Thread-safe singleton?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Double-checked locking needs volatile.</li><li>Enum singleton is simplest safe pattern.</li></ul><h4>Example</h4><pre><code class="kw-code">public enum ConfigHolder {
   INSTANCE;
   public Properties getConfig() { ... }
 }</code></pre><p>Spring: default bean scope is singleton per context.</p>
@@ -681,8 +669,7 @@ String content = Files.readString(path);</code></pre>
         <article class="qa-card" data-id="factory-builder" data-level="medium" data-section="design">
           <div class="qa-question"><h3>Factory vs Builder pattern?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">design</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Factory</h4><p>Hides which concrete class to instantiate.</p><h4>Builder</h4><p>Many optional fields — readable object creation.</p><h4>Example</h4><pre><code>ReportRequest req = ReportRequest.builder()
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">trade-offs</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><h4>Factory</h4><p>Hides which concrete class to instantiate.</p><h4>Builder</h4><p>Many optional fields — readable object creation.</p><h4>Example</h4><pre><code class="kw-code">ReportRequest req = ReportRequest.builder()
   .accountId("A1")
   .from(LocalDate.now().minusDays(7))
   .format(Format.PDF)
@@ -694,8 +681,8 @@ String content = Files.readString(path);</code></pre>
         <article class="qa-card" data-id="dependency-injection" data-level="easy" data-section="design">
           <div class="qa-question"><h3>Dependency injection without Spring?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">design</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Pass dependencies via constructor — same as Spring's constructor injection, manual wiring in main/tests.</p><h4>Example</h4><pre><code>ReportService service = new ReportService(new JpaReportRepository());</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Spring</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Dependency injection without Spring</strong>. Pass dependencies via constructor — same as Spring&#x27;s constructor injection, manual wiring in main/tests.</p><p>Pass dependencies via constructor — same as Spring's constructor injection, manual wiring in main/tests.</p><h4>Example</h4><pre><code class="kw-code">ReportService service = new ReportService(new JpaReportRepository());</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -703,8 +690,8 @@ String content = Files.readString(path);</code></pre>
         <article class="qa-card" data-id="liskov-example" data-level="hard" data-section="design">
           <div class="qa-question"><h3>Liskov Substitution Principle example?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">design</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Subclass must work wherever parent expected. Violation: Square extends Rectangle but setWidth breaks height invariant.</p><p>Prefer interfaces that match real behavior subsets.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Liskov Substitution Principle example</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Liskov Substitution Principle example</strong>. Prefer interfaces that match real behavior subsets.</p><ul class="brief-bullets"><li>Subclass must work wherever parent expected.</li><li>Violation: Square extends Rectangle but setWidth breaks height invariant.</li></ul><p>Prefer interfaces that match real behavior subsets.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -712,8 +699,8 @@ String content = Files.readString(path);</code></pre>
         <article class="qa-card" data-id="static-keyword" data-level="easy" data-section="design">
           <div class="qa-question"><h3>static keyword — fields, methods, blocks?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">design</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><p>Belongs to class, not instance. Static method can't access instance fields. Static block runs once at class load. Don't abuse static mutable state in web apps (shared across requests).</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">static keyword — fields, methods, blocks</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">static keyword — fields, methods, blocks</strong>.</p><ul class="brief-bullets"><li>Belongs to class, not instance.</li><li>Static method can't access instance fields.</li><li>Static block runs once at class load.</li><li>Don't abuse static mutable state in web apps (shared across requests).</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -728,8 +715,8 @@ String content = Files.readString(path);</code></pre>
         <article class="qa-card" data-id="vodafone-java" data-level="medium" data-section="experience" data-vimp="true">
           <div class="qa-question"><h3>Java patterns you used at Vodafone?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Answer</h4><ul><li>Layered Spring Boot: Controller → Service → JPA Repository</li><li>DTOs for API, entities internal</li><li>Streams for filtering report lists</li><li>@Transactional on service layer</li><li>TestNG + Mockito for unit tests</li><li>SQL tuning for heavy reports — paginate, don't load all rows</li></ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">JPA</span></li><li><span class="kw">API</span></li><li><span class="kw">Transactional</span></li><li><span class="kw">TestNG</span></li><li><span class="kw">Mockito</span></li><li><span class="kw">SQL</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Java patterns you used at Vodafone</strong>.</p><ul><li>Layered Spring Boot: Controller → Service → JPA Repository</li><li>DTOs for API, entities internal</li><li>Streams for filtering report lists</li><li>@Transactional on service layer</li><li>TestNG + Mockito for unit tests</li><li>SQL tuning for heavy reports — paginate, don't load all rows</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -737,8 +724,7 @@ String content = Files.readString(path);</code></pre>
         <article class="qa-card" data-id="code-review-java" data-level="medium" data-section="experience">
           <div class="qa-question"><h3>What do you check in Java code review?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Checklist</h4><ul><li>Null safety, Optional misuse</li><li>Transaction boundaries</li><li>N+1 JPA queries</li><li>Resource leaks (try-with-resources)</li><li>equals/hashCode on entities used in Sets</li><li>No secrets in logs</li></ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JPA</span></li><li><span class="kw">Resource leaks (try</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">What do you check in Java code review</strong>.</p><h4>Checklist</h4><ul><li>Null safety, Optional misuse</li><li>Transaction boundaries</li><li>N+1 JPA queries</li><li>Resource leaks (try-with-resources)</li><li>equals/hashCode on entities used in Sets</li><li>No secrets in logs</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -746,8 +732,7 @@ String content = Files.readString(path);</code></pre>
         <article class="qa-card" data-id="debug-prod-java" data-level="medium" data-section="experience" data-vimp="true">
           <div class="qa-question"><h3>Debug production Java issue — your approach?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">experience</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer">
-<h4>Steps</h4><ol><li>Correlation ID in logs</li><li>Reproduce in lower env</li><li>Thread dump if hung; heap if OOM</li><li>Recent deploy diff</li><li>DB explain plan for slow API</li></ol><p>Tie to Fuse Logger / Actuator experience.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Debug production Java issue — your approach</strong>. Tie to Fuse Logger / Actuator experience.</p><h4>Steps</h4><ol><li>Correlation ID in logs</li><li>Reproduce in lower env</li><li>Thread dump if hung; heap if OOM</li><li>Recent deploy diff</li><li>DB explain plan for slow API</li></ol><p>Tie to Fuse Logger / Actuator experience.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
