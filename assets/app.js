@@ -11,6 +11,7 @@ const SITE_NAV = [
   { id: "production", label: "Production", path: "production/production.html" },
   { id: "kafka", label: "Kafka", path: "kafka/kafka.html" },
   { id: "dsa", label: "DSA", path: "dsa/dsa.html" },
+  { id: "striver-sheet", label: "Striver Sheet", path: "dsa/striver-sheet.html" },
   { id: "dsa-visuals", label: "DSA Visuals", path: "dsa/dsa-visuals.html" },
   { id: "system-design", label: "System Design", path: "system design/system-design.html" },
   { id: "system-design-diagrams", label: "SD Diagrams", path: "system design/system-design-diagrams.html" }
@@ -175,5 +176,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   if (page === "home") initHomeProgress();
-  else if (page !== "dsa-visuals" && page !== "system-design-diagrams") initQAPage(page);
+  else if (page !== "dsa-visuals" && page !== "system-design-diagrams" && page !== "striver-sheet") initQAPage(page);
 });
