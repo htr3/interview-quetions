@@ -12,7 +12,7 @@
     <main class="main main-visuals">
       <header class="page-header">
         <h1>DSA — Interactive Visuals</h1>
-        <p><strong id="visual-count">32</strong> step-by-step demos across all 11 Q&amp;A sections — Three.js on desktop, 2D canvas on mobile (&lt;768px). Use <strong>Next step</strong>, <strong>Auto play</strong>, and controls on each card.</p>
+        <p><strong id="visual-count">33</strong> step-by-step demos across all 11 Q&amp;A sections — Three.js on desktop, 2D canvas on mobile (&lt;768px). Use <strong>Next step</strong>, <strong>Auto play</strong>, and controls on each card.</p>
       </header>
 
       <div class="diagram-banner diagram-banner-back">
@@ -29,7 +29,7 @@
         <div class="diagram-toc-section"><span class="diagram-toc-heading">2. Arrays</span>
           <div class="diagram-toc-links"><a href="#visual-array">Array</a><a href="#visual-two-sum">Two Sum</a><a href="#visual-sliding-window">Sliding window</a><a href="#visual-prefix-sum">Prefix sum</a><a href="#visual-two-pointers">Two pointers</a></div></div>
         <div class="diagram-toc-section"><span class="diagram-toc-heading">3. Linked List</span>
-          <div class="diagram-toc-links"><a href="#visual-linked-list">Singly</a><a href="#visual-doubly-ll">Doubly</a><a href="#visual-cycle-floyd">Floyd cycle</a></div></div>
+          <div class="diagram-toc-links"><a href="#visual-linked-list">Reverse</a><a href="#visual-doubly-ll">Doubly</a><a href="#visual-cycle-floyd">Floyd cycle</a></div></div>
         <div class="diagram-toc-section"><span class="diagram-toc-heading">4. Stack &amp; Queue</span>
           <div class="diagram-toc-links"><a href="#visual-stack">Stack</a><a href="#visual-queue">Queue</a><a href="#visual-deque">Deque</a></div></div>
         <div class="diagram-toc-section"><span class="diagram-toc-heading">5. Trees</span>
@@ -39,7 +39,7 @@
         <div class="diagram-toc-section"><span class="diagram-toc-heading">7. Hashing</span>
           <div class="diagram-toc-links"><a href="#visual-hashmap">Hash map</a><a href="#visual-hash-collision">Collisions</a></div></div>
         <div class="diagram-toc-section"><span class="diagram-toc-heading">8. Graphs</span>
-          <div class="diagram-toc-links"><a href="#visual-graph">BFS/DFS</a><a href="#visual-dijkstra">Dijkstra</a><a href="#visual-toposort">Topo sort</a><a href="#visual-union-find">Union-Find</a></div></div>
+          <div class="diagram-toc-links"><a href="#visual-graph">BFS/DFS</a><a href="#visual-dijkstra">Dijkstra</a><a href="#visual-toposort">Topo sort</a><a href="#visual-union-find">Union-Find</a><a href="#visual-trie">Trie</a></div></div>
         <div class="diagram-toc-section"><span class="diagram-toc-heading">9. Sort &amp; Search</span>
           <div class="diagram-toc-links"><a href="#visual-sorting">Sorting</a><a href="#visual-binary-search">Binary search</a></div></div>
         <div class="diagram-toc-section"><span class="diagram-toc-heading">10. DP</span>
@@ -145,20 +145,13 @@
         <h3 class="visual-section-title" id="toc-linkedlist">3. Linked List</h3>
 
         <section class="visual-card diagram-card" id="visual-linked-list">
-          <h2>Singly linked list — traversal</h2>
-          <p class="diagram-desc">Nodes linked by <code>next</code>. Walk from head — O(n), no random access.</p>
+          <h2>Reverse linked list — pointer rewiring</h2>
+          <p class="diagram-desc">Watch <strong>prev</strong>, <strong>curr</strong>, and <strong>nxt</strong>. Each step: save nxt → <code>curr.next = prev</code> → advance. Orange arrows = flipped links.</p>
           <div class="visual-stage">
-            <div class="three-container" aria-label="3D linked list"></div>
-            <canvas class="visual-canvas" aria-label="2D linked list"></canvas>
+            <canvas class="visual-canvas" aria-label="Reverse linked list"></canvas>
           </div>
           <p class="visual-status" aria-live="polite"></p>
-          <div class="visual-controls visual-controls-wrap">
-            <span class="visual-control-label">Jump:</span>
-            <button type="button" class="btn ll-node-btn" data-node="0">0</button>
-            <button type="button" class="btn ll-node-btn" data-node="1">1</button>
-            <button type="button" class="btn ll-node-btn" data-node="2">2</button>
-            <button type="button" class="btn ll-node-btn" data-node="3">3</button>
-            <button type="button" class="btn ll-node-btn" data-node="4">4</button>
+          <div class="visual-controls">
             <button type="button" class="btn" data-action="reset">Reset</button>
             <button type="button" class="btn btn-primary" data-action="next">Next step</button>
             <button type="button" class="btn" data-action="play" aria-pressed="false">Auto play</button>
@@ -334,7 +327,7 @@
           <p class="visual-status" aria-live="polite"></p>
           <div class="visual-controls">
             <label for="graph-mode">Traversal:</label>
-            <select id="graph-mode" class="filter-select" aria-label="BFS or DFS">
+            <select class="filter-select graph-mode-select" aria-label="BFS or DFS">
               <option value="bfs">BFS (queue)</option>
               <option value="dfs">DFS (stack)</option>
             </select>
@@ -372,6 +365,18 @@
           <h2>Union-Find — connected components</h2>
           <p class="diagram-desc">Kruskal MST: union sets when edge connects different components. Path compression optional.</p>
           <div class="visual-stage"><canvas class="visual-canvas" aria-label="Union find"></canvas></div>
+          <p class="visual-status" aria-live="polite"></p>
+          <div class="visual-controls">
+            <button type="button" class="btn" data-action="reset">Reset</button>
+            <button type="button" class="btn btn-primary" data-action="next">Next step</button>
+            <button type="button" class="btn" data-action="play" aria-pressed="false">Auto play</button>
+          </div>
+        </section>
+
+        <section class="visual-card diagram-card" id="visual-trie">
+          <h2>Trie — insert &amp; search</h2>
+          <p class="diagram-desc">Prefix tree: each node stores char → child. Insert/search O(word length). ★ marks end of word.</p>
+          <div class="visual-stage"><canvas class="visual-canvas" aria-label="Trie insert and search"></canvas></div>
           <p class="visual-status" aria-live="polite"></p>
           <div class="visual-controls">
             <button type="button" class="btn" data-action="reset">Reset</button>
@@ -502,6 +507,8 @@
   </div>
   <button class="mobile-toggle" id="sidebar-toggle" type="button">Menu</button>
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="../assets/linked-list-draw.js"></script>
+  <script src="../assets/linked-list-algos.js"></script>
   <script src="../assets/app.js"></script>
   <script src="../assets/dsa-visuals.js"></script>
 </body>

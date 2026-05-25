@@ -473,122 +473,34 @@
     });
   }
 
-  /* —— 2. Linked list traversal —— */
+  /* —— 2. Linked list — reverse algorithm (pointer rewiring) —— */
   function initLinkedListVisual(card) {
-    const container = card.querySelector(".three-container");
     const canvas2d = card.querySelector("canvas.visual-canvas");
-    const values = [3, 7, 2, 9, 5];
-    let threeCtx = null;
-    let currStep = 0;
+    const container = card.querySelector(".three-container");
+    const values = [1, 2, 3, 4];
+    const script = window.LinkedListAlgos
+      ? window.LinkedListAlgos.reverseSteps(values)
+      : [{ msg: "Load linked-list-algos.js", ll: { values, nextTo: [1, 2, 3, -1] } }];
 
-    function renderList(curr) {
-      if (use3D() && container) {
-        if (!threeCtx) threeCtx = createThreeScene(container, { camY: 4, camZ: 10 });
-        const { scene } = threeCtx;
-        while (scene.children.length > 2) scene.remove(scene.children[2]);
-        const gap = 2.2;
-        const startX = -((values.length - 1) * gap) / 2;
-        values.forEach((v, i) => {
-          const active = i === curr;
-          const geo = new THREE.SphereGeometry(0.55, 24, 24);
-          const mat = new THREE.MeshStandardMaterial({
-            color: active ? 0x22c55e : 0x6366f1,
-            emissive: active ? 0x14532d : 0x000000,
-            emissiveIntensity: active ? 0.4 : 0
-          });
-          const mesh = new THREE.Mesh(geo, mat);
-          mesh.position.set(startX + i * gap, 0, 0);
-          scene.add(mesh);
-          const lbl = labelSprite(String(v));
-          lbl.position.set(mesh.position.x, 1.1, 0);
-          scene.add(lbl);
-          if (i < values.length - 1) {
-            const points = [
-              new THREE.Vector3(startX + i * gap + 0.6, 0, 0),
-              new THREE.Vector3(startX + (i + 1) * gap - 0.6, 0, 0)
-            ];
-            const line = new THREE.Line(
-              new THREE.BufferGeometry().setFromPoints(points),
-              new THREE.LineBasicMaterial({ color: 0x93c5fd })
-            );
-            scene.add(line);
-            const arrow = labelSprite("next");
-            arrow.position.set((points[0].x + points[1].x) / 2, -0.5, 0);
-            arrow.scale.set(0.9, 0.45, 1);
-            scene.add(arrow);
-          }
-        });
-        threeCtx.resize();
-        canvas2d.style.display = "none";
-        container.style.display = "block";
-      } else {
+    makeControls(card, {
+      initData: () => ({}),
+      maxSteps: () => script.length,
+      onStep(st) {
+        st.data.frame = script[Math.min(st.step - 1, script.length - 1)];
+      },
+      statusText: st => st.data.frame?.msg || "Reverse: curr.next = prev, then advance",
+      render(st) {
+        const frame = st.data.frame || script[0];
+        if (!canvas2d) return;
         const ctx = canvas2d.getContext("2d");
         const w = canvas2d.width = canvas2d.clientWidth;
         const h = canvas2d.height = canvas2d.clientHeight;
-        ctx.fillStyle = "#0f1419";
-        ctx.fillRect(0, 0, w, h);
-        const gap = Math.min(90, (w - 60) / values.length);
-        let x = (w - gap * values.length) / 2 + 30;
-        const cy = h / 2;
-        values.forEach((v, i) => {
-          ctx.beginPath();
-          ctx.arc(x, cy, 28, 0, Math.PI * 2);
-          ctx.fillStyle = i === curr ? "#22c55e" : "#4f46e5";
-          ctx.fill();
-          ctx.strokeStyle = "#93c5fd";
-          ctx.lineWidth = 2;
-          ctx.stroke();
-          ctx.fillStyle = "#fff";
-          ctx.font = "bold 14px sans-serif";
-          ctx.textAlign = "center";
-          ctx.fillText(String(v), x, cy + 5);
-          if (i < values.length - 1) {
-            ctx.strokeStyle = "#93c5fd";
-            ctx.beginPath();
-            ctx.moveTo(x + 30, cy);
-            ctx.lineTo(x + gap - 30, cy);
-            ctx.stroke();
-            ctx.fillStyle = "#8b9cb3";
-            ctx.font = "11px sans-serif";
-            ctx.fillText("next", x + gap / 2, cy + 22);
-          }
-          x += gap;
-        });
-        ctx.fillStyle = "#93c5fd";
-        ctx.textAlign = "left";
-        ctx.font = "13px sans-serif";
-        ctx.fillText(curr < 0 ? "head → start traversal" : `curr at node ${curr} (value ${values[curr]})`, 12, 24);
-        container.style.display = "none";
+        if (container) container.style.display = "none";
         canvas2d.style.display = "block";
+        if (window.LinkedListDraw && frame.ll) {
+          window.LinkedListDraw.drawSingly(ctx, w, h, { ...frame.ll, msg: frame.msg });
+        }
       }
-    }
-
-    const ctrl = makeControls(card, {
-      initData: () => ({ curr: -1 }),
-      maxSteps: () => values.length + 1,
-      onStep(st) {
-        st.data.curr = Math.min(st.step - 1, values.length - 1);
-        currStep = st.data.curr;
-      },
-      statusText(st) {
-        if (st.step === 0) return "Singly linked list — each node holds value + next pointer";
-        if (st.data.curr < 0) return "Start at head";
-        if (st.data.curr >= values.length) return "Reached null — traversal O(n)";
-        return `Visit node ${st.data.curr}: value ${values[st.data.curr]} — O(1) per step, O(n) total`;
-      },
-      render(st) {
-        renderList(st.data.curr);
-      }
-    });
-
-    card.querySelectorAll(".ll-node-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const i = parseInt(btn.getAttribute("data-node"), 10);
-        ctrl.state.step = i + 1;
-        ctrl.state.data.curr = i;
-        ctrl.render(ctrl.state, ctrl.setStatus);
-        ctrl.setStatus(`Jumped to node ${i}: value ${values[i]}`);
-      });
     });
   }
 
@@ -1029,55 +941,35 @@
       statusText: st => st.data.curr < 0 ? "Doubly linked: prev ← node → next" : `At node ${st.data.curr}, value ${vals[st.data.curr]}`,
       render(st) {
         const { ctx, w, h } = prepCanvas(canvas);
-        ctx.fillStyle = "#0f1419";
-        ctx.fillRect(0, 0, w, h);
-        const gap = 100;
-        let x = (w - gap * vals.length) / 2 + 40;
-        const cy = h / 2;
-        vals.forEach((v, i) => {
-          const active = i === st.data.curr;
-          ctx.fillStyle = active ? "#22c55e" : "#4f46e5";
-          ctx.fillRect(x - 30, cy - 25, 60, 50);
-          ctx.fillStyle = "#fff";
-          ctx.textAlign = "center";
-          ctx.fillText(String(v), x, cy + 5);
-          if (i > 0) { ctx.fillStyle = "#64748b"; ctx.fillText("←prev", x - gap + 30, cy - 38); }
-          if (i < vals.length - 1) { ctx.fillStyle = "#93c5fd"; ctx.fillText("next→", x + 30, cy - 38); }
-          x += gap;
-        });
+        if (window.LinkedListDraw) {
+          window.LinkedListDraw.drawDoubly(ctx, w, h, {
+            values: vals,
+            curr: st.data.curr >= 0 ? st.data.curr : undefined,
+            msg: st.data.curr < 0 ? "Doubly linked: prev ← node → next" : `At node ${st.data.curr}, value ${vals[st.data.curr]}`
+          });
+        }
       }
     });
   }
 
   function initCycleFloyd(card) {
     const canvas = canvasOnly(card);
-    const cycle = [3, 7, 2, 9, 5];
+    const script = window.LinkedListAlgos
+      ? window.LinkedListAlgos.cycleSteps([3, 7, 2, 9, 5])
+      : [];
     makeControls(card, {
-      initData: () => ({ slow: 0, fast: 0, met: false }),
-      maxSteps: () => 8,
+      initData: () => ({}),
+      maxSteps: () => script.length,
       onStep(st) {
-        st.data.slow = (st.data.slow + 1) % cycle.length;
-        st.data.fast = (st.data.fast + 2) % cycle.length;
-        if (st.data.slow === st.data.fast && st.step > 1) st.data.met = true;
+        st.data.frame = script[Math.min(st.step - 1, script.length - 1)];
       },
-      statusText: st => st.data.met ? "Slow meets fast — cycle detected!" : `slow→${st.data.slow} fast→${st.data.fast} (mod circular list)`,
+      statusText: st => st.data.frame?.msg || "Floyd: slow +1, fast +2",
       render(st) {
+        const frame = st.data.frame || script[0];
         const { ctx, w, h } = prepCanvas(canvas);
-        const cx = w / 2, cy = h / 2, r = Math.min(w, h) * 0.28;
-        cycle.forEach((v, i) => {
-          const ang = (i / cycle.length) * Math.PI * 2 - Math.PI / 2;
-          const px = cx + Math.cos(ang) * r;
-          const py = cy + Math.sin(ang) * r;
-          const isSlow = i === st.data.slow;
-          const isFast = i === st.data.fast;
-          ctx.beginPath();
-          ctx.arc(px, py, 24, 0, Math.PI * 2);
-          ctx.fillStyle = isSlow && isFast ? "#ef4444" : isSlow ? "#22c55e" : isFast ? "#f59e0b" : "#3b82f6";
-          ctx.fill();
-          ctx.fillStyle = "#fff";
-          ctx.textAlign = "center";
-          ctx.fillText(String(v), px, py + 5);
-        });
+        if (window.LinkedListDraw && frame?.ll) {
+          window.LinkedListDraw.drawSingly(ctx, w, h, { ...frame.ll, msg: frame.msg });
+        }
       }
     });
   }
@@ -1944,7 +1836,7 @@
       }
     }
 
-    const modeSelect = card.querySelector("#graph-mode");
+    const modeSelect = card.querySelector(".graph-mode-select");
 
     makeControls(card, {
       initData: () => ({ mode: modeSelect?.value || "bfs", step: 0 }),
@@ -1967,6 +1859,124 @@
       },
       extraInit: (cardEl, st, reset) => {
         modeSelect?.addEventListener("change", reset);
+      }
+    });
+  }
+
+  /* —— Trie — insert & search —— */
+  function initTrie(card) {
+    const canvas = canvasOnly(card);
+    const script = [
+      { op: "start", msg: "Empty trie — root has no characters" },
+      { op: "insert", word: "cat", msg: "Insert \"cat\": c → a → t, mark end ★" },
+      { op: "insert", word: "car", msg: "Insert \"car\": reuse c→a, add r, mark end ★" },
+      { op: "insert", word: "dog", msg: "Insert \"dog\": new branch d → o → g ★" },
+      { op: "search", word: "car", msg: "Search \"car\": path exists and is a word ✓" },
+      { op: "search", word: "cab", msg: "Search \"cab\": fails at 'b' — not in trie ✗" }
+    ];
+
+    function emptyTrie() {
+      return { ch: {}, end: false };
+    }
+
+    function insertWord(trie, word) {
+      let node = trie;
+      for (const c of word) {
+        if (!node.ch[c]) node.ch[c] = { ch: {}, end: false };
+        node = node.ch[c];
+      }
+      node.end = true;
+    }
+
+    function searchWord(trie, word) {
+      let node = trie;
+      const path = [];
+      for (const c of word) {
+        if (!node.ch[c]) return { ok: false, path };
+        path.push(c);
+        node = node.ch[c];
+      }
+      return { ok: node.end, path };
+    }
+
+    function layoutTrie(trie, hi) {
+      const out = [];
+      function walk(node, depth, xMin, xMax, char) {
+        if (depth > 0) {
+          out.push({ char, node, x: (xMin + xMax) / 2, y: depth, end: node.end, hi: hi.has(char) });
+        }
+        const keys = Object.keys(node.ch).sort();
+        keys.forEach((k, i) => {
+          const span = (xMax - xMin) / keys.length;
+          walk(node.ch[k], depth + 1, xMin + i * span, xMin + (i + 1) * span, k);
+        });
+      }
+      walk(trie, 0, -4, 4, "");
+      return out;
+    }
+
+    function drawTrie(trie, hi, msg) {
+      const { ctx, w, h } = prepCanvas(canvas);
+      const nodes = layoutTrie(trie, hi);
+      const scaleX = w / 9;
+      const oy = 36;
+      const pos = new Map();
+      nodes.forEach(n => pos.set(n.node, { px: w / 2 + n.x * scaleX, py: oy + n.y * 38, ...n }));
+      nodes.forEach(n => {
+        const p = pos.get(n.node);
+        Object.keys(n.node.ch).forEach(k => {
+          const c = pos.get(n.node.ch[k]);
+          if (!c) return;
+          ctx.strokeStyle = "#475569";
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(p.px, p.py + 14);
+          ctx.lineTo(c.px, c.py - 14);
+          ctx.stroke();
+        });
+      });
+      nodes.forEach(n => {
+        const p = pos.get(n.node);
+        ctx.beginPath();
+        ctx.arc(p.px, p.py, 16, 0, Math.PI * 2);
+        ctx.fillStyle = p.hi ? "#f59e0b" : "#3b82f6";
+        ctx.fill();
+        ctx.fillStyle = "#fff";
+        ctx.font = "bold 12px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(p.char, p.px, p.py + 4);
+        if (p.end) {
+          ctx.fillStyle = "#22c55e";
+          ctx.font = "10px sans-serif";
+          ctx.fillText("★", p.px + 14, p.py - 10);
+        }
+      });
+      ctx.fillStyle = "#93c5fd";
+      ctx.font = "13px sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText(msg || "Trie — prefix tree", 10, 18);
+    }
+
+    makeControls(card, {
+      initData: () => ({ trie: emptyTrie(), hi: new Set(), msg: "" }),
+      maxSteps: () => script.length,
+      onStep(st) {
+        const s = script[st.step - 1];
+        if (s.op === "start") {
+          st.data.trie = emptyTrie();
+          st.data.hi = new Set();
+        } else if (s.op === "insert") {
+          insertWord(st.data.trie, s.word);
+          st.data.hi = new Set(s.word.split(""));
+        } else if (s.op === "search") {
+          const res = searchWord(st.data.trie, s.word);
+          st.data.hi = new Set(res.path);
+        }
+        st.data.msg = s.msg;
+      },
+      statusText: st => st.data.msg || "Trie: each edge is a character — O(L) insert/search",
+      render(st) {
+        drawTrie(st.data.trie, st.data.hi || new Set(), st.data.msg);
       }
     });
   }
@@ -2002,8 +2012,49 @@
     "visual-knapsack": initKnapsack,
     "visual-lcs": initLcs,
     "visual-greedy-intervals": initGreedyIntervals,
-    "visual-fractional-knapsack": initFractionalKnapsack
+    "visual-fractional-knapsack": initFractionalKnapsack,
+    "visual-trie": initTrie
   };
+
+  function shellHtml(visualId) {
+    const controls = `
+      <p class="visual-status" aria-live="polite"></p>
+      <div class="visual-controls">
+        <button type="button" class="btn" data-action="reset">Reset</button>
+        <button type="button" class="btn btn-primary" data-action="next">Next step</button>
+        <button type="button" class="btn" data-action="play" aria-pressed="false">Auto play</button>
+      </div>`;
+    if (visualId === "visual-graph") {
+      return `
+        <div class="visual-stage">
+          <div class="three-container" aria-hidden="true"></div>
+          <canvas class="visual-canvas" aria-label="Graph traversal"></canvas>
+        </div>
+        <label>Traversal:
+          <select class="filter-select graph-mode-select" aria-label="BFS or DFS">
+            <option value="bfs">BFS (queue)</option>
+            <option value="dfs">DFS (stack)</option>
+          </select>
+        </label>
+        ${controls}`;
+    }
+    return `
+      <div class="visual-stage"><canvas class="visual-canvas" aria-label="Algorithm visual"></canvas></div>
+      ${controls}`;
+  }
+
+  function mountEmbed(container, visualId) {
+    if (!container || !VISUAL_INITS[visualId]) return null;
+    const card = document.createElement("section");
+    card.className = "visual-card diagram-card striver-embedded-visual";
+    card.id = visualId;
+    card.innerHTML = shellHtml(visualId);
+    container.appendChild(card);
+    initVisualCard(card);
+    return card;
+  }
+
+  window.DsaVisuals = { mountEmbed, ids: Object.keys(VISUAL_INITS) };
 
   function initVisualCard(card) {
     const fn = VISUAL_INITS[card.id];

@@ -56,7 +56,7 @@
       heap: "Heap push / pop — O(log n)",
       stack: "Stack / queue operations",
       hash: "HashMap lookup O(1)",
-      linkedlist: "Pointer walk — prev / curr / next",
+      linkedlist: "Pointer rewiring — curr.next = prev, merge, Floyd cycle",
       dp: "DP table fill — bottom-up",
       binarysearch: "Binary search on sorted space",
       array: "Array scan",
@@ -111,9 +111,9 @@
       const rect = stage ? stage.getBoundingClientRect() : { width: 400, height: 180 };
       const dpr = window.devicePixelRatio || 1;
       canvas.width = Math.max(280, rect.width) * dpr;
-      canvas.height = 180 * dpr;
+      canvas.height = 240 * dpr;
       canvas.style.width = Math.max(280, rect.width) + "px";
-      canvas.style.height = "180px";
+      canvas.style.height = "240px";
       render();
     }
 
@@ -141,7 +141,11 @@
       const idx = Math.min(state.step, steps.length - 1);
       const cur = steps[idx] || { msg: "" };
       highlightSteps(card, idx);
-      if (cur.bars) {
+      if (cur.ll && window.LinkedListDraw) {
+        const ll = cur.ll;
+        if (ll.doubly) window.LinkedListDraw.drawDoubly(ctx, w, h, { ...ll, msg: cur.msg });
+        else window.LinkedListDraw.drawSingly(ctx, w, h, { ...ll, msg: cur.msg });
+      } else if (cur.bars) {
         drawBars(ctx, w, h, cur.bars, cur.hi, cur.msg);
       } else {
         drawTypeBadge(ctx, w, h, problem.visualType, cur.msg);
@@ -201,8 +205,21 @@
           if (!details.open) return;
           const id = details.dataset.id;
           const problem = byId[id];
+          if (!problem) return;
+
+          const embed = details.querySelector(".striver-dsa-embed");
+          const embedSpecial = problem.visualLink &&
+            ["visual-cycle-floyd", "visual-doubly-ll"].includes(problem.visualLink);
+          if (embedSpecial && embed && window.DsaVisuals?.mountEmbed) {
+            if (!embed.dataset.ready) {
+              embed.dataset.ready = "1";
+              window.DsaVisuals.mountEmbed(embed, problem.visualLink);
+            }
+            return;
+          }
+
           const viz = details.querySelector(".striver-step-visual");
-          if (problem && viz) initCard(viz, problem);
+          if (viz) initCard(viz, problem);
         });
       });
     }

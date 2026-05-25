@@ -46,8 +46,31 @@
     ).join("");
 
     const linkHtml = p.visualLink
-      ? `<p class="striver-full-visual"><a href="dsa-visuals.html#${p.visualLink}" class="visual-link">Open full interactive demo → <code>${escapeHtml(p.visualLink)}</code></a></p>`
+      ? `<p class="striver-full-visual"><a href="dsa-visuals.html#${p.visualLink}" class="visual-link">Open same demo on DSA Visuals page → <code>${escapeHtml(p.visualLink)}</code></a></p>`
       : "";
+
+    const embedSpecial = p.visualLink && ["visual-cycle-floyd", "visual-doubly-ll"].includes(p.visualLink);
+    const extraLink = p.visualType === "linkedlist" && !embedSpecial
+      ? `<p class="striver-full-visual"><a href="dsa-visuals.html#visual-linked-list" class="visual-link">Open reverse LL demo on DSA Visuals →</a></p>`
+      : linkHtml;
+
+    const vizHtml = embedSpecial
+      ? `<section class="striver-dsa-embed-wrap" aria-label="Embedded DSA visual">
+          <h4 class="striver-viz-heading">Interactive DSA visual (from DSA Visuals)</h4>
+          <div class="striver-dsa-embed" data-visual-id="${escapeHtml(p.visualLink)}"></div>
+          ${linkHtml}
+        </section>`
+      : `<section class="striver-step-visual visual-card diagram-card" aria-label="Step visualization for ${escapeHtml(p.title)}">
+          <h4 class="striver-viz-heading">Algorithm visualization — ${escapeHtml(p.title)}</h4>
+          <div class="visual-stage striver-stage"><canvas class="striver-canvas visual-canvas" aria-hidden="true"></canvas></div>
+          <p class="visual-status" aria-live="polite"></p>
+          <div class="visual-controls">
+            <button type="button" class="btn" data-action="reset">Reset</button>
+            <button type="button" class="btn btn-primary" data-action="next">Next step</button>
+            <button type="button" class="btn" data-action="play" aria-pressed="false">Auto play</button>
+          </div>
+          ${extraLink}
+        </section>`;
 
     return `
       <details class="striver-card qa-card" data-id="${p.id}" data-level="${p.level}" data-title="${escapeHtml(p.title.toLowerCase())}">
@@ -61,17 +84,7 @@
           <p class="simple-terms"><strong>In simple terms:</strong> ${escapeHtml(p.simple)}</p>
           <h4 class="striver-approach-heading">Answer approach</h4>
           <ol class="striver-approach-list">${stepsHtml}</ol>
-          ${linkHtml}
-          <section class="striver-step-visual visual-card diagram-card" aria-label="Step visualization for ${escapeHtml(p.title)}">
-            <h4 class="striver-viz-heading">Step-by-step visualization</h4>
-            <div class="visual-stage striver-stage"><canvas class="striver-canvas visual-canvas" aria-hidden="true"></canvas></div>
-            <p class="visual-status" aria-live="polite"></p>
-            <div class="visual-controls">
-              <button type="button" class="btn" data-action="reset">Reset</button>
-              <button type="button" class="btn btn-primary" data-action="next">Next step</button>
-              <button type="button" class="btn" data-action="play" aria-pressed="false">Auto play</button>
-            </div>
-          </section>
+          ${vizHtml}
         </div>
       </details>`;
   }

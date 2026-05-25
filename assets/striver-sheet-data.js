@@ -1878,56 +1878,317 @@ window.STRIVER_SHEET = {
         "Move pointers in one pass when possible — O(n) time, O(1) space.",
         "Watch null checks on every step."
       ],
-      "visualLink": "visual-linked-list",
+      "visualLink": null,
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "Start: prev = NULL, curr = head (value 1)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "Save nxt = curr.next → node 1 (2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "curr.next = prev → node 0 points to NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "flip": 0,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "Advance: prev = 1, curr = node 1 (value 2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "hi": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 2 (3)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 1 points back to 1",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "flip": 1,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 2, curr = node 2 (value 3)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "hi": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 3 (4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 2 points back to 2",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "flip": 2,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 3, curr = node 3 (value 4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "hi": [
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 3 points back to 3",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "flip": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Done: new head = node 3 (value 4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2
+            ],
+            "head": 3,
+            "prev": 3,
+            "curr": null,
+            "hi": [
+              3
+            ]
+          }
         }
       ]
     },
@@ -1949,52 +2210,111 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "slow = head, fast = head",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "slow": 0,
+            "fast": 0
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "slow → 1, fast → 2. Middle ≈ slow",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 1,
+            "slow": 1,
+            "fast": 2,
+            "hi": [
+              1,
+              2
+            ]
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "slow → 2, fast → 4. Middle ≈ slow",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 2,
+            "slow": 2,
+            "fast": 4,
+            "hi": [
+              2,
+              4
+            ]
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "Middle node: 3",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 2,
+            "slow": 2,
+            "fast": 4,
+            "hi": [
+              2
+            ]
+          }
         }
       ]
     },
@@ -2016,52 +2336,170 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "Dummy head; compare list A and list B",
+          "ll": {
+            "merge": true,
+            "listA": [
+              1,
+              3,
+              5
+            ],
+            "listB": [
+              2,
+              4,
+              6
+            ],
+            "ptrA": 0,
+            "ptrB": 0,
+            "out": []
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "A[0]=1 ≤ B[0] → append 1",
+          "ll": {
+            "merge": true,
+            "listA": [
+              1,
+              3,
+              5
+            ],
+            "listB": [
+              2,
+              4,
+              6
+            ],
+            "ptrA": 0,
+            "ptrB": 0,
+            "out": [
+              1
+            ],
+            "pick": "A"
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "B[0]=2 < A[1] → append 2",
+          "ll": {
+            "merge": true,
+            "listA": [
+              1,
+              3,
+              5
+            ],
+            "listB": [
+              2,
+              4,
+              6
+            ],
+            "ptrA": 1,
+            "ptrB": 0,
+            "out": [
+              1,
+              2
+            ],
+            "pick": "B"
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "A[1]=3 ≤ B[1] → append 3",
+          "ll": {
+            "merge": true,
+            "listA": [
+              1,
+              3,
+              5
+            ],
+            "listB": [
+              2,
+              4,
+              6
+            ],
+            "ptrA": 1,
+            "ptrB": 1,
+            "out": [
+              1,
+              2,
+              3
+            ],
+            "pick": "A"
+          }
+        },
+        {
+          "msg": "B[1]=4 < A[2] → append 4",
+          "ll": {
+            "merge": true,
+            "listA": [
+              1,
+              3,
+              5
+            ],
+            "listB": [
+              2,
+              4,
+              6
+            ],
+            "ptrA": 2,
+            "ptrB": 1,
+            "out": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "pick": "B"
+          }
+        },
+        {
+          "msg": "A[2]=5 ≤ B[2] → append 5",
+          "ll": {
+            "merge": true,
+            "listA": [
+              1,
+              3,
+              5
+            ],
+            "listB": [
+              2,
+              4,
+              6
+            ],
+            "ptrA": 2,
+            "ptrB": 2,
+            "out": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "pick": "A"
+          }
+        },
+        {
+          "msg": "Merged: 1 → 2 → 3 → 4 → 5 → 6",
+          "ll": {
+            "merge": true,
+            "listA": [
+              1,
+              3,
+              5
+            ],
+            "listB": [
+              2,
+              4,
+              6
+            ],
+            "ptrA": -1,
+            "ptrB": -1,
+            "out": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "done": true
+          }
         }
       ]
     },
@@ -2083,52 +2521,190 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "Move fast 2 steps ahead of slow",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "slow": 0,
+            "fast": 0
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "Fast step 1/2 → node 1",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "slow": 0,
+            "fast": 1,
+            "hi": [
+              1
+            ]
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "Fast step 2/2 → node 2",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "slow": 0,
+            "fast": 2,
+            "hi": [
+              2
+            ]
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "Move both until fast.next is NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 1,
+            "slow": 1,
+            "fast": 3,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Move both until fast.next is NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 2,
+            "slow": 2,
+            "fast": 4,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "slow.next = slow.next.next → remove node 3 (value 4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "flip": 3,
+            "slow": 2,
+            "deleteAt": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Node deleted — O(n) one pass",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              4,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": null,
+            "slow": 2,
+            "hi": [
+              2
+            ]
+          }
         }
       ]
     },
@@ -2150,52 +2726,119 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "Dummy head; compare list A and list B",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              3
+            ],
+            "listB": [
+              5,
+              6,
+              4
+            ],
+            "ptrA": 0,
+            "ptrB": 0,
+            "out": []
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "A[0]=2 ≤ B[0] → append 2",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              3
+            ],
+            "listB": [
+              5,
+              6,
+              4
+            ],
+            "ptrA": 0,
+            "ptrB": 0,
+            "out": [
+              2
+            ],
+            "pick": "A"
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "A[1]=4 ≤ B[0] → append 4",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              3
+            ],
+            "listB": [
+              5,
+              6,
+              4
+            ],
+            "ptrA": 1,
+            "ptrB": 0,
+            "out": [
+              2,
+              4
+            ],
+            "pick": "A"
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "A[2]=3 ≤ B[0] → append 3",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              3
+            ],
+            "listB": [
+              5,
+              6,
+              4
+            ],
+            "ptrA": 2,
+            "ptrB": 0,
+            "out": [
+              2,
+              4,
+              3
+            ],
+            "pick": "A"
+          }
+        },
+        {
+          "msg": "Merged: 2 → 4 → 3 → 5 → 6 → 4",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              3
+            ],
+            "listB": [
+              5,
+              6,
+              4
+            ],
+            "ptrA": -1,
+            "ptrB": -1,
+            "out": [
+              2,
+              4,
+              3,
+              5,
+              6,
+              4
+            ],
+            "done": true
+          }
         }
       ]
     },
@@ -2217,52 +2860,190 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "Move fast 2 steps ahead of slow",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "slow": 0,
+            "fast": 0
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "Fast step 1/2 → node 1",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "slow": 0,
+            "fast": 1,
+            "hi": [
+              1
+            ]
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "Fast step 2/2 → node 2",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "slow": 0,
+            "fast": 2,
+            "hi": [
+              2
+            ]
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "Move both until fast.next is NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 1,
+            "slow": 1,
+            "fast": 3,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Move both until fast.next is NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 2,
+            "slow": 2,
+            "fast": 4,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "slow.next = slow.next.next → remove node 3 (value 4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "flip": 3,
+            "slow": 2,
+            "deleteAt": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Node deleted — O(n) one pass",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              4,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": null,
+            "slow": 2,
+            "hi": [
+              2
+            ]
+          }
         }
       ]
     },
@@ -2284,52 +3065,170 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "Dummy head; compare list A and list B",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              6
+            ],
+            "listB": [
+              1,
+              2,
+              4
+            ],
+            "ptrA": 0,
+            "ptrB": 0,
+            "out": []
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "B[0]=1 < A[0] → append 1",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              6
+            ],
+            "listB": [
+              1,
+              2,
+              4
+            ],
+            "ptrA": 0,
+            "ptrB": 0,
+            "out": [
+              1
+            ],
+            "pick": "B"
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "A[0]=2 ≤ B[1] → append 2",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              6
+            ],
+            "listB": [
+              1,
+              2,
+              4
+            ],
+            "ptrA": 0,
+            "ptrB": 1,
+            "out": [
+              1,
+              2
+            ],
+            "pick": "A"
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "B[1]=2 < A[1] → append 2",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              6
+            ],
+            "listB": [
+              1,
+              2,
+              4
+            ],
+            "ptrA": 1,
+            "ptrB": 1,
+            "out": [
+              1,
+              2,
+              2
+            ],
+            "pick": "B"
+          }
+        },
+        {
+          "msg": "A[1]=4 ≤ B[2] → append 4",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              6
+            ],
+            "listB": [
+              1,
+              2,
+              4
+            ],
+            "ptrA": 1,
+            "ptrB": 2,
+            "out": [
+              1,
+              2,
+              2,
+              4
+            ],
+            "pick": "A"
+          }
+        },
+        {
+          "msg": "B[2]=4 < A[2] → append 4",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              6
+            ],
+            "listB": [
+              1,
+              2,
+              4
+            ],
+            "ptrA": 2,
+            "ptrB": 2,
+            "out": [
+              1,
+              2,
+              2,
+              4,
+              4
+            ],
+            "pick": "B"
+          }
+        },
+        {
+          "msg": "Merged: 1 → 2 → 2 → 4 → 4 → 6",
+          "ll": {
+            "merge": true,
+            "listA": [
+              2,
+              4,
+              6
+            ],
+            "listB": [
+              1,
+              2,
+              4
+            ],
+            "ptrA": -1,
+            "ptrB": -1,
+            "out": [
+              1,
+              2,
+              2,
+              4,
+              4,
+              6
+            ],
+            "done": true
+          }
         }
       ]
     },
@@ -2351,52 +3250,115 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "slow +1, fast +2 on cyclic list",
+          "ll": {
+            "values": [
+              3,
+              7,
+              2,
+              9,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              2
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "slow": 0,
+            "fast": 0,
+            "cyclic": true
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "Step 1: slow→1, fast→2",
+          "ll": {
+            "values": [
+              3,
+              7,
+              2,
+              9,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              2
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 1,
+            "slow": 1,
+            "fast": 2,
+            "cyclic": true,
+            "hi": [
+              1,
+              2
+            ]
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "Step 2: slow→2, fast→4",
+          "ll": {
+            "values": [
+              3,
+              7,
+              2,
+              9,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              2
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 2,
+            "slow": 2,
+            "fast": 4,
+            "cyclic": true,
+            "hi": [
+              2,
+              4
+            ]
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "Cycle detected at node 3!",
+          "ll": {
+            "values": [
+              3,
+              7,
+              2,
+              9,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              2
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 3,
+            "slow": 3,
+            "fast": 3,
+            "cyclic": true,
+            "hi": [
+              3
+            ]
+          }
         }
       ]
     },
@@ -2418,52 +3380,535 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "Start: prev = NULL, curr = head (value 1)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "Save nxt = curr.next → node 1 (2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "curr.next = prev → node 0 points to NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              4,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "flip": 0,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "Advance: prev = 1, curr = node 1 (value 2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              4,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "hi": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 2 (3)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              4,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 1 points back to 1",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              4,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "flip": 1,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 2, curr = node 2 (value 3)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              4,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "hi": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 3 (4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              4,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 2 points back to 2",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              4,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "flip": 2,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 3, curr = node 3 (value 4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              4,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "hi": [
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 4 (5)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              4,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "savedNext": 4,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 3 points back to 3",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "savedNext": 4,
+            "flip": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 4, curr = node 4 (value 5)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": 3,
+            "curr": 4,
+            "hi": [
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 5 (6)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              5,
+              -1
+            ],
+            "head": 0,
+            "prev": 3,
+            "curr": 4,
+            "savedNext": 5,
+            "hi": [
+              4
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 4 points back to 4",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 3,
+            "curr": 4,
+            "savedNext": 5,
+            "flip": 4,
+            "hi": [
+              4
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 5, curr = node 5 (value 6)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 4,
+            "curr": 5,
+            "hi": [
+              4,
+              5
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 4,
+            "curr": 5,
+            "hi": [
+              5
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 5 points back to 5",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "head": 0,
+            "prev": 4,
+            "curr": 5,
+            "flip": 5,
+            "hi": [
+              5
+            ]
+          }
+        },
+        {
+          "msg": "Done: new head = node 5 (value 6)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "head": 5,
+            "prev": 5,
+            "curr": null,
+            "hi": [
+              5
+            ]
+          }
         }
       ]
     },
@@ -2485,52 +3930,313 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "Start: prev = NULL, curr = head (value 1)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "Save nxt = curr.next → node 1 (2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "curr.next = prev → node 0 points to NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "flip": 0,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "Advance: prev = 1, curr = node 1 (value 2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "hi": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 2 (2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 1 points back to 1",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "flip": 1,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 2, curr = node 2 (value 2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "hi": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 3 (1)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 2 points back to 2",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "flip": 2,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 2, curr = node 3 (value 1)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "hi": [
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 3 points back to 2",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "flip": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Done: new head = node 3 (value 1)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              2,
+              1
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2
+            ],
+            "head": 3,
+            "prev": 3,
+            "curr": null,
+            "hi": [
+              3
+            ]
+          }
         }
       ]
     },
@@ -2552,52 +4258,115 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "slow +1, fast +2 on cyclic list",
+          "ll": {
+            "values": [
+              3,
+              7,
+              2,
+              9,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              2
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "slow": 0,
+            "fast": 0,
+            "cyclic": true
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "Step 1: slow→1, fast→2",
+          "ll": {
+            "values": [
+              3,
+              7,
+              2,
+              9,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              2
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 1,
+            "slow": 1,
+            "fast": 2,
+            "cyclic": true,
+            "hi": [
+              1,
+              2
+            ]
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "Step 2: slow→2, fast→4",
+          "ll": {
+            "values": [
+              3,
+              7,
+              2,
+              9,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              2
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 2,
+            "slow": 2,
+            "fast": 4,
+            "cyclic": true,
+            "hi": [
+              2,
+              4
+            ]
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "Cycle detected at node 3!",
+          "ll": {
+            "values": [
+              3,
+              7,
+              2,
+              9,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              2
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 3,
+            "slow": 3,
+            "fast": 3,
+            "cyclic": true,
+            "hi": [
+              3
+            ]
+          }
         }
       ]
     },
@@ -2619,52 +4388,313 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "Start: prev = NULL, curr = head (value 1)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "Save nxt = curr.next → node 1 (2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "curr.next = prev → node 0 points to NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "flip": 0,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "Advance: prev = 1, curr = node 1 (value 2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "hi": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 2 (3)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 1 points back to 1",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "flip": 1,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 2, curr = node 2 (value 3)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "hi": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 3 (4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 2 points back to 2",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "flip": 2,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 3, curr = node 3 (value 4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "hi": [
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 3 points back to 3",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "flip": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Done: new head = node 3 (value 4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2
+            ],
+            "head": 3,
+            "prev": 3,
+            "curr": null,
+            "hi": [
+              3
+            ]
+          }
         }
       ]
     },
@@ -2686,52 +4716,418 @@ window.STRIVER_SHEET = {
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "Start: prev = NULL, curr = head (value 1)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "Save nxt = curr.next → node 1 (2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "curr.next = prev → node 0 points to NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "flip": 0,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "Advance: prev = 1, curr = node 1 (value 2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "hi": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 2 (3)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 1 points back to 1",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "flip": 1,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 2, curr = node 2 (value 3)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "hi": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 3 (4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 2 points back to 2",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "flip": 2,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 3, curr = node 3 (value 4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "hi": [
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 4 (5)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              4,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "savedNext": 4,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 3 points back to 3",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "savedNext": 4,
+            "flip": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 4, curr = node 4 (value 5)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              -1
+            ],
+            "head": 0,
+            "prev": 3,
+            "curr": 4,
+            "hi": [
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              -1
+            ],
+            "head": 0,
+            "prev": 3,
+            "curr": 4,
+            "hi": [
+              4
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 4 points back to 4",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              3
+            ],
+            "head": 0,
+            "prev": 3,
+            "curr": 4,
+            "flip": 4,
+            "hi": [
+              4
+            ]
+          }
+        },
+        {
+          "msg": "Done: new head = node 4 (value 5)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2,
+              3
+            ],
+            "head": 4,
+            "prev": 4,
+            "curr": null,
+            "hi": [
+              4
+            ]
+          }
         }
       ]
     },
@@ -2749,56 +5145,317 @@ window.STRIVER_SHEET = {
         "Move pointers in one pass when possible — O(n) time, O(1) space.",
         "Watch null checks on every step."
       ],
-      "visualLink": null,
+      "visualLink": "visual-doubly-ll",
       "visualType": "linkedlist",
       "demoSteps": [
         {
-          "msg": "Init prev=null, curr=head",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            0
-          ]
+          "msg": "Start: prev = NULL, curr = head (value 1)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0
+          }
         },
         {
-          "msg": "Save next, reverse link",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            1
-          ]
+          "msg": "Save nxt = curr.next → node 1 (2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Advance prev and curr",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            2
-          ]
+          "msg": "curr.next = prev → node 0 points to NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": null,
+            "curr": 0,
+            "savedNext": 1,
+            "flip": 0,
+            "hi": [
+              0
+            ]
+          }
         },
         {
-          "msg": "Return new head (prev)",
-          "bars": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "hi": [
-            3
-          ]
+          "msg": "Advance: prev = 1, curr = node 1 (value 2)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "hi": [
+              0,
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 2 (3)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              2,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 1 points back to 1",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 0,
+            "curr": 1,
+            "savedNext": 2,
+            "flip": 1,
+            "hi": [
+              1
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 2, curr = node 2 (value 3)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "hi": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → node 3 (4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              3,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 2 points back to 2",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 1,
+            "curr": 2,
+            "savedNext": 3,
+            "flip": 2,
+            "hi": [
+              2
+            ]
+          }
+        },
+        {
+          "msg": "Advance: prev = 3, curr = node 3 (value 4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "hi": [
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Save nxt = curr.next → NULL",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              -1
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "curr.next = prev → node 3 points back to 3",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2
+            ],
+            "head": 0,
+            "prev": 2,
+            "curr": 3,
+            "flip": 3,
+            "hi": [
+              3
+            ]
+          }
+        },
+        {
+          "msg": "Done: new head = node 3 (value 4)",
+          "ll": {
+            "values": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "nextTo": [
+              -1,
+              0,
+              1,
+              2
+            ],
+            "head": 3,
+            "prev": 3,
+            "curr": null,
+            "hi": [
+              3
+            ]
+          }
         }
       ]
     },
@@ -4486,7 +7143,7 @@ window.STRIVER_SHEET = {
         "Each node = map of char → child; mark end of word.",
         "Insert/search O(length); good for prefix queries."
       ],
-      "visualLink": null,
+      "visualLink": "visual-trie",
       "visualType": "trie",
       "demoSteps": [
         {
@@ -4515,7 +7172,7 @@ window.STRIVER_SHEET = {
         "Each node = map of char → child; mark end of word.",
         "Insert/search O(length); good for prefix queries."
       ],
-      "visualLink": null,
+      "visualLink": "visual-trie",
       "visualType": "trie",
       "demoSteps": [
         {
@@ -4544,7 +7201,7 @@ window.STRIVER_SHEET = {
         "Each node = map of char → child; mark end of word.",
         "Insert/search O(length); good for prefix queries."
       ],
-      "visualLink": null,
+      "visualLink": "visual-trie",
       "visualType": "trie",
       "demoSteps": [
         {
@@ -4573,7 +7230,7 @@ window.STRIVER_SHEET = {
         "Each node = map of char → child; mark end of word.",
         "Insert/search O(length); good for prefix queries."
       ],
-      "visualLink": "visual-bst",
+      "visualLink": "visual-trie",
       "visualType": "trie",
       "demoSteps": [
         {
@@ -4604,7 +7261,7 @@ window.STRIVER_SHEET = {
         "Recurse → undo (backtrack) to try other branches.",
         "Prune early when invalid."
       ],
-      "visualLink": null,
+      "visualLink": "visual-recursion-backtrack",
       "visualType": "recursion",
       "demoSteps": [
         {
@@ -4633,7 +7290,7 @@ window.STRIVER_SHEET = {
         "Each node = map of char → child; mark end of word.",
         "Insert/search O(length); good for prefix queries."
       ],
-      "visualLink": "visual-prefix-sum",
+      "visualLink": "visual-trie",
       "visualType": "trie",
       "demoSteps": [
         {
@@ -4662,7 +7319,7 @@ window.STRIVER_SHEET = {
         "Each node = map of char → child; mark end of word.",
         "Insert/search O(length); good for prefix queries."
       ],
-      "visualLink": "visual-prefix-sum",
+      "visualLink": "visual-trie",
       "visualType": "trie",
       "demoSteps": [
         {
@@ -5321,7 +7978,7 @@ window.STRIVER_SHEET = {
         "HashMap for frequency / anagram checks.",
         "KMP/Z for pattern matching — prefix function."
       ],
-      "visualLink": "visual-prefix-sum",
+      "visualLink": null,
       "visualType": "string",
       "demoSteps": [
         {
@@ -5741,7 +8398,7 @@ window.STRIVER_SHEET = {
         "Recursive with base null; pass down min/max for BST validate.",
         "Track global answer during postorder (diameter, max path)."
       ],
-      "visualLink": "visual-tree-traversal",
+      "visualLink": null,
       "visualType": "tree",
       "demoSteps": [
         {
@@ -5771,7 +8428,7 @@ window.STRIVER_SHEET = {
         "Recursive with base null; pass down min/max for BST validate.",
         "Track global answer during postorder (diameter, max path)."
       ],
-      "visualLink": "visual-tree-traversal",
+      "visualLink": null,
       "visualType": "tree",
       "demoSteps": [
         {
@@ -6041,7 +8698,7 @@ window.STRIVER_SHEET = {
         "Recursive with base null; pass down min/max for BST validate.",
         "Track global answer during postorder (diameter, max path)."
       ],
-      "visualLink": "visual-tree-traversal",
+      "visualLink": null,
       "visualType": "tree",
       "demoSteps": [
         {
@@ -6071,7 +8728,7 @@ window.STRIVER_SHEET = {
         "Recursive with base null; pass down min/max for BST validate.",
         "Track global answer during postorder (diameter, max path)."
       ],
-      "visualLink": "visual-tree-traversal",
+      "visualLink": null,
       "visualType": "tree",
       "demoSteps": [
         {
@@ -6910,7 +9567,7 @@ window.STRIVER_SHEET = {
         "DFS for cycles, components, topo sort on DAG.",
         "Visited set prevents infinite loops."
       ],
-      "visualLink": null,
+      "visualLink": "visual-graph",
       "visualType": "graph",
       "demoSteps": [
         {
@@ -6940,7 +9597,7 @@ window.STRIVER_SHEET = {
         "DFS for cycles, components, topo sort on DAG.",
         "Visited set prevents infinite loops."
       ],
-      "visualLink": null,
+      "visualLink": "visual-graph",
       "visualType": "graph",
       "demoSteps": [
         {
@@ -6970,7 +9627,7 @@ window.STRIVER_SHEET = {
         "DFS for cycles, components, topo sort on DAG.",
         "Visited set prevents infinite loops."
       ],
-      "visualLink": "visual-tree-traversal",
+      "visualLink": "visual-graph",
       "visualType": "graph",
       "demoSteps": [
         {
@@ -7000,7 +9657,7 @@ window.STRIVER_SHEET = {
         "DFS for cycles, components, topo sort on DAG.",
         "Visited set prevents infinite loops."
       ],
-      "visualLink": "visual-bfs-tree",
+      "visualLink": "visual-graph",
       "visualType": "graph",
       "demoSteps": [
         {
@@ -7030,7 +9687,7 @@ window.STRIVER_SHEET = {
         "DFS for cycles, components, topo sort on DAG.",
         "Visited set prevents infinite loops."
       ],
-      "visualLink": "visual-cycle-floyd",
+      "visualLink": "visual-graph",
       "visualType": "graph",
       "demoSteps": [
         {
@@ -7060,7 +9717,7 @@ window.STRIVER_SHEET = {
         "DFS for cycles, components, topo sort on DAG.",
         "Visited set prevents infinite loops."
       ],
-      "visualLink": "visual-cycle-floyd",
+      "visualLink": "visual-graph",
       "visualType": "graph",
       "demoSteps": [
         {
@@ -7150,7 +9807,7 @@ window.STRIVER_SHEET = {
         "DFS for cycles, components, topo sort on DAG.",
         "Visited set prevents infinite loops."
       ],
-      "visualLink": null,
+      "visualLink": "visual-graph",
       "visualType": "graph",
       "demoSteps": [
         {
@@ -7180,7 +9837,7 @@ window.STRIVER_SHEET = {
         "DFS for cycles, components, topo sort on DAG.",
         "Visited set prevents infinite loops."
       ],
-      "visualLink": null,
+      "visualLink": "visual-toposort",
       "visualType": "graph",
       "demoSteps": [
         {
@@ -7240,7 +9897,7 @@ window.STRIVER_SHEET = {
         "DFS for cycles, components, topo sort on DAG.",
         "Visited set prevents infinite loops."
       ],
-      "visualLink": null,
+      "visualLink": "visual-dijkstra",
       "visualType": "graph",
       "demoSteps": [
         {
@@ -7270,7 +9927,7 @@ window.STRIVER_SHEET = {
         "DFS for cycles, components, topo sort on DAG.",
         "Visited set prevents infinite loops."
       ],
-      "visualLink": null,
+      "visualLink": "visual-dijkstra",
       "visualType": "graph",
       "demoSteps": [
         {
