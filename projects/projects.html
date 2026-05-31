@@ -141,7 +141,31 @@
         <article class="qa-card" data-id="vodafone-pitch" data-level="easy" data-vimp="true">
           <div class="qa-question"><h3>Vodafone Germany — 2-minute elevator pitch</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Client</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Script:</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">REST</span></li><li><span class="kw">TestNG</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">SQL</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Vodafone Germany — 2-minute elevator pitch</strong>. Script: &quot;On Vodafone Germany I built Spring Boot REST microservices for telecom reporting and operations.</p><p><strong class="kw">Script:</strong> "On Vodafone Germany I built Spring Boot REST microservices for telecom reporting and operations. I optimized heavy MySQL reporting queries using EXPLAIN and indexing — reports became more than 10% faster and DB CPU dropped in peak hours. I raised TestNG coverage from 60% to 90% on critical paths. Stack: Java, Spring Boot, REST, MySQL, TestNG, Jenkins, Git, Maven."</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Script:</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">REST</span></li><li><span class="kw">TestNG</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">SQL</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Vodafone Germany — 2-minute elevator pitch</strong>. Script: &quot;On Vodafone Germany I built Spring Boot REST microservices for telecom reporting and operations.</p><p><strong class="kw">Quick script (~30s):</strong> "On Vodafone Germany I built Spring Boot REST microservices for telecom reporting and operations. I optimized heavy MySQL reporting queries using EXPLAIN and indexing — reports became more than 10% faster and DB CPU dropped in peak hours. I raised TestNG coverage from 60% to 90% on critical paths. Stack: Java, Spring Boot, REST, MySQL, TestNG, Jenkins, Git, Maven."</p>
+
+            <h4>Detailed pitch (STAR — use in deep-dive rounds)</h4>
+            <p><strong class="kw">Situation:</strong> Vodafone Germany's operations and reporting depended on backend services that pulled large volumes of subscriber and usage data from MySQL. Some reports were slow during peak hours and put pressure on the database, and test coverage on critical paths was low enough to make releases risky.</p>
+            <p><strong class="kw">Task:</strong> As a backend engineer I owned building and maintaining the reporting/operations microservices, improving query performance, and raising confidence in releases through better tests.</p>
+            <p><strong class="kw">Action:</strong></p>
+            <ul>
+              <li>Built <strong class="kw">Spring Boot REST microservices</strong> exposing reporting/operations APIs, with clear request/response contracts and pagination for large result sets.</li>
+              <li>Profiled the slow reports with <code class="kw-code">EXPLAIN</code>, found full table scans and bad join orders, and added the right <strong class="kw">composite indexes</strong> and query rewrites (selective WHEREs, avoiding SELECT *, limiting date ranges).</li>
+              <li>Reduced DB load further by returning only needed columns and paginating, so peak-hour CPU dropped.</li>
+              <li>Raised <strong class="kw">TestNG</strong> coverage from <strong class="kw">60% to 90%</strong> on critical paths — added unit + integration tests so regressions were caught in CI, not prod.</li>
+              <li>Used <strong class="kw">Jenkins, Git, Maven</strong> for repeatable builds and faster, safer delivery.</li>
+            </ul>
+            <p><strong class="kw">Result:</strong> Reports ran <strong class="kw">10%+ faster</strong> with lower DB CPU at peak, releases got safer (90% coverage on critical paths), and overall delivery sped up ~5%.</p>
+
+            <h4>Likely follow-ups</h4>
+            <ul>
+              <li><em>"How exactly did you find the slow query?"</em> → "EXPLAIN showed a full scan + filesort; I added a composite index on the filter+sort columns and rewrote the join."</li>
+              <li><em>"Why only 90% coverage, not 100%?"</em> → "I prioritized critical business paths; chasing 100% has diminishing returns vs trivial getters."</li>
+              <li><em>"Why MySQL and not Postgres?"</em> → honest: "MySQL was the platform there; the optimization concepts (EXPLAIN, indexing, cardinality) transfer directly to PostgreSQL." (Good bridge for the ICE role.)</li>
+            </ul>
+
+            <h4>ICE relevance</h4>
+            <p>Directly maps to ICE Mortgage Technology's needs: REST microservices + relational DB performance tuning + test discipline on a business-critical platform.</p>
+
             <h4>Memorize these numbers</h4>
             <p>10% SQL, 60→90% coverage, ~5% faster delivery.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -151,7 +175,38 @@
         <article class="qa-card" data-id="optima-pitch" data-level="easy" data-vimp="true">
           <div class="qa-question"><h3>Optima Philippines — 2-minute elevator pitch</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Client</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Script:</span></li><li><span class="kw">Camel</span></li><li><span class="kw">BSS</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">CI</span></li><li><span class="kw">CD</span></li><li><span class="kw">API</span></li><li><span class="kw">REST</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Optima Philippines — 2-minute elevator pitch</strong>. Script: &quot;I maintained Apache Camel services doing 1M+ transactions per day between BSS systems — reliability, monitoring, error handling.</p><p><strong class="kw">Script:</strong> "I maintained Apache Camel services doing 1M+ transactions per day between BSS systems — reliability, monitoring, error handling. I built Jenkins CI/CD cutting manual deploy ~60%. I created Fuse Logger, Subscriber Tool, SM Tool, and API Visualizer used daily by the team. Stack: Java, Camel, Jenkins, MySQL, REST."</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Script:</span></li><li><span class="kw">Camel</span></li><li><span class="kw">BSS</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">CI</span></li><li><span class="kw">CD</span></li><li><span class="kw">API</span></li><li><span class="kw">REST</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Optima Philippines — 2-minute elevator pitch</strong>. Script: &quot;I maintained Apache Camel services doing 1M+ transactions per day between BSS systems — reliability, monitoring, error handling.</p><p><strong class="kw">Quick script (~30s):</strong> "I maintained Apache Camel services doing 1M+ transactions per day between BSS systems — reliability, monitoring, error handling. I built Jenkins CI/CD cutting manual deploy ~60%. I created Fuse Logger, Subscriber Tool, SM Tool, and API Visualizer used daily by the team. Stack: Java, Camel, Jenkins, MySQL, REST."</p>
+
+            <h4>Detailed pitch (STAR — your strongest story)</h4>
+            <p><strong class="kw">Situation:</strong> Optima Philippines runs telecom BSS systems where multiple platforms (ordering, billing, provisioning, partners) must talk to each other reliably. The integration layer handled <strong class="kw">1M+ transactions per day</strong>, and any failed hop could delay customer activations. Debugging meant SSH-ing across dev/test/prod servers, and deployments were manual and error-prone.</p>
+            <p><strong class="kw">Task:</strong> Keep these Apache Camel integration flows reliable, cut the time to debug production issues, and make deployments repeatable — while also reducing the senior-engineer bottleneck for the whole team.</p>
+            <p><strong class="kw">Action:</strong></p>
+            <ul>
+              <li>Maintained and hardened <strong class="kw">Apache Camel</strong> routes between BSS systems — added monitoring, robust error handling, retries and clear failure paths.</li>
+              <li>Built <strong class="kw">Jenkins CI/CD</strong> pipelines that cut manual deployment effort by <strong class="kw">~60%</strong> and reduced wrong-environment mistakes.</li>
+              <li>Owned four internal tools used daily by the team:
+                <ul>
+                  <li><strong class="kw">Fuse Logger</strong> — search logs across environments by correlation ID (no more SSH to every server).</li>
+                  <li><strong class="kw">Subscriber Tool</strong> — safe, read-only production lookups by MIN/accountId with PII masking + audit.</li>
+                  <li><strong class="kw">SM Tool</strong> — deployment automation with pre-checks, smoke tests, and rollback.</li>
+                  <li><strong class="kw">API Visualizer</strong> — living map of the API/Camel hops for onboarding and incident triage.</li>
+                </ul>
+              </li>
+            </ul>
+            <p><strong class="kw">Result:</strong> Lower MTTR (faster incident triage via correlation IDs), ~60% less manual deploy effort, fewer escalations, and faster onboarding — the tools became part of the team's daily workflow.</p>
+
+            <h4>Lead with the incident story</h4>
+            <p>When asked "your hardest bug," tell the peak-hour stuck-queue story: Fuse Logger (correlation ID) → Subscriber Tool (data valid) → API Visualizer (delay on external billing hop) → partner throttle confirmed → backoff/retry tuned → queue drained in ~2 hours, added a latency alert + runbook. It connects <em>your tools</em> to a <em>production outcome</em>.</p>
+
+            <h4>Likely follow-ups</h4>
+            <ul>
+              <li><em>"How did you guarantee no message loss at 1M/day?"</em> → idempotent processing, retries with backoff, dead-letter handling, monitoring on stuck routes.</li>
+              <li><em>"Build vs buy for the tools?"</em> → generic APM didn't understand Camel route names / telecom correlation IDs; a fast internal MVP fit better and integrated with Jenkins + our schemas.</li>
+              <li><em>"How did you measure success?"</em> → adoption (daily users), MTTR before/after, ~60% fewer manual deploy steps.</li>
+            </ul>
+
+            <h4>ICE relevance</h4>
+            <p>High-volume, integration-heavy, reliability-first work with strong production ownership — exactly the mindset ICE wants for a multi-tenant, business-critical mortgage platform. Camel/JMS here is the conceptual cousin of Kafka/SQS messaging in the ICE stack.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -159,7 +214,28 @@
         <article class="qa-card" data-id="xl-pitch" data-level="easy">
           <div class="qa-question"><h3>XL Axiata — 2-minute elevator pitch</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Client</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Script:</span></li><li><span class="kw">SQL</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">XL Axiata — 2-minute elevator pitch</strong>. Script: &quot;Third-party integrations with clear error contracts and timeouts.</p><p><strong class="kw">Script:</strong> "Third-party integrations with clear error contracts and timeouts. Camunda workflow optimization ~5% faster perf tests. DB collaboration ~10% faster queries, fewer fallouts. Pune-based. Shows BPM + integration + SQL."</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Script:</span></li><li><span class="kw">SQL</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">XL Axiata — 2-minute elevator pitch</strong>. Script: &quot;Third-party integrations with clear error contracts and timeouts.</p><p><strong class="kw">Quick script (~30s):</strong> "On XL Axiata I worked on third-party integrations with clear error contracts and timeouts, optimized Camunda BPM workflows for ~5% faster performance tests, and collaborated on database tuning for ~10% faster queries and fewer fallouts. It shows my mix of BPM + integration + SQL."</p>
+
+            <h4>Detailed pitch (STAR)</h4>
+            <p><strong class="kw">Situation:</strong> XL Axiata's order/provisioning flows depended on several third-party systems and on BPM workflows (Camunda) to orchestrate the steps. Unclear error handling and slow workflow steps caused fallouts (stuck/failed orders) and slow performance tests.</p>
+            <p><strong class="kw">Task:</strong> Make third-party integrations robust and predictable, speed up the BPM workflows, and reduce order fallouts working with the DB team.</p>
+            <p><strong class="kw">Action:</strong></p>
+            <ul>
+              <li>Designed integrations with <strong class="kw">clear error contracts and timeouts</strong> — defined what each failure means and how the workflow should react, instead of silent hangs.</li>
+              <li>Optimized <strong class="kw">Camunda BPM</strong> workflows (removed unnecessary steps / waits) → ~5% faster performance tests.</li>
+              <li>Collaborated on <strong class="kw">database tuning</strong> (indexing, query review) → ~10% faster queries and fewer fallouts.</li>
+            </ul>
+            <p><strong class="kw">Result:</strong> More predictable third-party behavior, faster workflows (~5% perf-test gain), ~10% faster queries, and fewer stuck orders — smoother provisioning.</p>
+
+            <h4>Likely follow-ups</h4>
+            <ul>
+              <li><em>"What is a fallout and how did you reduce it?"</em> → an order that fails mid-flow; reduced via timeouts, retries, and clearer error routing in the workflow.</li>
+              <li><em>"Why timeouts matter in integration?"</em> → without them a slow partner blocks threads/workflows; bounded timeouts + retries keep the system responsive (ties to resilience patterns).</li>
+              <li><em>"What is BPM / Camunda?"</em> → a workflow engine that models multi-step business processes as a diagram the system executes — good to explain simply.</li>
+            </ul>
+
+            <h4>ICE relevance</h4>
+            <p>Shows orchestration of multi-step business processes with resilience (timeouts, error contracts) and SQL tuning — relevant to mortgage workflows (loan origination is a multi-step, multi-system process). Pune-based, matching the role location.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
