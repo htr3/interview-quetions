@@ -57,7 +57,24 @@
           <div class="qa-question"><h3>Spring vs Spring Boot?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SpringBootApplication</span></li><li><span class="kw">application.yml</span></li><li><span class="kw">Spring Framework</span></li><li><span class="kw">Spring Boot</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">XML</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Spring Framework</strong> is the core IoC/DI container plus modules (MVC, Data, Security). You wire XML/Java config, pick versions, embed Tomcat yourself.</p><p><strong class="kw">Spring Boot</strong> is opinionated auto-configuration on top: starters bundle dependencies, <code class="kw-code">@SpringBootApplication</code> enables component scan + auto-config, embedded server, <code class="kw-code">application.yml</code>, Actuator. You focus on business code; Boot picks sensible defaults.</p><h4>Interview line</h4><p>Boot does not replace Spring — it accelerates building production-ready Spring apps with less boilerplate.</p>
+<p><strong class="kw">Spring Framework</strong> is the core IoC/DI container plus modules (MVC, Data, Security). You wire XML/Java config, pick versions, embed Tomcat yourself.</p><p><strong class="kw">Spring Boot</strong> is opinionated auto-configuration on top: starters bundle dependencies, <code class="kw-code">@SpringBootApplication</code> enables component scan + auto-config, embedded server, <code class="kw-code">application.yml</code>, Actuator. You focus on business code; Boot picks sensible defaults.</p>
+<h4>What problems Boot solved</h4>
+<ul>
+<li><strong class="kw">Dependency hell</strong> — starters + a managed parent POM give compatible, tested versions, so you don't hand-pick library versions.</li>
+<li><strong class="kw">Config boilerplate</strong> — no more XML <code class="kw-code">DispatcherServlet</code> / view resolver / datasource wiring; auto-config infers it.</li>
+<li><strong class="kw">Deployment</strong> — an embedded Tomcat/Netty means one runnable fat JAR instead of deploying a WAR to an external server.</li>
+</ul>
+<h4>Key Boot features</h4>
+<ul>
+<li>Auto-configuration (conditional on classpath)</li>
+<li>Starters (curated dependency sets)</li>
+<li>Embedded server (Tomcat/Jetty/Undertow/Netty)</li>
+<li>Externalized config + profiles (<code class="kw-code">application.yml</code>)</li>
+<li>Actuator (health, metrics, info)</li>
+</ul>
+<h4>When plain Spring still applies</h4>
+<p>You still use the Spring Framework itself for everything — Boot just configures it. You might avoid Boot only for very constrained/legacy environments or when you need total control over wiring (rare).</p>
+<h4>Interview line</h4><p>Boot does not replace Spring — it accelerates building production-ready Spring apps with less boilerplate. "Convention over configuration."</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -66,7 +83,19 @@
           <div class="qa-question"><h3>What does @SpringBootApplication do?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Configuration</span></li><li><span class="kw">EnableAutoConfiguration</span></li><li><span class="kw">ComponentScan</span></li><li><span class="kw">Component</span></li><li><span class="kw">Service</span></li><li><span class="kw">SpringApplication.run(Main.class, args)</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">What does @SpringBootApplication do</strong>. Meta-annotation combining:</p><p>Meta-annotation combining:</p><ul><li><code class="kw-code">@Configuration</code> — bean definitions</li><li><code class="kw-code">@EnableAutoConfiguration</code> — load auto-config classes from classpath (conditional on jars present)</li><li><code class="kw-code">@ComponentScan</code> — scan package of main class and sub-packages for <code class="kw-code">@Component</code>, <code class="kw-code">@Service</code>, etc.</li></ul><p>Entry point: <code class="kw-code">SpringApplication.run(Main.class, args)</code> starts embedded Tomcat and refreshes ApplicationContext.</p>
+<p>It's a meta-annotation (one annotation that bundles three):</p><ul><li><code class="kw-code">@Configuration</code> — marks the class as a source of bean definitions</li><li><code class="kw-code">@EnableAutoConfiguration</code> — loads auto-config classes from the classpath (conditional on jars present)</li><li><code class="kw-code">@ComponentScan</code> — scans the package of the main class and sub-packages for <code class="kw-code">@Component</code>, <code class="kw-code">@Service</code>, <code class="kw-code">@Repository</code>, <code class="kw-code">@Controller</code></li></ul>
+<h4>Example</h4>
+<pre><code class="kw-code">@SpringBootApplication
+public class Application {
+  public static void main(String[] args) {
+    SpringApplication.run(Application.class, args);
+  }
+}</code></pre>
+<p>Entry point: <code class="kw-code">SpringApplication.run(Application.class, args)</code> bootstraps the app — creates the <code class="kw-code">ApplicationContext</code>, runs auto-configuration, starts the embedded server, and fires any <code class="kw-code">CommandLineRunner</code>/<code class="kw-code">ApplicationRunner</code> beans.</p>
+<h4>Common gotcha</h4>
+<p>Component scanning starts at the <em>main class's package</em>. If your beans live in a package <strong>above or outside</strong> that package, they won't be picked up — keep the main class in a root package, or add <code class="kw-code">@ComponentScan(basePackages = "...")</code>.</p>
+<h4>Interview tip</h4>
+<p>If asked to customize: you can exclude specific auto-configs with <code class="kw-code">@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)</code>.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -75,7 +104,26 @@
           <div class="qa-question"><h3>Constructor injection — why preferred?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">final</span></li><li><span class="kw">Autowired</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Dependencies explicit in constructor</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Constructor injection — why preferred</strong>. Spring 4.3+: single constructor needs no .</p><ul><li>Dependencies explicit in constructor — easy to test (pass mocks)</li><li>Fields can be <code class="kw-code">final</code> — immutable, thread-safe</li><li>Fails fast at startup if bean missing (not NPE at runtime)</li><li>Avoids field injection hiding large dependency lists</li></ul><p>Spring 4.3+: single constructor needs no <code class="kw-code">@Autowired</code>.</p>
+<ul><li>Dependencies explicit in constructor — easy to test (pass mocks, no reflection)</li><li>Fields can be <code class="kw-code">final</code> — immutable, thread-safe</li><li>Fails fast at startup if a bean is missing (not an NPE at runtime)</li><li>Avoids field injection hiding large dependency lists (a long constructor is a visible code smell nudging you to split the class)</li><li>No need for the reflection-based <code class="kw-code">@Autowired</code> field hacks in tests</li></ul>
+<h4>Example</h4>
+<pre><code class="kw-code">@Service
+public class OrderService {
+  private final OrderRepository repo;
+  private final PaymentClient payment;
+
+  // single constructor → @Autowired optional (Spring 4.3+)
+  public OrderService(OrderRepository repo, PaymentClient payment) {
+    this.repo = repo;
+    this.payment = payment;
+  }
+}</code></pre>
+<h4>The three injection types</h4>
+<ul>
+<li><strong class="kw">Constructor</strong> — preferred (immutable, testable).</li>
+<li><strong class="kw">Setter</strong> — for optional dependencies or to break a circular dependency.</li>
+<li><strong class="kw">Field</strong> (<code class="kw-code">@Autowired</code> on a field) — concise but hides dependencies and can't be <code class="kw-code">final</code>; avoid in production code.</li>
+</ul>
+<p>Spring 4.3+: a single constructor needs no <code class="kw-code">@Autowired</code>. Lombok's <code class="kw-code">@RequiredArgsConstructor</code> generates the constructor for <code class="kw-code">final</code> fields.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -84,7 +132,12 @@
           <div class="qa-question"><h3>Bean scopes in Spring?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">singleton</span></li><li><span class="kw">prototype</span></li><li><span class="kw">request / session / application</span></li><li><span class="kw">Spring</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Bean scopes in Spring</strong>. Most services are singleton.</p><ul><li><strong class="kw">singleton</strong> (default) — one instance per container</li><li><strong class="kw">prototype</strong> — new instance each injection/getBean</li><li><strong class="kw">request / session / application</strong> — web scopes</li></ul><p>Most services are singleton. Prototype injected into singleton creates many instances — understand lifecycle.</p>
+<ul><li><strong class="kw">singleton</strong> (default) — one shared instance per Spring container</li><li><strong class="kw">prototype</strong> — a new instance on every injection / <code class="kw-code">getBean()</code></li><li><strong class="kw">request</strong> — one per HTTP request (web)</li><li><strong class="kw">session</strong> — one per HTTP session (web)</li><li><strong class="kw">application</strong> — one per <code class="kw-code">ServletContext</code> (web)</li><li><strong class="kw">websocket</strong> — one per WebSocket session</li></ul>
+<h4>The classic gotcha</h4>
+<p>A <strong class="kw">prototype</strong> bean injected into a <strong class="kw">singleton</strong> is resolved <em>once</em> at singleton creation — so you get the <em>same</em> prototype instance every time, not a fresh one. Fixes: inject <code class="kw-code">ObjectProvider&lt;T&gt;</code> / <code class="kw-code">Provider&lt;T&gt;</code>, use method injection (<code class="kw-code">@Lookup</code>), or set <code class="kw-code">proxyMode</code> on the scope.</p>
+<h4>Thread-safety reminder</h4>
+<p>Because singletons are shared across all request threads, never store request/mutable state in singleton fields — keep beans <strong class="kw">stateless</strong> (this is the #1 multi-tenant/web concurrency bug).</p>
+<p>Most services and components are singletons by design; reserve other scopes for genuinely per-request/per-session state.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -93,7 +146,16 @@
           <div class="qa-question"><h3>How do you fix a circular dependency?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Lazy</span></li><li><span class="kw">PostConstruct</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Redesign</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you fix a circular dependency. A needs B, B needs A — Spring cannot construct either first with constructor-only cycle.</p><p>A needs B, B needs A — Spring cannot construct either first with constructor-only cycle.</p><h4>Fixes (best first)</h4><ol><li>Redesign — extract shared logic to third bean (best design)</li><li><code class="kw-code">@Lazy</code> on one dependency — proxy delays init</li><li>Setter injection on one side (less ideal)</li><li><code class="kw-code">@PostConstruct</code> manual wiring (last resort)</li></ol>
+<p>A needs B, B needs A — with constructor-only injection Spring can't construct either one first, so on startup you get a <code class="kw-code">BeanCurrentlyInCreationException</code>. (Since Spring Boot 2.6, circular references are disallowed by default rather than silently resolved.)</p>
+<h4>Fixes (best first)</h4><ol><li><strong class="kw">Redesign</strong> — the cycle usually signals a design problem; extract the shared logic into a third bean both can depend on (best fix).</li><li><code class="kw-code">@Lazy</code> on one dependency — Spring injects a proxy and delays real initialization until first use, breaking the construction cycle.</li><li><strong class="kw">Setter/field injection</strong> on one side — the bean is created first, then the dependency is set (less ideal, loses <code class="kw-code">final</code>).</li><li><code class="kw-code">@PostConstruct</code> manual wiring — last resort.</li></ol>
+<h4>Example fix with @Lazy</h4>
+<pre><code class="kw-code">@Service
+public class A {
+  private final B b;
+  public A(@Lazy B b) { this.b = b; }   // proxy breaks the cycle
+}</code></pre>
+<h4>Interview tip</h4>
+<p>Say the cycle is a smell first, then list the mechanical fixes — interviewers want to hear "I'd redesign," not just "@Lazy it."</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -102,7 +164,20 @@
           <div class="qa-question"><h3>What are Spring Boot starters?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring-boot-starter-web</span></li><li><span class="kw">starter-data-jpa</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">jpa</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">Spring Boot starters</strong> are important building blocks in this topic. Curated dependency BOMs: brings Spring MVC, Jackson, Tomcat; brings Hibernate, Hikari, transaction manager.</p><p>Curated dependency BOMs: <code class="kw-code">spring-boot-starter-web</code> brings Spring MVC, Jackson, Tomcat; <code class="kw-code">starter-data-jpa</code> brings Hibernate, Hikari, transaction manager.</p><p>Starters + auto-config = add jar → features appear with properties. Parent POM manages compatible versions.</p>
+<p>Curated dependency sets that bundle everything you need for a capability: <code class="kw-code">spring-boot-starter-web</code> brings Spring MVC, Jackson, and embedded Tomcat; <code class="kw-code">spring-boot-starter-data-jpa</code> brings Hibernate, HikariCP, and a transaction manager.</p>
+<h4>Common starters</h4>
+<ul>
+<li><code class="kw-code">spring-boot-starter-web</code> — REST/MVC + Tomcat</li>
+<li><code class="kw-code">spring-boot-starter-data-jpa</code> — JPA/Hibernate</li>
+<li><code class="kw-code">spring-boot-starter-security</code> — Spring Security</li>
+<li><code class="kw-code">spring-boot-starter-actuator</code> — health/metrics</li>
+<li><code class="kw-code">spring-boot-starter-test</code> — JUnit 5, Mockito, AssertJ, Spring Test</li>
+<li><code class="kw-code">spring-boot-starter-validation</code> — Bean Validation</li>
+</ul>
+<h4>How it ties together</h4>
+<p>Starter (jar on classpath) + auto-configuration = add the dependency → the feature appears, configured from properties. The <code class="kw-code">spring-boot-starter-parent</code> (or the dependency-management BOM) pins <strong class="kw">compatible versions</strong> so you only declare the starter, not version numbers.</p>
+<h4>Note</h4>
+<p>You can also write your own <em>custom starter</em> (like your MS-Builder generated services) to standardize cross-team setup.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -111,7 +186,21 @@
           <div class="qa-question"><h3>Profiles and externalized configuration?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring.profiles.active=dev</span></li><li><span class="kw">application-dev.yml</span></li><li><span class="kw">SPRING_DATASOURCE_URL</span></li><li><span class="kw">spring</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Profiles and externalized configuration</strong>.</p><p><code class="kw-code">spring.profiles.active=dev</code> loads <code class="kw-code">application-dev.yml</code>. Use for DB URLs, log levels, feature flags.</p><p>12-factor: config in environment variables overrides YAML in prod (<code class="kw-code">SPRING_DATASOURCE_URL</code>). Never commit secrets.</p>
+<p><code class="kw-code">spring.profiles.active=dev</code> loads <code class="kw-code">application-dev.yml</code> on top of the base <code class="kw-code">application.yml</code>. Use profiles for per-environment DB URLs, log levels, and feature flags (dev / test / staging / prod).</p>
+<h4>Property resolution order (high → low priority)</h4>
+<ol>
+<li>Command-line args</li>
+<li>Environment variables / system properties</li>
+<li><code class="kw-code">application-{profile}.yml</code></li>
+<li><code class="kw-code">application.yml</code> (defaults)</li>
+</ol>
+<p>So in prod, an env var like <code class="kw-code">SPRING_DATASOURCE_URL</code> overrides whatever is in YAML — that's the 12-factor approach.</p>
+<h4>Profile-specific beans</h4>
+<pre><code class="kw-code">@Bean
+@Profile("prod")
+public DataSource prodDataSource() { ... }</code></pre>
+<h4>Secrets</h4>
+<p>Never commit secrets to YAML/Git. Inject them via environment variables or a vault (AWS Secrets Manager / SSM) — ties directly to the ICE AWS stack.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -120,7 +209,19 @@
           <div class="qa-question"><h3>Fat JAR and spring-boot-maven-plugin?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Main-Class: JarLauncher</span></li><li><span class="kw">java -jar app.jar</span></li><li><span class="kw">spring</span></li><li><span class="kw">boot</span></li><li><span class="kw">Docker</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Fat JAR and spring-boot-maven-plugin</strong>. Plugin repackages app + dependencies into executable JAR with .</p><p>Plugin repackages app + dependencies into executable JAR with <code class="kw-code">Main-Class: JarLauncher</code>. Run: <code class="kw-code">java -jar app.jar</code>. Standard for Docker/K8s deployments.</p>
+<p>The <code class="kw-code">spring-boot-maven-plugin</code> repackages your app + all its dependencies into a single executable ("fat"/"uber") JAR. The manifest's <code class="kw-code">Main-Class</code> is Boot's <code class="kw-code">JarLauncher</code>, which sets up a nested-jar classloader and then calls your real main class.</p>
+<h4>How to build &amp; run</h4>
+<pre><code class="kw-code">mvn clean package
+java -jar target/app.jar</code></pre>
+<h4>Why it matters</h4>
+<ul>
+<li>One artifact, no external servlet container to install — perfect for <strong class="kw">Docker / Kubernetes / ECS</strong>.</li>
+<li>Layered jars: the plugin can split dependencies vs app code into Docker layers so rebuilds are faster and images cache better.</li>
+</ul>
+<h4>Dockerfile snippet</h4>
+<pre><code class="kw-code">FROM eclipse-temurin:17-jre
+COPY target/app.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -129,7 +230,17 @@
           <div class="qa-question"><h3>How does auto-configuration work?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">ConditionalOnClass</span></li><li><span class="kw">ConditionalOnMissingBean</span></li><li><span class="kw">ConditionalOnProperty</span></li><li><span class="kw">spring</span></li><li><span class="kw">boot</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How does auto-configuration work. Classes in use , , .</p><p>Classes in <code class="kw-code">META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports</code> use <code class="kw-code">@ConditionalOnClass</code>, <code class="kw-code">@ConditionalOnMissingBean</code>, <code class="kw-code">@ConditionalOnProperty</code>.</p><p>Example: if Hikari + DataSource on classpath and no user DataSource bean → Boot creates Hikari DataSource from properties.</p>
+<p>At startup, Boot reads auto-configuration classes listed in <code class="kw-code">META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports</code> (in Boot 2.7+; older versions used <code class="kw-code">spring.factories</code>). Each class is guarded by <strong class="kw">conditions</strong> so it only applies when it makes sense:</p>
+<ul>
+<li><code class="kw-code">@ConditionalOnClass</code> — a class is on the classpath</li>
+<li><code class="kw-code">@ConditionalOnMissingBean</code> — you haven't already defined that bean (so your bean always wins)</li>
+<li><code class="kw-code">@ConditionalOnProperty</code> — a property is set</li>
+<li><code class="kw-code">@ConditionalOnBean</code> / <code class="kw-code">@ConditionalOnWebApplication</code> — other contextual checks</li>
+</ul>
+<h4>Concrete example</h4>
+<p>If HikariCP + a <code class="kw-code">DataSource</code> class are on the classpath, and you haven't defined your own <code class="kw-code">DataSource</code> bean, Boot auto-creates a Hikari <code class="kw-code">DataSource</code> from your <code class="kw-code">spring.datasource.*</code> properties. Define your own and <code class="kw-code">@ConditionalOnMissingBean</code> backs off.</p>
+<h4>How to debug it</h4>
+<p>Run with <code class="kw-code">--debug</code> (or set <code class="kw-code">debug=true</code>) to print the <strong class="kw">auto-configuration report</strong> — which configs matched and which didn't, and why. Great answer to "how would you find out why a bean wasn't created?"</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -138,7 +249,17 @@
           <div class="qa-question"><h3>Layered architecture in Spring Boot?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">core</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Controller</span></li><li><span class="kw">Service</span></li><li><span class="kw">Repository</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">HTTP</span></li><li><span class="kw">JPA</span></li><li><span class="kw">API</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Layered architecture in Spring Boot</strong>. No DB calls in controllers.</p><ul><li><strong class="kw">Controller</strong> — HTTP, validation, DTO mapping</li><li><strong class="kw">Service</strong> — business rules, transactions</li><li><strong class="kw">Repository</strong> — persistence (JPA/JDBC)</li></ul><p>No DB calls in controllers. DTOs at API boundary — entities stay inside service/repo layer.</p>
+<ul><li><strong class="kw">Controller</strong> (<code class="kw-code">@RestController</code>) — HTTP concerns: routing, request validation, DTO ↔ model mapping, status codes. No business logic.</li><li><strong class="kw">Service</strong> (<code class="kw-code">@Service</code>) — business rules, orchestration, <code class="kw-code">@Transactional</code> boundaries.</li><li><strong class="kw">Repository</strong> (<code class="kw-code">@Repository</code>) — persistence via Spring Data JPA / JDBC.</li></ul>
+<h4>Request flow</h4>
+<pre><code class="kw-code">HTTP → Controller (DTO) → Service (business + @Transactional) → Repository → DB</code></pre>
+<h4>Golden rules</h4>
+<ul>
+<li>No DB calls in controllers; no HTTP types (<code class="kw-code">HttpServletRequest</code>) leaking into services.</li>
+<li>Use <strong class="kw">DTOs</strong> at the API boundary — never expose JPA entities directly (avoids lazy-loading issues and over-exposing fields).</li>
+<li>Put the <code class="kw-code">@Transactional</code> on the <strong>service</strong>, not the controller or repository.</li>
+</ul>
+<h4>Why it matters</h4>
+<p>Clear layering keeps the codebase testable (mock the layer below) and swappable (change DB or API without touching business rules) — exactly what a multi-tenant platform like ICE needs.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -154,7 +275,7 @@
           <div class="qa-question"><h3>Spring MVC request flow?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">GetMapping</span></li><li><span class="kw">ControllerAdvice</span></li><li><span class="kw">Spring</span></li><li><span class="kw">JSON</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Spring MVC request flow</strong>.</p><ol><li>DispatcherServlet receives request</li><li>HandlerMapping finds <code class="kw-code">@GetMapping</code> method</li><li>HandlerAdapter invokes controller</li><li>Return value → HttpMessageConverter (Jackson) → JSON</li><li>Exception → <code class="kw-code">@ControllerAdvice</code> handler</li></ol>
+<ol><li>DispatcherServlet receives request</li><li>HandlerMapping finds <code class="kw-code">@GetMapping</code> method</li><li>HandlerAdapter invokes controller</li><li>Return value → HttpMessageConverter (Jackson) → JSON</li><li>Exception → <code class="kw-code">@ControllerAdvice</code> handler</li></ol>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -163,7 +284,7 @@
           <div class="qa-question"><h3>@RestController vs @Controller?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">RestController</span></li><li><span class="kw">Controller</span></li><li><span class="kw">ResponseBody</span></li><li><span class="kw">JSON</span></li><li><span class="kw">XML</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><code class="kw-code">@RestController</code> = <code class="kw-code">@Controller</code> + <code class="kw-code">@ResponseBody</code> on every method — return type serialized to JSON/XML.</p><p><code class="kw-code">@Controller</code> — typically returns view name for Thymeleaf; use <code class="kw-code">@ResponseBody</code> per method for APIs.</p>
+<p><code class="kw-code">@RestController</code> = <code class="kw-code">@Controller</code> + <code class="kw-code">@ResponseBody</code> on every method — return type serialized to JSON/XML.</p><p><code class="kw-code">@Controller</code> — typically returns view name for Thymeleaf; use <code class="kw-code">@ResponseBody</code> per method for APIs.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -172,7 +293,7 @@
           <div class="qa-question"><h3>How do you design a REST controller for reports?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">GET /api/v1/reports/{id}</span></li><li><span class="kw">POST /api/v1/reports</span></li><li><span class="kw">?page=0&amp;size=20</span></li><li><span class="kw">{"code","message","fieldErrors"}</span></li><li><span class="kw">REST</span></li><li><span class="kw">api</span></li><li><span class="kw">JPA</span></li><li><span class="kw">SQL</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you design a REST controller for reports. Map Vodafone pattern: controller thin, service owns SQL tuning and business rules.</p><ul><li>Resource-oriented URLs: <code class="kw-code">GET /api/v1/reports/{id}</code>, <code class="kw-code">POST /api/v1/reports</code></li><li>Request/response DTOs — never expose JPA entities</li><li>Pagination: <code class="kw-code">?page=0&amp;size=20</code></li><li>Consistent error body: <code class="kw-code">{"code","message","fieldErrors"}</code></li><li>OpenAPI for contract with frontend</li></ul><p>Map Vodafone pattern: controller thin, service owns SQL tuning and business rules.</p>
+<ul><li>Resource-oriented URLs: <code class="kw-code">GET /api/v1/reports/{id}</code>, <code class="kw-code">POST /api/v1/reports</code></li><li>Request/response DTOs — never expose JPA entities</li><li>Pagination: <code class="kw-code">?page=0&amp;size=20</code></li><li>Consistent error body: <code class="kw-code">{"code","message","fieldErrors"}</code></li><li>OpenAPI for contract with frontend</li></ul><p>Map Vodafone pattern: controller thin, service owns SQL tuning and business rules.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -181,7 +302,7 @@
           <div class="qa-question"><h3>Which HTTP status codes should you use?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">200</span></li><li><span class="kw">201</span></li><li><span class="kw">204</span></li><li><span class="kw">400</span></li><li><span class="kw">401</span></li><li><span class="kw">403</span></li><li><span class="kw">404</span></li><li><span class="kw">409</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Which HTTP status codes should you use</strong>.</p><ul><li><strong class="kw">200</strong> OK with body</li><li><strong class="kw">201</strong> Created + Location header</li><li><strong class="kw">204</strong> No content (delete success)</li><li><strong class="kw">400</strong> validation / bad input</li><li><strong class="kw">401</strong> not authenticated</li><li><strong class="kw">403</strong> authenticated but forbidden</li><li><strong class="kw">404</strong> resource not found</li><li><strong class="kw">409</strong> conflict (duplicate)</li><li><strong class="kw">500</strong> unexpected server error (log stack trace, generic message to client)</li></ul>
+<ul><li><strong class="kw">200</strong> OK with body</li><li><strong class="kw">201</strong> Created + Location header</li><li><strong class="kw">204</strong> No content (delete success)</li><li><strong class="kw">400</strong> validation / bad input</li><li><strong class="kw">401</strong> not authenticated</li><li><strong class="kw">403</strong> authenticated but forbidden</li><li><strong class="kw">404</strong> resource not found</li><li><strong class="kw">409</strong> conflict (duplicate)</li><li><strong class="kw">500</strong> unexpected server error (log stack trace, generic message to client)</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -190,7 +311,7 @@
           <div class="qa-question"><h3>@PathVariable, @RequestParam, @RequestBody?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">PathVariable</span></li><li><span class="kw">/reports/{id}</span></li><li><span class="kw">RequestParam</span></li><li><span class="kw">?status=ACTIVE</span></li><li><span class="kw">RequestBody</span></li><li><span class="kw">JSON</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">@PathVariable, @RequestParam, @RequestBody</strong>.</p><ul><li><code class="kw-code">@PathVariable</code> — part of URL path (<code class="kw-code">/reports/{id}</code>)</li><li><code class="kw-code">@RequestParam</code> — query string (<code class="kw-code">?status=ACTIVE</code>), optional/default values</li><li><code class="kw-code">@RequestBody</code> — JSON body deserialized by Jackson to DTO</li></ul>
+<ul><li><code class="kw-code">@PathVariable</code> — part of URL path (<code class="kw-code">/reports/{id}</code>)</li><li><code class="kw-code">@RequestParam</code> — query string (<code class="kw-code">?status=ACTIVE</code>), optional/default values</li><li><code class="kw-code">@RequestBody</code> — JSON body deserialized by Jackson to DTO</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -199,7 +320,7 @@
           <div class="qa-question"><h3>@Valid and Bean Validation on DTOs?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">NotBlank</span></li><li><span class="kw">NotNull</span></li><li><span class="kw">Size</span></li><li><span class="kw">Email</span></li><li><span class="kw">MethodArgumentNotValidException</span></li><li><span class="kw">ControllerAdvice</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">@Valid and Bean Validation on DTOs</strong>. Annotate DTO: , , , .</p><p>Annotate DTO: <code class="kw-code">@NotBlank</code>, <code class="kw-code">@NotNull</code>, <code class="kw-code">@Size</code>, <code class="kw-code">@Email</code>. Controller: <code class="kw-code">@Valid @RequestBody CreateReportRequest req</code>.</p><p>On failure → <code class="kw-code">MethodArgumentNotValidException</code> → handle in <code class="kw-code">@ControllerAdvice</code> → 400 with per-field messages.</p>
+<p>Annotate DTO: <code class="kw-code">@NotBlank</code>, <code class="kw-code">@NotNull</code>, <code class="kw-code">@Size</code>, <code class="kw-code">@Email</code>. Controller: <code class="kw-code">@Valid @RequestBody CreateReportRequest req</code>.</p><p>On failure → <code class="kw-code">MethodArgumentNotValidException</code> → handle in <code class="kw-code">@ControllerAdvice</code> → 400 with per-field messages.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -208,7 +329,7 @@
           <div class="qa-question"><h3>When do you use ResponseEntity?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">201 Created</span></li><li><span class="kw">Location</span></li><li><span class="kw">304</span></li><li><span class="kw">ResponseStatus(HttpStatus.CREATED)</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">When do you use ResponseEntity</strong>. When you need control over status code, headers, or body together — e.g.</p><p>When you need control over status code, headers, or body together — e.g. <code class="kw-code">201 Created</code> with <code class="kw-code">Location</code> header, or conditional <code class="kw-code">304</code>.</p><p>Simple cases: return DTO + <code class="kw-code">@ResponseStatus(HttpStatus.CREATED)</code> is enough.</p>
+<p>When you need control over status code, headers, or body together — e.g. <code class="kw-code">201 Created</code> with <code class="kw-code">Location</code> header, or conditional <code class="kw-code">304</code>.</p><p>Simple cases: return DTO + <code class="kw-code">@ResponseStatus(HttpStatus.CREATED)</code> is enough.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -217,7 +338,7 @@
           <div class="qa-question"><h3>@ControllerAdvice for global exception handling?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">ExceptionHandler</span></li><li><span class="kw">EntityNotFoundException</span></li><li><span class="kw">AccessDeniedException</span></li><li><span class="kw">JSON</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">@ControllerAdvice for global exception handling</strong>. One class with methods for , validation errors, .</p><p>One class with <code class="kw-code">@ExceptionHandler</code> methods for <code class="kw-code">EntityNotFoundException</code>, validation errors, <code class="kw-code">AccessDeniedException</code>. Returns consistent JSON error schema — clients never see raw stack traces.</p>
+<p>One class with <code class="kw-code">@ExceptionHandler</code> methods for <code class="kw-code">EntityNotFoundException</code>, validation errors, <code class="kw-code">AccessDeniedException</code>. Returns consistent JSON error schema — clients never see raw stack traces.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -226,7 +347,7 @@
           <div class="qa-question"><h3>DTO vs Entity — why separate?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">JSON</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul><li>Hide internal fields (passwords, lazy relations)</li><li>Stable API contract when DB schema changes</li><li>Avoid Jackson serializing Hibernate proxies (lazy load in JSON = disaster)</li><li>Validation annotations on API layer only</li></ul>
+<ul><li>Hide internal fields (passwords, lazy relations)</li><li>Stable API contract when DB schema changes</li><li>Avoid Jackson serializing Hibernate proxies (lazy load in JSON = disaster)</li><li>Validation annotations on API layer only</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -235,7 +356,7 @@
           <div class="qa-question"><h3>How do you configure CORS?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Access-Control-Allow-Origin</span></li><li><span class="kw">CrossOrigin</span></li><li><span class="kw">WebMvcConfigurer.addCorsMappings</span></li><li><span class="kw">*</span></li><li><span class="kw">Boot</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you configure CORS. Browser blocks cross-origin calls unless server sends .</p><p>Browser blocks cross-origin calls unless server sends <code class="kw-code">Access-Control-Allow-Origin</code>. In Boot: <code class="kw-code">@CrossOrigin</code> on controller or <code class="kw-code">WebMvcConfigurer.addCorsMappings</code> — whitelist origins in prod, not <code class="kw-code">*</code> with credentials.</p>
+<p>Browser blocks cross-origin calls unless server sends <code class="kw-code">Access-Control-Allow-Origin</code>. In Boot: <code class="kw-code">@CrossOrigin</code> on controller or <code class="kw-code">WebMvcConfigurer.addCorsMappings</code> — whitelist origins in prod, not <code class="kw-code">*</code> with credentials.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -244,7 +365,7 @@
           <div class="qa-question"><h3>How does JSON serialization work?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JsonIgnore</span></li><li><span class="kw">JsonProperty</span></li><li><span class="kw">JavaTimeModule</span></li><li><span class="kw">LocalDateTime</span></li><li><span class="kw">JSON</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How does JSON serialization work. Jackson on classpath (via starter-web) maps objects to JSON.</p><p>Jackson on classpath (via starter-web) maps objects to JSON. Customize with <code class="kw-code">@JsonIgnore</code>, <code class="kw-code">@JsonProperty</code>, <code class="kw-code">JavaTimeModule</code> for <code class="kw-code">LocalDateTime</code>. Dates as ISO-8601 strings, not timestamps, for APIs.</p>
+<p>Jackson on classpath (via starter-web) maps objects to JSON. Customize with <code class="kw-code">@JsonIgnore</code>, <code class="kw-code">@JsonProperty</code>, <code class="kw-code">JavaTimeModule</code> for <code class="kw-code">LocalDateTime</code>. Dates as ISO-8601 strings, not timestamps, for APIs.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -253,7 +374,7 @@
           <div class="qa-question"><h3>API versioning strategies?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/api/v1/reports</span></li><li><span class="kw">Accept: application/vnd.company.v2+json</span></li><li><span class="kw">API</span></li><li><span class="kw">json</span></li><li><span class="kw">Query param</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">API versioning strategies</strong>. Deprecate v1 with Sunset header before removal.</p><ul><li>URL path: <code class="kw-code">/api/v1/reports</code> — clearest, common at Amdocs</li><li>Header: <code class="kw-code">Accept: application/vnd.company.v2+json</code></li><li>Query param — less RESTful</li></ul><p>Deprecate v1 with Sunset header before removal.</p>
+<ul><li>URL path: <code class="kw-code">/api/v1/reports</code> — clearest, common at Amdocs</li><li>Header: <code class="kw-code">Accept: application/vnd.company.v2+json</code></li><li>Query param — less RESTful</li></ul><p>Deprecate v1 with Sunset header before removal.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -262,7 +383,7 @@
           <div class="qa-question"><h3>How do you make POST idempotent?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Idempotency-Key</span></li><li><span class="kw">idempotent</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you make POST idempotent. Client sends header; server stores key + response in Redis/DB for 24h.</p><p>Client sends <code class="kw-code">Idempotency-Key</code> header; server stores key + response in Redis/DB for 24h. Duplicate key returns same response without re-processing payment/report generation.</p><p>Critical for retries from mobile apps and message consumers.</p>
+<p>Client sends <code class="kw-code">Idempotency-Key</code> header; server stores key + response in Redis/DB for 24h. Duplicate key returns same response without re-processing payment/report generation.</p><p>Critical for retries from mobile apps and message consumers.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -271,7 +392,7 @@
           <div class="qa-question"><h3>OpenAPI / Swagger in Spring Boot?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/swagger-ui.html</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">API</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">OpenAPI / Swagger in Spring Boot</strong>. springdoc-openapi generates spec from controllers + annotations.</p><p>springdoc-openapi generates spec from controllers + annotations. UI at <code class="kw-code">/swagger-ui.html</code>. Use for contract-first reviews with frontend and API Visualizer-style tooling on your resume.</p>
+<p>springdoc-openapi generates spec from controllers + annotations. UI at <code class="kw-code">/swagger-ui.html</code>. Use for contract-first reviews with frontend and API Visualizer-style tooling on your resume.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -280,7 +401,7 @@
           <div class="qa-question"><h3>File upload endpoint?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">RequestParam MultipartFile file</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">File upload endpoint</strong>.</p><p><code class="kw-code">@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)</code> with <code class="kw-code">@RequestParam MultipartFile file</code>. Validate size/type, virus scan, store in object storage — never executable path on server filesystem.</p>
+<p><code class="kw-code">@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)</code> with <code class="kw-code">@RequestParam MultipartFile file</code>. Validate size/type, virus scan, store in object storage — never executable path on server filesystem.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -296,7 +417,7 @@
           <div class="qa-question"><h3>JPA vs JdbcTemplate / native SQL?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JPA</span></li><li><span class="kw">JdbcTemplate/native</span></li><li><span class="kw">SQL</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">JPA</strong> — ORM, entities, repositories, good for CRUD and object graphs. <strong class="kw">JdbcTemplate/native</strong> — full SQL control for reports, bulk updates, complex joins you tuned at Vodafone.</p><p>Hybrid is normal: JPA for writes, native query for heavy read/report paths.</p>
+<p><strong class="kw">JPA</strong> — ORM, entities, repositories, good for CRUD and object graphs. <strong class="kw">JdbcTemplate/native</strong> — full SQL control for reports, bulk updates, complex joins you tuned at Vodafone.</p><p>Hybrid is normal: JPA for writes, native query for heavy read/report paths.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -305,7 +426,7 @@
           <div class="qa-question"><h3>What is @Entity?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Id</span></li><li><span class="kw">GeneratedValue</span></li><li><span class="kw">Column</span></li><li><span class="kw">JPA</span></li><li><span class="kw">SQL</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">@Entity</strong> is a core concept to understand for interviews. Marks class mapped to table.</p><p>Marks class mapped to table. <code class="kw-code">@Id</code> + <code class="kw-code">@GeneratedValue</code> for PK. <code class="kw-code">@Column</code> for name/nullable. Hibernate implements JPA spec — generates SQL on persist/merge/find.</p>
+<p>Marks class mapped to table. <code class="kw-code">@Id</code> + <code class="kw-code">@GeneratedValue</code> for PK. <code class="kw-code">@Column</code> for name/nullable. Hibernate implements JPA spec — generates SQL on persist/merge/find.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -314,7 +435,7 @@
           <div class="qa-question"><h3>What is JpaRepository?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">CrudRepository</span></li><li><span class="kw">PagingAndSortingRepository</span></li><li><span class="kw">save</span></li><li><span class="kw">findById</span></li><li><span class="kw">delete</span></li><li><span class="kw">findByAccountIdAndStatus</span></li><li><span class="kw">Query</span></li><li><span class="kw">SQL</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">JpaRepository</strong> is a core concept to understand for interviews.</p><p>Extends <code class="kw-code">CrudRepository</code>, <code class="kw-code">PagingAndSortingRepository</code>. Gives <code class="kw-code">save</code>, <code class="kw-code">findById</code>, <code class="kw-code">delete</code>, derived queries <code class="kw-code">findByAccountIdAndStatus</code>, <code class="kw-code">@Query</code> for JPQL/native SQL.</p>
+<p>Extends <code class="kw-code">CrudRepository</code>, <code class="kw-code">PagingAndSortingRepository</code>. Gives <code class="kw-code">save</code>, <code class="kw-code">findById</code>, <code class="kw-code">delete</code>, derived queries <code class="kw-code">findByAccountIdAndStatus</code>, <code class="kw-code">@Query</code> for JPQL/native SQL.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -323,7 +444,7 @@
           <div class="qa-question"><h3>@Transactional — how does it work and what are pitfalls?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">readOnly=true</span></li><li><span class="kw">Pitfalls:</span></li><li><span class="kw">Transactional</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">@Transactional — how does it work and what are pitfalls</strong>. AOP proxy starts transaction on method entry, commits on success, rolls back on unchecked exceptions.</p><p>AOP proxy starts transaction on method entry, commits on success, rolls back on unchecked exceptions. <code class="kw-code">readOnly=true</code> hints DB for read-only queries.</p><p><strong class="kw">Pitfalls:</strong> self-invocation bypasses proxy; checked exceptions don't roll back unless configured; long transactions hold DB connections.</p>
+<p>AOP proxy starts transaction on method entry, commits on success, rolls back on unchecked exceptions. <code class="kw-code">readOnly=true</code> hints DB for read-only queries.</p><p><strong class="kw">Pitfalls:</strong> self-invocation bypasses proxy; checked exceptions don't roll back unless configured; long transactions hold DB connections.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -332,7 +453,7 @@
           <div class="qa-question"><h3>Why does self-invocation break @Transactional?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">this.otherMethod()</span></li><li><span class="kw">Service</span></li><li><span class="kw">Lazy</span></li><li><span class="kw">Transactional</span></li><li><span class="kw">Spring</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">why</strong> does self-invocation break @Transactional. External call goes through Spring proxy; internal does not — no transaction advice applied.</p><p>External call goes through Spring proxy; internal <code class="kw-code">this.otherMethod()</code> does not — no transaction advice applied. Fix: move method to another <code class="kw-code">@Service</code> or inject self interface with <code class="kw-code">@Lazy</code>.</p>
+<p>External call goes through Spring proxy; internal <code class="kw-code">this.otherMethod()</code> does not — no transaction advice applied. Fix: move method to another <code class="kw-code">@Service</code> or inject self interface with <code class="kw-code">@Lazy</code>.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -340,7 +461,7 @@
         <article class="qa-card" data-id="n-plus-one" data-level="medium" data-section="jpa" data-vimp="true">
           <div class="qa-question"><h3>N+1 problem and how do you fix it?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">EntityGraph</span></li><li><span class="kw">BatchSize</span></li><li><span class="kw">DTO projection query</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">N+1 problem and how do you fix it</strong>. Load 100 orders (1 query), then lazy-load items per order (100 queries).</p><h4>Problem</h4><p>Load 100 orders (1 query), then lazy-load items per order (100 queries).</p><h4>Fixes</h4><ul><li>JOIN FETCH in JPQL</li><li><code class="kw-code">@EntityGraph</code> on repository method</li><li>DTO projection query — only columns needed</li><li><code class="kw-code">@BatchSize</code> on collection</li></ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">EntityGraph</span></li><li><span class="kw">BatchSize</span></li><li><span class="kw">DTO projection query</span></li></ul></div><h4>Problem</h4><p>Load 100 orders (1 query), then lazy-load items per order (100 queries).</p><h4>Fixes</h4><ul><li>JOIN FETCH in JPQL</li><li><code class="kw-code">@EntityGraph</code> on repository method</li><li>DTO projection query — only columns needed</li><li><code class="kw-code">@BatchSize</code> on collection</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -349,7 +470,7 @@
           <div class="qa-question"><h3>FetchType LAZY vs EAGER?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">LAZY</span></li><li><span class="kw">EAGER</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">LAZY</strong> — load association when accessed (default collections). <strong class="kw">EAGER</strong> — always join/load — can explode result set. Prefer LAZY + explicit fetch in query for list endpoints.</p>
+<p><strong class="kw">LAZY</strong> — load association when accessed (default collections). <strong class="kw">EAGER</strong> — always join/load — can explode result set. Prefer LAZY + explicit fetch in query for list endpoints.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -358,7 +479,7 @@
           <div class="qa-question"><h3>Pagination with Pageable?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">getContent()</span></li><li><span class="kw">getTotalElements()</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Pagination with Pageable</strong>.</p><p><code class="kw-code">Pageable page = PageRequest.of(pageNum, size, Sort.by("id").descending());</code></p><p><code class="kw-code">Page&lt;Report&gt; result = repo.findByAccountId(id, page);</code> — use <code class="kw-code">getContent()</code>, <code class="kw-code">getTotalElements()</code> for UI. Never load full table into memory for grid APIs.</p>
+<p><code class="kw-code">Pageable page = PageRequest.of(pageNum, size, Sort.by("id").descending());</code></p><p><code class="kw-code">Page&lt;Report&gt; result = repo.findByAccountId(id, page);</code> — use <code class="kw-code">getContent()</code>, <code class="kw-code">getTotalElements()</code> for UI. Never load full table into memory for grid APIs.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -367,7 +488,7 @@
           <div class="qa-question"><h3>HikariCP connection pool tuning?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring.datasource.hikari.maximum-pool-size</span></li><li><span class="kw">connection-timeout</span></li><li><span class="kw">max-lifetime</span></li><li><span class="kw">spring</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">HikariCP connection pool tuning</strong>. (often 10–30), , .</p><p><code class="kw-code">spring.datasource.hikari.maximum-pool-size</code> (often 10–30), <code class="kw-code">connection-timeout</code>, <code class="kw-code">max-lifetime</code>. Pool size ≈ concurrent DB-bound threads. Too small → threads block; too large → DB overload.</p><p>Monitor active/idle connections via Actuator metrics.</p>
+<p><code class="kw-code">spring.datasource.hikari.maximum-pool-size</code> (often 10–30), <code class="kw-code">connection-timeout</code>, <code class="kw-code">max-lifetime</code>. Pool size ≈ concurrent DB-bound threads. Too small → threads block; too large → DB overload.</p><p>Monitor active/idle connections via Actuator metrics.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -376,7 +497,7 @@
           <div class="qa-question"><h3>What ddl-auto setting for production?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">validate</span></li><li><span class="kw">none</span></li><li><span class="kw">create-drop</span></li><li><span class="kw">update</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">What ddl-auto setting for production</strong>.</p><p><code class="kw-code">validate</code> or <code class="kw-code">none</code>. Never <code class="kw-code">create-drop</code> or <code class="kw-code">update</code> in prod — Flyway/Liquibase owns schema. Hibernate validates mapping matches DB.</p>
+<p><code class="kw-code">validate</code> or <code class="kw-code">none</code>. Never <code class="kw-code">create-drop</code> or <code class="kw-code">update</code> in prod — Flyway/Liquibase owns schema. Hibernate validates mapping matches DB.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -385,7 +506,7 @@
           <div class="qa-question"><h3>What is Flyway?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">db/migration/V1__init.sql</span></li><li><span class="kw">SQL</span></li><li><span class="kw">telco</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">Flyway</strong> is a core concept to understand for interviews. Versioned SQL migrations in .</p><p>Versioned SQL migrations in <code class="kw-code">db/migration/V1__init.sql</code>. Runs on startup, tracks history table. Same schema across dev/stage/prod — required for audit-friendly telco releases.</p>
+<p>Versioned SQL migrations in <code class="kw-code">db/migration/V1__init.sql</code>. Runs on startup, tracks history table. Same schema across dev/stage/prod — required for audit-friendly telco releases.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -394,7 +515,7 @@
           <div class="qa-question"><h3>@Version optimistic locking?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Version Long version</span></li><li><span class="kw">WHERE version = ?</span></li><li><span class="kw">OptimisticLockingFailureException</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">@Version optimistic locking</strong>.</p><p>Entity has <code class="kw-code">@Version Long version</code>. UPDATE includes <code class="kw-code">WHERE version = ?</code>; if 0 rows updated → <code class="kw-code">OptimisticLockingFailureException</code>. Prevents lost updates when two users edit same report row.</p>
+<p>Entity has <code class="kw-code">@Version Long version</code>. UPDATE includes <code class="kw-code">WHERE version = ?</code>; if 0 rows updated → <code class="kw-code">OptimisticLockingFailureException</code>. Prevents lost updates when two users edit same report row.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -403,7 +524,7 @@
           <div class="qa-question"><h3>JPA cascade types — what is risky?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">CascadeType.ALL</span></li><li><span class="kw">PERSIST</span></li><li><span class="kw">REMOVE</span></li><li><span class="kw">JPA</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">JPA cascade types — what is risky</strong>. on parent→children can accidentally persist/delete entire graph.</p><p><code class="kw-code">CascadeType.ALL</code> on parent→children can accidentally persist/delete entire graph. Use explicit <code class="kw-code">PERSIST</code>/<code class="kw-code">REMOVE</code> only where business requires. OrphanRemoval deletes children when removed from collection — understand before enabling.</p>
+<p><code class="kw-code">CascadeType.ALL</code> on parent→children can accidentally persist/delete entire graph. Use explicit <code class="kw-code">PERSIST</code>/<code class="kw-code">REMOVE</code> only where business requires. OrphanRemoval deletes children when removed from collection — understand before enabling.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -412,7 +533,7 @@
           <div class="qa-question"><h3>Connection pool exhausted — causes?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Transactional</span></li><li><span class="kw">API</span></li><li><span class="kw">Not closing streams (try</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Connection pool exhausted — causes</strong>.</p><ul><li>Long <code class="kw-code">@Transactional</code> methods (external API inside tx)</li><li>Not closing streams (try-with-resources)</li><li>Leak detection: enable Hikari leak detection threshold in dev</li><li>Thread dump + metrics: all connections in use</li></ul>
+<ul><li>Long <code class="kw-code">@Transactional</code> methods (external API inside tx)</li><li>Not closing streams (try-with-resources)</li><li>Leak detection: enable Hikari leak detection threshold in dev</li><li>Thread dump + metrics: all connections in use</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -421,7 +542,7 @@
           <div class="qa-question"><h3>REQUIRES_NEW transaction propagation?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">REQUIRES_NEW transaction propagation</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">REQUIRES_NEW transaction propagation</strong>.</p><ul class="brief-bullets"><li>Suspends current transaction, opens new one — commits independently.</li><li>Use for audit log that must persist even if main business transaction rolls back.</li><li>Overuse hurts performance and debugging.</li></ul>
+<ul class="brief-bullets"><li>Suspends current transaction, opens new one — commits independently.</li><li>Use for audit log that must persist even if main business transaction rolls back.</li><li>Overuse hurts performance and debugging.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -437,7 +558,7 @@
           <div class="qa-question"><h3>How do you secure a Spring Boot REST API?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">PreAuthorize</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">REST</span></li><li><span class="kw">API</span></li><li><span class="kw">HTTPS</span></li><li><span class="kw">JWT</span></li><li><span class="kw">Secrets in vault/env</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you secure a Spring Boot REST API.</p><ol><li>HTTPS everywhere</li><li>Authentication: JWT or OAuth2 resource server</li><li>Authorization: roles on endpoints + <code class="kw-code">@PreAuthorize</code></li><li>Input validation, rate limiting</li><li>Secrets in vault/env — not git</li><li>Actuator not public</li></ol>
+<ol><li>HTTPS everywhere</li><li>Authentication: JWT or OAuth2 resource server</li><li>Authorization: roles on endpoints + <code class="kw-code">@PreAuthorize</code></li><li>Input validation, rate limiting</li><li>Secrets in vault/env — not git</li><li>Actuator not public</li></ol>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -446,7 +567,7 @@
           <div class="qa-question"><h3>Security filter chain order?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SecurityFilterChain</span></li><li><span class="kw">JWT</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Security filter chain order</strong>. Filters run before DispatcherServlet: security context restoration → JWT/OAuth filter → authorization → controller.</p><p>Filters run before DispatcherServlet: security context restoration → JWT/OAuth filter → authorization → controller. <code class="kw-code">SecurityFilterChain</code> bean defines which URLs are permitAll vs authenticated.</p>
+<p>Filters run before DispatcherServlet: security context restoration → JWT/OAuth filter → authorization → controller. <code class="kw-code">SecurityFilterChain</code> bean defines which URLs are permitAll vs authenticated.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -455,7 +576,7 @@
           <div class="qa-question"><h3>Stateless JWT authentication flow?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Authorization: Bearer &lt;token&gt;</span></li><li><span class="kw">JWT</span></li><li><span class="kw">No server session</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Stateless JWT authentication flow</strong>. Refresh tokens for long-lived mobile apps; short access token TTL.</p><ol><li>Login → server validates credentials → issues signed JWT</li><li>Client sends <code class="kw-code">Authorization: Bearer &lt;token&gt;</code></li><li>Filter validates signature/expiry, builds Authentication</li><li>No server session — scale horizontally</li></ol><p>Refresh tokens for long-lived mobile apps; short access token TTL.</p>
+<ol><li>Login → server validates credentials → issues signed JWT</li><li>Client sends <code class="kw-code">Authorization: Bearer &lt;token&gt;</code></li><li>Filter validates signature/expiry, builds Authentication</li><li>No server session — scale horizontally</li></ol><p>Refresh tokens for long-lived mobile apps; short access token TTL.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -464,7 +585,7 @@
           <div class="qa-question"><h3>OAuth2 resource server?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring-boot-starter-oauth2-resource-server</span></li><li><span class="kw">issuer-uri</span></li><li><span class="kw">API</span></li><li><span class="kw">spring</span></li><li><span class="kw">boot</span></li><li><span class="kw">JWT</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">OAuth2 resource server</strong>. Your API validates access tokens issued by IdP (Keycloak, Azure AD).</p><p>Your API validates access tokens issued by IdP (Keycloak, Azure AD). Dependency <code class="kw-code">spring-boot-starter-oauth2-resource-server</code>, configure <code class="kw-code">issuer-uri</code>, JWT validated against JWK set. Scopes map to authorities.</p>
+<p>Your API validates access tokens issued by IdP (Keycloak, Azure AD). Dependency <code class="kw-code">spring-boot-starter-oauth2-resource-server</code>, configure <code class="kw-code">issuer-uri</code>, JWT validated against JWK set. Scopes map to authorities.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -473,7 +594,7 @@
           <div class="qa-question"><h3>@PreAuthorize and method security?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">EnableMethodSecurity</span></li><li><span class="kw">PreAuthorize("hasRole('REPORT_VIEW')")</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">@PreAuthorize and method security</strong>. + on service methods — fine-grained authorization after URL-level security.</p><p><code class="kw-code">@EnableMethodSecurity</code> + <code class="kw-code">@PreAuthorize("hasRole('REPORT_VIEW')")</code> on service methods — fine-grained authorization after URL-level security.</p>
+<p><code class="kw-code">@EnableMethodSecurity</code> + <code class="kw-code">@PreAuthorize("hasRole('REPORT_VIEW')")</code> on service methods — fine-grained authorization after URL-level security.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -482,7 +603,7 @@
           <div class="qa-question"><h3>CSRF for REST APIs?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">REST</span></li><li><span class="kw">JWT</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">CSRF for REST APIs</strong>.</p><ul class="brief-bullets"><li>CSRF protects cookie-based browser sessions.</li><li>Stateless JWT in Authorization header → typically disable CSRF for pure APIs.</li><li>If using session cookies + SPA, enable CSRF token.</li></ul>
+<ul class="brief-bullets"><li>CSRF protects cookie-based browser sessions.</li><li>Stateless JWT in Authorization header → typically disable CSRF for pure APIs.</li><li>If using session cookies + SPA, enable CSRF token.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -491,7 +612,7 @@
           <div class="qa-question"><h3>How should passwords be stored?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">BCryptPasswordEncoder</span></li><li><span class="kw">matches(raw, encoded)</span></li><li><span class="kw">API</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How should passwords be stored. Never plain text.</p><p>Never plain text. <code class="kw-code">BCryptPasswordEncoder</code> with salt per password. Compare with <code class="kw-code">matches(raw, encoded)</code>. Password never in logs or API responses.</p>
+<p>Never plain text. <code class="kw-code">BCryptPasswordEncoder</code> with salt per password. Compare with <code class="kw-code">matches(raw, encoded)</code>. Password never in logs or API responses.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -500,7 +621,7 @@
           <div class="qa-question"><h3>401 vs 403?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">401 Unauthorized</span></li><li><span class="kw">403 Forbidden</span></li><li><span class="kw">API</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">401 Unauthorized</strong> — not authenticated (missing/invalid token). <strong class="kw">403 Forbidden</strong> — authenticated but lacks permission. Wrong status confuses API clients and security audits.</p>
+<p><strong class="kw">401 Unauthorized</strong> — not authenticated (missing/invalid token). <strong class="kw">403 Forbidden</strong> — authenticated but lacks permission. Wrong status confuses API clients and security audits.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -509,7 +630,7 @@
           <div class="qa-question"><h3>SecurityFilterChain bean (Spring Security 6)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">WebSecurityConfigurerAdapter</span></li><li><span class="kw">Spring</span></li><li><span class="kw">http</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">SecurityFilterChain bean (Spring Security 6)</strong>. Replace deprecated .</p><p>Replace deprecated <code class="kw-code">WebSecurityConfigurerAdapter</code>. Lambda DSL: <code class="kw-code">http.authorizeHttpRequests(auth -&gt; auth.requestMatchers("/actuator/health").permitAll().anyRequest().authenticated())</code>.</p>
+<p>Replace deprecated <code class="kw-code">WebSecurityConfigurerAdapter</code>. Lambda DSL: <code class="kw-code">http.authorizeHttpRequests(auth -&gt; auth.requestMatchers("/actuator/health").permitAll().anyRequest().authenticated())</code>.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -518,7 +639,7 @@
           <div class="qa-question"><h3>URL security vs method security?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/admin/**</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p>URL rules coarse (<code class="kw-code">/admin/**</code> ROLE_ADMIN). Method security for service-layer operations shared by multiple controllers. Use both: perimeter + fine-grained.</p>
+<p>URL rules coarse (<code class="kw-code">/admin/**</code> ROLE_ADMIN). Method security for service-layer operations shared by multiple controllers. Use both: perimeter + fine-grained.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -527,7 +648,7 @@
           <div class="qa-question"><h3>How do you secure Actuator endpoints?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/actuator/**</span></li><li><span class="kw">Spring</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you secure Actuator endpoints. Separate management port, or Spring Security on — only health/prometheus for K8s SA; hide env/beans/heap dump from internet.</p><p>Separate management port, or Spring Security on <code class="kw-code">/actuator/**</code> — only health/prometheus for K8s SA; hide env/beans/heap dump from internet.</p>
+<p>Separate management port, or Spring Security on <code class="kw-code">/actuator/**</code> — only health/prometheus for K8s SA; hide env/beans/heap dump from internet.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -536,7 +657,7 @@
           <div class="qa-question"><h3>PII in APIs and logs?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JWT</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">PII in APIs and logs</strong>.</p><ul class="brief-bullets"><li>Mask MSISDN/email in logs (Fuse Logger-style).</li><li>DTOs exclude sensitive fields.</li><li>GDPR: purpose limitation, audit access.</li><li>Never log full JWT or passwords.</li></ul>
+<ul class="brief-bullets"><li>Mask MSISDN/email in logs (Fuse Logger-style).</li><li>DTOs exclude sensitive fields.</li><li>GDPR: purpose limitation, audit access.</li><li>Never log full JWT or passwords.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -552,7 +673,7 @@
           <div class="qa-question"><h3>What is Spring Boot Actuator?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring-boot-starter-actuator</span></li><li><span class="kw">management.endpoints.web.exposure.include</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">Spring Boot Actuator</strong> is a core concept to understand for interviews. Production-ready ops endpoints: health, metrics, info, env (careful).</p><p>Production-ready ops endpoints: health, metrics, info, env (careful). Dependency <code class="kw-code">spring-boot-starter-actuator</code>. Expose via <code class="kw-code">management.endpoints.web.exposure.include</code>.</p>
+<p>Production-ready ops endpoints: health, metrics, info, env (careful). Dependency <code class="kw-code">spring-boot-starter-actuator</code>. Expose via <code class="kw-code">management.endpoints.web.exposure.include</code>.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -561,7 +682,7 @@
           <div class="qa-question"><h3>Liveness vs readiness probes?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/actuator/health/liveness</span></li><li><span class="kw">readiness</span></li><li><span class="kw">Liveness</span></li><li><span class="kw">Boot</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul><li><strong class="kw">Liveness</strong> — process up? Restart pod if fails.</li><li><strong class="kw">Readiness</strong> — can accept traffic? DB/upstream OK? Remove from load balancer if fails.</li></ul><p>K8s: <code class="kw-code">/actuator/health/liveness</code> and <code class="kw-code">readiness</code> (Boot 2.3+ probes).</p>
+<ul><li><strong class="kw">Liveness</strong> — process up? Restart pod if fails.</li><li><strong class="kw">Readiness</strong> — can accept traffic? DB/upstream OK? Remove from load balancer if fails.</li></ul><p>K8s: <code class="kw-code">/actuator/health/liveness</code> and <code class="kw-code">readiness</code> (Boot 2.3+ probes).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -570,7 +691,7 @@
           <div class="qa-question"><h3>Custom HealthIndicator?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">HealthIndicator</span></li><li><span class="kw">Health.up()</span></li><li><span class="kw">Health.down()</span></li><li><span class="kw">API</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Custom HealthIndicator</strong>. Implement , ping billing partner API — return or with details.</p><p>Implement <code class="kw-code">HealthIndicator</code>, ping billing partner API — return <code class="kw-code">Health.up()</code> or <code class="kw-code">Health.down()</code> with details. Readiness fails if critical dependency down.</p>
+<p>Implement <code class="kw-code">HealthIndicator</code>, ping billing partner API — return <code class="kw-code">Health.up()</code> or <code class="kw-code">Health.down()</code> with details. Readiness fails if critical dependency down.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -579,7 +700,7 @@
           <div class="qa-question"><h3>Metrics and Prometheus?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">micrometer-registry-prometheus</span></li><li><span class="kw">/actuator/prometheus</span></li><li><span class="kw">HTTP</span></li><li><span class="kw">JVM</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Metrics and Prometheus</strong>. Micrometer registry — HTTP latency, JVM memory, Hikari pool.</p><p>Micrometer registry — HTTP latency, JVM memory, Hikari pool. Add <code class="kw-code">micrometer-registry-prometheus</code>, scrape <code class="kw-code">/actuator/prometheus</code>. Grafana alerts on error rate and pool usage.</p>
+<p>Micrometer registry — HTTP latency, JVM memory, Hikari pool. Add <code class="kw-code">micrometer-registry-prometheus</code>, scrape <code class="kw-code">/actuator/prometheus</code>. Grafana alerts on error rate and pool usage.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -588,7 +709,7 @@
           <div class="qa-question"><h3>Logging and MDC correlation ID?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">X-Correlation-Id</span></li><li><span class="kw">%X{correlationId}</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Logging and MDC correlation ID</strong>. Filter reads (or generates UUID), puts in MDC, log pattern includes .</p><p>Filter reads <code class="kw-code">X-Correlation-Id</code> (or generates UUID), puts in MDC, log pattern includes <code class="kw-code">%X{correlationId}</code>. Trace one request across microservices — essential for Vodafone incident triage.</p>
+<p>Filter reads <code class="kw-code">X-Correlation-Id</code> (or generates UUID), puts in MDC, log pattern includes <code class="kw-code">%X{correlationId}</code>. Trace one request across microservices — essential for Vodafone incident triage.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -597,7 +718,7 @@
           <div class="qa-question"><h3>Graceful shutdown?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">server.shutdown=graceful</span></li><li><span class="kw">terminationGracePeriodSeconds</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Graceful shutdown</strong>. — stop accepting new requests, finish in-flight, then close context.</p><p><code class="kw-code">server.shutdown=graceful</code> — stop accepting new requests, finish in-flight, then close context. K8s preStop hook + adequate <code class="kw-code">terminationGracePeriodSeconds</code>.</p>
+<p><code class="kw-code">server.shutdown=graceful</code> — stop accepting new requests, finish in-flight, then close context. K8s preStop hook + adequate <code class="kw-code">terminationGracePeriodSeconds</code>.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -606,7 +727,7 @@
           <div class="qa-question"><h3>What Actuator endpoints to expose in production?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">health</span></li><li><span class="kw">prometheus</span></li><li><span class="kw">info</span></li><li><span class="kw">env</span></li><li><span class="kw">beans</span></li><li><span class="kw">heapdump</span></li><li><span class="kw">shutdown</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">What Actuator endpoints to expose in production</strong>. Typically: , , maybe .</p><p>Typically: <code class="kw-code">health</code>, <code class="kw-code">prometheus</code>, maybe <code class="kw-code">info</code>. Never public: <code class="kw-code">env</code>, <code class="kw-code">beans</code>, <code class="kw-code">heapdump</code>, <code class="kw-code">shutdown</code>. Network policy + auth on management port.</p>
+<p>Typically: <code class="kw-code">health</code>, <code class="kw-code">prometheus</code>, maybe <code class="kw-code">info</code>. Never public: <code class="kw-code">env</code>, <code class="kw-code">beans</code>, <code class="kw-code">heapdump</code>, <code class="kw-code">shutdown</code>. Network policy + auth on management port.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -615,7 +736,7 @@
           <div class="qa-question"><h3>JVM flags for Spring Boot in containers?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">-XX:MaxRAMPercentage=75.0</span></li><li><span class="kw">-Xmx</span></li><li><span class="kw">JVM</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">JVM flags for Spring Boot in containers</strong>. respects cgroup memory limit.</p><p><code class="kw-code">-XX:MaxRAMPercentage=75.0</code> respects cgroup memory limit. Container-aware ergonomics in Java 11+. Avoid fixed huge <code class="kw-code">-Xmx</code> exceeding pod limit → OOMKilled.</p>
+<p><code class="kw-code">-XX:MaxRAMPercentage=75.0</code> respects cgroup memory limit. Container-aware ergonomics in Java 11+. Avoid fixed huge <code class="kw-code">-Xmx</code> exceeding pod limit → OOMKilled.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -624,7 +745,7 @@
           <div class="qa-question"><h3>Jenkins post-deploy smoke test?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/actuator/health</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">API</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Jenkins post-deploy smoke test</strong>. Pipeline curls or lightweight API after deploy — fail fast before full traffic.</p><p>Pipeline curls <code class="kw-code">/actuator/health</code> or lightweight API after deploy — fail fast before full traffic. Matches your Optima Jenkins experience.</p>
+<p>Pipeline curls <code class="kw-code">/actuator/health</code> or lightweight API after deploy — fail fast before full traffic. Matches your Optima Jenkins experience.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -633,7 +754,7 @@
           <div class="qa-question"><h3>spring-boot-devtools in production?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring</span></li><li><span class="kw">boot</span></li><li><span class="kw">Docker</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">spring-boot-devtools in production</strong>.</p><ul class="brief-bullets"><li>Never.</li><li>Dev-only classpath restart and live reload.</li><li>Not packaged in prod build; exclude from Docker image.</li></ul>
+<ul class="brief-bullets"><li>Never.</li><li>Dev-only classpath restart and live reload.</li><li>Not packaged in prod build; exclude from Docker image.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -649,7 +770,7 @@
           <div class="qa-question"><h3>Unit vs slice vs integration tests?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">testing</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">WebMvcTest</span></li><li><span class="kw">DataJpaTest</span></li><li><span class="kw">SpringBootTest</span></li><li><span class="kw">Unit</span></li><li><span class="kw">Slice</span></li><li><span class="kw">Integration</span></li><li><span class="kw">Mockito</span></li><li><span class="kw">Spring</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul><li><strong class="kw">Unit</strong> — Mockito service logic, no Spring context</li><li><strong class="kw">Slice</strong> — <code class="kw-code">@WebMvcTest</code> controller only, <code class="kw-code">@DataJpaTest</code> repos with H2</li><li><strong class="kw">Integration</strong> — <code class="kw-code">@SpringBootTest</code> full context, Testcontainers real DB</li></ul><p>Your Vodafone TestNG uplift: more service + API tests, stable CI.</p>
+<ul><li><strong class="kw">Unit</strong> — Mockito service logic, no Spring context</li><li><strong class="kw">Slice</strong> — <code class="kw-code">@WebMvcTest</code> controller only, <code class="kw-code">@DataJpaTest</code> repos with H2</li><li><strong class="kw">Integration</strong> — <code class="kw-code">@SpringBootTest</code> full context, Testcontainers real DB</li></ul><p>Your Vodafone TestNG uplift: more service + API tests, stable CI.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -658,7 +779,7 @@
           <div class="qa-question"><h3>What is @MockBean?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">testing</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">WebMvcTest</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Mockito</span></li><li><span class="kw">JSON</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">@MockBean</strong> is a core concept to understand for interviews. Replaces bean in Spring test context with Mockito mock — use in to mock service layer when testing controller mappings and JSON responses.</p><p>Replaces bean in Spring test context with Mockito mock — use in <code class="kw-code">@WebMvcTest</code> to mock service layer when testing controller mappings and JSON responses.</p>
+<p>Replaces bean in Spring test context with Mockito mock — use in <code class="kw-code">@WebMvcTest</code> to mock service layer when testing controller mappings and JSON responses.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -667,7 +788,7 @@
           <div class="qa-question"><h3>Testcontainers vs H2?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">testing</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SQL</span></li><li><span class="kw">Docker</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul class="brief-bullets"><li>H2 fast but different SQL dialect from Oracle/PostgreSQL prod.</li><li>Testcontainers spins real DB in Docker — catches migration and query issues.</li><li>Worth it for repository integration tests.</li></ul>
+<ul class="brief-bullets"><li>H2 fast but different SQL dialect from Oracle/PostgreSQL prod.</li><li>Testcontainers spins real DB in Docker — catches migration and query issues.</li><li>Worth it for repository integration tests.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -676,7 +797,7 @@
           <div class="qa-question"><h3>Describe your Vodafone microservice architecture (60 sec)?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">testing</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">microservice</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">API</span></li><li><span class="kw">REST</span></li><li><span class="kw">JPA</span></li><li><span class="kw">SQL</span></li><li><span class="kw">TestNG</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Describe your Vodafone microservice architecture (60 sec)</strong>.</p><p>Spring Boot services behind API gateway, REST for reporting features, JPA + tuned SQL for heavy reads, Oracle/enterprise DB, TestNG/Maven CI, Jenkins deploy, Actuator health for ops. You improved test coverage 60→90% and query performance on reporting paths — tie to concrete modules you own.</p>
+<p>Spring Boot services behind API gateway, REST for reporting features, JPA + tuned SQL for heavy reads, Oracle/enterprise DB, TestNG/Maven CI, Jenkins deploy, Actuator health for ops. You improved test coverage 60→90% and query performance on reporting paths — tie to concrete modules you own.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
