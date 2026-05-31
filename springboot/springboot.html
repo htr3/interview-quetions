@@ -558,6 +558,14 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JPA</span></li><li><span class="kw">JdbcTemplate/native</span></li><li><span class="kw">SQL</span></li></ul></div>
 <p><strong class="kw">JPA</strong> — ORM, entities, repositories, good for CRUD and object graphs. <strong class="kw">JdbcTemplate/native</strong> — full SQL control for reports, bulk updates, complex joins you tuned at Vodafone.</p><p>Hybrid is normal: JPA for writes, native query for heavy read/report paths.</p>
+            <h4>What JPA gives you</h4>
+<p>A <strong class="kw">persistence context</strong> (1st-level cache) with <strong class="kw">dirty checking</strong> — change a managed entity inside a transaction and Hibernate auto-generates the UPDATE on flush; no manual SQL.</p>
+<h4>Example — native query for a report</h4>
+<pre><code class="kw-code">@Query(value = "SELECT account_id, SUM(amount) total " +
+               "FROM orders WHERE created_at &gt;= :from GROUP BY account_id",
+       nativeQuery = true)
+List&lt;AccountTotal&gt; totalsSince(@Param("from") LocalDate from);</code></pre>
+<p>Rule of thumb: JPA for the object-graph write path, native SQL/JdbcTemplate for heavy aggregate reports where you want full control of the query plan.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -567,6 +575,23 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Id</span></li><li><span class="kw">GeneratedValue</span></li><li><span class="kw">Column</span></li><li><span class="kw">JPA</span></li><li><span class="kw">SQL</span></li></ul></div>
 <p>Marks class mapped to table. <code class="kw-code">@Id</code> + <code class="kw-code">@GeneratedValue</code> for PK. <code class="kw-code">@Column</code> for name/nullable. Hibernate implements JPA spec — generates SQL on persist/merge/find.</p>
+            <h4>Example</h4>
+<pre><code class="kw-code">@Entity
+@Table(name = "reports")
+public class Report {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @Column(nullable = false, length = 120)
+  private String name;
+}</code></pre>
+<h4>Gotchas</h4>
+<ul>
+<li>Needs a <strong class="kw">no-arg constructor</strong> (Hibernate instantiates via reflection).</li>
+<li>Be careful with <code class="kw-code">equals()</code>/<code class="kw-code">hashCode()</code> on entities — base them on a business key, not the generated <code class="kw-code">id</code> (which is null before persist).</li>
+<li><code class="kw-code">IDENTITY</code> vs <code class="kw-code">SEQUENCE</code>: sequence allows JDBC batch inserts; identity disables them.</li>
+</ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -576,6 +601,18 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">CrudRepository</span></li><li><span class="kw">PagingAndSortingRepository</span></li><li><span class="kw">save</span></li><li><span class="kw">findById</span></li><li><span class="kw">delete</span></li><li><span class="kw">findByAccountIdAndStatus</span></li><li><span class="kw">Query</span></li><li><span class="kw">SQL</span></li></ul></div>
 <p>Extends <code class="kw-code">CrudRepository</code>, <code class="kw-code">PagingAndSortingRepository</code>. Gives <code class="kw-code">save</code>, <code class="kw-code">findById</code>, <code class="kw-code">delete</code>, derived queries <code class="kw-code">findByAccountIdAndStatus</code>, <code class="kw-code">@Query</code> for JPQL/native SQL.</p>
+            <h4>Three ways to query</h4>
+<pre><code class="kw-code">// 1) derived query (method name → SQL)
+List&lt;Report&gt; findByAccountIdAndStatus(Long accountId, Status status);
+
+// 2) JPQL
+@Query("select r from Report r where r.name like %:q%")
+List&lt;Report&gt; search(@Param("q") String q);
+
+// 3) projection (only the columns you need → fast)
+interface NameOnly { String getName(); }
+List&lt;NameOnly&gt; findBy();</code></pre>
+<p>Spring generates the implementation at startup from the interface. Use <strong class="kw">projections/DTOs</strong> for read-heavy endpoints so you don't hydrate full entities.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -585,6 +622,19 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">readOnly=true</span></li><li><span class="kw">Pitfalls:</span></li><li><span class="kw">Transactional</span></li></ul></div>
 <p>AOP proxy starts transaction on method entry, commits on success, rolls back on unchecked exceptions. <code class="kw-code">readOnly=true</code> hints DB for read-only queries.</p><p><strong class="kw">Pitfalls:</strong> self-invocation bypasses proxy; checked exceptions don't roll back unless configured; long transactions hold DB connections.</p>
+            <h4>Defaults worth knowing</h4>
+<ul>
+<li>Propagation <code class="kw-code">REQUIRED</code> (join existing tx or start one).</li>
+<li>Rolls back on <strong class="kw">unchecked</strong> (RuntimeException) only — add <code class="kw-code">rollbackFor = Exception.class</code> for checked.</li>
+<li>Default isolation = the DB's default (usually READ_COMMITTED).</li>
+</ul>
+<h4>Example</h4>
+<pre><code class="kw-code">@Transactional
+public void placeOrder(OrderRequest req) {
+  Order o = repo.save(toEntity(req));   // dirty-checked, committed at method end
+  payment.charge(o);                    // if this throws → rollback
+}</code></pre>
+<p>Keep transactions short — never call a slow external API while holding one (it pins a DB connection).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -594,6 +644,21 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">this.otherMethod()</span></li><li><span class="kw">Service</span></li><li><span class="kw">Lazy</span></li><li><span class="kw">Transactional</span></li><li><span class="kw">Spring</span></li></ul></div>
 <p>External call goes through Spring proxy; internal <code class="kw-code">this.otherMethod()</code> does not — no transaction advice applied. Fix: move method to another <code class="kw-code">@Service</code> or inject self interface with <code class="kw-code">@Lazy</code>.</p>
+            <h4>The trap</h4>
+<pre><code class="kw-code">@Service
+public class OrderService {
+  public void process() {
+    save();   // ❌ this.save() — bypasses the proxy, NO transaction
+  }
+  @Transactional
+  public void save() { ... }
+}</code></pre>
+<h4>Fixes</h4>
+<ul>
+<li>Move <code class="kw-code">save()</code> into a separate bean and inject it (call goes through its proxy).</li>
+<li>Self-inject (<code class="kw-code">@Autowired @Lazy OrderService self;</code>) and call <code class="kw-code">self.save()</code>.</li>
+</ul>
+<p>Same applies to <code class="kw-code">@Async</code>, <code class="kw-code">@Cacheable</code> — any proxy-based annotation only works on calls that cross the proxy boundary.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -602,6 +667,12 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
           <div class="qa-question"><h3>N+1 problem and how do you fix it?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">EntityGraph</span></li><li><span class="kw">BatchSize</span></li><li><span class="kw">DTO projection query</span></li></ul></div><h4>Problem</h4><p>Load 100 orders (1 query), then lazy-load items per order (100 queries).</p><h4>Fixes</h4><ul><li>JOIN FETCH in JPQL</li><li><code class="kw-code">@EntityGraph</code> on repository method</li><li>DTO projection query — only columns needed</li><li><code class="kw-code">@BatchSize</code> on collection</li></ul>
+            <h4>JOIN FETCH example</h4>
+<pre><code class="kw-code">@Query("select o from Order o join fetch o.items where o.accountId = :id")
+List&lt;Order&gt; findWithItems(@Param("id") Long id);   // 1 query, not N+1</code></pre>
+<h4>How to detect it</h4>
+<p>Turn on SQL logging (<code class="kw-code">spring.jpa.show-sql=true</code> or <code class="kw-code">org.hibernate.SQL=DEBUG</code>) and watch for a burst of identical SELECTs. Hibernate statistics / a tool like p6spy also surfaces it.</p>
+<p>Pick the fix by use case: <code class="kw-code">JOIN FETCH</code>/<code class="kw-code">@EntityGraph</code> for a single request, <code class="kw-code">@BatchSize</code> to reduce N queries to N/batch, DTO projection when you only need a few columns.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -611,6 +682,14 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">LAZY</span></li><li><span class="kw">EAGER</span></li></ul></div>
 <p><strong class="kw">LAZY</strong> — load association when accessed (default collections). <strong class="kw">EAGER</strong> — always join/load — can explode result set. Prefer LAZY + explicit fetch in query for list endpoints.</p>
+            <h4>The classic error</h4>
+<p>Accessing a LAZY association <em>after</em> the transaction/session closed throws <code class="kw-code">LazyInitializationException</code> ("no Session"). It often appears when Jackson serializes an entity outside the service layer — another reason to return <strong class="kw">DTOs</strong>.</p>
+<h4>Fixes</h4>
+<ul>
+<li>Fetch what you need <em>inside</em> the transaction (<code class="kw-code">JOIN FETCH</code> / <code class="kw-code">@EntityGraph</code>).</li>
+<li>Map to a DTO before returning.</li>
+<li>Avoid the anti-pattern of <code class="kw-code">open-session-in-view</code> (on by default in Boot — consider disabling it).</li>
+</ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -620,6 +699,14 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">getContent()</span></li><li><span class="kw">getTotalElements()</span></li></ul></div>
 <p><code class="kw-code">Pageable page = PageRequest.of(pageNum, size, Sort.by("id").descending());</code></p><p><code class="kw-code">Page&lt;Report&gt; result = repo.findByAccountId(id, page);</code> — use <code class="kw-code">getContent()</code>, <code class="kw-code">getTotalElements()</code> for UI. Never load full table into memory for grid APIs.</p>
+            <h4>Example</h4>
+<pre><code class="kw-code">// controller can bind Pageable straight from ?page=0&size=20&sort=id,desc
+@GetMapping
+public Page&lt;ReportDto&gt; list(Pageable pageable) {
+  return repo.findAll(pageable).map(this::toDto);
+}</code></pre>
+<h4>Watch the count query</h4>
+<p>Each <code class="kw-code">Page</code> runs an extra <code class="kw-code">COUNT(*)</code> — expensive on huge tables. For very large datasets use <code class="kw-code">Slice</code> (no count) or <strong class="kw">keyset/seek pagination</strong> (<code class="kw-code">WHERE id &gt; :lastId</code>) which stays fast at deep offsets.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -629,6 +716,12 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring.datasource.hikari.maximum-pool-size</span></li><li><span class="kw">connection-timeout</span></li><li><span class="kw">max-lifetime</span></li><li><span class="kw">spring</span></li></ul></div>
 <p><code class="kw-code">spring.datasource.hikari.maximum-pool-size</code> (often 10–30), <code class="kw-code">connection-timeout</code>, <code class="kw-code">max-lifetime</code>. Pool size ≈ concurrent DB-bound threads. Too small → threads block; too large → DB overload.</p><p>Monitor active/idle connections via Actuator metrics.</p>
+            <h4>Sizing it</h4>
+<p>A common starting formula: <code class="kw-code">pool size ≈ ((core_count * 2) + effective_spindles)</code>, then validate under load. Bigger is <em>not</em> better — too many connections overwhelm the DB. Match the pool to what the DB can actually handle across <em>all</em> service instances.</p>
+<pre><code class="kw-code">spring.datasource.hikari.maximum-pool-size: 20
+spring.datasource.hikari.connection-timeout: 30000   # ms to wait for a conn
+spring.datasource.hikari.max-lifetime: 1800000       # recycle before DB idle-kill</code></pre>
+<p>Expose Hikari metrics via Actuator/Micrometer (<code class="kw-code">hikaricp.connections.active</code>) so you can alert before exhaustion.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -638,6 +731,14 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">validate</span></li><li><span class="kw">none</span></li><li><span class="kw">create-drop</span></li><li><span class="kw">update</span></li></ul></div>
 <p><code class="kw-code">validate</code> or <code class="kw-code">none</code>. Never <code class="kw-code">create-drop</code> or <code class="kw-code">update</code> in prod — Flyway/Liquibase owns schema. Hibernate validates mapping matches DB.</p>
+            <h4>The options</h4>
+<ul>
+<li><code class="kw-code">none</code> — do nothing (prod, with Flyway/Liquibase owning schema).</li>
+<li><code class="kw-code">validate</code> — verify entities match the existing schema, fail fast on drift (great safety net in prod).</li>
+<li><code class="kw-code">update</code> — alter schema to match entities (handy locally, dangerous in prod — no down-migrations, no review).</li>
+<li><code class="kw-code">create</code> / <code class="kw-code">create-drop</code> — drop &amp; recreate (tests only).</li>
+</ul>
+<p>Recommendation: <code class="kw-code">validate</code> or <code class="kw-code">none</code> in prod, migrations via Flyway; <code class="kw-code">create-drop</code> for integration tests.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -647,6 +748,19 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">db/migration/V1__init.sql</span></li><li><span class="kw">SQL</span></li><li><span class="kw">telco</span></li></ul></div>
 <p>Versioned SQL migrations in <code class="kw-code">db/migration/V1__init.sql</code>. Runs on startup, tracks history table. Same schema across dev/stage/prod — required for audit-friendly telco releases.</p>
+            <h4>Example migration</h4>
+<pre><code class="kw-code">-- src/main/resources/db/migration/V1__create_reports.sql
+CREATE TABLE reports (
+  id BIGSERIAL PRIMARY KEY,
+  name VARCHAR(120) NOT NULL
+);</code></pre>
+<h4>Key rules</h4>
+<ul>
+<li>Versioned files <code class="kw-code">V{n}__desc.sql</code> run once, in order, tracked in <code class="kw-code">flyway_schema_history</code>.</li>
+<li><strong class="kw">Never edit a migration that already ran</strong> — its checksum is recorded; add a new one instead.</li>
+<li><code class="kw-code">R__</code> for repeatable (views), <code class="kw-code">baseline</code> to adopt an existing DB.</li>
+</ul>
+<p>Gives the same, auditable schema across dev/stage/prod — important for regulated environments like ICE.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -656,6 +770,13 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Version Long version</span></li><li><span class="kw">WHERE version = ?</span></li><li><span class="kw">OptimisticLockingFailureException</span></li></ul></div>
 <p>Entity has <code class="kw-code">@Version Long version</code>. UPDATE includes <code class="kw-code">WHERE version = ?</code>; if 0 rows updated → <code class="kw-code">OptimisticLockingFailureException</code>. Prevents lost updates when two users edit same report row.</p>
+            <h4>Optimistic vs pessimistic</h4>
+<ul>
+<li><strong class="kw">Optimistic</strong> (<code class="kw-code">@Version</code>) — no DB lock; detect the conflict at commit. Best for low-contention web edits.</li>
+<li><strong class="kw">Pessimistic</strong> (<code class="kw-code">SELECT ... FOR UPDATE</code> via <code class="kw-code">@Lock(PESSIMISTIC_WRITE)</code>) — locks the row up front. Use for high-contention hotspots (inventory, balances).</li>
+</ul>
+<h4>Handling the failure</h4>
+<p>Catch <code class="kw-code">OptimisticLockingFailureException</code> and either retry the transaction or return <strong class="kw">409 Conflict</strong> so the user re-loads and re-applies their change. Prevents the lost-update problem when two users edit the same row.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -665,6 +786,14 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">CascadeType.ALL</span></li><li><span class="kw">PERSIST</span></li><li><span class="kw">REMOVE</span></li><li><span class="kw">JPA</span></li></ul></div>
 <p><code class="kw-code">CascadeType.ALL</code> on parent→children can accidentally persist/delete entire graph. Use explicit <code class="kw-code">PERSIST</code>/<code class="kw-code">REMOVE</code> only where business requires. OrphanRemoval deletes children when removed from collection — understand before enabling.</p>
+            <h4>The cascade types</h4>
+<ul>
+<li><code class="kw-code">PERSIST</code>, <code class="kw-code">MERGE</code>, <code class="kw-code">REMOVE</code>, <code class="kw-code">REFRESH</code>, <code class="kw-code">DETACH</code>, and <code class="kw-code">ALL</code> (all of them).</li>
+</ul>
+<h4>Why ALL is risky</h4>
+<pre><code class="kw-code">@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+private List&lt;OrderItem&gt; items;</code></pre>
+<p>With <code class="kw-code">ALL</code> + <code class="kw-code">orphanRemoval</code>, deleting an order (or just removing an item from the list) cascades deletes you may not intend, and can fire a flood of DELETEs. Prefer declaring only the specific cascades the relationship actually needs.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -674,6 +803,19 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Transactional</span></li><li><span class="kw">API</span></li><li><span class="kw">Not closing streams (try</span></li></ul></div>
 <ul><li>Long <code class="kw-code">@Transactional</code> methods (external API inside tx)</li><li>Not closing streams (try-with-resources)</li><li>Leak detection: enable Hikari leak detection threshold in dev</li><li>Thread dump + metrics: all connections in use</li></ul>
+            <h4>How to diagnose</h4>
+<ol>
+<li>Symptom: requests hang then fail with "Connection is not available, request timed out".</li>
+<li>Enable Hikari <code class="kw-code">leak-detection-threshold</code> (e.g. 20000 ms) — it logs the stack trace of the borrower that held a connection too long.</li>
+<li>Check Actuator metrics: <code class="kw-code">hikaricp.connections.active</code> pinned at max.</li>
+<li>Take a thread dump to see where threads are parked.</li>
+</ol>
+<h4>Common causes &amp; fixes</h4>
+<ul>
+<li>Slow external call inside <code class="kw-code">@Transactional</code> → move it outside the tx.</li>
+<li>Streaming results without closing the stream → use try-with-resources.</li>
+<li>Pool simply too small for load → size it and add timeouts.</li>
+</ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -683,6 +825,17 @@ spring.servlet.multipart.max-request-size: 10MB</code></pre>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">jpa</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">REQUIRES_NEW transaction propagation</span></li></ul></div>
 <ul class="brief-bullets"><li>Suspends current transaction, opens new one — commits independently.</li><li>Use for audit log that must persist even if main business transaction rolls back.</li><li>Overuse hurts performance and debugging.</li></ul>
+            <h4>The main propagation modes</h4>
+<ul>
+<li><code class="kw-code">REQUIRED</code> (default) — join the caller's tx or start one.</li>
+<li><code class="kw-code">REQUIRES_NEW</code> — suspend the caller's tx, run in a brand-new independent tx.</li>
+<li><code class="kw-code">NESTED</code> — savepoint inside the current tx.</li>
+<li><code class="kw-code">SUPPORTS</code> / <code class="kw-code">NOT_SUPPORTED</code> / <code class="kw-code">MANDATORY</code> / <code class="kw-code">NEVER</code> — situational.</li>
+</ul>
+<h4>Example — audit that must survive a rollback</h4>
+<pre><code class="kw-code">@Transactional(propagation = Propagation.REQUIRES_NEW)
+public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
+<p>Caveat: <code class="kw-code">REQUIRES_NEW</code> uses a <strong>second</strong> DB connection while the first is suspended — overuse can deadlock or exhaust the pool.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
