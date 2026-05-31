@@ -1074,6 +1074,17 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring-boot-starter-actuator</span></li><li><span class="kw">management.endpoints.web.exposure.include</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li></ul></div>
 <p>Production-ready ops endpoints: health, metrics, info, env (careful). Dependency <code class="kw-code">spring-boot-starter-actuator</code>. Expose via <code class="kw-code">management.endpoints.web.exposure.include</code>.</p>
+            <h4>Useful endpoints</h4>
+<ul>
+<li><code class="kw-code">/actuator/health</code> — liveness/readiness (for K8s probes &amp; load balancers).</li>
+<li><code class="kw-code">/actuator/metrics</code> + <code class="kw-code">/actuator/prometheus</code> — Micrometer metrics.</li>
+<li><code class="kw-code">/actuator/info</code> — build/git info.</li>
+<li><code class="kw-code">/actuator/loggers</code> — view/change log levels at runtime (very handy in prod incidents).</li>
+<li><code class="kw-code">/actuator/env</code>, <code class="kw-code">/beans</code>, <code class="kw-code">/heapdump</code>, <code class="kw-code">/threaddump</code> — powerful, so keep them locked down.</li>
+</ul>
+<pre><code class="kw-code"># expose explicitly — nothing is web-exposed by default except health
+management.endpoints.web.exposure.include: health,info,prometheus,loggers</code></pre>
+<p>It turns a Boot app into something an SRE/K8s platform can observe and operate without custom code.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1083,6 +1094,12 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/actuator/health/liveness</span></li><li><span class="kw">readiness</span></li><li><span class="kw">Liveness</span></li><li><span class="kw">Boot</span></li></ul></div>
 <ul><li><strong class="kw">Liveness</strong> — process up? Restart pod if fails.</li><li><strong class="kw">Readiness</strong> — can accept traffic? DB/upstream OK? Remove from load balancer if fails.</li></ul><p>K8s: <code class="kw-code">/actuator/health/liveness</code> and <code class="kw-code">readiness</code> (Boot 2.3+ probes).</p>
+            <h4>Why the distinction matters</h4>
+<p>Kubernetes acts differently on each: a failed <strong class="kw">liveness</strong> probe <em>restarts</em> the pod; a failed <strong class="kw">readiness</strong> probe just <em>removes it from the Service</em> (no traffic) until it recovers.</p>
+<pre><code class="kw-code">management.endpoint.health.probes.enabled: true
+management.endpoint.health.group.readiness.include: db,redis,kafka</code></pre>
+<h4>Common pitfall</h4>
+<p>Don't put external-dependency checks (DB/Kafka) in <strong>liveness</strong> — a transient DB blip would restart-loop every pod. External deps belong in <strong>readiness</strong>; liveness should only mean "the JVM/process is healthy."</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1092,6 +1109,20 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">HealthIndicator</span></li><li><span class="kw">Health.up()</span></li><li><span class="kw">Health.down()</span></li><li><span class="kw">API</span></li></ul></div>
 <p>Implement <code class="kw-code">HealthIndicator</code>, ping billing partner API — return <code class="kw-code">Health.up()</code> or <code class="kw-code">Health.down()</code> with details. Readiness fails if critical dependency down.</p>
+            <h4>Example</h4>
+<pre><code class="kw-code">@Component
+public class BillingHealthIndicator implements HealthIndicator {
+  private final BillingClient client;
+  @Override public Health health() {
+    try {
+      client.ping();
+      return Health.up().withDetail("billing", "reachable").build();
+    } catch (Exception e) {
+      return Health.down(e).build();
+    }
+  }
+}</code></pre>
+<p>It auto-registers under <code class="kw-code">/actuator/health</code> and into the readiness group. Keep the check cheap and time-bounded — a slow indicator slows down every probe. Decide carefully which dependencies are "critical" (fail readiness) vs "degraded" (report but stay up).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1101,6 +1132,16 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">micrometer-registry-prometheus</span></li><li><span class="kw">/actuator/prometheus</span></li><li><span class="kw">HTTP</span></li><li><span class="kw">JVM</span></li></ul></div>
 <p>Micrometer registry — HTTP latency, JVM memory, Hikari pool. Add <code class="kw-code">micrometer-registry-prometheus</code>, scrape <code class="kw-code">/actuator/prometheus</code>. Grafana alerts on error rate and pool usage.</p>
+            <h4>Setup</h4>
+<pre><code class="kw-code">&lt;dependency&gt;
+  &lt;groupId&gt;io.micrometer&lt;/groupId&gt;
+  &lt;artifactId&gt;micrometer-registry-prometheus&lt;/artifactId&gt;
+&lt;/dependency&gt;
+# then Prometheus scrapes /actuator/prometheus</code></pre>
+<h4>Custom metrics</h4>
+<pre><code class="kw-code">meterRegistry.counter("reports.generated", "type", "monthly").increment();
+Timer.Sample s = Timer.start(registry); ... s.stop(registry.timer("report.duration"));</code></pre>
+<p>Micrometer is a vendor-neutral facade (like SLF4J for metrics) — swap Prometheus for CloudWatch/Datadog without code changes. Alert on the <strong class="kw">RED</strong> signals: Rate, Errors, Duration, plus JVM heap and Hikari pool usage.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1110,6 +1151,14 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">X-Correlation-Id</span></li><li><span class="kw">%X{correlationId}</span></li></ul></div>
 <p>Filter reads <code class="kw-code">X-Correlation-Id</code> (or generates UUID), puts in MDC, log pattern includes <code class="kw-code">%X{correlationId}</code>. Trace one request across microservices — essential for Vodafone incident triage.</p>
+            <h4>Example filter</h4>
+<pre><code class="kw-code">String cid = Optional.ofNullable(req.getHeader("X-Correlation-Id"))
+                     .orElse(UUID.randomUUID().toString());
+MDC.put("correlationId", cid);
+try { chain.doFilter(req, res); } finally { MDC.clear(); }   // always clear!</code></pre>
+<pre><code class="kw-code"># logback pattern
+%d %-5level [%X{correlationId}] %logger - %msg%n</code></pre>
+<p>Propagate the same ID on outbound calls (header) so one request is traceable across microservices. <strong class="kw">Always clear the MDC</strong> in a finally block — threads are pooled and reused, so a stale value would leak into the next request. (Spring Boot 3 / Micrometer Tracing can do this automatically.)</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1119,6 +1168,16 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">server.shutdown=graceful</span></li><li><span class="kw">terminationGracePeriodSeconds</span></li></ul></div>
 <p><code class="kw-code">server.shutdown=graceful</code> — stop accepting new requests, finish in-flight, then close context. K8s preStop hook + adequate <code class="kw-code">terminationGracePeriodSeconds</code>.</p>
+            <h4>Config</h4>
+<pre><code class="kw-code">server.shutdown: graceful
+spring.lifecycle.timeout-per-shutdown-phase: 30s</code></pre>
+<h4>How it works with K8s</h4>
+<ol>
+<li>K8s sends SIGTERM and stops routing new traffic (after the pod is marked not-ready).</li>
+<li>Boot stops accepting new requests but lets in-flight ones finish (up to the timeout).</li>
+<li>A <code class="kw-code">preStop</code> sleep + adequate <code class="kw-code">terminationGracePeriodSeconds</code> avoids dropping requests during the rollout.</li>
+</ol>
+<p>Without this, a rolling deploy can return 5xx to users mid-request — a common cause of "errors only during deploys."</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1128,6 +1187,17 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">health</span></li><li><span class="kw">prometheus</span></li><li><span class="kw">info</span></li><li><span class="kw">env</span></li><li><span class="kw">beans</span></li><li><span class="kw">heapdump</span></li><li><span class="kw">shutdown</span></li></ul></div>
 <p>Typically: <code class="kw-code">health</code>, <code class="kw-code">prometheus</code>, maybe <code class="kw-code">info</code>. Never public: <code class="kw-code">env</code>, <code class="kw-code">beans</code>, <code class="kw-code">heapdump</code>, <code class="kw-code">shutdown</code>. Network policy + auth on management port.</p>
+            <h4>Safe default</h4>
+<pre><code class="kw-code">management.endpoints.web.exposure.include: health,info,prometheus
+management.endpoint.health.show-details: when-authorized
+management.server.port: 9090   # internal-only management port</code></pre>
+<h4>Why hide the rest</h4>
+<ul>
+<li><code class="kw-code">/env</code> &amp; <code class="kw-code">/configprops</code> can leak secrets/connection strings.</li>
+<li><code class="kw-code">/heapdump</code> can expose in-memory data (tokens, PII).</li>
+<li><code class="kw-code">/shutdown</code> is a remote kill switch — never expose.</li>
+</ul>
+<p>Combine least-exposure + auth + network policy (separate management port reachable only inside the cluster).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1137,6 +1207,13 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">-XX:MaxRAMPercentage=75.0</span></li><li><span class="kw">-Xmx</span></li><li><span class="kw">JVM</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li></ul></div>
 <p><code class="kw-code">-XX:MaxRAMPercentage=75.0</code> respects cgroup memory limit. Container-aware ergonomics in Java 11+. Avoid fixed huge <code class="kw-code">-Xmx</code> exceeding pod limit → OOMKilled.</p>
+            <h4>Container-aware flags</h4>
+<pre><code class="kw-code">-XX:MaxRAMPercentage=75.0          # heap as % of the cgroup limit
+-XX:InitialRAMPercentage=50.0
+-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp
+-XX:+UseG1GC                       # default; ZGC/Shenandoah for low pause</code></pre>
+<h4>Key idea</h4>
+<p>Modern JVMs (11+) are <strong class="kw">container-aware</strong> — they read cgroup limits, so use <code class="kw-code">MaxRAMPercentage</code> rather than a fixed <code class="kw-code">-Xmx</code> that can exceed the pod limit and get <strong class="kw">OOMKilled</strong>. Leave headroom for non-heap memory (metaspace, threads, direct buffers): the container limit must be &gt; heap.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1146,6 +1223,15 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/actuator/health</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">API</span></li></ul></div>
 <p>Pipeline curls <code class="kw-code">/actuator/health</code> or lightweight API after deploy — fail fast before full traffic. Matches your Optima Jenkins experience.</p>
+            <h4>Example pipeline step</h4>
+<pre><code class="kw-code">sh '''
+  for i in $(seq 1 30); do
+    curl -fsS http://$HOST/actuator/health | grep -q '"status":"UP"' && exit 0
+    sleep 5
+  done
+  echo "smoke test failed"; exit 1
+'''</code></pre>
+<p>Hit <code class="kw-code">/actuator/health</code> (or a key business endpoint) right after deploy so the pipeline <strong class="kw">fails fast</strong> before shifting full traffic. Pair with a canary/blue-green step and automatic rollback on failure — matches your Optima Jenkins/CD experience.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1155,6 +1241,17 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring</span></li><li><span class="kw">boot</span></li><li><span class="kw">Docker</span></li></ul></div>
 <ul class="brief-bullets"><li>Never.</li><li>Dev-only classpath restart and live reload.</li><li>Not packaged in prod build; exclude from Docker image.</li></ul>
+            <h4>Why never in prod</h4>
+<ul>
+<li>It enables automatic restarts, an in-memory H2 console, and LiveReload — all dev conveniences with overhead and attack surface.</li>
+<li>It's <code class="kw-code">&lt;optional&gt;true&lt;/optional&gt;</code>, so Boot automatically <strong>disables</strong> it when running from a fully packaged fat JAR.</li>
+</ul>
+<pre><code class="kw-code">&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;
+  &lt;optional&gt;true&lt;/optional&gt;     &lt;!-- dev only --&gt;
+&lt;/dependency&gt;</code></pre>
+<p>Keep it out of the production image; rely on real observability (Actuator/metrics) instead.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1171,6 +1268,16 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">testing</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">WebMvcTest</span></li><li><span class="kw">DataJpaTest</span></li><li><span class="kw">SpringBootTest</span></li><li><span class="kw">Unit</span></li><li><span class="kw">Slice</span></li><li><span class="kw">Integration</span></li><li><span class="kw">Mockito</span></li><li><span class="kw">Spring</span></li></ul></div>
 <ul><li><strong class="kw">Unit</strong> — Mockito service logic, no Spring context</li><li><strong class="kw">Slice</strong> — <code class="kw-code">@WebMvcTest</code> controller only, <code class="kw-code">@DataJpaTest</code> repos with H2</li><li><strong class="kw">Integration</strong> — <code class="kw-code">@SpringBootTest</code> full context, Testcontainers real DB</li></ul><p>Your Vodafone TestNG uplift: more service + API tests, stable CI.</p>
+            <h4>The pyramid</h4>
+<pre><code class="kw-code">      /\        few, slow   →  Integration (@SpringBootTest + Testcontainers)
+     /  \       some         →  Slice (@WebMvcTest, @DataJpaTest)
+    /____\      many, fast   →  Unit (plain JUnit + Mockito)</code></pre>
+<ul>
+<li><strong class="kw">Unit</strong> — service logic with Mockito, no Spring context (milliseconds).</li>
+<li><strong class="kw">Slice</strong> — <code class="kw-code">@WebMvcTest</code> loads only the web layer (test mappings/JSON/validation); <code class="kw-code">@DataJpaTest</code> loads only JPA (test queries).</li>
+<li><strong class="kw">Integration</strong> — <code class="kw-code">@SpringBootTest</code> wires the full context against a real DB (Testcontainers).</li>
+</ul>
+<p>Keep the base wide and fast; a few high-value integration tests at the top. Your Vodafone TestNG uplift (60%→90%) is exactly this shift toward more reliable service/API coverage.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1180,6 +1287,19 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">testing</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">WebMvcTest</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Mockito</span></li><li><span class="kw">JSON</span></li></ul></div>
 <p>Replaces bean in Spring test context with Mockito mock — use in <code class="kw-code">@WebMvcTest</code> to mock service layer when testing controller mappings and JSON responses.</p>
+            <h4>Example</h4>
+<pre><code class="kw-code">@WebMvcTest(ReportController.class)
+class ReportControllerTest {
+  @Autowired MockMvc mvc;
+  @MockBean ReportService service;          // real bean replaced by a mock
+
+  @Test void returns404() throws Exception {
+    given(service.get(1L)).willThrow(new EntityNotFoundException());
+    mvc.perform(get("/api/v1/reports/1"))
+       .andExpect(status().isNotFound());
+  }
+}</code></pre>
+<p><code class="kw-code">@MockBean</code> swaps a bean in the Spring test context with a Mockito mock so you can test one layer in isolation. Note: in Spring Boot 3.4+ it's being superseded by <code class="kw-code">@MockitoBean</code>. A plain <code class="kw-code">@Mock</code> (Mockito) is for pure unit tests with no context.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1189,6 +1309,21 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">testing</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SQL</span></li><li><span class="kw">Docker</span></li></ul></div>
 <ul class="brief-bullets"><li>H2 fast but different SQL dialect from Oracle/PostgreSQL prod.</li><li>Testcontainers spins real DB in Docker — catches migration and query issues.</li><li>Worth it for repository integration tests.</li></ul>
+            <h4>Example</h4>
+<pre><code class="kw-code">@SpringBootTest
+@Testcontainers
+class ReportRepositoryIT {
+  @Container
+  static PostgreSQLContainer&lt;?&gt; pg = new PostgreSQLContainer&lt;&gt;("postgres:16");
+
+  @DynamicPropertySource
+  static void props(DynamicPropertyRegistry r) {
+    r.add("spring.datasource.url", pg::getJdbcUrl);
+    r.add("spring.datasource.username", pg::getUsername);
+    r.add("spring.datasource.password", pg::getPassword);
+  }
+}</code></pre>
+<p>H2 is fast but its SQL dialect differs from Postgres/Oracle — it hides dialect-specific bugs, Flyway migration issues, and JSON/window-function behavior. Testcontainers runs the <strong>real</strong> DB in Docker so integration tests match prod. Reuse one container across tests to keep CI fast.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -1198,6 +1333,15 @@ management.server.port: 9090</code></pre>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">testing</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">microservice</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">API</span></li><li><span class="kw">REST</span></li><li><span class="kw">JPA</span></li><li><span class="kw">SQL</span></li><li><span class="kw">TestNG</span></li></ul></div>
 <p>Spring Boot services behind API gateway, REST for reporting features, JPA + tuned SQL for heavy reads, Oracle/enterprise DB, TestNG/Maven CI, Jenkins deploy, Actuator health for ops. You improved test coverage 60→90% and query performance on reporting paths — tie to concrete modules you own.</p>
+            <h4>60-second structure (use this shape)</h4>
+<ol>
+<li><strong class="kw">Context</strong> — "Spring Boot microservices behind an API gateway, serving reporting features for Vodafone."</li>
+<li><strong class="kw">Tech</strong> — "REST APIs, JPA for writes + tuned native SQL for heavy report reads, an enterprise RDBMS, Kafka/JMS for async."</li>
+<li><strong class="kw">Quality/Ops</strong> — "TestNG + Maven CI, Jenkins CD, Actuator health, Prometheus/Grafana, correlation IDs for tracing."</li>
+<li><strong class="kw">Impact (numbers)</strong> — "I raised test coverage ~60%→90% and cut report query latency on the hot paths."</li>
+</ol>
+<h4>Then invite follow-ups</h4>
+<p>End by naming a module you owned so the interviewer can dig in — and map it to ICE: "the same patterns (resilient services, observability, SQL tuning) apply directly to a high-volume mortgage platform."</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
