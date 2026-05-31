@@ -12,7 +12,7 @@
     <main class="main">
       <header class="page-header">
         <h1>Java Interview Prep</h1>
-        <p><strong>60</strong> questions in <strong>9 sections</strong> with <strong>code examples</strong>. Filter by Easy / Medium / Hard or ⭐ Very Important. Click to expand.</p>
+        <p><strong>72</strong> questions in <strong>10 sections</strong> with <strong>code examples</strong>. Filter by Easy / Medium / Hard or ⭐ Very Important. Click to expand.</p>
       </header>
       <div class="toolbar">
         <input type="search" id="search" placeholder="Search questions & answers...">
@@ -45,6 +45,7 @@
         <a href="#section-string">Strings, equals & keywords</a>
         <a href="#section-collections">Collections Framework</a>
         <a href="#section-concurrency">Multithreading & Concurrency</a>
+        <a href="#section-threading">Threading Deep Dive</a>
         <a href="#section-java8">Java 8+ Features</a>
         <a href="#section-jvm">JVM & Memory</a>
         <a href="#section-exceptions">Exceptions & I/O</a>
@@ -444,6 +445,156 @@ try { process(); } finally { CORR.remove(); }</code></pre>
 <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: CompletableFuture for async composition?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><p>Chain async steps without blocking threads — thenApply, thenCombine, exceptionally.</p><h4>Example</h4><pre><code class="kw-code">CompletableFuture.supplyAsync(() -> fetchAccount(id))
   .thenApply(acc -> buildReport(acc))
   .exceptionally(ex -> Report.error(ex));</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        </div>
+      </section>
+      <section class="topic-section" id="section-threading">
+        <h2>Threading Deep Dive</h2>
+        <p class="section-desc">Thread lifecycle, creation, locks, coordination, pools & virtual threads — high-scale multi-tenant focus.</p>
+        <p class="section-meta">12 questions in this section</p>
+        <div class="qa-list">
+
+        <article class="qa-card" data-id="thread-lifecycle" data-level="medium" data-section="threading" data-vimp="true">
+          <div class="qa-question"><h3>What are the states in a thread's lifecycle?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">NEW</span></li><li><span class="kw">RUNNABLE</span></li><li><span class="kw">BLOCKED</span></li><li><span class="kw">WAITING</span></li><li><span class="kw">TERMINATED</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> A thread moves through a fixed set of states from creation to finish, defined in <code class="kw-code">Thread.State</code>.</p>
+<h4>The six states</h4><ul><li><strong class="kw">NEW</strong> — created but <code class="kw-code">start()</code> not called.</li><li><strong class="kw">RUNNABLE</strong> — running or ready to run (scheduler decides).</li><li><strong class="kw">BLOCKED</strong> — waiting to acquire a monitor lock (entering a <code class="kw-code">synchronized</code> block).</li><li><strong class="kw">WAITING</strong> — waiting indefinitely (<code class="kw-code">wait()</code>, <code class="kw-code">join()</code> with no timeout).</li><li><strong class="kw">TIMED_WAITING</strong> — waiting with a timeout (<code class="kw-code">sleep()</code>, <code class="kw-code">wait(ms)</code>).</li><li><strong class="kw">TERMINATED</strong> — finished or threw.</li></ul><p>Nuance: Java has no separate "RUNNING" state — running and ready are both RUNNABLE.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="thread-creation-ways" data-level="easy" data-section="threading" data-vimp="true">
+          <div class="qa-question"><h3>What are the ways to create a thread in Java?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Runnable</span></li><li><span class="kw">Thread</span></li><li><span class="kw">Callable</span></li><li><span class="kw">ExecutorService</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Prefer passing a task (<code class="kw-code">Runnable</code>/<code class="kw-code">Callable</code>) to a pool over extending <code class="kw-code">Thread</code>.</p>
+<h4>Options</h4><ul><li>Extend <strong class="kw">Thread</strong> and override <code class="kw-code">run()</code> — least flexible (uses up your single inheritance).</li><li>Implement <strong class="kw">Runnable</strong> — preferred; decouples task from thread.</li><li>Implement <strong class="kw">Callable</strong> — returns a value / throws; submit to executor.</li><li>Use an <strong class="kw">ExecutorService</strong> / thread pool — what you do in real apps.</li></ul><h4>Example</h4><pre><code class="kw-code">Runnable task = () -> process(id);
+ExecutorService pool = Executors.newFixedThreadPool(4);
+pool.submit(task);</code></pre><p>In Spring, prefer <code class="kw-code">@Async</code> + a configured <code class="kw-code">TaskExecutor</code> over raw threads.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="start-vs-run" data-level="easy" data-section="threading" data-vimp="true">
+          <div class="qa-question"><h3>start() vs run() — what's the difference?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">start()</span></li><li><span class="kw">new thread</span></li><li><span class="kw">run() = same thread</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <code class="kw-code">start()</code> spawns a new thread; calling <code class="kw-code">run()</code> directly just runs the code on the current thread.</p>
+<h4>Key point</h4><ul><li><code class="kw-code">start()</code> → JVM creates a new call stack, invokes <code class="kw-code">run()</code> on the new thread.</li><li><code class="kw-code">run()</code> → ordinary method call on the <em>current</em> thread; no concurrency.</li><li>Calling <code class="kw-code">start()</code> twice throws <code class="kw-code">IllegalThreadStateException</code>.</li></ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="sleep-vs-wait" data-level="medium" data-section="threading" data-vimp="true">
+          <div class="qa-question"><h3>sleep() vs wait() — when to use which?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">sleep = Thread, keeps lock</span></li><li><span class="kw">wait = Object, releases lock</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <code class="kw-code">sleep()</code> just pauses and keeps its lock; <code class="kw-code">wait()</code> releases the lock and waits to be notified.</p>
+<h4>Comparison</h4><ul><li><strong class="kw">sleep()</strong> — static on <code class="kw-code">Thread</code>; does NOT release locks; timed.</li><li><strong class="kw">wait()</strong> — on <code class="kw-code">Object</code>; must hold the monitor; <em>releases</em> the lock; woken by <code class="kw-code">notify()</code>/<code class="kw-code">notifyAll()</code>.</li><li>Both must handle/throw <code class="kw-code">InterruptedException</code>.</li></ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="wait-notify" data-level="hard" data-section="threading" data-vimp="true">
+          <div class="qa-question"><h3>How do wait() / notify() / notifyAll() work?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">monitor</span></li><li><span class="kw">while loop guard</span></li><li><span class="kw">spurious wakeups</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> They let threads coordinate on a shared object — one waits until another signals a condition changed.</p>
+<h4>Rules</h4><ul><li>Must be called inside <code class="kw-code">synchronized</code> on the same object.</li><li>Always re-check the condition in a <strong class="kw">while</strong> loop (guards spurious wakeups).</li><li>Prefer <code class="kw-code">notifyAll()</code> unless you can prove one waiter suffices.</li></ul><h4>Example</h4><pre><code class="kw-code">synchronized (queue) {
+  while (queue.isEmpty()) {
+    queue.wait();          // releases lock, waits
+  }
+  return queue.poll();
+}
+// producer: synchronized(queue){ queue.add(x); queue.notifyAll(); }</code></pre><p>Modern code: prefer <code class="kw-code">BlockingQueue</code> or <code class="kw-code">Condition</code> over raw wait/notify.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="synchronized-vs-lock" data-level="hard" data-section="threading" data-vimp="true">
+          <div class="qa-question"><h3>synchronized vs ReentrantLock?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">tryLock</span></li><li><span class="kw">fairness</span></li><li><span class="kw">interruptible</span></li><li><span class="kw">Condition</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <code class="kw-code">synchronized</code> is simpler; <code class="kw-code">ReentrantLock</code> gives more control (timeout, fairness, multiple conditions).</p>
+<h4>synchronized</h4><ul><li>Built-in, auto-released on exit/exception; no timeout, no try-acquire.</li></ul><h4>ReentrantLock</h4><ul><li><code class="kw-code">tryLock(timeout)</code>, <code class="kw-code">lockInterruptibly()</code>, optional fairness, multiple <code class="kw-code">Condition</code>s.</li><li>Must unlock in <code class="kw-code">finally</code> or you leak the lock.</li></ul><h4>Example</h4><pre><code class="kw-code">lock.lock();
+try { /* critical section */ }
+finally { lock.unlock(); }</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="join-method" data-level="easy" data-section="threading">
+          <div class="qa-question"><h3>What does join() do?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">wait for thread to finish</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <code class="kw-code">t.join()</code> makes the current thread wait until thread <code class="kw-code">t</code> finishes.</p>
+<h4>Use case</h4><p>Coordinate completion — e.g. start several workers, then <code class="kw-code">join()</code> each before aggregating results. Supports an optional timeout.</p><pre><code class="kw-code">worker.start();
+worker.join();   // block until worker done
+// continue with results</code></pre>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="race-condition" data-level="hard" data-section="threading" data-vimp="true">
+          <div class="qa-question"><h3>What is a race condition? Show one and fix it.</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">check-then-act</span></li><li><span class="kw">atomicity</span></li><li><span class="kw">CAS / lock</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> A race condition is when the result depends on thread timing because a shared "check-then-act" isn't atomic.</p>
+<h4>Broken</h4><pre><code class="kw-code">private int count = 0;
+void inc() { count++; }   // read-modify-write, NOT atomic</code></pre><h4>Fixes</h4><ul><li><code class="kw-code">AtomicInteger.incrementAndGet()</code> (CAS, lock-free).</li><li><code class="kw-code">synchronized</code> method / block.</li><li><code class="kw-code">ConcurrentHashMap.compute()</code> for map updates.</li></ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="producer-consumer" data-level="hard" data-section="threading" data-vimp="true">
+          <div class="qa-question"><h3>Implement producer–consumer with a BlockingQueue.</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">BlockingQueue</span></li><li><span class="kw">put/take</span></li><li><span class="kw">backpressure</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> A bounded <code class="kw-code">BlockingQueue</code> handles all the waiting/signaling for you — producers <code class="kw-code">put</code>, consumers <code class="kw-code">take</code>.</p>
+<h4>Example</h4><pre><code class="kw-code">BlockingQueue<Task> q = new LinkedBlockingQueue<>(1000);
+// producer
+q.put(task);            // blocks if full → backpressure
+// consumer
+Task t = q.take();      // blocks if empty
+process(t);</code></pre><p>Bounded capacity prevents OOM under load — important for multi-tenant services.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="pool-sizing" data-level="hard" data-section="threading" data-vimp="true">
+          <div class="qa-question"><h3>How do you size a thread pool?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">CPU-bound ≈ cores</span></li><li><span class="kw">IO-bound &gt; cores</span></li><li><span class="kw">bounded queue</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Match pool size to the work type — small for CPU-heavy, larger for IO-heavy where threads mostly wait.</p>
+<h4>Rules of thumb</h4><ul><li><strong class="kw">CPU-bound</strong>: ≈ number of cores (<code class="kw-code">Runtime.availableProcessors()</code>).</li><li><strong class="kw">IO-bound</strong>: cores × (1 + wait/compute ratio) — can be much larger.</li><li>Always use a <strong class="kw">bounded</strong> queue + a rejection policy; unbounded queues hide overload and cause OOM.</li></ul><pre><code class="kw-code">new ThreadPoolExecutor(core, max, 60, SECONDS,
+   new ArrayBlockingQueue<>(500),
+   new ThreadPoolExecutor.CallerRunsPolicy());</code></pre><p>Avoid <code class="kw-code">Executors.newCachedThreadPool()</code> in prod — unbounded thread growth.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="daemon-thread" data-level="easy" data-section="threading">
+          <div class="qa-question"><h3>What is a daemon thread?</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">background</span></li><li><span class="kw">JVM exits</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> A daemon thread is a background helper; the JVM won't wait for it to finish before exiting.</p>
+<h4>Details</h4><ul><li>Set via <code class="kw-code">t.setDaemon(true)</code> before <code class="kw-code">start()</code>.</li><li>JVM exits when only daemon threads remain (e.g. GC, background schedulers).</li><li>Don't use daemons for work that must complete (writes may be cut off).</li></ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="virtual-threads" data-level="hard" data-section="threading" data-vimp="true">
+          <div class="qa-question"><h3>What are virtual threads (Project Loom)?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">threading</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Java 21</span></li><li><span class="kw">lightweight</span></li><li><span class="kw">carrier thread</span></li><li><span class="kw">blocking is cheap</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Virtual threads (Java 21) are super-lightweight threads — you can have millions, and blocking on IO is cheap.</p>
+<h4>Key ideas</h4><ul><li>Managed by the JVM, mounted onto a few OS "carrier" threads only while running.</li><li>Blocking IO unmounts the virtual thread instead of pinning an OS thread — great for high-concurrency IO-bound services.</li><li>Write simple blocking code; get async-like scalability.</li></ul><pre><code class="kw-code">try (var exec = Executors.newVirtualThreadPerTaskExecutor()) {
+  exec.submit(() -> callService());   // one virtual thread per task
+}</code></pre><p>Watch out: <code class="kw-code">synchronized</code> can "pin" a carrier thread; prefer <code class="kw-code">ReentrantLock</code> in hot paths.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
