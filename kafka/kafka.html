@@ -87,6 +87,8 @@
 <p>At Optima/Amdocs you likely used <strong class="kw">Camel + JMS</strong> for integration. In interviews say: <em>"I understand event streaming concepts from async telco integrations; production was JMS-heavy, and I&apos;ve studied Kafka for event-driven microservices."</em> That is honest and strong.</p>
 <h4>Follow-ups</h4>
 <p>Is Kafka a database? No — it is a log with retention, not a query engine (though Kafka Streams can process in flight).</p>
+            <h4>One-liner</h4>
+<p>A distributed, durable, partitioned <strong class="kw">commit log</strong> for high-throughput pub/sub. Unlike a traditional queue, messages are retained (not deleted on read), so consumers track their own offset and you can <strong>replay</strong> history or add new consumers later.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -105,6 +107,8 @@
 <p>You do not need to operate ZooKeeper in interviews — know that metadata (topic list, partition leaders) must be coordinated. Kafka 3.x+ moves to <strong class="kw">KRaft</strong> (Kafka&apos;s own Raft quorum) to simplify ops.</p>
 <h4>Interview one-liner</h4>
 <p><em>"Kafka scales horizontally: more brokers and more partitions increase throughput; replication gives durability if a broker dies."</em></p>
+            <h4>The pieces</h4>
+<p>Producers → <strong class="kw">brokers</strong> (a cluster) → consumers. Topics split into <strong class="kw">partitions</strong> spread across brokers for scale. Coordination historically used ZooKeeper; modern Kafka uses <strong class="kw">KRaft</strong> (built-in Raft controller) — good to mention you're aware of the shift.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -126,6 +130,8 @@
 Key: accountId -&gt; same partition -&gt; ordered per account</code></pre>
 <h4>Follow-ups</h4>
 <p>Can two topics share partitions? No — partitions belong to one topic only.</p>
+            <h4>Why it matters</h4>
+<p>The <strong>partition</strong> is the unit of both <strong>ordering</strong> (order is guaranteed only within a partition) and <strong>parallelism</strong> (one partition → one consumer per group). The <strong>offset</strong> is each consumer group's bookmark, so different groups read the same data independently.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -147,6 +153,8 @@ Key: accountId -&gt; same partition -&gt; ordered per account</code></pre>
 // acks=all, enable.idempotence=true in producer config</code></pre>
 <h4>Follow-ups</h4>
 <p>What if no key? Round-robin across partitions — good throughput but no per-entity ordering.</p>
+            <h4>Under the hood</h4>
+<p>serialize → partitioner picks partition (by key hash, else round-robin) → batched in memory → sent → broker acks. Same <strong>key</strong> ⇒ same partition ⇒ ordered. Batching + compression (<code class="kw-code">linger.ms</code>, <code class="kw-code">batch.size</code>) trade a little latency for big throughput.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -166,6 +174,8 @@ Key: accountId -&gt; same partition -&gt; ordered per account</code></pre>
 <pre><code class="kw-code">ConsumerRecords records = consumer.poll(Duration.ofMillis(500));
 for (ConsumerRecord r : records) { reportService.update(r.value()); }
 consumer.commitSync(); // after success</code></pre>
+            <h4>The poll loop</h4>
+<p>Consumer <code class="kw-code">poll()</code>s a batch, deserializes, processes, then commits the offset. Keep processing fast or the broker thinks the consumer died and triggers a <strong class="kw">rebalance</strong>. Commit <em>after</em> processing for at-least-once.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -194,6 +204,8 @@ consumer.commitSync(); // after success</code></pre>
 <p>Telco OSS/BSS integrations, guaranteed delivery to <strong class="kw">one</strong> worker, complex routing — Camel + JMS is proven. Kafka when you need <strong class="kw">event history</strong>, analytics, many subscribers, or very high ingest (usage events, clickstream).</p>
 <h4>Follow-ups</h4>
 <p>Can Camel use Kafka? Yes — <code class="kw-code">kafka:topicName</code> component; same EIP concepts (retry, dead letter) apply.</p>
+            <h4>Key difference</h4>
+<p>JMS is a <strong>queue</strong> (broker tracks state, message removed on consume); Kafka is a <strong>retained log</strong> (consumers track offsets, multiple groups replay independently). Kafka scales horizontally via partitions and keeps history; JMS is better for classic point-to-point with per-message acks.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -218,6 +230,8 @@ consumer.commitSync(); // after success</code></pre>
 </ul>
 <h4>From your experience</h4>
 <p>Frame around Optima: <em>"We processed 1M+ transactions/day with Camel; async steps used messaging. Kafka would be the modern choice if we needed replayable event history across many downstream systems — I map that to the same decoupling goals we solved with JMS."</em></p>
+            <h4>Fit / not-fit</h4>
+<p><strong>Use</strong> for high-throughput event streaming, decoupling, replay, and multiple independent consumers. <strong>Avoid</strong> for request/reply RPC, tiny ultra-low-latency needs, or when you need per-message priority/selectors (a queue fits better).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -245,6 +259,8 @@ consumer.commitSync(); // after success</code></pre>
 spring.kafka.producer.enable-idempotence=true</code></pre>
 <h4>Follow-ups</h4>
 <p>Does acks=all guarantee no duplicate consumption? No — that is consumer idempotency + offset commit timing.</p>
+            <h4>Durability knobs</h4>
+<ul><li><code class="kw-code">acks=0</code> fire-and-forget (fastest, can lose data); <code class="kw-code">acks=1</code> leader only; <code class="kw-code">acks=all</code> + <code class="kw-code">min.insync.replicas&gt;=2</code> = no data loss on single broker failure.</li><li>Set <code class="kw-code">enable.idempotence=true</code> to avoid duplicates from producer retries.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -265,6 +281,8 @@ spring.kafka.producer.enable-idempotence=true</code></pre>
 <pre><code class="kw-code">producer.send(new ProducerRecord&lt;&gt;("order-events", order.getAccountId(), order));</code></pre>
 <h4>Telco example</h4>
 <p>Provisioning steps for same subscriber ID must stay ordered; different subscribers can process in parallel on other partitions.</p>
+            <h4>How to keep order</h4>
+<p>Order holds only within a partition, so route related events with the same <strong class="kw">key</strong>. To prevent reordering on retry, enable the <strong>idempotent producer</strong> (or keep <code class="kw-code">max.in.flight.requests=1</code>). Global ordering requires a single partition (kills parallelism).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -283,6 +301,8 @@ spring.kafka.producer.enable-idempotence=true</code></pre>
 <p>Starting point for many teams: 6–12 partitions per hot topic, measure lag and CPU, adjust.</p>
 <h4>Follow-ups</h4>
 <p>Can you decrease partitions? Kafka does not support decrease easily — create new topic and migrate.</p>
+            <h4>Choosing it</h4>
+<p>Partitions = max consumer parallelism per group, so size for peak throughput. You can <strong>increase</strong> but not easily decrease them, and increasing changes key→partition mapping (breaks ordering for existing keys). Too many partitions add overhead/rebalance time.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -304,6 +324,8 @@ spring.kafka.producer.enable-idempotence=true</code></pre>
 <p><strong class="kw">Different groups:</strong> <code class="kw-code">billing-service</code> and <code class="kw-code">reporting-service</code> are separate groups — both read all messages independently (different offsets).</p>
 <h4>Follow-ups</h4>
 <p>What is consumer lag? Difference between log end offset and committed offset — main health metric.</p>
+            <h4>Scaling rule</h4>
+<p>Within a group, each partition is consumed by exactly one consumer — so adding consumers scales you up to the partition count (extra consumers sit idle). Multiple groups each get the full stream. Adding/removing consumers triggers a <strong class="kw">rebalance</strong>.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -323,6 +345,8 @@ spring.kafka.producer.enable-idempotence=true</code></pre>
 // commit offset after DB success</code></pre>
 <h4>Follow-ups</h4>
 <p>Exactly-once end-to-end (Kafka → DB → Kafka)? Use transactional outbox or Kafka Streams EOS — mention awareness, not claim deep prod unless true.</p>
+            <h4>The three (and reality)</h4>
+<p>at-most-once (commit before process — can lose), at-least-once (commit after — can duplicate, the common default), exactly-once. True end-to-end exactly-once needs idempotent consumers; Kafka transactions give exactly-once <em>within</em> Kafka but external side effects still need dedup.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -341,6 +365,8 @@ spring.kafka.producer.enable-idempotence=true</code></pre>
 <h4>Example</h4>
 <pre><code class="kw-code">INSERT INTO processed_events (event_id) VALUES (?)
 ON DUPLICATE KEY UPDATE event_id = event_id;</code></pre>
+            <h4>Pattern</h4>
+<p>Because delivery is at-least-once, design consumers so reprocessing the same message is harmless: dedup on a business key (store processed IDs / unique constraint), or make the write naturally idempotent (upsert). This is the practical path to "effectively once."</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -354,6 +380,8 @@ ON DUPLICATE KEY UPDATE event_id = event_id;</code></pre>
 <p><strong class="kw">Manual / Spring:</strong> <code class="kw-code">ack-mode=RECORD</code> or <code class="kw-code">BATCH</code> after listener returns successfully. For slow handlers, tune <code class="kw-code">max.poll.interval.ms</code> so broker does not kick consumer out of group.</p>
 <h4>Follow-ups</h4>
 <p>Poison message blocking partition? Skip to DLT after N failures, commit offset for bad message so pipeline moves.</p>
+            <h4>Commit strategy</h4>
+<p>Disable auto-commit and commit <strong>after</strong> successful processing for at-least-once. Auto-commit (on a timer) risks losing messages if you crash mid-batch after the commit. Manual commit (sync per batch) gives control at a small throughput cost.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -377,6 +405,8 @@ ON DUPLICATE KEY UPDATE event_id = event_id;</code></pre>
 </ul>
 <h4>Interview one-liner</h4>
 <p><em>"Replication is for durability; ISR defines which followers count as caught up for acks=all."</em></p>
+            <h4>How durability works</h4>
+<p>Each partition has a leader + follower replicas (<code class="kw-code">replication.factor</code>). The <strong class="kw">ISR</strong> (in-sync replicas) must ack writes when <code class="kw-code">acks=all</code> + <code class="kw-code">min.insync.replicas</code>. Disable <strong>unclean leader election</strong> to avoid promoting an out-of-sync replica (which loses data).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -393,6 +423,8 @@ ON DUPLICATE KEY UPDATE event_id = event_id;</code></pre>
 </ul>
 <h4>Follow-ups</h4>
 <p>Disk full? Increase retention only with disk planning; monitor broker disk %.</p>
+            <h4>Two modes</h4>
+<p><strong>Time/size retention</strong> (delete after <code class="kw-code">retention.ms</code>/bytes) for event streams; <strong class="kw">log compaction</strong> (keep the latest value per key) for changelog/state topics. Compaction is how you keep a current-state snapshot without unbounded growth.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -407,6 +439,8 @@ ON DUPLICATE KEY UPDATE event_id = event_id;</code></pre>
 <pre><code class="kw-code">@RetryableTopic(attempts = "3") @KafkaListener(topics = "order-events")</code></pre>
 <h4>Follow-ups</h4>
 <p>Always log correlationId when sending to DLT for support tickets (telco fallout debugging).</p>
+            <h4>Resilient consumption</h4>
+<p>Retry transient errors (optionally via a retry topic with backoff); after N failures publish to a <strong class="kw">dead-letter topic</strong>, alert, and provide replay. In Spring: <code class="kw-code">DefaultErrorHandler</code> + <code class="kw-code">DeadLetterPublishingRecoverer</code>. A poison message must be moved aside so it doesn't block the partition.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -430,6 +464,8 @@ void handle(OrderEvent e) { reportService.update(e); }</code></pre>
 <p><strong class="kw">Local practice:</strong> Docker Compose with Kafka + one Spring Boot app is enough to speak confidently — you do not need telco-scale cluster on laptop.</p>
 <h4>Follow-ups</h4>
 <p>Serialization: JSON for learning; Avro + Schema Registry in mature orgs.</p>
+            <h4>The essentials</h4>
+<p><code class="kw-code">KafkaTemplate</code> to produce, <code class="kw-code">@KafkaListener</code> to consume (backed by a listener container), serializers/deserializers via config, and <code class="kw-code">DefaultErrorHandler</code> for retries/DLT. Configure consumer concurrency to match partition count.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -527,6 +563,8 @@ docker run -p 9092:9092 apache/kafka:latest
 <li>Default delivery is <strong class="kw">at-least-once</strong> → make <code class="kw-code">onMessage</code> idempotent.</li>
 <li>Ties to your experience: this is the modern replacement for the Camel/JMS async hops you ran at Amdocs.</li>
 </ul>
+            <h4>Production checklist</h4>
+<ul><li><code class="kw-code">acks=all</code> + idempotent producer; manual offset commit after processing.</li><li>Idempotent consumer (dedup key) + DLT for poison messages.</li><li>Concurrency ≤ partition count; tune <code class="kw-code">max.poll.records</code>/<code class="kw-code">max.poll.interval.ms</code>.</li><li>Schema registry for evolving event contracts; monitor consumer lag.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -545,6 +583,8 @@ docker run -p 9092:9092 apache/kafka:latest
 <p>Interview answer without deep Avro: <em>"I&apos;d treat events like API contracts — additive changes, version field in payload, contract tests for consumers."</em></p>
 <h4>Follow-ups</h4>
 <p>Avro vs JSON? Avro compact + enforced schema; JSON easier to debug in logs.</p>
+            <h4>Why &amp; how</h4>
+<p>A schema registry (Avro/Protobuf/JSON-Schema) versions event contracts and enforces <strong class="kw">compatibility</strong> (backward/forward/full) so producers and consumers evolve without breaking each other. Messages carry a schema ID, keeping payloads small. Essential for long-lived event-driven systems.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -571,6 +611,8 @@ docker run -p 9092:9092 apache/kafka:latest
 </ol>
 <h4>From your experience</h4>
 <p>Same incident mindset as Camel queue depth or JMS redelivery storms: metric → bottleneck → fix → alert. You already know ops thinking; map vocabulary to Kafka lag.</p>
+            <h4>Common issues</h4>
+<ul><li><strong class="kw">Consumer lag</strong> growing → slow consumer / too few partitions → scale consumers, optimize processing.</li><li><strong class="kw">Rebalance storms</strong> → long processing exceeding <code class="kw-code">max.poll.interval.ms</code> → reduce batch / increase timeout / use cooperative rebalancing.</li><li><strong class="kw">Hot partition</strong> → skewed key → choose a better key.</li><li>Poison message blocking → route to DLT.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -585,6 +627,8 @@ docker run -p 9092:9092 apache/kafka:latest
 <p>Consumer still needs idempotency. Outbox solves <strong class="kw">producer-side</strong> dual-write problem. Debezium CDC is alternative (reads DB binlog → Kafka).</p>
 <h4>Follow-ups</h4>
 <p>Mention on microservices page too — shows you understand distributed consistency without claiming fake Kafka prod war stories.</p>
+            <h4>The dual-write problem</h4>
+<p>You can't atomically commit to the DB and publish to Kafka. Write the event to an <code class="kw-code">outbox</code> table in the <em>same</em> transaction, then a relay (<strong class="kw">CDC/Debezium</strong> or a poller) publishes it — guaranteeing the event is sent iff the data was committed.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -600,6 +644,8 @@ docker run -p 9092:9092 apache/kafka:latest
 <li>Saga/choreography: multiple services react; compensating events on failure</li>
 </ul>
 <p>Choreography with Kafka = many listeners; orchestration = central coordinator (Camunda — your XL Axiata exposure).</p>
+            <h4>Kafka as backbone</h4>
+<p>Services emit domain events; others react (choreography) — decoupling producers from consumers and enabling replay/new consumers. Pair with idempotent consumers, versioned schemas, and tracing so the implicit flow stays debuggable.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -611,6 +657,8 @@ docker run -p 9092:9092 apache/kafka:latest
 <h4>Detailed explanation</h4>
 <pre><code class="kw-code">from("kafka:order-events?groupId=integration").to("jms:queue:billing-in");</code></pre>
 <p>Interview gold for you: <em>"I have deep Camel integration experience; Kafka is the log-backed transport Camel often fronts in modern estates. The hard part is reliability patterns — idempotency, DLQ, correlation — which I already applied on JMS at 1M+ txn/day."</em></p>
+            <h4>Integration angle</h4>
+<p>Camel's <code class="kw-code">kafka:</code> component makes Kafka just another endpoint in a route (<code class="kw-code">from("kafka:orders")...to("jms:...")</code>), so you bridge Kafka with legacy JMS/HTTP/file systems using EIPs + error handling — your telco integration sweet spot.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -634,6 +682,8 @@ docker run -p 9092:9092 apache/kafka:latest
 <li>Day 5: implement idempotent consumer with H2/MySQL unique key</li>
 <li>Day 6–7: practice answers out loud — ordering, lag, acks, vs JMS</li>
 </ol>
+            <h4>How to frame it honestly</h4>
+<p>Be candid: "I've used Kafka/JMS for async integration via Camel and understand partitions, consumer groups, delivery semantics, and idempotency; I haven't operated a cluster, but I know the producer/consumer + reliability model and can ramp quickly." Honesty + solid fundamentals beats bluffing.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -650,6 +700,8 @@ docker run -p 9092:9092 apache/kafka:latest
 <li><strong class="kw">"Kafka replaces database"</strong> → it is a log, not source of truth for queries</li>
 <li><strong class="kw">No mention of monitoring lag</strong> → weak ops answer</li>
 </ul>
+            <h4>Pitfalls to avoid</h4>
+<ul><li>Committing offsets before processing (data loss).</li><li>No idempotency → duplicates on at-least-once.</li><li>Poor key choice → hot partition / lost ordering.</li><li>Retrying forever with no DLQ (blocks the partition).</li><li>Processing slower than <code class="kw-code">max.poll.interval.ms</code> → endless rebalances.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
