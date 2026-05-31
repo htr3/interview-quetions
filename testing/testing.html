@@ -45,7 +45,7 @@
           <div class="qa-question"><h3>Explain the test pyramid</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Basics</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">REST</span></li><li><span class="kw">Mockito</span></li><li><span class="kw">API</span></li><li><span class="kw">TestNG</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Here is a clear explanation of <strong class="kw">the test pyramid</strong>. Many fast unit tests, fewer integration tests, fewest E2E/UI — balance speed, cost, confidence.</p><p>Many fast unit tests, fewer integration tests, fewest E2E/UI — balance speed, cost, confidence.</p>
+            <p>Many fast unit tests, fewer integration tests, fewest E2E/UI — balance speed, cost, confidence.</p>
             <h4>Detailed explanation</h4>
             <p>Anti-pattern: ice-cream cone (mostly manual/E2E). For REST services: unit (Mockito) + API integration (MockMvc/TestRestTemplate) + selective E2E in staging.</p>
             <h4>From your experience</h4>
@@ -58,7 +58,7 @@
           <div class="qa-question"><h3>STAR: Raising TestNG coverage from 60% to 90%</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Vodafone</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">TestNG</span></li><li><span class="kw">CI</span></li><li><span class="kw">Mockito</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">SQL</span></li><li><span class="kw">Jenkins ran tests every build</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Use the <strong class="kw">STAR</strong> method: Situation → Task → Action → Result. Risk-based TestNG suites on reporting/payment APIs, CI gate on failures, measurable 60→90% coverage, fewer prod regressions.</p><p>Risk-based TestNG suites on reporting/payment APIs, CI gate on failures, measurable 60→90% coverage, fewer prod regressions.</p>
+            <p>Risk-based TestNG suites on reporting/payment APIs, CI gate on failures, measurable 60→90% coverage, fewer prod regressions.</p>
             <h4>Detailed explanation</h4>
             <ul>
               <li>Audited untested controllers and service branches</li>
@@ -76,7 +76,7 @@
           <div class="qa-question"><h3>JUnit vs TestNG — differences you used</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Framework</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JUnit</span></li><li><span class="kw">TestNG</span></li><li><span class="kw">XML</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul class="brief-bullets"><li>TestNG: test groups, parallel suites, flexible XML suites, dependencies between tests.</li><li>JUnit 5: modern extensions, widespread in Spring Boot greenfield.</li></ul>
+            <ul class="brief-bullets"><li>TestNG: test groups, parallel suites, flexible XML suites, dependencies between tests.</li><li>JUnit 5: modern extensions, widespread in Spring Boot greenfield.</li></ul>
             <h4>Example</h4>
             <pre><code class="kw-code">@Test(groups = {"smoke", "reporting"})
 public void shouldReturnReport() { ... }</code></pre>
@@ -90,7 +90,7 @@ public void shouldReturnReport() { ... }</code></pre>
           <div class="qa-question"><h3>How do you use Mockito effectively?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Unit</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Spy</span></li><li><span class="kw">ArgumentCaptor</span></li><li><span class="kw">Mockito</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> SQL practice: How do you use Mockito effectively?.</p><ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Mock dependencies, assert interactions and return values.</li><li>Prefer testing behavior not implementation — avoid over-verifying internal calls.</li></ul>
+            <ul class="brief-bullets key-points"><li>Run in MySQL/PostgreSQL with sample data</li><li>Match table/column names to your schema</li></ul><ul class="brief-bullets"><li>Mock dependencies, assert interactions and return values.</li><li>Prefer testing behavior not implementation — avoid over-verifying internal calls.</li></ul>
             <h4>Example</h4>
             <pre><code class="kw-code">@Mock ReportRepository repo;
 @InjectMocks ReportService service;
@@ -111,7 +111,7 @@ void returnsDto() {
           <div class="qa-question"><h3>Integration testing REST APIs (Spring + TestNG)</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Integration</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SpringBootTest</span></li><li><span class="kw">MockMvc</span></li><li><span class="kw">TestRestTemplate</span></li><li><span class="kw">Transactional</span></li><li><span class="kw">REST</span></li><li><span class="kw">Spring</span></li><li><span class="kw">TestNG</span></li><li><span class="kw">api</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Integration testing REST APIs (Spring + TestNG)</strong>. + or ; test DB via Testcontainers or embedded H2 with caution.</p><p><code class="kw-code">@SpringBootTest</code> + <code class="kw-code">MockMvc</code> or <code class="kw-code">TestRestTemplate</code>; test DB via Testcontainers or embedded H2 with caution.</p>
+            <p><code class="kw-code">@SpringBootTest</code> + <code class="kw-code">MockMvc</code> or <code class="kw-code">TestRestTemplate</code>; test DB via Testcontainers or embedded H2 with caution.</p>
             <h4>Example</h4>
             <pre><code class="kw-code">mockMvc.perform(get("/api/v1/reports/1"))
   .andExpect(status().isOk())
@@ -128,7 +128,7 @@ void returnsDto() {
           <div class="qa-question"><h3>Code coverage — JaCoCo and what it does NOT tell you</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Metrics</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Code coverage — JaCoCo and what it does NOT tell you</strong>. Gate at 80–90% on critical modules; exclude generated code.</p><ul class="brief-bullets"><li>Coverage = lines/branches executed by tests.</li><li>High coverage ≠ good tests — can miss assertions and edge cases.</li></ul>
+            <ul class="brief-bullets"><li>Coverage = lines/branches executed by tests.</li><li>High coverage ≠ good tests — can miss assertions and edge cases.</li></ul>
             <h4>Detailed explanation</h4>
             <p>Gate at 80–90% on critical modules; exclude generated code. Pair with review of test quality and prod incident history.</p>
             <h4>From your experience</h4>
@@ -141,7 +141,7 @@ void returnsDto() {
           <div class="qa-question"><h3>Do you practice TDD? When is it worth it?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Process</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Do you practice TDD? When is it worth it</strong>. Pragmatic: test-first for bug fixes (reproduce with test) and new API contracts; retro tests when inheriting legacy Vodafone modules.</p><ul class="brief-bullets"><li>Red-green-refactor: write failing test, minimal code, refactor.</li><li>Best for pure logic; less strict for exploratory spikes — add tests before merge.</li></ul>
+            <ul class="brief-bullets"><li>Red-green-refactor: write failing test, minimal code, refactor.</li><li>Best for pure logic; less strict for exploratory spikes — add tests before merge.</li></ul>
             <h4>From your experience</h4>
             <p>Pragmatic: test-first for bug fixes (reproduce with test) and new API contracts; retro tests when inheriting legacy Vodafone modules.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -152,7 +152,7 @@ void returnsDto() {
           <div class="qa-question"><h3>Contract testing for microservices / partner APIs</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Microservices</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JSON</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Contract testing for microservices / partner APIs</strong>. Consumer-driven contracts (Pact) ensure provider doesn&#x27;t break JSON schema/status codes consumers expect.</p><p>Consumer-driven contracts (Pact) ensure provider doesn't break JSON schema/status codes consumers expect.</p>
+            <p>Consumer-driven contracts (Pact) ensure provider doesn't break JSON schema/status codes consumers expect.</p>
             <h4>Detailed explanation</h4>
             <p>XL Axiata third-party integrations: certification env + contract tests on sample payloads reduced ambiguous prod failures.</p>
             <h4>Follow-ups</h4>
@@ -165,7 +165,7 @@ void returnsDto() {
           <div class="qa-question"><h3>Performance testing workflows (Camunda / XL Axiata)</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Perf</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">SQL</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Performance testing workflows (Camunda / XL Axiata)</strong>. Load test BPMN paths with realistic concurrency; monitor engine DB growth, job executor lag, external task timeouts.</p><p>Load test BPMN paths with realistic concurrency; monitor engine DB growth, job executor lag, external task timeouts.</p>
+            <p>Load test BPMN paths with realistic concurrency; monitor engine DB growth, job executor lag, external task timeouts.</p>
             <h4>From your experience</h4>
             <p>Optimized Camunda workflows and test framework — ~5% faster perf test execution, better reliability before prod.</p>
             <h4>Follow-ups</h4>

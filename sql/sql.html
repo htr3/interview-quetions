@@ -54,7 +54,7 @@
           <div class="qa-question"><h3>How do you use EXPLAIN to tune a slow query?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Tuning</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">EXPLAIN ANALYZE</span></li><li><span class="kw">EXPLAIN FORMAT=JSON</span></li><li><span class="kw">type</span></li><li><span class="kw">key</span></li><li><span class="kw">rows</span></li><li><span class="kw">Extra</span></li><li><span class="kw">JSON</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you use EXPLAIN to tune a slow query. Run (or ), look for full table scans, high rows examined, filesort, temporary tables, bad join order — then index or rewrite.</p><p>Run <code class="kw-code">EXPLAIN ANALYZE</code> (or <code class="kw-code">EXPLAIN FORMAT=JSON</code>), look for full table scans, high rows examined, filesort, temporary tables, bad join order — then index or rewrite.</p>
+            <p>Run <code class="kw-code">EXPLAIN ANALYZE</code> (or <code class="kw-code">EXPLAIN FORMAT=JSON</code>), look for full table scans, high rows examined, filesort, temporary tables, bad join order — then index or rewrite.</p>
             <h4>Detailed explanation</h4>
             <p>MySQL: check <code class="kw-code">type</code> (ALL vs range vs ref), <code class="kw-code">key</code>, <code class="kw-code">rows</code>, <code class="kw-code">Extra</code> (Using filesort). Compare before/after row counts and actual time. Validate on prod-like data volume, not empty dev DB.</p>
             <h4>Example</h4>
@@ -75,7 +75,7 @@ WHERE r.report_date BETWEEN '2025-01-01' AND '2025-01-31'
           <div class="qa-question"><h3>B-tree indexes, composite indexes, and leftmost prefix rule</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Indexes</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">(a, b, c)</span></li><li><span class="kw">a</span></li><li><span class="kw">a,b</span></li><li><span class="kw">b</span></li><li><span class="kw">(report_date, account_id)</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Multi-column index — leftmost prefix rule applies.</p><ul class="brief-bullets key-points"><li>(customer_id, created_at) for customer + date queries</li><li>Column order matters</li></ul><p>Composite index <code class="kw-code">(a, b, c)</code> helps queries filtering on <code class="kw-code">a</code>, or <code class="kw-code">a,b</code>, not usually on <code class="kw-code">b</code> alone. Order columns by selectivity and equality-before-range.</p>
+            <ul class="brief-bullets key-points"><li>(customer_id, created_at) for customer + date queries</li><li>Column order matters</li></ul><p>Composite index <code class="kw-code">(a, b, c)</code> helps queries filtering on <code class="kw-code">a</code>, or <code class="kw-code">a,b</code>, not usually on <code class="kw-code">b</code> alone. Order columns by selectivity and equality-before-range.</p>
             <h4>Detailed explanation</h4>
             <p>Too many indexes slow writes. Duplicate/redundant indexes waste space. For reporting: often <code class="kw-code">(report_date, account_id)</code> matches WHERE + JOIN. Avoid indexing low-cardinality alone unless combined.</p>
             <h4>Example</h4>
@@ -92,7 +92,7 @@ WHERE r.report_date BETWEEN '2025-01-01' AND '2025-01-31'
           <div class="qa-question"><h3>INNER vs LEFT JOIN — practical difference?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Basics</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">trade-offs</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Keeps all left rows; NULL on right when no match.</p><ul class="brief-bullets key-points"><li>Find orphans: LEFT JOIN + WHERE right.id IS NULL</li><li>WHERE on right can act like INNER</li></ul><ul class="brief-bullets"><li>INNER keeps only matching rows both sides.</li><li>LEFT keeps all left rows; NULLs on right when no match — useful for optional dimensions but can hide data issues if not intended.</li></ul>
+            <ul class="brief-bullets key-points"><li>Find orphans: LEFT JOIN + WHERE right.id IS NULL</li><li>WHERE on right can act like INNER</li></ul><ul class="brief-bullets"><li>INNER keeps only matching rows both sides.</li><li>LEFT keeps all left rows; NULLs on right when no match — useful for optional dimensions but can hide data issues if not intended.</li></ul>
             <h4>Example</h4>
             <pre><code class="kw-code">-- Reports only for accounts that exist
 SELECT * FROM report_fact r
@@ -111,7 +111,7 @@ LEFT JOIN report_fact r ON a.id = r.account_id AND r.report_date = CURDATE();</c
           <div class="qa-question"><h3>STAR story: Vodafone reporting SQL optimization (&gt;10% faster)</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Vodafone</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Situation:</span></li><li><span class="kw">Task:</span></li><li><span class="kw">Action:</span></li><li><span class="kw">Result:</span></li><li><span class="kw">SQL</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">STAR story: Vodafone reporting SQL optimization (&amp;gt;10% faster)</strong>. Slow reports at peak → EXPLAIN + indexes + query rewrite → &amp;gt;10% faster generation, lower DB CPU — no business logic change.</p><p>Slow reports at peak → EXPLAIN + indexes + query rewrite → &gt;10% faster generation, lower DB CPU — no business logic change.</p>
+            <p>Slow reports at peak → EXPLAIN + indexes + query rewrite → &gt;10% faster generation, lower DB CPU — no business logic change.</p>
             <h4>Detailed explanation</h4>
             <ul>
               <li><strong class="kw">Situation:</strong> Large MySQL datasets, business users waiting on monthly/daily reports</li>
@@ -129,7 +129,7 @@ LEFT JOIN report_fact r ON a.id = r.account_id AND r.report_date = CURDATE();</c
           <div class="qa-question"><h3>Normalization vs denormalization for reporting</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Design</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">trade-offs</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul class="brief-bullets"><li>OLTP: normalize (3NF) to reduce redundancy.</li><li>Reporting: often denormalized fact tables or materialized summaries for read performance.</li></ul>
+            <ul class="brief-bullets"><li>OLTP: normalize (3NF) to reduce redundancy.</li><li>Reporting: often denormalized fact tables or materialized summaries for read performance.</li></ul>
             <h4>Detailed explanation</h4>
             <p>Telecom reporting may use star schema: fact (usage, charges) + dimensions (account, product). ETL nightly populates facts — trades storage for fast dashboards.</p>
             <h4>From your experience</h4>
@@ -142,7 +142,7 @@ LEFT JOIN report_fact r ON a.id = r.account_id AND r.report_date = CURDATE();</c
           <div class="qa-question"><h3>ACID and isolation levels — what breaks at each level?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Transactions</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">ACID</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">ACID and isolation levels — what breaks at each level</strong>. Long-running report in REPEATABLE READ may hold gap locks — impacts writes.</p><ul class="brief-bullets"><li>READ UNCOMMITTED: dirty reads.</li><li>READ COMMITTED: non-repeatable reads.</li><li>REPEATABLE READ (MySQL InnoDB default): phantoms possible.</li><li>SERIALIZABLE: safest, slowest.</li></ul>
+            <ul class="brief-bullets"><li>READ UNCOMMITTED: dirty reads.</li><li>READ COMMITTED: non-repeatable reads.</li><li>REPEATABLE READ (MySQL InnoDB default): phantoms possible.</li><li>SERIALIZABLE: safest, slowest.</li></ul>
             <h4>Detailed explanation</h4>
             <p>Long-running report in REPEATABLE READ may hold gap locks — impacts writes. Use read-only replica or snapshot isolation for heavy analytics off primary OLTP.</p>
             <h4>Follow-ups</h4>
@@ -155,7 +155,7 @@ LEFT JOIN report_fact r ON a.id = r.account_id AND r.report_date = CURDATE();</c
           <div class="qa-question"><h3>OFFSET vs keyset pagination for large tables</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">API</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">LIMIT 100000, 50</span></li><li><span class="kw">WHERE id &gt; :lastId ORDER BY id LIMIT 50</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><code class="kw-code">LIMIT 100000, 50</code> scans/skips 100k rows — slow. Keyset: <code class="kw-code">WHERE id &gt; :lastId ORDER BY id LIMIT 50</code> uses index.</p>
+            <p><code class="kw-code">LIMIT 100000, 50</code> scans/skips 100k rows — slow. Keyset: <code class="kw-code">WHERE id &gt; :lastId ORDER BY id LIMIT 50</code> uses index.</p>
             <h4>Example</h4>
             <pre><code class="kw-code">SELECT * FROM subscriber_event
 WHERE id &gt; :cursor
@@ -171,7 +171,7 @@ LIMIT 50;</code></pre>
           <div class="qa-question"><h3>N+1 query problem — how do you fix it in apps?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">ORM</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SQL</span></li><li><span class="kw">Spring</span></li><li><span class="kw">JPA</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">N+1 query problem — how do you fix it in apps</strong>. From your experience Spring/JPA paths for reporting preferred explicit SQL over lazy collections — predictable performance under load.</p><ul class="brief-bullets"><li>One query loads parents, then N queries for children.</li><li>Fix: JOIN fetch, batch IN query, or single SQL with aggregation.</li></ul>
+            <ul class="brief-bullets"><li>One query loads parents, then N queries for children.</li><li>Fix: JOIN fetch, batch IN query, or single SQL with aggregation.</li></ul>
             <h4>Example</h4>
             <pre><code class="kw-code">-- Bad: loop accounts, query reports each time
 -- Good:
@@ -186,7 +186,7 @@ SELECT * FROM report_fact WHERE account_id IN (...);</code></pre>
           <div class="qa-question"><h3>Row locks, gap locks, and hot-row contention</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">InnoDB</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">INSERT ... ON DUPLICATE KEY UPDATE</span></li><li><span class="kw">SELECT FOR UPDATE</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Row locks, gap locks, and hot-row contention</strong>. Updates on same index range serialize.</p><p>Updates on same index range serialize. High-contention counters: avoid updating single row — shard counters or use atomic <code class="kw-code">INSERT ... ON DUPLICATE KEY UPDATE</code> per bucket.</p>
+            <p>Updates on same index range serialize. High-contention counters: avoid updating single row — shard counters or use atomic <code class="kw-code">INSERT ... ON DUPLICATE KEY UPDATE</code> per bucket.</p>
             <h4>Detailed explanation</h4>
             <p>Integration fallout queues sometimes hammer one status row — spread by partition key or batch status updates.</p>
             <h4>Follow-ups</h4>
@@ -199,7 +199,7 @@ SELECT * FROM report_fact WHERE account_id IN (...);</code></pre>
           <div class="qa-question"><h3>Safe production lookups by MIN / accountId (Subscriber Tool angle)</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Production</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">LIKE '%...%'</span></li><li><span class="kw">SQL</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Safe production lookups by MIN / accountId (Subscriber Tool angle)</strong>. Read-only DB user, indexed equality lookups only, query timeout, audit log, optional read replica — no ad-hoc wildcard SQL on prod.</p><p>Read-only DB user, indexed equality lookups only, query timeout, audit log, optional read replica — no ad-hoc wildcard SQL on prod.</p>
+            <p>Read-only DB user, indexed equality lookups only, query timeout, audit log, optional read replica — no ad-hoc wildcard SQL on prod.</p>
             <h4>Detailed explanation</h4>
             <p>Telecom IDs (MIN, MSISDN, accountId) need exact match indexes. Reject <code class="kw-code">LIKE '%...%'</code> patterns that scan millions of subscribers.</p>
             <h4>Example</h4>
@@ -217,7 +217,7 @@ LIMIT 1;
           <div class="qa-question"><h3>Aggregations and window functions for reporting</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Analytics</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">GROUP BY</span></li><li><span class="kw">ROW_NUMBER</span></li><li><span class="kw">SUM() OVER</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Aggregations and window functions for reporting</strong>. for totals; window functions ( , ) for rankings and running totals without self-joins.</p><p><code class="kw-code">GROUP BY</code> for totals; window functions (<code class="kw-code">ROW_NUMBER</code>, <code class="kw-code">SUM() OVER</code>) for rankings and running totals without self-joins.</p>
+            <p><code class="kw-code">GROUP BY</code> for totals; window functions (<code class="kw-code">ROW_NUMBER</code>, <code class="kw-code">SUM() OVER</code>) for rankings and running totals without self-joins.</p>
             <h4>Example</h4>
             <pre><code class="kw-code">SELECT account_id, report_date, revenue,
   SUM(revenue) OVER (PARTITION BY account_id ORDER BY report_date) AS running_total
@@ -232,7 +232,7 @@ FROM report_fact;</code></pre>
           <div class="qa-question"><h3>XL Axiata: query tuning and fallout reduction (~10%)</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">XL Axiata</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div>
-            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">XL Axiata: query tuning and fallout reduction (~10%)</strong>. Profiled slow queries with team, added indexes, peer-reviewed changes, monitored prod — ~10% faster responses, fewer operational fallouts.</p><p>Profiled slow queries with team, added indexes, peer-reviewed changes, monitored prod — ~10% faster responses, fewer operational fallouts.</p>
+            <p>Profiled slow queries with team, added indexes, peer-reviewed changes, monitored prod — ~10% faster responses, fewer operational fallouts.</p>
             <h4>Detailed explanation</h4>
             <p>Collaboration mattered: DBAs owned capacity; devs owned query shape. Documented before/after metrics for release notes.</p>
             <h4>Follow-ups</h4>
@@ -244,7 +244,7 @@ FROM report_fact;</code></pre>
         <article class="qa-card" data-section="interview" data-id="group-by-having" data-level="medium" data-vimp="true">
           <div class="qa-question"><h3>WHERE vs GROUP BY vs HAVING — order of execution?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">SQL</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">COUNT(*) &gt; 5</span></li><li><span class="kw">WHERE</span></li><li><span class="kw">GROUP BY</span></li><li><span class="kw">HAVING</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">WHERE</strong> filters rows before grouping. <strong class="kw">GROUP BY</strong> aggregates. <strong class="kw">HAVING</strong> filters groups after aggregation.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">COUNT(*) &gt; 5</span></li><li><span class="kw">WHERE</span></li><li><span class="kw">GROUP BY</span></li><li><span class="kw">HAVING</span></li></ul></div><p><strong class="kw">WHERE</strong> filters rows before grouping. <strong class="kw">GROUP BY</strong> aggregates. <strong class="kw">HAVING</strong> filters groups after aggregation.</p>
             <pre><code class="kw-code">SELECT dept, COUNT(*) AS cnt FROM employees
 WHERE active = 1
 GROUP BY dept
@@ -257,7 +257,7 @@ HAVING COUNT(*) &gt; 5;</code></pre>
         <article class="qa-card" data-section="interview" data-id="union-all" data-level="easy">
           <div class="qa-question"><h3>UNION vs UNION ALL?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">SQL</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">UNION</span></li><li><span class="kw">UNION ALL</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Combine result sets keeping duplicates.</p><ul class="brief-bullets key-points"><li>Faster than UNION</li><li>Columns must align in count/type</li></ul><p><strong class="kw">UNION</strong> merges two result sets and removes duplicate rows (extra sort/distinct cost). <strong class="kw">UNION ALL</strong> keeps duplicates — faster when you know sets don't overlap (e.g. Jan sales UNION ALL Feb sales).</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">UNION</span></li><li><span class="kw">UNION ALL</span></li></ul></div><ul class="brief-bullets key-points"><li>Faster than UNION</li><li>Columns must align in count/type</li></ul><p><strong class="kw">UNION</strong> merges two result sets and removes duplicate rows (extra sort/distinct cost). <strong class="kw">UNION ALL</strong> keeps duplicates — faster when you know sets don't overlap (e.g. Jan sales UNION ALL Feb sales).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -265,7 +265,7 @@ HAVING COUNT(*) &gt; 5;</code></pre>
         <article class="qa-card" data-section="interview" data-id="delete-truncate-drop" data-level="medium">
           <div class="qa-question"><h3>DELETE vs TRUNCATE vs DROP?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">SQL</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">DELETE</span></li><li><span class="kw">TRUNCATE</span></li><li><span class="kw">DROP</span></li></ul></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">DELETE</span></li><li><span class="kw">TRUNCATE</span></li><li><span class="kw">DROP</span></li></ul></div>
             <ul>
               <li><strong class="kw">DELETE</strong> — row-level, can use WHERE, triggers fire, rollback possible</li>
               <li><strong class="kw">TRUNCATE</strong> — all rows fast, resets auto-increment, minimal logging</li>
@@ -279,7 +279,7 @@ HAVING COUNT(*) &gt; 5;</code></pre>
         <article class="qa-card" data-section="interview" data-id="subquery-types" data-level="medium" data-vimp="true">
           <div class="qa-question"><h3>What is a correlated subquery?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">SQL</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">a correlated subquery</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">a correlated subquery</strong> is a core concept to understand for interviews. Often rewrite as JOIN for performance on large reporting tables — your Vodafone tuning experience.</p><ul class="brief-bullets"><li>Inner query references outer query row — runs per outer row (can be slow).</li><li>Example: customers who placed an order in last 30 days.</li></ul>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">a correlated subquery</span></li></ul></div><ul class="brief-bullets"><li>Inner query references outer query row — runs per outer row (can be slow).</li><li>Example: customers who placed an order in last 30 days.</li></ul>
             <pre><code class="kw-code">SELECT c.name FROM customers c
 WHERE EXISTS (
   SELECT 1 FROM orders o
@@ -301,7 +301,7 @@ WHERE EXISTS (
         <article class="qa-card" data-id="bq-01" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>SELECT all rows from a table</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">SELECT</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Returns every column and every row from a table — the simplest read query.</p><ul class="brief-bullets key-points"><li>Use SELECT * only for exploration; in production list columns you need</li><li>Reads full table — can be slow on large tables without LIMIT</li></ul><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SELECT * FROM employees;</span></li></ul></div>
+          <div class="qa-answer"><ul class="brief-bullets key-points"><li>Use SELECT * only for exploration; in production list columns you need</li><li>Reads full table — can be slow on large tables without LIMIT</li></ul><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SELECT * FROM employees;</span></li></ul></div>
             <pre><code class="kw-code">SELECT * FROM employees;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -309,14 +309,14 @@ WHERE EXISTS (
         <article class="qa-card" data-id="bq-02" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>SELECT specific columns</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">SELECT</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Pick only the columns you need instead of all columns — faster and clearer.</p><ul class="brief-bullets key-points"><li>Reduces network and memory</li><li>Makes query intent obvious to other developers</li></ul><pre><code class="kw-code">SELECT id, name, dept, salary FROM employees;</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Reduces network and memory</li><li>Makes query intent obvious to other developers</li></ul><pre><code class="kw-code">SELECT id, name, dept, salary FROM employees;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-03" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>SELECT DISTINCT values</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">SELECT</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Removes duplicate values and shows each unique value once.</p><ul class="brief-bullets key-points"><li>Useful for unique departments, cities, statuses</li><li>DISTINCT applies to the full selected row combination</li></ul><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SELECT DISTINCT dept FROM employees;</span></li></ul></div>
+          <div class="qa-answer"><ul class="brief-bullets key-points"><li>Useful for unique departments, cities, statuses</li><li>DISTINCT applies to the full selected row combination</li></ul><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SELECT DISTINCT dept FROM employees;</span></li></ul></div>
             <pre><code class="kw-code">SELECT DISTINCT dept FROM employees;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -324,14 +324,14 @@ WHERE EXISTS (
         <article class="qa-card" data-id="bq-04" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>WHERE — filter by equality</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Filters rows where a column exactly matches a value.</p><ul class="brief-bullets key-points"><li>Only rows matching the condition are returned</li><li>Combine with AND/OR for multiple conditions</li></ul><pre><code class="kw-code">SELECT * FROM employees WHERE dept = 'Engineering';</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Only rows matching the condition are returned</li><li>Combine with AND/OR for multiple conditions</li></ul><pre><code class="kw-code">SELECT * FROM employees WHERE dept = 'Engineering';</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-05" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>WHERE — AND / OR conditions</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Combines multiple filter conditions with AND (all true) or OR (any true).</p><ul class="brief-bullets key-points"><li>Use parentheses when mixing AND and OR</li><li>AND is evaluated before OR unless grouped</li></ul><pre><code class="kw-code">SELECT * FROM employees
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Use parentheses when mixing AND and OR</li><li>AND is evaluated before OR unless grouped</li></ul><pre><code class="kw-code">SELECT * FROM employees
 WHERE dept = 'Sales' AND salary > 50000
    OR (dept = 'HR' AND active = 1);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -340,14 +340,14 @@ WHERE dept = 'Sales' AND salary > 50000
         <article class="qa-card" data-id="bq-06" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>WHERE — IN list</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Checks if a column value is in a given list.</p><ul class="brief-bullets key-points"><li>Cleaner than many OR conditions</li><li>NOT IN excludes listed values</li></ul><pre><code class="kw-code">SELECT * FROM employees WHERE dept IN ('HR', 'Finance', 'IT');</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Cleaner than many OR conditions</li><li>NOT IN excludes listed values</li></ul><pre><code class="kw-code">SELECT * FROM employees WHERE dept IN ('HR', 'Finance', 'IT');</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-07" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>WHERE — BETWEEN range</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Filters rows where a value falls in a range (inclusive).</p><ul class="brief-bullets key-points"><li>Works on dates, numbers, strings</li><li>Use consistent date format/timezone</li></ul><pre><code class="kw-code">SELECT * FROM orders
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Works on dates, numbers, strings</li><li>Use consistent date format/timezone</li></ul><pre><code class="kw-code">SELECT * FROM orders
 WHERE created_at BETWEEN '2025-01-01' AND '2025-01-31';</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -355,14 +355,14 @@ WHERE created_at BETWEEN '2025-01-01' AND '2025-01-31';</code></pre>
         <article class="qa-card" data-id="bq-08" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>WHERE — LIKE pattern match</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Pattern matching — % = any chars, _ = one char.</p><ul class="brief-bullets key-points"><li>&#x27;A%&#x27; = starts with A</li><li>Leading % often prevents index use</li></ul><pre><code class="kw-code">SELECT * FROM customers WHERE name LIKE 'A%';</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>&#x27;A%&#x27; = starts with A</li><li>Leading % often prevents index use</li></ul><pre><code class="kw-code">SELECT * FROM customers WHERE name LIKE 'A%';</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-09" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>WHERE — IS NULL / IS NOT NULL</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">WHERE</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> NULL means missing/unknown — never compare with = NULL.</p><ul class="brief-bullets key-points"><li>Use IS NULL / IS NOT NULL</li><li>COALESCE gives default for NULL</li></ul><pre><code class="kw-code">SELECT * FROM employees WHERE manager_id IS NULL;
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Use IS NULL / IS NOT NULL</li><li>COALESCE gives default for NULL</li></ul><pre><code class="kw-code">SELECT * FROM employees WHERE manager_id IS NULL;
 SELECT * FROM employees WHERE email IS NOT NULL;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -370,21 +370,21 @@ SELECT * FROM employees WHERE email IS NOT NULL;</code></pre>
         <article class="qa-card" data-id="bq-10" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>ORDER BY ascending</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">ORDER BY</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Sorts rows smallest-to-largest (ASC is default).</p><ul class="brief-bullets key-points"><li>Apply after WHERE filter</li><li>Can sort by multiple columns</li></ul><pre><code class="kw-code">SELECT * FROM employees ORDER BY hire_date ASC;</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Apply after WHERE filter</li><li>Can sort by multiple columns</li></ul><pre><code class="kw-code">SELECT * FROM employees ORDER BY hire_date ASC;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-11" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>ORDER BY descending (multiple columns)</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">ORDER BY</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Sorts rows largest-to-smallest (DESC).</p><ul class="brief-bullets key-points"><li>Common for newest-first dates</li><li>Tie-break with second column</li></ul><pre><code class="kw-code">SELECT * FROM employees ORDER BY dept ASC, salary DESC;</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Common for newest-first dates</li><li>Tie-break with second column</li></ul><pre><code class="kw-code">SELECT * FROM employees ORDER BY dept ASC, salary DESC;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-12" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>LIMIT and OFFSET (pagination)</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">LIMIT</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Pagination — LIMIT = how many rows, OFFSET = skip first N.</p><ul class="brief-bullets key-points"><li>Page 3 size 10: LIMIT 10 OFFSET 20</li><li>Large OFFSET on big tables can be slow</li></ul><pre><code class="kw-code">SELECT * FROM orders ORDER BY id LIMIT 10 OFFSET 20;
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Page 3 size 10: LIMIT 10 OFFSET 20</li><li>Large OFFSET on big tables can be slow</li></ul><pre><code class="kw-code">SELECT * FROM orders ORDER BY id LIMIT 10 OFFSET 20;
 -- MySQL: LIMIT offset, count → LIMIT 20, 10</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -392,35 +392,35 @@ SELECT * FROM employees WHERE email IS NOT NULL;</code></pre>
         <article class="qa-card" data-id="bq-13" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>COUNT rows</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Aggregate</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Counts matching rows — often with GROUP BY.</p><ul class="brief-bullets key-points"><li>COUNT(*) counts all rows</li><li>COUNT(col) ignores NULL in col</li></ul><pre><code class="kw-code">SELECT COUNT(*) AS total_employees FROM employees;</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>COUNT(*) counts all rows</li><li>COUNT(col) ignores NULL in col</li></ul><pre><code class="kw-code">SELECT COUNT(*) AS total_employees FROM employees;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-14" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>SUM — total amount</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Aggregate</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Adds numeric column values — total revenue, quantity, etc.</p><ul class="brief-bullets key-points"><li>NULLs ignored</li><li>Use with GROUP BY for per-group totals</li></ul><pre><code class="kw-code">SELECT SUM(amount) AS total_revenue FROM orders;</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>NULLs ignored</li><li>Use with GROUP BY for per-group totals</li></ul><pre><code class="kw-code">SELECT SUM(amount) AS total_revenue FROM orders;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-15" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>AVG — average salary</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Aggregate</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Calculates mean of a numeric column.</p><ul class="brief-bullets key-points"><li>NULLs excluded from average</li><li>Watch integer division in some DBs</li></ul><pre><code class="kw-code">SELECT AVG(salary) AS avg_salary FROM employees;</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>NULLs excluded from average</li><li>Watch integer division in some DBs</li></ul><pre><code class="kw-code">SELECT AVG(salary) AS avg_salary FROM employees;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-16" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>MIN and MAX</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Aggregate</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Smallest or largest value in a column.</p><ul class="brief-bullets key-points"><li>Works on numbers, dates, strings</li><li>Useful in dashboards and range checks</li></ul><pre><code class="kw-code">SELECT MIN(salary) AS min_sal, MAX(salary) AS max_sal FROM employees;</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Works on numbers, dates, strings</li><li>Useful in dashboards and range checks</li></ul><pre><code class="kw-code">SELECT MIN(salary) AS min_sal, MAX(salary) AS max_sal FROM employees;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-17" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>GROUP BY — count per department</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">GROUP BY</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Groups rows with same value and aggregates each group.</p><ul class="brief-bullets key-points"><li>Non-aggregated SELECT cols must be in GROUP BY</li><li>Example: employees per department</li></ul><pre><code class="kw-code">SELECT dept, COUNT(*) AS headcount
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Non-aggregated SELECT cols must be in GROUP BY</li><li>Example: employees per department</li></ul><pre><code class="kw-code">SELECT dept, COUNT(*) AS headcount
 FROM employees
 GROUP BY dept;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -429,7 +429,7 @@ GROUP BY dept;</code></pre>
         <article class="qa-card" data-id="bq-18" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>HAVING — filter grouped results</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">HAVING</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Filters groups after GROUP BY (WHERE filters rows before grouping).</p><ul class="brief-bullets key-points"><li>HAVING AVG(salary) &gt; 60000 style filters</li><li>Use WHERE for row-level filters first</li></ul><pre><code class="kw-code">SELECT dept, AVG(salary) AS avg_sal
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>HAVING AVG(salary) &gt; 60000 style filters</li><li>Use WHERE for row-level filters first</li></ul><pre><code class="kw-code">SELECT dept, AVG(salary) AS avg_sal
 FROM employees
 GROUP BY dept
 HAVING AVG(salary) > 60000;</code></pre>
@@ -439,7 +439,7 @@ HAVING AVG(salary) > 60000;</code></pre>
         <article class="qa-card" data-id="bq-19" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>INNER JOIN — employees and departments</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Returns only rows with matches in both tables.</p><ul class="brief-bullets key-points"><li>No match = row dropped</li><li>Most common join type</li></ul><pre><code class="kw-code">SELECT e.name, d.name AS dept_name
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>No match = row dropped</li><li>Most common join type</li></ul><pre><code class="kw-code">SELECT e.name, d.name AS dept_name
 FROM employees e
 INNER JOIN departments d ON e.dept_id = d.id;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -448,7 +448,7 @@ INNER JOIN departments d ON e.dept_id = d.id;</code></pre>
         <article class="qa-card" data-id="bq-20" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>LEFT JOIN — all customers, even without orders</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Keeps all left rows; NULL on right when no match.</p><ul class="brief-bullets key-points"><li>Find orphans: LEFT JOIN + WHERE right.id IS NULL</li><li>WHERE on right can act like INNER</li></ul><pre><code class="kw-code">SELECT c.name, o.id AS order_id
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Find orphans: LEFT JOIN + WHERE right.id IS NULL</li><li>WHERE on right can act like INNER</li></ul><pre><code class="kw-code">SELECT c.name, o.id AS order_id
 FROM customers c
 LEFT JOIN orders o ON c.id = o.customer_id;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -457,7 +457,7 @@ LEFT JOIN orders o ON c.id = o.customer_id;</code></pre>
         <article class="qa-card" data-id="bq-21" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>RIGHT JOIN — all orders with customer info</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Keeps all right rows — rarely used; swap tables and use LEFT JOIN instead.</p><ul class="brief-bullets key-points"><li>Same NULL fill behavior as LEFT on non-matching side</li><li>Interview: mention LEFT is preferred</li></ul><pre><code class="kw-code">SELECT c.name, o.amount
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Same NULL fill behavior as LEFT on non-matching side</li><li>Interview: mention LEFT is preferred</li></ul><pre><code class="kw-code">SELECT c.name, o.amount
 FROM customers c
 RIGHT JOIN orders o ON c.id = o.customer_id;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -466,7 +466,7 @@ RIGHT JOIN orders o ON c.id = o.customer_id;</code></pre>
         <article class="qa-card" data-id="bq-22" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>JOIN three tables</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Chain multiple JOINs to connect related tables in one query.</p><ul class="brief-bullets key-points"><li>Always specify ON conditions</li><li>Wrong join order can explode row count</li></ul><pre><code class="kw-code">SELECT c.name, o.id, p.name AS product
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Always specify ON conditions</li><li>Wrong join order can explode row count</li></ul><pre><code class="kw-code">SELECT c.name, o.id, p.name AS product
 FROM orders o
 JOIN customers c ON o.customer_id = c.id
 JOIN order_items oi ON o.id = oi.order_id
@@ -477,7 +477,7 @@ JOIN products p ON oi.product_id = p.id;</code></pre>
         <article class="qa-card" data-id="bq-23" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>Self JOIN — employee and manager names</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Join table to itself — e.g. employee + manager in same table.</p><ul class="brief-bullets key-points"><li>Use aliases (e, m)</li><li>Common for hierarchies</li></ul><pre><code class="kw-code">SELECT e.name AS employee, m.name AS manager
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Use aliases (e, m)</li><li>Common for hierarchies</li></ul><pre><code class="kw-code">SELECT e.name AS employee, m.name AS manager
 FROM employees e
 LEFT JOIN employees m ON e.manager_id = m.id;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -486,7 +486,7 @@ LEFT JOIN employees m ON e.manager_id = m.id;</code></pre>
         <article class="qa-card" data-id="bq-24" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>CROSS JOIN — every combination</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">JOIN</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Cartesian product — every A row paired with every B row.</p><ul class="brief-bullets key-points"><li>No ON clause</li><li>Accidental cross join = huge result set</li></ul><pre><code class="kw-code">SELECT e.name, d.name AS dept
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>No ON clause</li><li>Accidental cross join = huge result set</li></ul><pre><code class="kw-code">SELECT e.name, d.name AS dept
 FROM employees e
 CROSS JOIN departments d;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -495,7 +495,7 @@ CROSS JOIN departments d;</code></pre>
         <article class="qa-card" data-id="bq-25" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>UNION — combine two result sets (dedupe)</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Set ops</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Stack two result sets; UNION removes duplicates.</p><ul class="brief-bullets key-points"><li>Same column count and types required</li><li>UNION ALL is faster when dupes OK</li></ul><pre><code class="kw-code">SELECT name FROM employees WHERE dept = 'IT'
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Same column count and types required</li><li>UNION ALL is faster when dupes OK</li></ul><pre><code class="kw-code">SELECT name FROM employees WHERE dept = 'IT'
 UNION
 SELECT name FROM contractors WHERE team = 'IT';</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -504,7 +504,7 @@ SELECT name FROM contractors WHERE team = 'IT';</code></pre>
         <article class="qa-card" data-id="bq-26" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>UNION ALL — keep duplicates</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Set ops</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Combine result sets keeping duplicates.</p><ul class="brief-bullets key-points"><li>Faster than UNION</li><li>Columns must align in count/type</li></ul><pre><code class="kw-code">SELECT city FROM customers
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Faster than UNION</li><li>Columns must align in count/type</li></ul><pre><code class="kw-code">SELECT city FROM customers
 UNION ALL
 SELECT city FROM suppliers;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -513,7 +513,7 @@ SELECT city FROM suppliers;</code></pre>
         <article class="qa-card" data-id="bq-27" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>Scalar subquery in SELECT</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Subquery</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Subquery in SELECT returning one value per row.</p><ul class="brief-bullets key-points"><li>Must return one row, one column</li><li>Can be slow if run per row — profile it</li></ul><pre><code class="kw-code">SELECT name, salary,
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Must return one row, one column</li><li>Can be slow if run per row — profile it</li></ul><pre><code class="kw-code">SELECT name, salary,
   (SELECT AVG(salary) FROM employees) AS company_avg
 FROM employees;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -522,7 +522,7 @@ FROM employees;</code></pre>
         <article class="qa-card" data-id="bq-28" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>Subquery with IN</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Subquery</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Filter where value exists in subquery result.</p><ul class="brief-bullets key-points"><li>Often clearer than complex JOIN</li><li>Watch NULL behavior in IN lists</li></ul><pre><code class="kw-code">SELECT name FROM customers
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Often clearer than complex JOIN</li><li>Watch NULL behavior in IN lists</li></ul><pre><code class="kw-code">SELECT name FROM customers
 WHERE id IN (SELECT customer_id FROM orders WHERE amount > 1000);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -530,7 +530,7 @@ WHERE id IN (SELECT customer_id FROM orders WHERE amount > 1000);</code></pre>
         <article class="qa-card" data-id="bq-29" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>EXISTS — customers who placed orders</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Subquery</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> True if subquery returns any row — good for existence checks.</p><ul class="brief-bullets key-points"><li>Stops at first match</li><li>SELECT 1 inside EXISTS is idiomatic</li></ul><pre><code class="kw-code">SELECT name FROM customers c
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Stops at first match</li><li>SELECT 1 inside EXISTS is idiomatic</li></ul><pre><code class="kw-code">SELECT name FROM customers c
 WHERE EXISTS (
   SELECT 1 FROM orders o WHERE o.customer_id = c.id
 );</code></pre>
@@ -540,7 +540,7 @@ WHERE EXISTS (
         <article class="qa-card" data-id="bq-30" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>NOT EXISTS — customers with no orders</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Subquery</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> True if subquery returns any row — good for existence checks.</p><ul class="brief-bullets key-points"><li>Stops at first match</li><li>SELECT 1 inside EXISTS is idiomatic</li></ul><pre><code class="kw-code">SELECT name FROM customers c
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Stops at first match</li><li>SELECT 1 inside EXISTS is idiomatic</li></ul><pre><code class="kw-code">SELECT name FROM customers c
 WHERE NOT EXISTS (
   SELECT 1 FROM orders o WHERE o.customer_id = c.id
 );</code></pre>
@@ -550,7 +550,7 @@ WHERE NOT EXISTS (
         <article class="qa-card" data-id="bq-31" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>INSERT — single row</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DML</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Add one new row with specified column values.</p><ul class="brief-bullets key-points"><li>List columns explicitly</li><li>Auto-increment id usually omitted</li></ul><pre><code class="kw-code">INSERT INTO employees (name, dept, salary)
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>List columns explicitly</li><li>Auto-increment id usually omitted</li></ul><pre><code class="kw-code">INSERT INTO employees (name, dept, salary)
 VALUES ('Alice', 'Engineering', 75000);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -558,7 +558,7 @@ VALUES ('Alice', 'Engineering', 75000);</code></pre>
         <article class="qa-card" data-id="bq-32" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>INSERT — multiple rows</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DML</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Bulk insert — one statement, many value tuples.</p><ul class="brief-bullets key-points"><li>Faster than many single INSERTs</li><li>Watch transaction/batch size</li></ul><pre><code class="kw-code">INSERT INTO employees (name, dept, salary) VALUES
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Faster than many single INSERTs</li><li>Watch transaction/batch size</li></ul><pre><code class="kw-code">INSERT INTO employees (name, dept, salary) VALUES
   ('Bob', 'Sales', 55000),
   ('Carol', 'HR', 48000);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -567,14 +567,14 @@ VALUES ('Alice', 'Engineering', 75000);</code></pre>
         <article class="qa-card" data-id="bq-33" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>UPDATE — change salary</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DML</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Modify existing rows matching WHERE.</p><ul class="brief-bullets key-points"><li>Always use WHERE in production</li><li>Test with SELECT first</li></ul><pre><code class="kw-code">UPDATE employees SET salary = salary * 1.05 WHERE dept = 'Engineering';</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Always use WHERE in production</li><li>Test with SELECT first</li></ul><pre><code class="kw-code">UPDATE employees SET salary = salary * 1.05 WHERE dept = 'Engineering';</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-34" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>UPDATE with JOIN (MySQL)</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DML</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Update rows using related table data (MySQL syntax).</p><ul class="brief-bullets key-points"><li>Powerful — easy to mis-update rows</li><li>Use transaction; check rows affected</li></ul><pre><code class="kw-code">UPDATE orders o
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Powerful — easy to mis-update rows</li><li>Use transaction; check rows affected</li></ul><pre><code class="kw-code">UPDATE orders o
 JOIN customers c ON o.customer_id = c.id
 SET o.status = 'VIP'
 WHERE c.country = 'DE';</code></pre>
@@ -584,14 +584,14 @@ WHERE c.country = 'DE';</code></pre>
         <article class="qa-card" data-id="bq-35" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>DELETE — remove old rows</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DML</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Permanently remove rows matching condition.</p><ul class="brief-bullets key-points"><li>Soft delete often preferred in apps</li><li>FK constraints may block delete</li></ul><pre><code class="kw-code">DELETE FROM orders WHERE status = 'CANCELLED' AND created_at < '2024-01-01';</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Soft delete often preferred in apps</li><li>FK constraints may block delete</li></ul><pre><code class="kw-code">DELETE FROM orders WHERE status = 'CANCELLED' AND created_at < '2024-01-01';</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-36" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>CREATE TABLE</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Define new table: columns, types, keys.</p><ul class="brief-bullets key-points"><li>DECIMAL for money, VARCHAR for text</li><li>Add PRIMARY KEY and needed indexes</li></ul><pre><code class="kw-code">CREATE TABLE employees (
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>DECIMAL for money, VARCHAR for text</li><li>Add PRIMARY KEY and needed indexes</li></ul><pre><code class="kw-code">CREATE TABLE employees (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
   dept VARCHAR(50),
@@ -604,14 +604,14 @@ WHERE c.country = 'DE';</code></pre>
         <article class="qa-card" data-id="bq-37" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>ALTER TABLE — add column</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Change existing table structure.</p><ul class="brief-bullets key-points"><li>Can lock large tables — plan maintenance</li><li>Version with Flyway/Liquibase</li></ul><pre><code class="kw-code">ALTER TABLE employees ADD COLUMN email VARCHAR(150) AFTER name;</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Can lock large tables — plan maintenance</li><li>Version with Flyway/Liquibase</li></ul><pre><code class="kw-code">ALTER TABLE employees ADD COLUMN email VARCHAR(150) AFTER name;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-38" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>DROP TABLE</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Remove table and all its data permanently.</p><ul class="brief-bullets key-points"><li>DROP TABLE IF EXISTS</li><li>Backup before drop in prod</li></ul><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">DROP TABLE IF EXISTS temp_import_staging;</span></li></ul></div>
+          <div class="qa-answer"><ul class="brief-bullets key-points"><li>DROP TABLE IF EXISTS</li><li>Backup before drop in prod</li></ul><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">DROP TABLE IF EXISTS temp_import_staging;</span></li></ul></div>
             <pre><code class="kw-code">DROP TABLE IF EXISTS temp_import_staging;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -619,21 +619,21 @@ WHERE c.country = 'DE';</code></pre>
         <article class="qa-card" data-id="bq-39" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>CREATE INDEX</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Speed up reads on filtered/joined/sorted columns.</p><ul class="brief-bullets key-points"><li>Slower writes as trade-off</li><li>Index WHERE/JOIN/ORDER BY columns</li></ul><pre><code class="kw-code">CREATE INDEX idx_emp_dept ON employees (dept);</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Slower writes as trade-off</li><li>Index WHERE/JOIN/ORDER BY columns</li></ul><pre><code class="kw-code">CREATE INDEX idx_emp_dept ON employees (dept);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-40" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>Composite index</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Multi-column index — leftmost prefix rule applies.</p><ul class="brief-bullets key-points"><li>(customer_id, created_at) for customer + date queries</li><li>Column order matters</li></ul><pre><code class="kw-code">CREATE INDEX idx_orders_cust_date ON orders (customer_id, created_at);</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>(customer_id, created_at) for customer + date queries</li><li>Column order matters</li></ul><pre><code class="kw-code">CREATE INDEX idx_orders_cust_date ON orders (customer_id, created_at);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-41" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>FOREIGN KEY constraint</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">DDL</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Enforces valid references between tables.</p><ul class="brief-bullets key-points"><li>ON DELETE CASCADE / SET NULL</li><li>Prevents orphan child rows</li></ul><pre><code class="kw-code">ALTER TABLE orders
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>ON DELETE CASCADE / SET NULL</li><li>Prevents orphan child rows</li></ul><pre><code class="kw-code">ALTER TABLE orders
 ADD CONSTRAINT fk_orders_customer
 FOREIGN KEY (customer_id) REFERENCES customers(id);</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -642,7 +642,7 @@ FOREIGN KEY (customer_id) REFERENCES customers(id);</code></pre>
         <article class="qa-card" data-id="bq-42" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>CASE WHEN — salary band label</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Functions</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">SQL</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Conditional expressions in SQL — if/else labels in result.</p><ul class="brief-bullets key-points"><li>No data change required</li><li>Can nest CASE</li></ul><pre><code class="kw-code">SELECT name, salary,
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">SQL</span></li></ul></div><ul class="brief-bullets key-points"><li>No data change required</li><li>Can nest CASE</li></ul><pre><code class="kw-code">SELECT name, salary,
   CASE
     WHEN salary >= 80000 THEN 'Senior'
     WHEN salary >= 50000 THEN 'Mid'
@@ -655,14 +655,14 @@ FROM employees;</code></pre>
         <article class="qa-card" data-id="bq-43" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>COALESCE / IFNULL — default value</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Functions</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Return first non-NULL value — default for missing data.</p><ul class="brief-bullets key-points"><li>COALESCE(phone, &#x27;N/A&#x27;)</li><li>IFNULL is MySQL alias</li></ul><pre><code class="kw-code">SELECT name, COALESCE(phone, 'N/A') AS phone FROM customers;</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>COALESCE(phone, &#x27;N/A&#x27;)</li><li>IFNULL is MySQL alias</li></ul><pre><code class="kw-code">SELECT name, COALESCE(phone, 'N/A') AS phone FROM customers;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-44" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>Date functions — filter and format</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Functions</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Filter/format dates with YEAR(), DATE_FORMAT(), etc.</p><ul class="brief-bullets key-points"><li>Avoid function on indexed column in WHERE</li><li>Store UTC, display local in app</li></ul><pre><code class="kw-code">SELECT * FROM orders WHERE YEAR(created_at) = 2025;
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>Avoid function on indexed column in WHERE</li><li>Store UTC, display local in app</li></ul><pre><code class="kw-code">SELECT * FROM orders WHERE YEAR(created_at) = 2025;
 SELECT DATE_FORMAT(hire_date, '%Y-%m') AS hire_month FROM employees;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -670,21 +670,21 @@ SELECT DATE_FORMAT(hire_date, '%Y-%m') AS hire_month FROM employees;</code></pre
         <article class="qa-card" data-id="bq-45" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>CONCAT — full name</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Functions</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Join strings — build display names from parts.</p><ul class="brief-bullets key-points"><li>NULL poisons CONCAT — use COALESCE</li><li>CONCAT_WS skips NULLs in MySQL</li></ul><pre><code class="kw-code">SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees;</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>NULL poisons CONCAT — use COALESCE</li><li>CONCAT_WS skips NULLs in MySQL</li></ul><pre><code class="kw-code">SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-46" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>UPPER, LOWER, TRIM</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Functions</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Normalize strings before compare or display.</p><ul class="brief-bullets key-points"><li>TRIM removes leading/trailing spaces</li><li>UPPER/LOWER for case-insensitive compare</li></ul><pre><code class="kw-code">SELECT UPPER(dept), LOWER(email), TRIM(name) FROM employees;</code></pre>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>TRIM removes leading/trailing spaces</li><li>UPPER/LOWER for case-insensitive compare</li></ul><pre><code class="kw-code">SELECT UPPER(dept), LOWER(email), TRIM(name) FROM employees;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
         <article class="qa-card" data-id="bq-47" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>ROW_NUMBER — rank employees by salary per dept</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Window</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Window function: rank 1,2,3… within partition without collapsing rows.</p><ul class="brief-bullets key-points"><li>PARTITION BY dept ORDER BY salary</li><li>Keeps all rows unlike GROUP BY</li></ul><pre><code class="kw-code">SELECT name, dept, salary,
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>PARTITION BY dept ORDER BY salary</li><li>Keeps all rows unlike GROUP BY</li></ul><pre><code class="kw-code">SELECT name, dept, salary,
   ROW_NUMBER() OVER (PARTITION BY dept ORDER BY salary DESC) AS rn
 FROM employees;</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -693,7 +693,7 @@ FROM employees;</code></pre>
         <article class="qa-card" data-id="bq-48" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>RANK and DENSE_RANK</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Window</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Ranking with ties — RANK skips after tie, DENSE_RANK does not.</p><ul class="brief-bullets key-points"><li>OVER (ORDER BY salary DESC)</li><li>Top-N per group pattern</li></ul><pre><code class="kw-code">SELECT name, salary,
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>OVER (ORDER BY salary DESC)</li><li>Top-N per group pattern</li></ul><pre><code class="kw-code">SELECT name, salary,
   RANK() OVER (ORDER BY salary DESC) AS rnk,
   DENSE_RANK() OVER (ORDER BY salary DESC) AS drnk
 FROM employees;</code></pre>
@@ -703,7 +703,7 @@ FROM employees;</code></pre>
         <article class="qa-card" data-id="bq-49" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>CTE (WITH clause)</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">CTE</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Named subquery for readable multi-step SQL.</p><ul class="brief-bullets key-points"><li>WITH x AS (...) SELECT FROM x</li><li>Can be recursive for hierarchies</li></ul><pre><code class="kw-code">WITH dept_avg AS (
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li></ul></div><ul class="brief-bullets key-points"><li>WITH x AS (...) SELECT FROM x</li><li>Can be recursive for hierarchies</li></ul><pre><code class="kw-code">WITH dept_avg AS (
   SELECT dept, AVG(salary) AS avg_sal FROM employees GROUP BY dept
 )
 SELECT e.name, e.salary, d.avg_sal
@@ -716,7 +716,7 @@ WHERE e.salary > d.avg_sal;</code></pre>
         <article class="qa-card" data-id="bq-50" data-level="easy" data-section="basic-queries">
           <div class="qa-question"><h3>Transaction — BEGIN, COMMIT, ROLLBACK</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Transaction</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">SQL</span></li><li><span class="kw">ACID</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Group statements — all succeed (COMMIT) or all undo (ROLLBACK).</p><ul class="brief-bullets key-points"><li>ACID for money transfers</li><li>START TRANSACTION ... COMMIT/ROLLBACK</li></ul><pre><code class="kw-code">START TRANSACTION;
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">SQL</span></li><li><span class="kw">ACID</span></li></ul></div><ul class="brief-bullets key-points"><li>ACID for money transfers</li><li>START TRANSACTION ... COMMIT/ROLLBACK</li></ul><pre><code class="kw-code">START TRANSACTION;
 UPDATE accounts SET balance = balance - 100 WHERE id = 1;
 UPDATE accounts SET balance = balance + 100 WHERE id = 2;
 COMMIT;

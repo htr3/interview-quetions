@@ -70,7 +70,7 @@
           <div class="qa-question"><h3>What is Apache Kafka? (plain English)</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Basics</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">OrderCreated</span></li><li><span class="kw">order-events</span></li><li><span class="kw">distributed event log</span></li><li><span class="kw">append</span></li><li><span class="kw">read</span></li><li><span class="kw">Why it exists:</span></li><li><span class="kw">Topic:</span></li><li><span class="kw">Partition:</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">Apache Kafka</strong> is a core concept to understand for interviews. Kafka is a distributed event log : applications append events to topics; other applications read them later.</p><p>Kafka is a <strong class="kw">distributed event log</strong>: applications <strong class="kw">append</strong> events to topics; other applications <strong class="kw">read</strong> them later. Think of it as a durable, high-speed tape recorder many services can read at their own speed — not a mailbox that deletes mail after one person reads it.</p>
+<p>Kafka is a <strong class="kw">distributed event log</strong>: applications <strong class="kw">append</strong> events to topics; other applications <strong class="kw">read</strong> them later. Think of it as a durable, high-speed tape recorder many services can read at their own speed — not a mailbox that deletes mail after one person reads it.</p>
 <h4>Detailed explanation</h4>
 <p><strong class="kw">Why it exists:</strong> When Service A calls Service B over REST, both must be up at the same time. If B is slow or down, A fails or blocks. With Kafka, A writes <code class="kw-code">OrderCreated</code> to a topic and moves on. B (and C, D) consume when ready.</p>
 <ul>
@@ -94,7 +94,7 @@
           <div class="qa-question"><h3>Kafka architecture — cluster, brokers, ZooKeeper/KRaft</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Architecture</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Kafka cluster</span></li><li><span class="kw">brokers</span></li><li><span class="kw">partitions</span></li><li><span class="kw">KRaft</span></li><li><span class="kw">ZooKeeper</span></li><li><span class="kw">Leader partition:</span></li><li><span class="kw">Followers:</span></li><li><span class="kw">Controller:</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Kafka architecture — cluster, brokers, ZooKeeper/KRaft</strong>. A Kafka cluster is several brokers (servers).</p><p>A <strong class="kw">Kafka cluster</strong> is several <strong class="kw">brokers</strong> (servers). Topics are split into <strong class="kw">partitions</strong> spread across brokers. <strong class="kw">KRaft</strong> (new) or <strong class="kw">ZooKeeper</strong> (older) stores cluster metadata — who is leader for which partition.</p>
+<p>A <strong class="kw">Kafka cluster</strong> is several <strong class="kw">brokers</strong> (servers). Topics are split into <strong class="kw">partitions</strong> spread across brokers. <strong class="kw">KRaft</strong> (new) or <strong class="kw">ZooKeeper</strong> (older) stores cluster metadata — who is leader for which partition.</p>
 <h4>Detailed explanation</h4>
 <pre><code class="kw-code">Producer -&gt; Broker (leader partition) -&gt; Follower replicas | Consumer group reads offsets</code></pre>
 <ul>
@@ -112,7 +112,7 @@
           <div class="qa-question"><h3>Topic vs partition vs offset (must know)</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Basics</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">payments</span></li><li><span class="kw">Topic</span></li><li><span class="kw">Partition</span></li><li><span class="kw">Offset</span></li><li><span class="kw">only guaranteed inside one partition</span></li><li><span class="kw">out of order globally</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Topic</strong> = category of events. <strong class="kw">Partition</strong> = ordered shard inside topic. <strong class="kw">Offset</strong> = sequence number within that partition. Ordering is <strong class="kw">only guaranteed inside one partition</strong>.</p>
+<p><strong class="kw">Topic</strong> = category of events. <strong class="kw">Partition</strong> = ordered shard inside topic. <strong class="kw">Offset</strong> = sequence number within that partition. Ordering is <strong class="kw">only guaranteed inside one partition</strong>.</p>
 <h4>Detailed explanation</h4>
 <p>Topic <code class="kw-code">payments</code> with 3 partitions:</p>
 <ul>
@@ -133,7 +133,7 @@ Key: accountId -&gt; same partition -&gt; ordered per account</code></pre>
           <div class="qa-question"><h3>How does a producer send a message?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Producer</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">acks</span></li><li><span class="kw">ProducerRecord(topic, key, value)</span></li><li><span class="kw">leader</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How does a producer send a message. Producer serializes record → picks partition (key hash or round-robin) → sends to leader broker → waits per setting → retries on transient failure.</p><p>Producer serializes record → picks partition (key hash or round-robin) → sends to <strong class="kw">leader</strong> broker → waits per <code class="kw-code">acks</code> setting → retries on transient failure.</p>
+<p>Producer serializes record → picks partition (key hash or round-robin) → sends to <strong class="kw">leader</strong> broker → waits per <code class="kw-code">acks</code> setting → retries on transient failure.</p>
 <h4>Detailed explanation</h4>
 <ol>
 <li>Build <code class="kw-code">ProducerRecord(topic, key, value)</code></li>
@@ -154,7 +154,7 @@ Key: accountId -&gt; same partition -&gt; ordered per account</code></pre>
           <div class="qa-question"><h3>How does a consumer read messages?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Consumer</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">consumer.poll(Duration)</span></li><li><span class="kw">group</span></li><li><span class="kw">commits offset</span></li><li><span class="kw">Poll loop:</span></li><li><span class="kw">Processing:</span></li><li><span class="kw">Commit:</span></li><li><span class="kw">before</span></li><li><span class="kw">at-least-once</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How does a consumer read messages. Consumer joins a group , gets assigned partition(s), polls broker for records, processes, then commits offset (bookmark).</p><p>Consumer joins a <strong class="kw">group</strong>, gets assigned partition(s), polls broker for records, processes, then <strong class="kw">commits offset</strong> (bookmark). Other consumers in same group do not read same partition.</p>
+<p>Consumer joins a <strong class="kw">group</strong>, gets assigned partition(s), polls broker for records, processes, then <strong class="kw">commits offset</strong> (bookmark). Other consumers in same group do not read same partition.</p>
 <h4>Detailed explanation</h4>
 <ul>
 <li><strong class="kw">Poll loop:</strong> <code class="kw-code">consumer.poll(Duration)</code> returns batch</li>
@@ -180,7 +180,7 @@ consumer.commitSync(); // after success</code></pre>
           <div class="qa-question"><h3>Kafka vs JMS / RabbitMQ (queue vs log)</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Compare</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">kafka:topicName</span></li><li><span class="kw">Queue (JMS/Rabbit):</span></li><li><span class="kw">Kafka:</span></li><li><span class="kw">groups</span></li><li><span class="kw">one</span></li><li><span class="kw">event history</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">JMS</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Queue (JMS/Rabbit):</strong> message usually removed after one consumer ack. <strong class="kw">Kafka:</strong> message stays in log for retention period; many consumer <strong class="kw">groups</strong> each keep their own offset.</p>
+<p><strong class="kw">Queue (JMS/Rabbit):</strong> message usually removed after one consumer ack. <strong class="kw">Kafka:</strong> message stays in log for retention period; many consumer <strong class="kw">groups</strong> each keep their own offset.</p>
 <h4>Detailed explanation</h4>
 <table style="width:100%;font-size:0.9rem;margin:0.5rem 0">
 <tr><th></th><th>JMS / traditional queue</th><th>Kafka</th></tr>
@@ -201,7 +201,7 @@ consumer.commitSync(); // after success</code></pre>
           <div class="qa-question"><h3>When is Kafka the right choice?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Design</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">high throughput</span></li><li><span class="kw">multiple independent consumers</span></li><li><span class="kw">replay</span></li><li><span class="kw">audit trail</span></li><li><span class="kw">Good fits:</span></li><li><span class="kw">Poor fits:</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">JMS</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">When is Kafka the right choice</strong>. Use Kafka when you need high throughput , multiple independent consumers , replay , or an audit trail of events.</p><p>Use Kafka when you need <strong class="kw">high throughput</strong>, <strong class="kw">multiple independent consumers</strong>, <strong class="kw">replay</strong>, or an <strong class="kw">audit trail</strong> of events. Skip it for low-volume task queues where JMS + Camel is simpler.</p>
+<p>Use Kafka when you need <strong class="kw">high throughput</strong>, <strong class="kw">multiple independent consumers</strong>, <strong class="kw">replay</strong>, or an <strong class="kw">audit trail</strong> of events. Skip it for low-volume task queues where JMS + Camel is simpler.</p>
 <h4>Detailed explanation</h4>
 <p><strong class="kw">Good fits:</strong></p>
 <ul>
@@ -232,7 +232,7 @@ consumer.commitSync(); // after success</code></pre>
           <div class="qa-question"><h3>Producer acks: 0, 1, and all</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Producer</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">acks=0</span></li><li><span class="kw">acks=1</span></li><li><span class="kw">acks=all</span></li><li><span class="kw">min.insync.replicas=2</span></li><li><span class="kw">retries</span></li><li><span class="kw">enable.idempotence=true</span></li><li><span class="kw">acks=0:</span></li><li><span class="kw">acks=1:</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Producer acks: 0, 1, and all</strong>. fire-and-forget (fast, may lose).</p><p><code class="kw-code">acks=0</code> fire-and-forget (fast, may lose). <code class="kw-code">acks=1</code> leader wrote (risk if leader dies before replicate). <code class="kw-code">acks=all</code> all in-sync replicas ack (safest standard prod choice).</p>
+<p><code class="kw-code">acks=0</code> fire-and-forget (fast, may lose). <code class="kw-code">acks=1</code> leader wrote (risk if leader dies before replicate). <code class="kw-code">acks=all</code> all in-sync replicas ack (safest standard prod choice).</p>
 <h4>Detailed explanation</h4>
 <ul>
 <li><strong class="kw">acks=0:</strong> producer does not wait — use only for metrics where loss OK</li>
@@ -252,7 +252,7 @@ spring.kafka.producer.enable-idempotence=true</code></pre>
           <div class="qa-question"><h3>How do you guarantee ordering?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Ordering</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">accountId</span></li><li><span class="kw">hash(key) % numPartitions</span></li><li><span class="kw">within one partition</span></li><li><span class="kw">message key</span></li><li><span class="kw">Rules:</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">Telco</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you guarantee ordering. Ordering only within one partition .</p><p>Ordering only <strong class="kw">within one partition</strong>. Put all related events on the same partition using a stable <strong class="kw">message key</strong> (e.g. <code class="kw-code">accountId</code>).</p>
+<p>Ordering only <strong class="kw">within one partition</strong>. Put all related events on the same partition using a stable <strong class="kw">message key</strong> (e.g. <code class="kw-code">accountId</code>).</p>
 <h4>Detailed explanation</h4>
 <p>Partitioner: <code class="kw-code">hash(key) % numPartitions</code>. Same key → same partition → FIFO order for that key.</p>
 <p><strong class="kw">Rules:</strong></p>
@@ -272,7 +272,7 @@ spring.kafka.producer.enable-idempotence=true</code></pre>
           <div class="qa-question"><h3>How many partitions should a topic have?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Design</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">consumers you will ever run</span></li><li><span class="kw">Throughput:</span></li><li><span class="kw">Consumers:</span></li><li><span class="kw">Over-partitioning:</span></li><li><span class="kw">Changing count:</span></li><li><span class="kw">Kafka</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How many partitions should a topic have. Enough for target throughput and consumer parallelism; upper bound roughly consumers you will ever run .</p><p>Enough for target throughput and consumer parallelism; upper bound roughly <strong class="kw">consumers you will ever run</strong>. Too many partitions = more overhead. Plan key strategy first.</p>
+<p>Enough for target throughput and consumer parallelism; upper bound roughly <strong class="kw">consumers you will ever run</strong>. Too many partitions = more overhead. Plan key strategy first.</p>
 <h4>Detailed explanation</h4>
 <ul>
 <li><strong class="kw">Throughput:</strong> each partition is ordered log on one broker leader — more partitions = more parallel writes/reads</li>
@@ -297,7 +297,7 @@ spring.kafka.producer.enable-idempotence=true</code></pre>
           <div class="qa-question"><h3>Consumer groups and rebalancing</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Consumer</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">group.id</span></li><li><span class="kw">billing-service</span></li><li><span class="kw">reporting-service</span></li><li><span class="kw">at most one</span></li><li><span class="kw">Rebalance</span></li><li><span class="kw">Rebalance problems:</span></li><li><span class="kw">Different groups:</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Consumer groups and rebalancing</strong>. Consumers with same cooperate: each partition assigned to at most one consumer in the group.</p><p>Consumers with same <code class="kw-code">group.id</code> cooperate: each partition assigned to <strong class="kw">at most one</strong> consumer in the group. Add consumers to scale until you hit partition count. <strong class="kw">Rebalance</strong> redistributes partitions when members join/leave.</p>
+<p>Consumers with same <code class="kw-code">group.id</code> cooperate: each partition assigned to <strong class="kw">at most one</strong> consumer in the group. Add consumers to scale until you hit partition count. <strong class="kw">Rebalance</strong> redistributes partitions when members join/leave.</p>
 <h4>Detailed explanation</h4>
 <p>Scenario: topic has 6 partitions, group has 2 consumers → each gets 3 partitions. Add 4th consumer → 2 idle (6 partitions max). Add 6 consumers → 1 partition each (max parallelism).</p>
 <p><strong class="kw">Rebalance problems:</strong> during rebalance, consumption pauses ("stop the world") — can cause lag spikes. Mitigations: cooperative-sticky assignor, avoid bouncing consumers, static membership for short restarts.</p>
@@ -311,7 +311,7 @@ spring.kafka.producer.enable-idempotence=true</code></pre>
           <div class="qa-question"><h3>At-most-once, at-least-once, exactly-once</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Reliability</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">At-most-once:</span></li><li><span class="kw">At-least-once:</span></li><li><span class="kw">Exactly-once:</span></li><li><span class="kw">at-least-once</span></li><li><span class="kw">idempotent</span></li><li><span class="kw">after</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">transactional</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">At-most-once, at-least-once, exactly-once</strong>. At-most-once: commit offset before process — may lose on crash.</p><p><strong class="kw">At-most-once:</strong> commit offset before process — may lose on crash. <strong class="kw">At-least-once:</strong> process then commit — may duplicate (most common). <strong class="kw">Exactly-once:</strong> Kafka transactions + idempotent producer + transactional consumer — complex, latency cost.</p>
+<p><strong class="kw">At-most-once:</strong> commit offset before process — may lose on crash. <strong class="kw">At-least-once:</strong> process then commit — may duplicate (most common). <strong class="kw">Exactly-once:</strong> Kafka transactions + idempotent producer + transactional consumer — complex, latency cost.</p>
 <h4>Detailed explanation</h4>
 <p><strong class="kw">Practical telco/billing approach (recommended in interviews):</strong></p>
 <ol>
@@ -330,7 +330,7 @@ spring.kafka.producer.enable-idempotence=true</code></pre>
           <div class="qa-question"><h3>Idempotent consumer — how to implement</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Reliability</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">orderId</span></li><li><span class="kw">eventId</span></li><li><span class="kw">Natural key:</span></li><li><span class="kw">Processed-events table:</span></li><li><span class="kw">Outbox + status:</span></li><li><span class="kw">Idempotent</span></li><li><span class="kw">Camel</span></li><li><span class="kw">JMS</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Idempotent consumer — how to implement</strong>. Same pattern you use when Camel redelivers JMS message after failure — Kafka duplicates are expected, not exceptional.</p><ul class="brief-bullets"><li>Processing the same message twice must not double-charge or double-insert.</li><li>Use business idempotency keys and database constraints.</li></ul>
+<ul class="brief-bullets"><li>Processing the same message twice must not double-charge or double-insert.</li><li>Use business idempotency keys and database constraints.</li></ul>
 <h4>Detailed explanation</h4>
 <ul>
 <li><strong class="kw">Natural key:</strong> <code class="kw-code">orderId</code> as primary key — second insert fails or upserts</li>
@@ -348,7 +348,7 @@ ON DUPLICATE KEY UPDATE event_id = event_id;</code></pre>
           <div class="qa-question"><h3>When should you commit offsets?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Consumer</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">ack-mode=RECORD</span></li><li><span class="kw">BATCH</span></li><li><span class="kw">max.poll.interval.ms</span></li><li><span class="kw">after</span></li><li><span class="kw">Auto commit (enable.auto.commit=true):</span></li><li><span class="kw">Manual / Spring:</span></li><li><span class="kw">Spring</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">When should you commit offsets</strong>. Commit after side effects succeed (DB update, downstream call).</p><p>Commit <strong class="kw">after</strong> side effects succeed (DB update, downstream call). Committing before processing risks message loss on crash.</p>
+<p>Commit <strong class="kw">after</strong> side effects succeed (DB update, downstream call). Committing before processing risks message loss on crash.</p>
 <h4>Detailed explanation</h4>
 <p><strong class="kw">Auto commit (enable.auto.commit=true):</strong> easy for demos; can commit before your handler finishes → loss risk.</p>
 <p><strong class="kw">Manual / Spring:</strong> <code class="kw-code">ack-mode=RECORD</code> or <code class="kw-code">BATCH</code> after listener returns successfully. For slow handlers, tune <code class="kw-code">max.poll.interval.ms</code> so broker does not kick consumer out of group.</p>
@@ -368,7 +368,7 @@ ON DUPLICATE KEY UPDATE event_id = event_id;</code></pre>
           <div class="qa-question"><h3>Replication, ISR, and leader election</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Reliability</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">min.insync.replicas=2</span></li><li><span class="kw">acks=all</span></li><li><span class="kw">leader</span></li><li><span class="kw">followers</span></li><li><span class="kw">replication factor</span></li><li><span class="kw">ISR</span></li><li><span class="kw">3</span></li><li><span class="kw">Unclean leader election:</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Replication, ISR, and leader election</strong>. Each partition has one leader and N−1 followers ( replication factor ).</p><p>Each partition has one <strong class="kw">leader</strong> and N−1 <strong class="kw">followers</strong> (<strong class="kw">replication factor</strong>). Producers/consumers talk to leader; followers replicate. <strong class="kw">ISR</strong> = replicas caught up. If leader dies, a follower in ISR becomes leader.</p>
+<p>Each partition has one <strong class="kw">leader</strong> and N−1 <strong class="kw">followers</strong> (<strong class="kw">replication factor</strong>). Producers/consumers talk to leader; followers replicate. <strong class="kw">ISR</strong> = replicas caught up. If leader dies, a follower in ISR becomes leader.</p>
 <h4>Detailed explanation</h4>
 <p>Replication factor <strong class="kw">3</strong> on 3+ brokers is common: survive one broker loss. <code class="kw-code">min.insync.replicas=2</code> with <code class="kw-code">acks=all</code> means producer fails if only one replica alive — prevents silent data loss.</p>
 <ul>
@@ -384,7 +384,7 @@ ON DUPLICATE KEY UPDATE event_id = event_id;</code></pre>
           <div class="qa-question"><h3>Retention, compaction, and replay</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Ops</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">earliest</span></li><li><span class="kw">retention.ms=604800000</span></li><li><span class="kw">customerId</span></li><li><span class="kw">group.id</span></li><li><span class="kw">auto.offset.reset=earliest</span></li><li><span class="kw">Retention</span></li><li><span class="kw">Compaction</span></li><li><span class="kw">Replay</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Retention, compaction, and replay</strong>. Retention (time or size) deletes old segments.</p><p><strong class="kw">Retention</strong> (time or size) deletes old segments. <strong class="kw">Compaction</strong> keeps latest value per key — changelog style. <strong class="kw">Replay</strong> = consumer reads from older offset or new consumer group starts at <code class="kw-code">earliest</code>.</p>
+<p><strong class="kw">Retention</strong> (time or size) deletes old segments. <strong class="kw">Compaction</strong> keeps latest value per key — changelog style. <strong class="kw">Replay</strong> = consumer reads from older offset or new consumer group starts at <code class="kw-code">earliest</code>.</p>
 <h4>Detailed explanation</h4>
 <ul>
 <li><code class="kw-code">retention.ms=604800000</code> (7 days) common for events</li>
@@ -400,7 +400,7 @@ ON DUPLICATE KEY UPDATE event_id = event_id;</code></pre>
           <div class="qa-question"><h3>Dead letter topic (DLT) for poison messages</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Reliability</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">deadLetterChannel</span></li><li><span class="kw">DLT</span></li><li><span class="kw">JSON</span></li><li><span class="kw">Camel</span></li><li><span class="kw">JMS</span></li><li><span class="kw">DLQ</span></li><li><span class="kw">Spring</span></li><li><span class="kw">telco</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Dead letter topic (DLT) for poison messages</strong>. Message fails processing N times (bad JSON, null pointer, bad business data) → publish to DLT topic and commit offset on main topic so partition does not stall.</p><p>Message fails processing N times (bad JSON, null pointer, bad business data) → publish to <strong class="kw">DLT</strong> topic and commit offset on main topic so partition does not stall.</p>
+<p>Message fails processing N times (bad JSON, null pointer, bad business data) → publish to <strong class="kw">DLT</strong> topic and commit offset on main topic so partition does not stall.</p>
 <h4>Detailed explanation</h4>
 <p>Same idea as Camel <code class="kw-code">deadLetterChannel</code> or JMS DLQ. Ops fixes data or code, replays from DLT manually.</p>
 <h4>Spring example</h4>
@@ -421,7 +421,7 @@ ON DUPLICATE KEY UPDATE event_id = event_id;</code></pre>
           <div class="qa-question"><h3>Kafka with Spring Boot (practical guide)</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Spring</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring-kafka</span></li><li><span class="kw">KafkaTemplate</span></li><li><span class="kw">KafkaListener</span></li><li><span class="kw">Local practice:</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">JSON</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Kafka with Spring Boot (practical guide)</strong>. Add : configure bootstrap servers, use to send, to receive, JSON serializers, error handler + retry/DLT.</p><p>Add <code class="kw-code">spring-kafka</code>: configure bootstrap servers, use <code class="kw-code">KafkaTemplate</code> to send, <code class="kw-code">@KafkaListener</code> to receive, JSON serializers, error handler + retry/DLT.</p>
+<p>Add <code class="kw-code">spring-kafka</code>: configure bootstrap servers, use <code class="kw-code">KafkaTemplate</code> to send, <code class="kw-code">@KafkaListener</code> to receive, JSON serializers, error handler + retry/DLT.</p>
 <h4>Detailed explanation</h4>
 <pre><code class="kw-code">spring.kafka.bootstrap-servers: localhost:9092
 spring.kafka.consumer.group-id: reporting-service</code></pre>
@@ -438,7 +438,7 @@ void handle(OrderEvent e) { reportService.update(e); }</code></pre>
           <div class="qa-question"><h3>Define &amp; use Kafka in Spring Boot — full example (step by step)</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Spring</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring-kafka</span></li><li><span class="kw">application.yml</span></li><li><span class="kw">NewTopic / TopicBuilder</span></li><li><span class="kw">KafkaTemplate</span></li><li><span class="kw">@KafkaListener</span></li><li><span class="kw">JsonSerializer</span></li><li><span class="kw">DefaultErrorHandler + DLT</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Add the <code class="kw-code">spring-kafka</code> starter, point it at the broker in config, send with <code class="kw-code">KafkaTemplate</code>, and receive with <code class="kw-code">@KafkaListener</code>. Spring Boot auto-configures the producer/consumer factories for you.</p>
+
 
 <h4>Step 1 — Add the dependency (Maven)</h4>
 <pre><code class="kw-code">&lt;dependency&gt;
@@ -535,7 +535,7 @@ docker run -p 9092:9092 apache/kafka:latest
           <div class="qa-question"><h3>Schema Registry and schema evolution</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Schema</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Compatibility rules</span></li><li><span class="kw">Backward compatible:</span></li><li><span class="kw">Forward compatible:</span></li><li><span class="kw">Breaking change:</span></li><li><span class="kw">JSON</span></li><li><span class="kw">API</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Schema Registry and schema evolution</strong>. Central store for Avro/JSON/Protobuf schemas with version numbers.</p><p>Central store for Avro/JSON/Protobuf schemas with version numbers. Producers embed schema id; consumers fetch schema to deserialize. <strong class="kw">Compatibility rules</strong> prevent breaking changes.</p>
+<p>Central store for Avro/JSON/Protobuf schemas with version numbers. Producers embed schema id; consumers fetch schema to deserialize. <strong class="kw">Compatibility rules</strong> prevent breaking changes.</p>
 <h4>Detailed explanation</h4>
 <ul>
 <li><strong class="kw">Backward compatible:</strong> new schema can read old data (add optional field with default)</li>
@@ -559,7 +559,7 @@ docker run -p 9092:9092 apache/kafka:latest
           <div class="qa-question"><h3>Troubleshooting high consumer lag</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Ops</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Lag</span></li><li><span class="kw">Measure:</span></li><li><span class="kw">Scale:</span></li><li><span class="kw">Optimize handler:</span></li><li><span class="kw">Check downstream:</span></li><li><span class="kw">Poison pill:</span></li><li><span class="kw">Rebalance:</span></li><li><span class="kw">GC</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Troubleshooting high consumer lag</strong>. Lag = how far behind consumers are.</p><p><strong class="kw">Lag</strong> = how far behind consumers are. Causes: slow handler, too few consumers vs partitions, GC pauses, DB bottleneck, rebalance storm, poison message retry loop.</p>
+<p><strong class="kw">Lag</strong> = how far behind consumers are. Causes: slow handler, too few consumers vs partitions, GC pauses, DB bottleneck, rebalance storm, poison message retry loop.</p>
 <h4>Detailed explanation</h4>
 <ol>
 <li><strong class="kw">Measure:</strong> lag per partition (Burrow, Kafka exporter, cloud metrics)</li>
@@ -578,7 +578,7 @@ docker run -p 9092:9092 apache/kafka:latest
           <div class="qa-question"><h3>Transactional outbox with Kafka</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Patterns</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">same DB transaction</span></li><li><span class="kw">producer-side</span></li><li><span class="kw">Transactional</span></li><li><span class="kw">Kafka</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Transactional outbox with Kafka</strong>. Write business row + outbox row in same DB transaction .</p><p>Write business row + outbox row in <strong class="kw">same DB transaction</strong>. Separate publisher polls outbox and publishes to Kafka — avoids "DB committed but message never sent".</p>
+<p>Write business row + outbox row in <strong class="kw">same DB transaction</strong>. Separate publisher polls outbox and publishes to Kafka — avoids "DB committed but message never sent".</p>
 <h4>Detailed explanation</h4>
 <pre><code class="kw-code">BEGIN; INSERT INTO orders (...); INSERT INTO outbox (...); COMMIT;
 -- relay publishes to Kafka topic order-events</code></pre>
@@ -592,7 +592,7 @@ docker run -p 9092:9092 apache/kafka:latest
           <div class="qa-question"><h3>Kafka in event-driven microservices</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Architecture</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">AccountActivated</span></li><li><span class="kw">eventual consistency</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">REST</span></li><li><span class="kw">Saga</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Kafka in event-driven microservices</strong>. Services publish facts ( ); others subscribe without publisher knowing them.</p><p>Services publish facts (<code class="kw-code">AccountActivated</code>); others subscribe without publisher knowing them. Enables independent deploy and scale; tradeoff is <strong class="kw">eventual consistency</strong> and harder debugging.</p>
+<p>Services publish facts (<code class="kw-code">AccountActivated</code>); others subscribe without publisher knowing them. Enables independent deploy and scale; tradeoff is <strong class="kw">eventual consistency</strong> and harder debugging.</p>
 <h4>Detailed explanation</h4>
 <ul>
 <li>Replace chained REST calls with events where delay OK</li>
@@ -607,7 +607,7 @@ docker run -p 9092:9092 apache/kafka:latest
           <div class="qa-question"><h3>Apache Camel + Kafka (bridge to your experience)</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Camel</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">JMS</span></li><li><span class="kw">DLQ</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Apache Camel + Kafka (bridge to your experience)</strong>. Camel routes can consume/produce Kafka topics same as JMS — same EIP patterns: split, aggregate, retry, dead letter, wireTap.</p><p>Camel routes can consume/produce Kafka topics same as JMS — same EIP patterns: split, aggregate, retry, dead letter, wireTap.</p>
+<p>Camel routes can consume/produce Kafka topics same as JMS — same EIP patterns: split, aggregate, retry, dead letter, wireTap.</p>
 <h4>Detailed explanation</h4>
 <pre><code class="kw-code">from("kafka:order-events?groupId=integration").to("jms:queue:billing-in");</code></pre>
 <p>Interview gold for you: <em>"I have deep Camel integration experience; Kafka is the log-backed transport Camel often fronts in modern estates. The hard part is reliability patterns — idempotency, DLQ, correlation — which I already applied on JMS at 1M+ txn/day."</em></p>
@@ -618,7 +618,7 @@ docker run -p 9092:9092 apache/kafka:latest
           <div class="qa-question"><h3>How to interview honestly with limited Kafka hands-on</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Interview</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">integration fundamentals</span></li><li><span class="kw">log-based</span></li><li><span class="kw">Say:</span></li><li><span class="kw">Do not say:</span></li><li><span class="kw">Do say:</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">DLQ</span></li><li><span class="kw">Camel</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How to interview honestly with limited Kafka hands-on. Lead with integration fundamentals (async, idempotency, ordering, DLQ) from Camel/JMS, then Kafka as the log-based implementation you have studied and practiced locally.</p><p>Lead with <strong class="kw">integration fundamentals</strong> (async, idempotency, ordering, DLQ) from Camel/JMS, then Kafka as the <strong class="kw">log-based</strong> implementation you have studied and practiced locally.</p>
+<p>Lead with <strong class="kw">integration fundamentals</strong> (async, idempotency, ordering, DLQ) from Camel/JMS, then Kafka as the <strong class="kw">log-based</strong> implementation you have studied and practiced locally.</p>
 <h4>Detailed explanation</h4>
 <p><strong class="kw">Say:</strong></p>
 <ul>
@@ -641,7 +641,7 @@ docker run -p 9092:9092 apache/kafka:latest
           <div class="qa-question"><h3>Common Kafka interview mistakes to avoid</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Interview</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">"Kafka guarantees order"</span></li><li><span class="kw">"Exactly-once everywhere"</span></li><li><span class="kw">"More consumers always faster"</span></li><li><span class="kw">"Kafka replaces database"</span></li><li><span class="kw">No mention of monitoring lag</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">idempotent</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Common Kafka interview mistakes to avoid</strong>. Top mistakes: claiming global ordering, ignoring duplicates, committing offset before DB write, confusing topic with queue deletion, not knowing partition/consumer limit.</p><p>Top mistakes: claiming global ordering, ignoring duplicates, committing offset before DB write, confusing topic with queue deletion, not knowing partition/consumer limit.</p>
+<p>Top mistakes: claiming global ordering, ignoring duplicates, committing offset before DB write, confusing topic with queue deletion, not knowing partition/consumer limit.</p>
 <h4>Detailed explanation</h4>
 <ul>
 <li><strong class="kw">"Kafka guarantees order"</strong> → only per partition</li>

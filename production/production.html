@@ -49,7 +49,7 @@
           <div class="qa-question"><h3>What does "production mindset" mean for a backend engineer?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Mindset</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">after</span></li><li><span class="kw">Assume failure:</span></li><li><span class="kw">Operability:</span></li><li><span class="kw">Change discipline:</span></li><li><span class="kw">SLA</span></li><li><span class="kw">telco</span></li><li><span class="kw">Jenkins</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">What does &quot;production mindset&quot; mean for a backend engineer</strong>. Production mindset means you own code after merge: it runs 24/7, serves real subscribers, and failures have revenue/SLA impact.</p><p>Production mindset means you own code <strong class="kw">after</strong> merge: it runs 24/7, serves real subscribers, and failures have revenue/SLA impact. You think about observability, rollback, capacity, and blast radius before shipping.</p>
+<p>Production mindset means you own code <strong class="kw">after</strong> merge: it runs 24/7, serves real subscribers, and failures have revenue/SLA impact. You think about observability, rollback, capacity, and blast radius before shipping.</p>
 <ul>
 <li><strong class="kw">Assume failure:</strong> networks, DB, partners time out — design timeouts, retries with limits, idempotency</li>
 <li><strong class="kw">Operability:</strong> logs with correlation IDs, health endpoints, runbooks</li>
@@ -64,7 +64,7 @@
           <div class="qa-question"><h3>What is your role during on-call?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">On-Call</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">first responder</span></li><li><span class="kw">SLA</span></li><li><span class="kw">MTTR</span></li><li><span class="kw">Acknowledge page within SLA (e.g. 5</span></li><li><span class="kw">Post</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">your role during on-call</strong> is a core concept to understand for interviews.</p><p>On-call is <strong class="kw">first responder</strong> for customer-impacting issues: acknowledge alert, assess severity, mitigate (rollback, disable feature, scale), communicate, then root-cause after stability.</p>
+<p>On-call is <strong class="kw">first responder</strong> for customer-impacting issues: acknowledge alert, assess severity, mitigate (rollback, disable feature, scale), communicate, then root-cause after stability.</p>
 <h4>Typical flow</h4>
 <ol>
 <li>Acknowledge page within SLA (e.g. 5–15 min)</li>
@@ -82,7 +82,7 @@
           <div class="qa-question"><h3>How do you classify incident severity (Sev-1 vs Sev-2)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">On-Call</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">customer/business impact</span></li><li><span class="kw">Sev-1:</span></li><li><span class="kw">Sev-2:</span></li><li><span class="kw">Sev-3/4:</span></li><li><span class="kw">API</span></li><li><span class="kw">Telco</span></li><li><span class="kw">Camel</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you classify incident severity (Sev-1 vs Sev-2). Severity = customer/business impact , not how angry the log stack is.</p><p>Severity = <strong class="kw">customer/business impact</strong>, not how angry the log stack is.</p>
+<p>Severity = <strong class="kw">customer/business impact</strong>, not how angry the log stack is.</p>
 <ul>
 <li><strong class="kw">Sev-1:</strong> major outage — provisioning down, billing cannot charge, widespread API failures</li>
 <li><strong class="kw">Sev-2:</strong> degraded — slow reports, one partner route failing, workaround exists</li>
@@ -97,7 +97,7 @@
           <div class="qa-question"><h3>Change freeze and when not to deploy?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Mindset</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Change freeze and when not to deploy</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Change freeze and when not to deploy</strong>. As developer: avoid Friday 6 PM deploys unless hotfix; prefer feature flags over big-bang config changes.</p><ul class="brief-bullets"><li>During high-risk windows (month-end billing, campaign launch, holidays) teams freeze non-essential deploys.</li><li>Emergency fixes still go with extra approval and rollback ready.</li></ul>
+<ul class="brief-bullets"><li>During high-risk windows (month-end billing, campaign launch, holidays) teams freeze non-essential deploys.</li><li>Emergency fixes still go with extra approval and rollback ready.</li></ul>
 <p>As developer: avoid Friday 6 PM deploys unless hotfix; prefer feature flags over big-bang config changes.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -106,7 +106,7 @@
           <div class="qa-question"><h3>What is a runbook and what should it contain?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">On-Call</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Jenkins</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> <strong class="kw">a runbook and what should it contain</strong> is a core concept to understand for interviews. Step-by-step ops doc for a known failure mode: symptoms, dashboards to check, commands, rollback steps, escalation contacts.</p><p>Step-by-step ops doc for a known failure mode: symptoms, dashboards to check, commands, rollback steps, escalation contacts.</p>
+<p>Step-by-step ops doc for a known failure mode: symptoms, dashboards to check, commands, rollback steps, escalation contacts.</p>
 <p>Example for your stack: <em>"Fuse Logger ingestion lag"</em> — check queue depth, restart consumer pod, verify DB connection pool, link to Jenkins last deploy.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -115,7 +115,7 @@
           <div class="qa-question"><h3>Blameless postmortem — what do you contribute?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Mindset</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">system fixes</span></li><li><span class="kw">CI</span></li><li><span class="kw">SLA</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Blameless postmortem — what do you contribute</strong>. Focus on system fixes , not blaming individuals.</p><p>Focus on <strong class="kw">system fixes</strong>, not blaming individuals. You bring facts: deploy time, config diff, log excerpts with correlation ID, what mitigated the issue.</p>
+<p>Focus on <strong class="kw">system fixes</strong>, not blaming individuals. You bring facts: deploy time, config diff, log excerpts with correlation ID, what mitigated the issue.</p>
 <p>Action items: add alert, fix missing timeout, improve test in CI, document partner SLA.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -131,7 +131,7 @@
           <div class="qa-question"><h3>MTTR vs MTTD — explain and improve them?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Incidents</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">MTTD</span></li><li><span class="kw">MTTR</span></li><li><span class="kw">SLO</span></li><li><span class="kw">Runbooks, one</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">MTTD</strong> (mean time to detect): how fast you know something broke. <strong class="kw">MTTR</strong> (mean time to recover): detect → stable again.</p>
+<p><strong class="kw">MTTD</strong> (mean time to detect): how fast you know something broke. <strong class="kw">MTTR</strong> (mean time to recover): detect → stable again.</p>
 <h4>Improve MTTD</h4>
 <ul><li>SLO-based alerts on error rate/latency, not only process down</li><li>Synthetic checks on critical APIs</li></ul>
 <h4>Improve MTTR</h4>
@@ -143,7 +143,7 @@
           <div class="qa-question"><h3>First 15 minutes of a production incident?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Incidents</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Confirm impact:</span></li><li><span class="kw">Recent changes:</span></li><li><span class="kw">Mitigate:</span></li><li><span class="kw">Communicate:</span></li><li><span class="kw">Preserve evidence:</span></li><li><span class="kw">API</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">Camel</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">First 15 minutes of a production incident</strong>. Check dead letter queue, route metrics, stuck exchanges — often faster than reading full stack traces.</p><ol>
+<ol>
 <li><strong class="kw">Confirm impact:</strong> which API/route/tenant? Started when?</li>
 <li><strong class="kw">Recent changes:</strong> Jenkins deploy, config, partner maintenance</li>
 <li><strong class="kw">Mitigate:</strong> rollback, stop bad consumer, increase pool, route to DR</li>
@@ -159,7 +159,7 @@
           <div class="qa-question"><h3>Correlation ID — how do you use it in debugging?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Debugging</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">X-Correlation-Id</span></li><li><span class="kw">Camel</span></li><li><span class="kw">HTTP</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Correlation ID — how do you use it in debugging</strong>. Unique ID per inbound request (header or generated in filter) propagated through logs, Camel MDC, downstream HTTP calls.</p><p>Unique ID per inbound request (header <code class="kw-code">X-Correlation-Id</code> or generated in filter) propagated through logs, Camel MDC, downstream HTTP calls.</p>
+<p>Unique ID per inbound request (header <code class="kw-code">X-Correlation-Id</code> or generated in filter) propagated through logs, Camel MDC, downstream HTTP calls.</p>
 <pre><code class="kw-code">MDC.put("correlationId", id);
 log.info("Calling partner X"); // grep one ID across services</code></pre>
 <p>Without it, grepping millions of lines across Vodafone reporting + Camel routes is guesswork.</p>
@@ -170,7 +170,7 @@ log.info("Calling partner X"); // grep one ID across services</code></pre>
           <div class="qa-question"><h3>Log levels in production — best practice?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Debugging</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/loggers</span></li><li><span class="kw">INFO</span></li><li><span class="kw">WARN</span></li><li><span class="kw">ERROR</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Log levels in production — best practice</strong>. Default INFO for business milestones; WARN for recoverable issues; ERROR with stack only for real failures.</p><p>Default <strong class="kw">INFO</strong> for business milestones; <strong class="kw">WARN</strong> for recoverable issues; <strong class="kw">ERROR</strong> with stack only for real failures. Avoid DEBUG in prod (volume + PII risk).</p>
+<p>Default <strong class="kw">INFO</strong> for business milestones; <strong class="kw">WARN</strong> for recoverable issues; <strong class="kw">ERROR</strong> with stack only for real failures. Avoid DEBUG in prod (volume + PII risk).</p>
 <p>Dynamic log level via Actuator <code class="kw-code">/loggers</code> for short troubleshooting windows — revert after.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -179,7 +179,7 @@ log.info("Calling partner X"); // grep one ID across services</code></pre>
           <div class="qa-question"><h3>When do you take thread dump vs heap dump?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Debugging</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">jstack</span></li><li><span class="kw">/threaddump</span></li><li><span class="kw">Thread dump:</span></li><li><span class="kw">Heap dump:</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Thread dump:</strong> app hung, high CPU, deadlock — see blocked threads. <code class="kw-code">jstack</code> or Actuator <code class="kw-code">/threaddump</code>.</p>
+<p><strong class="kw">Thread dump:</strong> app hung, high CPU, deadlock — see blocked threads. <code class="kw-code">jstack</code> or Actuator <code class="kw-code">/threaddump</code>.</p>
 <p><strong class="kw">Heap dump:</strong> OutOfMemoryError, suspected memory leak — analyze with MAT (dominator tree). Heavy — use off-peak.</p>
 <p>Take during incident before restart destroys evidence.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -189,7 +189,7 @@ log.info("Calling partner X"); // grep one ID across services</code></pre>
           <div class="qa-question"><h3>Partner API slow — how do you debug without blaming them?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Incidents</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">Camel</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Partner API slow — how do you debug without blaming them</strong>. Partner integrations often have SLAs — document evidence before escalation.</p><ol>
+<ol>
 <li>Your metrics: p95 latency outbound, timeout count, thread pool queue</li>
 <li>Compare correlation IDs: your send time vs partner ack time</li>
 <li>Check connection pool exhaustion (symptom looks like partner issue)</li>
@@ -204,7 +204,7 @@ log.info("Calling partner X"); // grep one ID across services</code></pre>
           <div class="qa-question"><h3>How would Fuse Logger help during an incident?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Debugging</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">observability</span></li><li><span class="kw">API</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How would Fuse Logger help during an incident. Interview: tie to observability you actually used, not only ELK theory.</p><ul class="brief-bullets"><li>Fuse Logger (your Amdocs tool) centralizes integration/API traces — search by subscriber ID, transaction ID, route name.</li><li>Faster than SSH to three boxes grepping logs.</li></ul>
+<ul class="brief-bullets"><li>Fuse Logger (your Amdocs tool) centralizes integration/API traces — search by subscriber ID, transaction ID, route name.</li><li>Faster than SSH to three boxes grepping logs.</li></ul>
 <p>Interview: tie to <strong class="kw">observability</strong> you actually used, not only ELK theory.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -220,7 +220,7 @@ log.info("Calling partner X"); // grep one ID across services</code></pre>
           <div class="qa-question"><h3>Spring Boot Actuator in production — what do you expose?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Actuator</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">health</span></li><li><span class="kw">info</span></li><li><span class="kw">metrics</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Spring Boot Actuator in production — what do you expose</strong>. Expose health , info , metrics (Prometheus) on internal network only — never public internet without auth.</p><p>Expose <strong class="kw">health</strong>, <strong class="kw">info</strong>, <strong class="kw">metrics</strong> (Prometheus) on internal network only — never public internet without auth.</p>
+<p>Expose <strong class="kw">health</strong>, <strong class="kw">info</strong>, <strong class="kw">metrics</strong> (Prometheus) on internal network only — never public internet without auth.</p>
 <pre><code class="kw-code">management.endpoints.web.exposure.include=health,info,prometheus
 management.endpoint.health.show-details=when_authorized</code></pre>
 <p>Disable env dump, heap dump, shutdown on prod edge. Use separate management port if possible.</p>
@@ -231,7 +231,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>Liveness vs readiness probes (K8s)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Health</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Liveness:</span></li><li><span class="kw">Readiness:</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul>
+<ul>
 <li><strong class="kw">Liveness:</strong> process alive? Fails → restart pod (fix deadlock)</li>
 <li><strong class="kw">Readiness:</strong> can accept traffic? Fails → remove from load balancer (DB down, warming up)</li>
 </ul>
@@ -243,7 +243,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>Golden signals / RED metrics for your APIs?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Metrics</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">RED:</span></li><li><span class="kw">Camel</span></li><li><span class="kw">API</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Golden signals / RED metrics for your APIs</strong>. RED: Rate (requests/sec), Errors (5xx %), Duration (latency histogram).</p><p><strong class="kw">RED:</strong> Rate (requests/sec), Errors (5xx %), Duration (latency histogram).</p>
+<p><strong class="kw">RED:</strong> Rate (requests/sec), Errors (5xx %), Duration (latency histogram).</p>
 <p>Plus saturation: thread pool, DB connections, Camel consumer lag.</p>
 <p>Vodafone reporting API: track p95 report generation time, error rate by report type, DB query time.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -253,7 +253,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>SLI vs SLO vs SLA — simple example?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">SLO</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SLI:</span></li><li><span class="kw">SLO:</span></li><li><span class="kw">SLA:</span></li><li><span class="kw">SLO</span></li><li><span class="kw">SLA</span></li><li><span class="kw">API</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul>
+<ul>
 <li><strong class="kw">SLI:</strong> measured metric — e.g. % of provisioning API calls &lt; 2s</li>
 <li><strong class="kw">SLO:</strong> target — 99.5% of calls &lt; 2s over 30 days</li>
 <li><strong class="kw">SLA:</strong> contract with penalties — stricter, customer-facing</li>
@@ -266,7 +266,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>Good alert vs bad alert?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Alerting</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Good:</span></li><li><span class="kw">Bad:</span></li><li><span class="kw">SLO</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Good:</strong> actionable, symptom-based (SLO burn), clear runbook link, right severity.</p>
+<p><strong class="kw">Good:</strong> actionable, symptom-based (SLO burn), clear runbook link, right severity.</p>
 <p><strong class="kw">Bad:</strong> disk 80% on dev, log line match storm, pages for non-customer impact.</p>
 <p>Fix: alert on user-visible failure, aggregate flapping, on-call rotation with handoff notes.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -276,7 +276,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>What dashboards do you check first on-call?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Monitoring</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JVM</span></li><li><span class="kw">JMS</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">Camel</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">What dashboards do you check first on-call</strong>.</p><ol>
+<ol>
 <li>Error rate / 5xx spike by service</li>
 <li>Latency p95/p99</li>
 <li>Traffic drop (silent failure)</li>
@@ -297,7 +297,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>Describe a typical Jenkins pipeline you worked with?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">CI/CD</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Jenkins</span></li><li><span class="kw">TestNG</span></li><li><span class="kw">JUnit</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Describe a typical Jenkins pipeline you worked with</strong>. Optima-style: commit → build (Maven) → unit tests (TestNG/JUnit) → Sonar/static analysis → package JAR → deploy to env (DEV/UAT/PROD) with approvals on prod stage.</p><p>Optima-style: commit → build (Maven) → unit tests (TestNG/JUnit) → Sonar/static analysis → package JAR → deploy to env (DEV/UAT/PROD) with approvals on prod stage.</p>
+<p>Optima-style: commit → build (Maven) → unit tests (TestNG/JUnit) → Sonar/static analysis → package JAR → deploy to env (DEV/UAT/PROD) with approvals on prod stage.</p>
 <p>You own: tests must pass, version tags, changelog for ops. Failed prod deploy → previous artifact rollback.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -306,7 +306,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>How do you roll back a bad deployment?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Deploy</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">last known good</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">If DB migration ran forward</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you roll back a bad deployment. Rollback plan before every prod deploy; keep migrations backward-compatible when possible.</p><ol>
+<ol>
 <li>Redeploy <strong class="kw">last known good</strong> artifact from Jenkins (same DB schema compatible)</li>
 <li>If DB migration ran forward-only — forward fix migration, not down in prod blindly</li>
 <li>Feature flag off for bad code path without full redeploy</li>
@@ -319,7 +319,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>Blue-green vs canary — basics?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Deploy</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Blue-green:</span></li><li><span class="kw">Canary:</span></li><li><span class="kw">telco</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Blue-green:</strong> two full envs; switch traffic at load balancer — fast rollback (switch back).</p>
+<p><strong class="kw">Blue-green:</strong> two full envs; switch traffic at load balancer — fast rollback (switch back).</p>
 <p><strong class="kw">Canary:</strong> send 5% traffic to new version, watch metrics, then 100% — catches errors with limited blast radius.</p>
 <p>Many telco teams still do rolling deploy on VMs — know concepts even if K8s advanced routing not daily.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -329,7 +329,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>Config changes vs code deploy — risk?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Deploy</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">application-prod.yml</span></li><li><span class="kw">Spring</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><ul class="brief-bullets"><li>Config in Consul/env vars can break prod without compile error — wrong URL, timeout 0, pool size 1.</li><li>Treat config changes like releases: version control, peer review, gradual rollout.</li></ul>
+<ul class="brief-bullets"><li>Config in Consul/env vars can break prod without compile error — wrong URL, timeout 0, pool size 1.</li><li>Treat config changes like releases: version control, peer review, gradual rollout.</li></ul>
 <p>Spring profiles: <code class="kw-code">application-prod.yml</code> externalized; never bake secrets in JAR.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -338,7 +338,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>Safe database migration in production?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Deploy</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">telco</span></li><li><span class="kw">SQL</span></li><li><span class="kw">Expand</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Safe database migration in production</strong>.</p><ol>
+<ol>
 <li>Expand-contract: add nullable column → dual-write → backfill → switch read → drop old</li>
 <li>Online index creation, avoid full table lock on huge telco tables</li>
 <li>Test on copy of prod volume; Vodafone SQL tuning experience — execution plan before deploy</li>
@@ -350,7 +350,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>Zero-downtime deploy for stateful Java service?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Deploy</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">server.shutdown=graceful</span></li><li><span class="kw">Camel</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Zero-downtime deploy for stateful Java service</strong>. Readiness drain → rolling update → new pods pass health → old terminated.</p><p>Readiness drain → rolling update → new pods pass health → old terminated. Session sticky or external session store. Graceful shutdown: finish in-flight requests (<code class="kw-code">server.shutdown=graceful</code>).</p>
+<p>Readiness drain → rolling update → new pods pass health → old terminated. Session sticky or external session store. Graceful shutdown: finish in-flight requests (<code class="kw-code">server.shutdown=graceful</code>).</p>
 <p>Camel: stop route gracefully, complete in-flight exchanges before kill.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -366,7 +366,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>How did you approach SQL tuning in production (Vodafone)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">DB</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SQL</span></li><li><span class="kw">telco</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How did you approach SQL tuning in production (Vodafone). Reporting APIs slow → EXPLAIN plan, missing index, N+1 queries, full table scan on billing tables.</p><p>Reporting APIs slow → EXPLAIN plan, missing index, N+1 queries, full table scan on billing tables.</p>
+<p>Reporting APIs slow → EXPLAIN plan, missing index, N+1 queries, full table scan on billing tables.</p>
 <ul>
 <li>Add covering index for filter + sort columns</li>
 <li>Pagination instead of fetch all rows</li>
@@ -381,7 +381,7 @@ management.endpoint.health.show-details=when_authorized</code></pre>
           <div class="qa-question"><h3>HikariCP pool exhaustion — symptoms and fix?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">JVM</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Symptoms:</span></li><li><span class="kw">Causes:</span></li><li><span class="kw">Fix:</span></li><li><span class="kw">spring</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">HikariCP pool exhaustion — symptoms and fix</strong>. Symptoms: threads blocked waiting connection, timeouts, &quot;Connection is not available&quot;.</p><p><strong class="kw">Symptoms:</strong> threads blocked waiting connection, timeouts, "Connection is not available".</p>
+<p><strong class="kw">Symptoms:</strong> threads blocked waiting connection, timeouts, "Connection is not available".</p>
 <p><strong class="kw">Causes:</strong> pool too small, slow queries hold connections, connection leak (not closed).</p>
 <p><strong class="kw">Fix:</strong> right-size pool (~ cores * 2 + disk), fix long transactions, leak detection, query tuning.</p>
 <pre><code class="kw-code">spring.datasource.hikari.maximum-pool-size=20
@@ -393,7 +393,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>JVM heap and GC issues in production?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">JVM</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JVM</span></li><li><span class="kw">GC</span></li><li><span class="kw">Camel</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">JVM heap and GC issues in production</strong>. Mitigate: fix leak, increase heap within node limit, reduce object churn in hot Camel routes (large message bodies in memory).</p><ul class="brief-bullets"><li>Watch heap usage trend, GC pause time.</li><li>Frequent Full GC → memory leak or heap too small.</li><li>G1GC common on Java 11+.</li></ul>
+<ul class="brief-bullets"><li>Watch heap usage trend, GC pause time.</li><li>Frequent Full GC → memory leak or heap too small.</li><li>G1GC common on Java 11+.</li></ul>
 <p>Mitigate: fix leak, increase heap within node limit, reduce object churn in hot Camel routes (large message bodies in memory).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -402,7 +402,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>How do you keep Camel stable at 1M+ transactions/day?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Scale</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">Idempotent</span></li><li><span class="kw">XML</span></li><li><span class="kw">DLQ</span></li><li><span class="kw">Back</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you keep Camel stable at 1M+ transactions/day. Peak traffic + partner spikes — tuning redelivery and pool sizes prevented cascade failures.</p><ul>
+<ul>
 <li>Idempotent consumers, dedup store for partner retries</li>
 <li>Thread pool sizing per route; avoid single-thread bottleneck</li>
 <li>Streaming large payloads; don't load whole XML into memory</li>
@@ -418,7 +418,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>Caching in production — risks?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Performance</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Telco</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Caching in production — risks</strong>.</p><ul class="brief-bullets"><li>Stale data, cache stampede, invalidation bugs.</li><li>Use TTL, cache-aside, warm on deploy carefully.</li><li>Telco: don't cache subscriber balance without short TTL + invalidation on update.</li></ul>
+<ul class="brief-bullets"><li>Stale data, cache stampede, invalidation bugs.</li><li>Use TTL, cache-aside, warm on deploy carefully.</li><li>Telco: don't cache subscriber balance without short TTL + invalidation on update.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -426,7 +426,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>Timeouts and retries in production integrations?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Reliability</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">errorHandler</span></li><li><span class="kw">redeliveryPolicy</span></li><li><span class="kw">idempotent</span></li><li><span class="kw">Camel</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Timeouts and retries in production integrations</strong>. Camel: , with delay; dead letter after N failures.</p><ul class="brief-bullets"><li>Always set connect + read timeouts.</li><li>Retries only on idempotent ops with exponential backoff and max attempts.</li><li>Unbounded retry amplifies outages (retry storm).</li></ul>
+<ul class="brief-bullets"><li>Always set connect + read timeouts.</li><li>Retries only on idempotent ops with exponential backoff and max attempts.</li><li>Unbounded retry amplifies outages (retry storm).</li></ul>
 <p>Camel: <code class="kw-code">errorHandler</code>, <code class="kw-code">redeliveryPolicy</code> with delay; dead letter after N failures.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -435,7 +435,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>Camunda workflows in prod — what breaks?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">BPM</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">Camunda workflows in prod — what breaks</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Camunda workflows in prod — what breaks</strong>.</p><ul class="brief-bullets"><li>XL Axiata: long-running processes — external task timeouts, incident on failed service task, DB growth on history tables.</li><li>Monitor job executor lag, archive old instances, tune async executor pool.</li></ul>
+<ul class="brief-bullets"><li>XL Axiata: long-running processes — external task timeouts, incident on failed service task, DB growth on history tables.</li><li>Monitor job executor lag, archive old instances, tune async executor pool.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -450,7 +450,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>How do you manage secrets in production?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Docker</span></li><li><span class="kw">CI</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">how</strong> to handle: How do you manage secrets in production.</p><ul class="brief-bullets"><li>Never in Git or Docker image layers.</li><li>Use vault/K8s secrets/env from CI inject.</li><li>Rotate credentials; least privilege DB user (no DDL in app user).</li></ul>
+<ul class="brief-bullets"><li>Never in Git or Docker image layers.</li><li>Use vault/K8s secrets/env from CI inject.</li><li>Rotate credentials; least privilege DB user (no DDL in app user).</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -458,7 +458,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>PII in logs — GDPR/telco compliance?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">telco</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">PII in logs — GDPR/telco compliance</strong>. Incident debug: temporary elevated access with approval, not permanent DEBUG logging of full payloads.</p><ul class="brief-bullets"><li>Mask MSISDN, IMSI, email in logs; structured logging with allow-list fields.</li><li>Subscriber Tool access audited.</li><li>Retention policies on log indices.</li></ul>
+<ul class="brief-bullets"><li>Mask MSISDN, IMSI, email in logs; structured logging with allow-list fields.</li><li>Subscriber Tool access audited.</li><li>Retention policies on log indices.</li></ul>
 <p>Incident debug: temporary elevated access with approval, not permanent DEBUG logging of full payloads.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -467,7 +467,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>Securing Actuator and admin endpoints?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/actuator/**</span></li><li><span class="kw">Spring</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Securing Actuator and admin endpoints</strong>. Spring Security on , network policies, IP allow-list.</p><p>Spring Security on <code class="kw-code">/actuator/**</code>, network policies, IP allow-list. Disable sensitive endpoints. Separate management port not exposed via public LB.</p>
+<p>Spring Security on <code class="kw-code">/actuator/**</code>, network policies, IP allow-list. Disable sensitive endpoints. Separate management port not exposed via public LB.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -475,7 +475,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>Dependency/CVE handling in enterprise releases?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Jenkins</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Dependency/CVE handling in enterprise releases</strong>. OWASP/Sonar in Jenkins pipeline; patch critical CVE on supported Spring Boot line; test regression in UAT before prod window.</p><p>OWASP/Sonar in Jenkins pipeline; patch critical CVE on supported Spring Boot line; test regression in UAT before prod window.</p>
+<p>OWASP/Sonar in Jenkins pipeline; patch critical CVE on supported Spring Boot line; test regression in UAT before prod window.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -483,7 +483,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>API authentication failures in prod — debug approach?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">Security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">JWT</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">API authentication failures in prod — debug approach</strong>.</p><ul class="brief-bullets"><li>Check clock skew (JWT), cert expiry, wrong realm, revoked client secret.</li><li>Log auth failure reason code without logging password/token.</li><li>API Visualizer helps replay with valid test credentials in lower env first.</li></ul>
+<ul class="brief-bullets"><li>Check clock skew (JWT), cert expiry, wrong realm, revoked client secret.</li><li>Log auth failure reason code without logging password/token.</li><li>API Visualizer helps replay with valid test credentials in lower env first.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -498,7 +498,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>Consumer lag growing — what do you check?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Queues</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Kafka</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Consumer lag growing — what do you check</strong>. Scale consumers up to partition count; fix slow handler before adding infinite consumers.</p><ol>
+<ol>
 <li>Consumer down or slow processing (DB, CPU)</li>
 <li>Producer spike vs normal capacity</li>
 <li>Poison message retry loop</li>
@@ -512,7 +512,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>Dead letter queue — purpose and handling?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">DLQ</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">DLQ</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Key interview topic: <strong class="kw">Dead letter queue — purpose and handling</strong>. Messages that failed max retries go to DLQ for manual inspection — bad payload, schema change, partner permanent 400.</p><p>Messages that failed max retries go to DLQ for manual inspection — bad payload, schema change, partner permanent 400.</p>
+<p>Messages that failed max retries go to DLQ for manual inspection — bad payload, schema change, partner permanent 400.</p>
 <p>Don't auto-replay all without fix; replay one message with correlation ID after root cause. Alert on DLQ depth threshold.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -521,7 +521,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>Why idempotency matters in async production?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Queues</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">idempotent</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> This explains <strong class="kw">why</strong> idempotency matters in async production.</p><ul class="brief-bullets"><li>At-least-once delivery → duplicate messages.</li><li>Store processed message ID or business key (orderId) in DB before side effect.</li><li>Camel idempotent repository pattern.</li></ul>
+<ul class="brief-bullets"><li>At-least-once delivery → duplicate messages.</li><li>Store processed message ID or business key (orderId) in DB before side effect.</li><li>Camel idempotent repository pattern.</li></ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -529,7 +529,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>When is replay safe vs dangerous?</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Replay</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Safe:</span></li><li><span class="kw">Dangerous:</span></li><li><span class="kw">idempotent</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">Safe:</strong> downstream idempotent, replay from offset after fix, billing already deduped by transaction ID.</p>
+<p><strong class="kw">Safe:</strong> downstream idempotent, replay from offset after fix, billing already deduped by transaction ID.</p>
 <p><strong class="kw">Dangerous:</strong> double charge, duplicate provisioning — need compensating transaction or strict idempotency keys.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -538,7 +538,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>JMS (Camel) vs Kafka in production ops?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Queues</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JMS:</span></li><li><span class="kw">Kafka:</span></li><li><span class="kw">JMS</span></li><li><span class="kw">Camel</span></li><li><span class="kw">Kafka</span></li><li><span class="kw">DLQ</span></li><li><span class="kw">telco</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Compare both sides and know <strong class="kw">when to use each</strong> in interviews.</p><p><strong class="kw">JMS:</strong> mature DLQ, selectors, ops familiar in telco. Monitor queue depth, broker HA.</p>
+<p><strong class="kw">JMS:</strong> mature DLQ, selectors, ops familiar in telco. Monitor queue depth, broker HA.</p>
 <p><strong class="kw">Kafka:</strong> consumer lag per group, retention disk, replay by offset — ops differ. Your experience: Camel+JMS at Optima; know Kafka lag for interviews.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -553,7 +553,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
         <article class="qa-card" data-id="star-sql-report" data-level="medium" data-section="star" data-vimp="true">
           <div class="qa-question"><h3>STAR: Fixed slow reporting API (Vodafone)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">STAR</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">TestNG</span></li><li><span class="kw">JPA</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Use the <strong class="kw">STAR</strong> method: Situation → Task → Action → Result. Vodafone Germany reporting APIs timing out for ops during peak.</p><h4>Situation</h4><p>Vodafone Germany reporting APIs timing out for ops during peak.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">TestNG</span></li><li><span class="kw">JPA</span></li></ul></div><h4>Situation</h4><p>Vodafone Germany reporting APIs timing out for ops during peak.</p>
 <h4>Task</h4><p>Improve response time without breaking TestNG regression suite.</p>
 <h4>Action</h4><p>EXPLAIN plans, added indexes, refactored N+1 JPA fetches, paginated large result sets, validated with TestNG + load sample in UAT.</p>
 <h4>Result</h4><p>p95 dropped significantly (use your real % if known), stable prod, documented query patterns for team.</p>
@@ -563,7 +563,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
         <article class="qa-card" data-id="star-camel-volume" data-level="medium" data-section="star" data-vimp="true">
           <div class="qa-question"><h3>STAR: High-volume Camel integration (Optima)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">STAR</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">BSS</span></li><li><span class="kw">DLQ</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">MTTR</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Use the <strong class="kw">STAR</strong> method: Situation → Task → Action → Result. 1M+ transactions/day through Camel routes to partners and internal BSS.</p><h4>Situation</h4><p>1M+ transactions/day through Camel routes to partners and internal BSS.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Camel</span></li><li><span class="kw">BSS</span></li><li><span class="kw">DLQ</span></li><li><span class="kw">Jenkins</span></li><li><span class="kw">MTTR</span></li></ul></div><h4>Situation</h4><p>1M+ transactions/day through Camel routes to partners and internal BSS.</p>
 <h4>Task</h4><p>Reduce failures during peak and speed incident diagnosis.</p>
 <h4>Action</h4><p>Tuned redelivery/DLQ, connection pools, structured logging + Fuse Logger trace IDs, Jenkins pipeline gates.</p>
 <h4>Result</h4><p>Higher success rate, faster MTTR when partner issues occurred, clearer handoff to on-call.</p>
@@ -573,7 +573,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
         <article class="qa-card" data-id="star-camunda" data-level="medium" data-section="star">
           <div class="qa-question"><h3>STAR: Camunda workflow issue (XL Axiata)?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">STAR</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">STAR</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Use the <strong class="kw">STAR</strong> method: Situation → Task → Action → Result. Partner onboarding workflow stuck instances blocking activations.</p><h4>Situation</h4><p>Partner onboarding workflow stuck instances blocking activations.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">STAR</span></li></ul></div><h4>Situation</h4><p>Partner onboarding workflow stuck instances blocking activations.</p>
 <h4>Task</h4><p>Find root cause and unblock without data corruption.</p>
 <h4>Action</h4><p>Camunda cockpit, incident on failed job, fixed external task handler timeout, DB tuning on act_hi tables.</p>
 <h4>Result</h4><p>Cleared backlog, added monitoring on job executor lag.</p>
@@ -583,7 +583,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
         <article class="qa-card" data-id="star-prod-bug" data-level="medium" data-section="star" data-vimp="true">
           <div class="qa-question"><h3>STAR: Production bug you fixed under pressure?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">STAR</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">STAR</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Use the <strong class="kw">STAR</strong> method: Situation → Task → Action → Result. Pick one real incident: wrong config after deploy, null pointer on edge case, partner certificate expiry.</p><h4>Framework</h4><p>Pick one real incident: wrong config after deploy, null pointer on edge case, partner certificate expiry.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">STAR</span></li></ul></div><h4>Framework</h4><p>Pick one real incident: wrong config after deploy, null pointer on edge case, partner certificate expiry.</p>
 <h4>Emphasize</h4><p>Calm mitigation first (rollback/feature off), correlation ID search, postmortem action item you implemented (test/alert).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
@@ -591,7 +591,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
         <article class="qa-card" data-id="star-fuse-logger" data-level="easy" data-section="star">
           <div class="qa-question"><h3>STAR: Built or used Fuse Logger for ops?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">STAR</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">STAR</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Use the <strong class="kw">STAR</strong> method: Situation → Task → Action → Result. Integration failures hard to trace across multiple services.</p><h4>Situation</h4><p>Integration failures hard to trace across multiple services.</p>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">In simple terms:</span></li><li><span class="kw">STAR</span></li></ul></div><h4>Situation</h4><p>Integration failures hard to trace across multiple services.</p>
 <h4>Action</h4><p>Fuse Logger centralized transaction trail searchable by subscriber/transaction ID.</p>
 <h4>Result</h4><p>Reduced time to find failing hop in route; better collaboration with L2 support.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -601,7 +601,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
           <div class="qa-question"><h3>STAR: Subscriber Tool / API Visualizer impact?</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">STAR</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Subscriber Tool:</span></li><li><span class="kw">API Visualizer:</span></li><li><span class="kw">reducing operational risk</span></li><li><span class="kw">API</span></li><li><span class="kw">SQL</span></li><li><span class="kw">Camel</span></li><li><span class="kw">MTTR</span></li></ul></div>
-<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Use the <strong class="kw">STAR</strong> method: Situation → Task → Action → Result. Subscriber Tool: safer prod support — lookup subscriber state without raw SQL on prod DB.</p><p><strong class="kw">Subscriber Tool:</strong> safer prod support — lookup subscriber state without raw SQL on prod DB.</p>
+<p><strong class="kw">Subscriber Tool:</strong> safer prod support — lookup subscriber state without raw SQL on prod DB.</p>
 <p><strong class="kw">API Visualizer:</strong> reproduce partner calls in controlled env before changing Camel route in prod.</p>
 <p>Frame as <strong class="kw">reducing operational risk</strong> and MTTR — strong production maturity signal for 3 YOE.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
@@ -610,7 +610,7 @@ spring.datasource.hikari.leak-detection-threshold=60000</code></pre>
         <article class="qa-card" data-id="star-on-call-learn" data-level="medium" data-section="star" data-vimp="true">
           <div class="qa-question"><h3>STAR: Learned from a mistake in production?</h3>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">STAR</span><span class="chevron">▼</span></div></div>
-          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">idempotent</span></li><li><span class="kw">Assumed idempotent partner</span></li></ul></div><h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Use the <strong class="kw">STAR</strong> method: Situation → Task → Action → Result. Show humility + concrete process change (checklist, alert, test case added).</p><h4>Example angles</h4>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">idempotent</span></li><li><span class="kw">Assumed idempotent partner</span></li></ul></div><h4>Example angles</h4>
 <ul>
 <li>Deployed without checking partner maintenance window</li>
 <li>Missing timeout caused thread pool exhaustion</li>
