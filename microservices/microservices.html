@@ -14,6 +14,55 @@
         <h1>Microservices Interview Prep</h1>
         <p><strong>58</strong> questions in <strong>8 sections</strong> — fundamentals, resilience, Camel, consistency, and your Amdocs experience. Click to expand. Apache Camel 1M+ txn/day focus.</p>
       </header>
+
+      <div class="diagram-banner">
+        <span>Your own microservice example:</span>
+        <a href="https://github.com/htr3/notification-ms" target="_blank" rel="noopener"><strong>notification-ms on GitHub →</strong></a>
+        <span class="diagram-banner-sep">·</span>
+        <a href="#notification-ms-arch"><strong>See architecture diagram ↓</strong></a>
+      </div>
+
+      <section class="diagram-card" id="notification-ms-arch">
+        <h2>notification-ms — architecture (your project)</h2>
+        <p class="diagram-desc">A Spring Boot REST microservice that sends SMS notifications through Twilio. Great to walk through in interviews as a concrete service you built. Source: <a href="https://github.com/htr3/notification-ms" target="_blank" rel="noopener">github.com/htr3/notification-ms</a>.</p>
+        <pre class="flow-diagram">      ┌───────────────────────────────────────────────┐
+      │  Client / upstream service (Postman, other MS)  │
+      └─────────────────────────┬───────────────────────┘
+                                │  POST /api/messages/send
+                                │  { toPhoneNumber, messageBody }   (MessageRequest)
+                                ▼
+      ┌───────────────────────────────────────────────┐
+      │  MessageController        @RestController       │
+      │  @RequestMapping("/api/messages")               │
+      │  @PostMapping("/send")                           │
+      └─────────────────────────┬───────────────────────┘
+                                │  twilioService.sendMessage(to, body)
+                                ▼
+      ┌───────────────────────────────────────────────┐
+      │  MessageService           @Service              │
+      │  Message.creator(to, from, body).create()       │
+      │  reads ${twilio.phoneNumber}                     │
+      └─────────────────────────┬───────────────────────┘
+                                │  HTTPS — Twilio REST API
+                                ▼
+      ┌───────────────────────────────────────────────┐
+      │  Twilio Cloud  (SMS gateway)                    │
+      └─────────────────────────┬───────────────────────┘
+                                ▼
+                        📱  User's phone (SMS)
+
+  ── Startup / cross-cutting ───────────────────────────────────────
+  TwilioConfig  @Configuration @PostConstruct
+       └─▶ Twilio.init(accountSid, authToken)   // once at boot
+
+  Config source: application.properties
+       twilio.accountSid · twilio.authToken · twilio.phoneNumber
+
+  Roadmap (commented): ScheduledTasks @Scheduled(cron "0 0 9 * * ?")
+       └─▶ daily reminders fan-out (SMS + WhatsApp)</pre>
+        <p class="diagram-desc"><strong>Interview talking points:</strong> stateless REST service (scales horizontally behind a load balancer); third-party integration isolated in one service (Twilio); secrets externalized to config (would move to a vault / env vars in prod); natural next steps — input validation on phone numbers, retries + DLQ for failed sends, async via a queue/Kafka so the API returns fast, and idempotency keys to avoid duplicate texts.</p>
+      </section>
+
       <div class="toolbar">
         <input type="search" id="search" placeholder="Search questions & answers...">
         <select id="level-filter" class="filter-select">
