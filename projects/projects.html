@@ -138,6 +138,131 @@
           </div>
         </article>
 
+        <article class="qa-card" data-id="ms-builder" data-level="hard" data-vimp="true">
+          <div class="qa-question"><h3>MS-Builder — what is it, architecture, and impact?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Project</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">OpenAPI → code</span></li><li><span class="kw">contract-first</span></li><li><span class="kw">templating</span></li><li><span class="kw">Docker + Jenkins generated</span></li><li><span class="kw">scaffolding</span></li></ul></div>
+            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> MS-Builder is a tool that takes an <strong class="kw">OpenAPI spec</strong> and generates a ready-to-run Spring Boot microservice — controllers, Docker image, deploy config, and a Jenkins pipeline — so teams don't hand-write boilerplate for every new service.</p>
+            <h4>Problem it solves</h4>
+            <p>Every new microservice needed the same repetitive setup: project skeleton, REST controllers/DTOs, Dockerfile, deployment config, CI/CD pipeline. That was slow and inconsistent across teams.</p>
+            <h4>Architecture (high level)</h4>
+            <ol>
+              <li><strong class="kw">Input:</strong> an OpenAPI (Swagger) spec — contract-first.</li>
+              <li><strong class="kw">Parser:</strong> reads paths, operations, and schemas into an internal model.</li>
+              <li><strong class="kw">Template engine:</strong> applies templates to emit Java code (<code class="kw-code">@RestController</code>, request/response models, service stubs).</li>
+              <li><strong class="kw">Infra generation:</strong> also emits a <strong class="kw">Dockerfile</strong>, deployment config, and a <strong class="kw">Jenkinsfile</strong>.</li>
+              <li><strong class="kw">Output:</strong> a complete, runnable service repo.</li>
+            </ol>
+            <h4>Impact</h4>
+            <p>New services bootstrap in minutes instead of days, with a consistent structure and CI/CD out of the box — fewer setup mistakes, faster onboarding.</p>
+            <h4>Why it's a strong interview project</h4>
+            <p>Shows you understand <strong class="kw">contract-first API design</strong>, code generation, and the full path from spec → service → container → pipeline (exactly the DevOps maturity the ICE JD asks for).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="ms-builder-openapi" data-level="hard" data-vimp="true">
+          <div class="qa-question"><h3>MS-Builder — how does OpenAPI → Spring Boot generation work?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">Project</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">parse spec</span></li><li><span class="kw">model</span></li><li><span class="kw">templates (Mustache/Freemarker)</span></li><li><span class="kw">emit controllers + DTOs</span></li></ul></div>
+            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> The spec describes the endpoints and data shapes; the builder parses that, then fills code templates to produce the matching Java classes.</p>
+            <h4>The pipeline</h4>
+            <ol>
+              <li><strong class="kw">Parse</strong> the OpenAPI YAML/JSON (paths, operations, parameters, schemas).</li>
+              <li>Build an internal <strong class="kw">model</strong> (each operation → a method; each schema → a DTO).</li>
+              <li>Run the model through <strong class="kw">templates</strong> (e.g. Mustache/Freemarker) to emit controllers, models, and service interfaces.</li>
+            </ol>
+            <h4>Example — spec in</h4>
+<pre><code class="kw-code">paths:
+  /orders/{id}:
+    get:
+      operationId: getOrder
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'</code></pre>
+            <h4>Generated controller out</h4>
+<pre><code class="kw-code">@RestController
+public class OrdersApiController implements OrdersApi {
+  @Override
+  public ResponseEntity&lt;Order&gt; getOrder(String id) {
+    // delegate to a service impl you fill in
+  }
+}</code></pre>
+            <p>This is the same idea as the open-source <strong class="kw">OpenAPI Generator</strong> — I built a version tuned to our org's conventions (our Docker base image, Jenkins stages, package layout).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="ms-builder-challenges" data-level="hard">
+          <div class="qa-question"><h3>MS-Builder — design decisions &amp; hardest challenges?</h3>
+            <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Project</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">regeneration vs custom code</span></li><li><span class="kw">template versioning</span></li><li><span class="kw">spec validation</span></li><li><span class="kw">build vs buy</span></li></ul></div>
+            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> The tricky part of code generation is regenerating without wiping the business logic people added by hand.</p>
+            <h4>Key challenges &amp; how I handled them</h4>
+            <ul>
+              <li><strong class="kw">Don't overwrite custom logic:</strong> separate <em>generated</em> code (interfaces/DTOs) from <em>hand-written</em> implementations, so re-running the generator is safe.</li>
+              <li><strong class="kw">Spec validation:</strong> reject invalid OpenAPI early with clear errors, rather than emitting broken code.</li>
+              <li><strong class="kw">Template versioning:</strong> templates evolve — version them so old services can regenerate predictably.</li>
+              <li><strong class="kw">Consistency:</strong> enforce naming/package conventions so every generated service looks the same.</li>
+            </ul>
+            <h4>Build vs buy</h4>
+            <p>OpenAPI Generator exists, but I needed our specific Docker base image, Jenkins stages, and deploy configs baked in — so a tailored builder gave a true one-click, org-standard service.</p>
+            <h4>Likely follow-up</h4>
+            <p><em>"What would you improve?"</em> → plug in schema-compatibility checks, support gRPC/async (Kafka) templates, and a web UI to submit specs.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="resume-aws-cloud" data-level="medium" data-vimp="true">
+          <div class="qa-question"><h3>You're AWS certified — how would you deploy a microservice on AWS?</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Cloud</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">AWS Cloud Practitioner</span></li><li><span class="kw">Docker → ECR</span></li><li><span class="kw">ECS / EKS</span></li><li><span class="kw">ALB</span></li><li><span class="kw">RDS / Aurora</span></li><li><span class="kw">secrets</span></li></ul></div>
+            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Containerize the service, push the image to a registry, run it on a managed container service behind a load balancer, with a managed database and externalized secrets.</p>
+            <h4>A clean answer</h4>
+            <ul>
+              <li>Build a <strong class="kw">Docker</strong> image (Jenkins) and push to <strong class="kw">ECR</strong>.</li>
+              <li>Run it on <strong class="kw">ECS</strong> (Fargate) or <strong class="kw">EKS</strong> (Kubernetes) — both isolate and scale the service.</li>
+              <li>Front it with an <strong class="kw">Application Load Balancer</strong>; auto-scale on CPU/requests.</li>
+              <li>Data in <strong class="kw">RDS / Aurora (PostgreSQL)</strong>; async work via <strong class="kw">SQS</strong> or Kafka.</li>
+              <li><strong class="kw">Secrets</strong> in AWS Secrets Manager / SSM (not in the repo).</li>
+              <li>Logs/metrics to <strong class="kw">CloudWatch</strong>.</li>
+            </ul>
+            <p><strong class="kw">Be honest about depth:</strong> "I'm AWS Cloud Practitioner certified and have used Docker/Kubernetes; I know the deployment path conceptually and I'm hands-on with containers — keen to go deeper on AWS in this role." This is exactly the ICE stack (ECS/EKS, SQS, Aurora).</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="resume-couchbase-kafka" data-level="medium">
+          <div class="qa-question"><h3>Your resume lists Couchbase and Kafka — tell me about that.</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">Stack</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Couchbase = NoSQL doc store</span></li><li><span class="kw">Kafka = event streaming</span></li><li><span class="kw">be honest about depth</span></li></ul></div>
+            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Know what each is for and your real level of exposure — don't oversell.</p>
+            <h4>Couchbase</h4>
+            <p>A distributed <strong class="kw">NoSQL document database</strong> (JSON docs, key-value speed, N1QL query language). Good for low-latency lookups and caching — in telecom BSS, fast subscriber/session reads.</p>
+            <h4>Kafka</h4>
+            <p>A <strong class="kw">distributed event log</strong> for async, decoupled communication — the modern successor to the Camel/JMS hops I worked on. (See the full Spring Boot + Kafka example on the Kafka page.)</p>
+            <h4>Honest framing</h4>
+            <p>"I've worked alongside these in the BSS stack and studied them deeply; my hands-on production depth is strongest in Java/Spring Boot/Camel/SQL, and I'm actively building Kafka projects." Honesty beats getting caught overstating.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
+        <article class="qa-card" data-id="resume-achievements" data-level="easy" data-vimp="true">
+          <div class="qa-question"><h3>Walk me through your achievements (CodinGame, Coding Champion, NIMCET).</h3>
+            <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Meta</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">CodinGame 1st / 10,000+</span></li><li><span class="kw">Amdocs Coding Champion</span></li><li><span class="kw">AIR-177 NIMCET</span></li><li><span class="kw">MCA NIT Warangal</span></li></ul></div>
+            <h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> These show strong problem-solving and competitiveness — say them with quiet confidence, then connect to the work.</p>
+            <h4>Short script</h4>
+            <p>"I enjoy competitive problem-solving — I won Amdocs' CodinGame Q4'23 ranking <strong class="kw">1st among 10,000+</strong> participants globally, was an Amdocs India Coding Champion, and scored <strong class="kw">AIR-177 in NIMCET</strong> which took me to my MCA at <strong class="kw">NIT Warangal</strong>. That problem-solving strength is what makes the DSA and debugging parts of backend work enjoyable for me."</p>
+            <h4>Why mention it</h4>
+            <p>Signals raw coding ability for the DSA round and that you ramp fast — but keep it to ~20 seconds and pivot back to engineering.</p>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
         <article class="qa-card" data-id="vodafone-pitch" data-level="easy" data-vimp="true">
           <div class="qa-question"><h3>Vodafone Germany — 2-minute elevator pitch</h3>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">Client</span><span class="chevron">▼</span></div></div>
