@@ -852,6 +852,20 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">PreAuthorize</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">REST</span></li><li><span class="kw">API</span></li><li><span class="kw">HTTPS</span></li><li><span class="kw">JWT</span></li><li><span class="kw">Secrets in vault/env</span></li></ul></div>
 <ol><li>HTTPS everywhere</li><li>Authentication: JWT or OAuth2 resource server</li><li>Authorization: roles on endpoints + <code class="kw-code">@PreAuthorize</code></li><li>Input validation, rate limiting</li><li>Secrets in vault/env — not git</li><li>Actuator not public</li></ol>
+            <h4>The two layers</h4>
+<ul>
+<li><strong class="kw">Authentication</strong> — "who are you?" (validate a JWT / OAuth2 token).</li>
+<li><strong class="kw">Authorization</strong> — "what may you do?" (roles/scopes at URL and method level).</li>
+</ul>
+<h4>Defense in depth checklist</h4>
+<ul>
+<li>HTTPS/TLS end-to-end; HSTS.</li>
+<li>Stateless JWT/OAuth2 resource server → scale horizontally.</li>
+<li>Validate &amp; size-limit all input; rate-limit; CORS allow-list.</li>
+<li>Secrets in vault/SSM (never in Git); rotate keys.</li>
+<li>Lock down Actuator; mask PII in logs; audit access.</li>
+</ul>
+<p>For ICE (mortgage/financial data) emphasize least-privilege, auditability, and encryption at rest + in transit.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -861,6 +875,19 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">SecurityFilterChain</span></li><li><span class="kw">JWT</span></li></ul></div>
 <p>Filters run before DispatcherServlet: security context restoration → JWT/OAuth filter → authorization → controller. <code class="kw-code">SecurityFilterChain</code> bean defines which URLs are permitAll vs authenticated.</p>
+            <h4>Example config</h4>
+<pre><code class="kw-code">@Bean
+SecurityFilterChain chain(HttpSecurity http) throws Exception {
+  return http
+    .csrf(csrf -&gt; csrf.disable())                       // stateless API
+    .sessionManagement(s -&gt; s.sessionCreationPolicy(STATELESS))
+    .authorizeHttpRequests(auth -&gt; auth
+        .requestMatchers("/actuator/health", "/auth/**").permitAll()
+        .anyRequest().authenticated())
+    .oauth2ResourceServer(o -&gt; o.jwt(Customizer.withDefaults()))
+    .build();
+}</code></pre>
+<p>The chain is an ordered list of servlet filters. A custom filter (e.g. JWT) is added with <code class="kw-code">addFilterBefore(...)</code> relative to <code class="kw-code">UsernamePasswordAuthenticationFilter</code>. The result of authentication lands in the <code class="kw-code">SecurityContextHolder</code>.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -870,6 +897,14 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Authorization: Bearer &lt;token&gt;</span></li><li><span class="kw">JWT</span></li><li><span class="kw">No server session</span></li></ul></div>
 <ol><li>Login → server validates credentials → issues signed JWT</li><li>Client sends <code class="kw-code">Authorization: Bearer &lt;token&gt;</code></li><li>Filter validates signature/expiry, builds Authentication</li><li>No server session — scale horizontally</li></ol><p>Refresh tokens for long-lived mobile apps; short access token TTL.</p>
+            <h4>What's inside a JWT</h4>
+<p>Three Base64 parts: <strong class="kw">header</strong> (alg) . <strong class="kw">payload</strong> (claims: sub, roles, exp) . <strong class="kw">signature</strong>. The server only needs to verify the signature — no DB lookup — which is why it scales.</p>
+<h4>Trade-offs &amp; gotchas</h4>
+<ul>
+<li>You <strong>can't easily revoke</strong> a JWT before expiry → keep access-token TTL short (5–15 min) + refresh tokens.</li>
+<li>Never put secrets/PII in the payload (it's only encoded, not encrypted).</li>
+<li>Validate <code class="kw-code">exp</code>, <code class="kw-code">iss</code>, <code class="kw-code">aud</code>; use asymmetric (RS256) so only the IdP can sign.</li>
+</ul>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -879,6 +914,16 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="level-vimp">⭐ VI</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring-boot-starter-oauth2-resource-server</span></li><li><span class="kw">issuer-uri</span></li><li><span class="kw">API</span></li><li><span class="kw">spring</span></li><li><span class="kw">boot</span></li><li><span class="kw">JWT</span></li></ul></div>
 <p>Your API validates access tokens issued by IdP (Keycloak, Azure AD). Dependency <code class="kw-code">spring-boot-starter-oauth2-resource-server</code>, configure <code class="kw-code">issuer-uri</code>, JWT validated against JWK set. Scopes map to authorities.</p>
+            <h4>Minimal config</h4>
+<pre><code class="kw-code"># application.yml
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://idp.example.com/realms/ice</code></pre>
+<p>Boot fetches the JWK set from the issuer and validates every incoming token's signature, issuer and expiry automatically. Map token <strong class="kw">scopes/roles</strong> to Spring authorities with a <code class="kw-code">JwtAuthenticationConverter</code>, then guard endpoints with <code class="kw-code">hasAuthority('SCOPE_reports.read')</code>.</p>
+<p>Resource server (validates tokens) vs authorization server (issues tokens) — your API is almost always the resource server; an IdP like Keycloak/Azure AD/Okta issues.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -888,6 +933,16 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">EnableMethodSecurity</span></li><li><span class="kw">PreAuthorize("hasRole('REPORT_VIEW')")</span></li></ul></div>
 <p><code class="kw-code">@EnableMethodSecurity</code> + <code class="kw-code">@PreAuthorize("hasRole('REPORT_VIEW')")</code> on service methods — fine-grained authorization after URL-level security.</p>
+            <h4>Example</h4>
+<pre><code class="kw-code">@EnableMethodSecurity         // on a @Configuration class
+...
+@PreAuthorize("hasRole('REPORT_VIEW')")
+public ReportDto get(Long id) { ... }
+
+// SpEL can reference args & the principal:
+@PreAuthorize("#ownerId == authentication.name or hasRole('ADMIN')")
+public void update(String ownerId, ...) { ... }</code></pre>
+<p><code class="kw-code">@PreAuthorize</code> runs before the method, <code class="kw-code">@PostAuthorize</code> after (can inspect the return value). It's proxy-based — same self-invocation caveat as <code class="kw-code">@Transactional</code>.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -897,6 +952,10 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">REST</span></li><li><span class="kw">JWT</span></li></ul></div>
 <ul class="brief-bullets"><li>CSRF protects cookie-based browser sessions.</li><li>Stateless JWT in Authorization header → typically disable CSRF for pure APIs.</li><li>If using session cookies + SPA, enable CSRF token.</li></ul>
+            <h4>Why</h4>
+<p>CSRF attacks ride on credentials the browser sends <em>automatically</em> — i.e. cookies. A token in the <code class="kw-code">Authorization</code> header is <strong>not</strong> sent automatically, so a pure token API isn't CSRF-vulnerable and CSRF is typically disabled.</p>
+<h4>When to keep it on</h4>
+<p>If your SPA authenticates with a <strong class="kw">session cookie</strong>, keep CSRF enabled and use the cookie-based token repository (<code class="kw-code">CookieCsrfTokenRepository.withHttpOnlyFalse()</code>) so the SPA can echo the token in a header.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -906,6 +965,14 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">BCryptPasswordEncoder</span></li><li><span class="kw">matches(raw, encoded)</span></li><li><span class="kw">API</span></li></ul></div>
 <p>Never plain text. <code class="kw-code">BCryptPasswordEncoder</code> with salt per password. Compare with <code class="kw-code">matches(raw, encoded)</code>. Password never in logs or API responses.</p>
+            <h4>Example</h4>
+<pre><code class="kw-code">@Bean PasswordEncoder encoder() {
+  return new BCryptPasswordEncoder(12);   // work factor / strength
+}
+// store: encoder.encode(rawPassword)
+// verify: encoder.matches(rawPassword, storedHash)</code></pre>
+<h4>Why bcrypt (or argon2/scrypt)</h4>
+<p>They're <strong>deliberately slow</strong> and salted per-password, which defeats rainbow tables and brute force. Never use fast hashes (MD5/SHA-256) for passwords. Spring's <code class="kw-code">DelegatingPasswordEncoder</code> ({bcrypt} prefix) lets you upgrade algorithms over time.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -915,6 +982,10 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">401 Unauthorized</span></li><li><span class="kw">403 Forbidden</span></li><li><span class="kw">API</span></li></ul></div>
 <p><strong class="kw">401 Unauthorized</strong> — not authenticated (missing/invalid token). <strong class="kw">403 Forbidden</strong> — authenticated but lacks permission. Wrong status confuses API clients and security audits.</p>
+            <h4>Quick rule</h4>
+<pre><code class="kw-code">401 Unauthorized  → "I don't know who you are"  (authenticate first)
+403 Forbidden     → "I know you, but you can't"  (re-auth won't help)</code></pre>
+<p>In Spring Security these map to the <code class="kw-code">AuthenticationEntryPoint</code> (401) and <code class="kw-code">AccessDeniedHandler</code> (403). Returning the right one matters for clients (whether to retry login) and for security audits.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -924,6 +995,21 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">WebSecurityConfigurerAdapter</span></li><li><span class="kw">Spring</span></li><li><span class="kw">http</span></li></ul></div>
 <p>Replace deprecated <code class="kw-code">WebSecurityConfigurerAdapter</code>. Lambda DSL: <code class="kw-code">http.authorizeHttpRequests(auth -&gt; auth.requestMatchers("/actuator/health").permitAll().anyRequest().authenticated())</code>.</p>
+            <h4>Full example (Spring Security 6)</h4>
+<pre><code class="kw-code">@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+  @Bean
+  SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    return http
+      .authorizeHttpRequests(auth -&gt; auth
+          .requestMatchers("/actuator/health").permitAll()
+          .requestMatchers("/admin/**").hasRole("ADMIN")
+          .anyRequest().authenticated())
+      .build();
+  }
+}</code></pre>
+<p>Since Spring Security 5.7/6, the old <code class="kw-code">WebSecurityConfigurerAdapter</code> is gone — you expose <strong class="kw">beans</strong> (<code class="kw-code">SecurityFilterChain</code>, <code class="kw-code">PasswordEncoder</code>) and use the lambda DSL. You can register multiple filter chains with <code class="kw-code">@Order</code> for different URL groups (e.g. API vs Actuator).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -933,6 +1019,12 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/admin/**</span></li></ul></div>
 <p>URL rules coarse (<code class="kw-code">/admin/**</code> ROLE_ADMIN). Method security for service-layer operations shared by multiple controllers. Use both: perimeter + fine-grained.</p>
+            <h4>Use both — layered</h4>
+<ul>
+<li><strong class="kw">URL/perimeter</strong> (<code class="kw-code">authorizeHttpRequests</code>) — coarse gate at the edge; cheap, blocks unauthenticated traffic early.</li>
+<li><strong class="kw">Method</strong> (<code class="kw-code">@PreAuthorize</code>) — fine-grained, business-aware, and protects logic reused by several controllers / schedulers / message listeners.</li>
+</ul>
+<p>URL rules alone miss non-HTTP entry points (a Kafka listener calling the same service). Method security guards the logic wherever it's invoked.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -942,6 +1034,12 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/actuator/**</span></li><li><span class="kw">Spring</span></li></ul></div>
 <p>Separate management port, or Spring Security on <code class="kw-code">/actuator/**</code> — only health/prometheus for K8s SA; hide env/beans/heap dump from internet.</p>
+            <h4>Recommended setup</h4>
+<pre><code class="kw-code"># expose only what you need
+management.endpoints.web.exposure.include: health,info,prometheus
+# run management on a separate, internal-only port
+management.server.port: 9090</code></pre>
+<p>Then secure it: <code class="kw-code">health</code>/<code class="kw-code">prometheus</code> reachable by the K8s probe / scraper, everything else (<code class="kw-code">env</code>, <code class="kw-code">beans</code>, <code class="kw-code">heapdump</code>, <code class="kw-code">threaddump</code>) authenticated or off. Exposing <code class="kw-code">/actuator/env</code> publicly can leak secrets — a classic finding in security reviews.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -951,6 +1049,15 @@ public void writeAudit(AuditEvent e) { auditRepo.save(e); }</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">security</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JWT</span></li></ul></div>
 <ul class="brief-bullets"><li>Mask MSISDN/email in logs (Fuse Logger-style).</li><li>DTOs exclude sensitive fields.</li><li>GDPR: purpose limitation, audit access.</li><li>Never log full JWT or passwords.</li></ul>
+            <h4>Practical controls</h4>
+<ul>
+<li><strong class="kw">Mask in logs</strong> — log <code class="kw-code">****1234</code> not the full MSISDN/SSN/email (your Fuse Logger pattern).</li>
+<li><strong class="kw">DTOs</strong> exclude sensitive fields; never return what you don't need.</li>
+<li><strong class="kw">Encrypt</strong> at rest (column/field-level for the most sensitive) and in transit (TLS).</li>
+<li><strong class="kw">Audit</strong> who accessed what; apply purpose limitation &amp; retention (GDPR/CCPA).</li>
+<li>Never log full tokens, passwords, or card/account numbers.</li>
+</ul>
+<p>For a mortgage platform this is core compliance — be ready to talk about data classification and least-privilege access.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
