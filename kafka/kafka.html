@@ -415,7 +415,7 @@ ON DUPLICATE KEY UPDATE event_id = event_id;</code></pre>
       <section class="topic-section" id="section-spring">
         <h2>Spring & Schema</h2>
         <p class="section-desc">spring-kafka and schema evolution basics.</p>
-        <p class="section-meta">2 questions in this section</p>
+        <p class="section-meta">3 questions in this section</p>
         <div class="qa-list">
         <article class="qa-card" data-id="spring-kafka" data-level="medium" data-section="spring" data-vimp="true">
           <div class="qa-question"><h3>Kafka with Spring Boot (practical guide)</h3>
@@ -433,6 +433,104 @@ void handle(OrderEvent e) { reportService.update(e); }</code></pre>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
+
+        <article class="qa-card" data-id="kafka-springboot-example" data-level="medium" data-section="spring" data-vimp="true">
+          <div class="qa-question"><h3>Define &amp; use Kafka in Spring Boot — full example (step by step)</h3>
+            <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">Spring</span><span class="chevron">▼</span></div></div>
+          <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">spring-kafka</span></li><li><span class="kw">application.yml</span></li><li><span class="kw">NewTopic / TopicBuilder</span></li><li><span class="kw">KafkaTemplate</span></li><li><span class="kw">@KafkaListener</span></li><li><span class="kw">JsonSerializer</span></li><li><span class="kw">DefaultErrorHandler + DLT</span></li></ul></div>
+<h4 class="revision-heading">Brief explanation</h4><p class="simple-terms"><strong>In simple terms:</strong> Add the <code class="kw-code">spring-kafka</code> starter, point it at the broker in config, send with <code class="kw-code">KafkaTemplate</code>, and receive with <code class="kw-code">@KafkaListener</code>. Spring Boot auto-configures the producer/consumer factories for you.</p>
+
+<h4>Step 1 — Add the dependency (Maven)</h4>
+<pre><code class="kw-code">&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.kafka&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-kafka&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+
+<h4>Step 2 — Configure the broker (application.yml)</h4>
+<pre><code class="kw-code">spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: order-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.example.events"</code></pre>
+
+<h4>Step 3 — Define the topic (auto-created on startup)</h4>
+<pre><code class="kw-code">@Configuration
+public class KafkaTopicConfig {
+  @Bean
+  public NewTopic orderEventsTopic() {
+    return TopicBuilder.name("order-events")
+        .partitions(3)
+        .replicas(1)
+        .build();
+  }
+}</code></pre>
+
+<h4>Step 4 — The event (POJO / record)</h4>
+<pre><code class="kw-code">// package com.example.events;
+public record OrderEvent(String orderId, String status, BigDecimal amount) {}</code></pre>
+
+<h4>Step 5 — Producer (send with KafkaTemplate)</h4>
+<pre><code class="kw-code">@Service
+public class OrderProducer {
+
+  private final KafkaTemplate&lt;String, OrderEvent&gt; kafkaTemplate;
+
+  public OrderProducer(KafkaTemplate&lt;String, OrderEvent&gt; kafkaTemplate) {
+    this.kafkaTemplate = kafkaTemplate;
+  }
+
+  public void publish(OrderEvent event) {
+    // key = orderId → all events for one order land on the SAME partition (ordering)
+    kafkaTemplate.send("order-events", event.orderId(), event);
+  }
+}</code></pre>
+
+<h4>Step 6 — Consumer (receive with @KafkaListener)</h4>
+<pre><code class="kw-code">@Service
+public class OrderConsumer {
+
+  @KafkaListener(topics = "order-events", groupId = "order-service")
+  public void onMessage(OrderEvent event) {
+    System.out.println("Received: " + event);
+    // business logic here — keep it IDEMPOTENT (you may see a message twice)
+  }
+}</code></pre>
+
+<h4>Step 7 — Error handling + Dead Letter Topic (retry then park)</h4>
+<pre><code class="kw-code">@Bean
+public DefaultErrorHandler errorHandler(KafkaTemplate&lt;String, Object&gt; template) {
+  var recoverer = new DeadLetterPublishingRecoverer(template); // sends to "order-events.DLT"
+  // retry 3 times, 1s apart, then publish to the DLT
+  return new DefaultErrorHandler(recoverer, new FixedBackOff(1000L, 3L));
+}</code></pre>
+
+<h4>Run a broker locally (docker-compose)</h4>
+<pre><code class="kw-code"># Kafka in KRaft mode (no Zookeeper) — enough for one app
+docker run -p 9092:9092 apache/kafka:latest
+# then start your Spring Boot app → POST something that calls producer.publish(...)</code></pre>
+
+<h4>The flow in one line</h4>
+<pre><code class="kw-code">producer.publish() → KafkaTemplate.send() → topic "order-events" (3 partitions)
+                                          → @KafkaListener (group "order-service") → onMessage()</code></pre>
+<h4>Interview tips</h4>
+<ul>
+<li>Use a <strong class="kw">key</strong> (orderId) when ordering matters — same key → same partition.</li>
+<li>Consumers in the same <code class="kw-code">groupId</code> share partitions; add instances to scale (up to #partitions).</li>
+<li>Default delivery is <strong class="kw">at-least-once</strong> → make <code class="kw-code">onMessage</code> idempotent.</li>
+<li>Ties to your experience: this is the modern replacement for the Camel/JMS async hops you ran at Amdocs.</li>
+</ul>
+            <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
+          </div>
+        </article>
+
         <article class="qa-card" data-id="schema-registry" data-level="hard" data-section="spring">
           <div class="qa-question"><h3>Schema Registry and schema evolution</h3>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">Schema</span><span class="chevron">▼</span></div></div>
