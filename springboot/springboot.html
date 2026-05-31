@@ -276,6 +276,15 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">GetMapping</span></li><li><span class="kw">ControllerAdvice</span></li><li><span class="kw">Spring</span></li><li><span class="kw">JSON</span></li></ul></div>
 <ol><li>DispatcherServlet receives request</li><li>HandlerMapping finds <code class="kw-code">@GetMapping</code> method</li><li>HandlerAdapter invokes controller</li><li>Return value → HttpMessageConverter (Jackson) → JSON</li><li>Exception → <code class="kw-code">@ControllerAdvice</code> handler</li></ol>
+            <h4>The components</h4>
+<ul>
+<li><strong class="kw">DispatcherServlet</strong> — the front controller; every request goes through it.</li>
+<li><strong class="kw">HandlerMapping</strong> — maps URL+method to a controller method.</li>
+<li><strong class="kw">HandlerAdapter</strong> — invokes it, binding params (<code class="kw-code">@PathVariable</code>, <code class="kw-code">@RequestBody</code>).</li>
+<li><strong class="kw">HttpMessageConverter</strong> — Jackson turns the return value into JSON (and body into a DTO).</li>
+</ul>
+<h4>Filters vs Interceptors</h4>
+<p><strong class="kw">Filters</strong> run before the DispatcherServlet (servlet level — auth, CORS, logging). <strong class="kw">Interceptors</strong> (<code class="kw-code">HandlerInterceptor</code>) run inside MVC, around the handler — good for adding a correlation ID to the MDC.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -285,6 +294,10 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">RestController</span></li><li><span class="kw">Controller</span></li><li><span class="kw">ResponseBody</span></li><li><span class="kw">JSON</span></li><li><span class="kw">XML</span></li></ul></div>
 <p><code class="kw-code">@RestController</code> = <code class="kw-code">@Controller</code> + <code class="kw-code">@ResponseBody</code> on every method — return type serialized to JSON/XML.</p><p><code class="kw-code">@Controller</code> — typically returns view name for Thymeleaf; use <code class="kw-code">@ResponseBody</code> per method for APIs.</p>
+            <h4>Content negotiation</h4>
+<p>Jackson produces JSON by default; add the right converter and the client's <code class="kw-code">Accept</code> header decides JSON vs XML. <code class="kw-code">@RestController</code> applies <code class="kw-code">@ResponseBody</code> to <em>all</em> methods so you don't repeat it.</p>
+<h4>Rule of thumb</h4>
+<p>REST/JSON APIs → <code class="kw-code">@RestController</code>. Server-rendered HTML pages (Thymeleaf) → <code class="kw-code">@Controller</code> returning a view name.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -294,6 +307,25 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">GET /api/v1/reports/{id}</span></li><li><span class="kw">POST /api/v1/reports</span></li><li><span class="kw">?page=0&amp;size=20</span></li><li><span class="kw">{"code","message","fieldErrors"}</span></li><li><span class="kw">REST</span></li><li><span class="kw">api</span></li><li><span class="kw">JPA</span></li><li><span class="kw">SQL</span></li></ul></div>
 <ul><li>Resource-oriented URLs: <code class="kw-code">GET /api/v1/reports/{id}</code>, <code class="kw-code">POST /api/v1/reports</code></li><li>Request/response DTOs — never expose JPA entities</li><li>Pagination: <code class="kw-code">?page=0&amp;size=20</code></li><li>Consistent error body: <code class="kw-code">{"code","message","fieldErrors"}</code></li><li>OpenAPI for contract with frontend</li></ul><p>Map Vodafone pattern: controller thin, service owns SQL tuning and business rules.</p>
+            <h4>Example</h4>
+<pre><code class="kw-code">@RestController
+@RequestMapping("/api/v1/reports")
+public class ReportController {
+  private final ReportService service;
+
+  @GetMapping("/{id}")
+  public ReportDto get(@PathVariable Long id) { return service.get(id); }
+
+  @GetMapping
+  public Page&lt;ReportDto&gt; list(Pageable pageable) { return service.list(pageable); }
+
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public ReportDto create(@Valid @RequestBody CreateReportRequest req) {
+    return service.create(req);
+  }
+}</code></pre>
+<p>Controller stays thin; the service owns the SQL tuning and business rules (your Vodafone pattern).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -303,6 +335,13 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">200</span></li><li><span class="kw">201</span></li><li><span class="kw">204</span></li><li><span class="kw">400</span></li><li><span class="kw">401</span></li><li><span class="kw">403</span></li><li><span class="kw">404</span></li><li><span class="kw">409</span></li></ul></div>
 <ul><li><strong class="kw">200</strong> OK with body</li><li><strong class="kw">201</strong> Created + Location header</li><li><strong class="kw">204</strong> No content (delete success)</li><li><strong class="kw">400</strong> validation / bad input</li><li><strong class="kw">401</strong> not authenticated</li><li><strong class="kw">403</strong> authenticated but forbidden</li><li><strong class="kw">404</strong> resource not found</li><li><strong class="kw">409</strong> conflict (duplicate)</li><li><strong class="kw">500</strong> unexpected server error (log stack trace, generic message to client)</li></ul>
+            <h4>A few more worth knowing</h4>
+<ul>
+<li><strong class="kw">422</strong> Unprocessable Entity — semantically invalid (some teams prefer it over 400).</li>
+<li><strong class="kw">429</strong> Too Many Requests — rate limiting.</li>
+<li><strong class="kw">503</strong> Service Unavailable — dependency down / shutting down.</li>
+</ul>
+<p>Interview point: 4xx = client's fault (don't retry as-is), 5xx = server's fault (safe to retry idempotent calls).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -312,6 +351,15 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">PathVariable</span></li><li><span class="kw">/reports/{id}</span></li><li><span class="kw">RequestParam</span></li><li><span class="kw">?status=ACTIVE</span></li><li><span class="kw">RequestBody</span></li><li><span class="kw">JSON</span></li></ul></div>
 <ul><li><code class="kw-code">@PathVariable</code> — part of URL path (<code class="kw-code">/reports/{id}</code>)</li><li><code class="kw-code">@RequestParam</code> — query string (<code class="kw-code">?status=ACTIVE</code>), optional/default values</li><li><code class="kw-code">@RequestBody</code> — JSON body deserialized by Jackson to DTO</li></ul>
+            <h4>Example</h4>
+<pre><code class="kw-code">@GetMapping("/reports/{id}")
+public ReportDto get(
+    @PathVariable Long id,
+    @RequestParam(defaultValue = "false") boolean detailed) { ... }
+
+@PostMapping("/reports")
+public ReportDto create(@RequestBody CreateReportRequest body) { ... }</code></pre>
+<p>Use path variables to identify a resource, query params to filter/sort/paginate, and the body for the payload you're creating/updating.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -321,6 +369,16 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">NotBlank</span></li><li><span class="kw">NotNull</span></li><li><span class="kw">Size</span></li><li><span class="kw">Email</span></li><li><span class="kw">MethodArgumentNotValidException</span></li><li><span class="kw">ControllerAdvice</span></li></ul></div>
 <p>Annotate DTO: <code class="kw-code">@NotBlank</code>, <code class="kw-code">@NotNull</code>, <code class="kw-code">@Size</code>, <code class="kw-code">@Email</code>. Controller: <code class="kw-code">@Valid @RequestBody CreateReportRequest req</code>.</p><p>On failure → <code class="kw-code">MethodArgumentNotValidException</code> → handle in <code class="kw-code">@ControllerAdvice</code> → 400 with per-field messages.</p>
+            <h4>Example</h4>
+<pre><code class="kw-code">public record CreateReportRequest(
+    @NotBlank String name,
+    @Email String ownerEmail,
+    @Size(max = 500) String description) {}
+
+// controller
+@PostMapping
+public ReportDto create(@Valid @RequestBody CreateReportRequest req) { ... }</code></pre>
+<p>Use <code class="kw-code">@Validated</code> on the class for query-param / path validation, and group validation for create-vs-update rules. Always return per-field messages so the frontend can highlight inputs.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -330,6 +388,14 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">201 Created</span></li><li><span class="kw">Location</span></li><li><span class="kw">304</span></li><li><span class="kw">ResponseStatus(HttpStatus.CREATED)</span></li></ul></div>
 <p>When you need control over status code, headers, or body together — e.g. <code class="kw-code">201 Created</code> with <code class="kw-code">Location</code> header, or conditional <code class="kw-code">304</code>.</p><p>Simple cases: return DTO + <code class="kw-code">@ResponseStatus(HttpStatus.CREATED)</code> is enough.</p>
+            <h4>Example</h4>
+<pre><code class="kw-code">@PostMapping
+public ResponseEntity&lt;ReportDto&gt; create(@Valid @RequestBody CreateReportRequest req) {
+  ReportDto dto = service.create(req);
+  URI location = URI.create("/api/v1/reports/" + dto.id());
+  return ResponseEntity.created(location).body(dto);   // 201 + Location header
+}</code></pre>
+<p>Reach for <code class="kw-code">ResponseEntity</code> when status/headers vary at runtime; for the common case, returning the DTO + <code class="kw-code">@ResponseStatus</code> is cleaner.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -339,6 +405,24 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">ExceptionHandler</span></li><li><span class="kw">EntityNotFoundException</span></li><li><span class="kw">AccessDeniedException</span></li><li><span class="kw">JSON</span></li></ul></div>
 <p>One class with <code class="kw-code">@ExceptionHandler</code> methods for <code class="kw-code">EntityNotFoundException</code>, validation errors, <code class="kw-code">AccessDeniedException</code>. Returns consistent JSON error schema — clients never see raw stack traces.</p>
+            <h4>Example</h4>
+<pre><code class="kw-code">@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+  @ExceptionHandler(EntityNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public ApiError notFound(EntityNotFoundException ex) {
+    return new ApiError("NOT_FOUND", ex.getMessage());
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ApiError invalid(MethodArgumentNotValidException ex) {
+    // map ex.getBindingResult().getFieldErrors() → field messages
+    return new ApiError("VALIDATION", "Invalid request");
+  }
+}</code></pre>
+<p>One consistent error schema across the whole API; clients never see stack traces. Log the full exception server-side with the correlation ID.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -348,6 +432,12 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="level-vimp">⭐ VI</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">API</span></li><li><span class="kw">JSON</span></li></ul></div>
 <ul><li>Hide internal fields (passwords, lazy relations)</li><li>Stable API contract when DB schema changes</li><li>Avoid Jackson serializing Hibernate proxies (lazy load in JSON = disaster)</li><li>Validation annotations on API layer only</li></ul>
+            <h4>Mapping</h4>
+<p>Map between them with a simple mapper method or a library like <strong class="kw">MapStruct</strong> (compile-time, fast). Keep the mapping in the service layer.</p>
+<pre><code class="kw-code">ReportDto toDto(Report e) {
+  return new ReportDto(e.getId(), e.getName());
+}</code></pre>
+<p>Bonus interview point: separate <em>request</em> and <em>response</em> DTOs — you rarely accept the same fields you return (e.g. never accept <code class="kw-code">id</code>/<code class="kw-code">createdAt</code> on create).
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -357,6 +447,18 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Access-Control-Allow-Origin</span></li><li><span class="kw">CrossOrigin</span></li><li><span class="kw">WebMvcConfigurer.addCorsMappings</span></li><li><span class="kw">*</span></li><li><span class="kw">Boot</span></li></ul></div>
 <p>Browser blocks cross-origin calls unless server sends <code class="kw-code">Access-Control-Allow-Origin</code>. In Boot: <code class="kw-code">@CrossOrigin</code> on controller or <code class="kw-code">WebMvcConfigurer.addCorsMappings</code> — whitelist origins in prod, not <code class="kw-code">*</code> with credentials.</p>
+            <h4>Example (global config)</h4>
+<pre><code class="kw-code">@Configuration
+public class CorsConfig implements WebMvcConfigurer {
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/api/**")
+        .allowedOrigins("https://app.example.com")  // not "*" with credentials
+        .allowedMethods("GET","POST","PUT","DELETE")
+        .allowCredentials(true);
+  }
+}</code></pre>
+<p>CORS is enforced by the <em>browser</em>, not the server — it's not a security boundary, just a same-origin relaxation. With Spring Security, register a <code class="kw-code">CorsConfigurationSource</code> so CORS runs before auth.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -366,6 +468,13 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">JsonIgnore</span></li><li><span class="kw">JsonProperty</span></li><li><span class="kw">JavaTimeModule</span></li><li><span class="kw">LocalDateTime</span></li><li><span class="kw">JSON</span></li></ul></div>
 <p>Jackson on classpath (via starter-web) maps objects to JSON. Customize with <code class="kw-code">@JsonIgnore</code>, <code class="kw-code">@JsonProperty</code>, <code class="kw-code">JavaTimeModule</code> for <code class="kw-code">LocalDateTime</code>. Dates as ISO-8601 strings, not timestamps, for APIs.</p>
+            <h4>Handy annotations &amp; config</h4>
+<pre><code class="kw-code">@JsonInclude(JsonInclude.Include.NON_NULL)   // omit null fields
+public record ReportDto(Long id, String name, @JsonIgnore String internalCode) {}
+
+# application.yml
+spring.jackson.serialization.write-dates-as-timestamps: false  # ISO-8601</code></pre>
+<p>Use records/DTOs for clean output; register <code class="kw-code">JavaTimeModule</code> (auto in Boot) so <code class="kw-code">LocalDateTime</code> serializes as a readable string, not an epoch.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -375,6 +484,13 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/api/v1/reports</span></li><li><span class="kw">Accept: application/vnd.company.v2+json</span></li><li><span class="kw">API</span></li><li><span class="kw">json</span></li><li><span class="kw">Query param</span></li></ul></div>
 <ul><li>URL path: <code class="kw-code">/api/v1/reports</code> — clearest, common at Amdocs</li><li>Header: <code class="kw-code">Accept: application/vnd.company.v2+json</code></li><li>Query param — less RESTful</li></ul><p>Deprecate v1 with Sunset header before removal.</p>
+            <h4>Trade-offs</h4>
+<ul>
+<li><strong class="kw">URL path</strong> (<code class="kw-code">/v1/</code>) — simplest, cache/proxy friendly, very visible. Most common.</li>
+<li><strong class="kw">Header / media type</strong> — keeps URLs clean but harder to test in a browser.</li>
+<li><strong class="kw">Query param</strong> — easy but least RESTful.</li>
+</ul>
+<p>Whatever you pick: version from day one, support N-1, and announce removal with a <code class="kw-code">Sunset</code> header / deprecation notice. Internally, treat events the same way (versioned schemas).</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -384,6 +500,13 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-hard">Hard</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">Idempotency-Key</span></li><li><span class="kw">idempotent</span></li></ul></div>
 <p>Client sends <code class="kw-code">Idempotency-Key</code> header; server stores key + response in Redis/DB for 24h. Duplicate key returns same response without re-processing payment/report generation.</p><p>Critical for retries from mobile apps and message consumers.</p>
+            <h4>Flow</h4>
+<ol>
+<li>Client sends a unique <code class="kw-code">Idempotency-Key</code> header.</li>
+<li>Server checks a store (Redis/DB) for that key.</li>
+<li>New key → process, save key + response. Existing key → return the saved response, skip re-processing.</li>
+</ol>
+<p>Back it with a <strong class="kw">unique constraint</strong> on the key so two concurrent requests can't both insert. This is essential for payment/order endpoints and for Kafka/SQS consumers (at-least-once delivery means duplicates). Ties to the Optima retry/dedup work on your resume.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -393,6 +516,13 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-medium">Medium</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">/swagger-ui.html</span></li><li><span class="kw">Spring</span></li><li><span class="kw">Boot</span></li><li><span class="kw">API</span></li></ul></div>
 <p>springdoc-openapi generates spec from controllers + annotations. UI at <code class="kw-code">/swagger-ui.html</code>. Use for contract-first reviews with frontend and API Visualizer-style tooling on your resume.</p>
+            <h4>Setup</h4>
+<pre><code class="kw-code">&lt;dependency&gt;
+  &lt;groupId&gt;org.springdoc&lt;/groupId&gt;
+  &lt;artifactId&gt;springdoc-openapi-starter-webmvc-ui&lt;/artifactId&gt;
+&lt;/dependency&gt;
+// UI at /swagger-ui.html, spec at /v3/api-docs</code></pre>
+<p>Two directions: <strong class="kw">code-first</strong> (generate the spec from controllers, as springdoc does) or <strong class="kw">contract-first</strong> (write the spec, generate code) — the latter is exactly what your <strong class="kw">MS-Builder</strong> project does.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
@@ -402,6 +532,16 @@ ENTRYPOINT ["java","-jar","/app.jar"]</code></pre>
             <div class="qa-meta"><span class="level level-easy">Easy</span><span class="tag">api</span><span class="chevron">▼</span></div></div>
           <div class="qa-answer"><div class="revision-block"><h4 class="revision-heading">📌 Revision keywords</h4><ul class="revision-kw"><li><span class="kw">RequestParam MultipartFile file</span></li></ul></div>
 <p><code class="kw-code">@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)</code> with <code class="kw-code">@RequestParam MultipartFile file</code>. Validate size/type, virus scan, store in object storage — never executable path on server filesystem.</p>
+            <h4>Example</h4>
+<pre><code class="kw-code">@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+public ResponseEntity&lt;Void&gt; upload(@RequestParam MultipartFile file) {
+  // validate type/size, then stream to object storage (S3)
+}
+
+# application.yml — limits
+spring.servlet.multipart.max-file-size: 10MB
+spring.servlet.multipart.max-request-size: 10MB</code></pre>
+<p>Validate content type and size, stream large files (don't load fully into memory), store in object storage (S3), and never trust the client filename for a server path.</p>
             <div class="qa-footer"><label><input type="checkbox" class="mark-practiced"> Mark practiced</label></div>
           </div>
         </article>
