@@ -10,6 +10,7 @@ const SITE_NAV = [
   { id: "devops", label: "DevOps", path: "devops/devops.html" },
   { id: "production", label: "Production", path: "production/production.html" },
   { id: "kafka", label: "Kafka", path: "kafka/kafka.html" },
+  { id: "aws", label: "AWS", path: "aws/aws.html" },
   { id: "networking", label: "Networking", path: "networking/networking.html" },
   { id: "linux", label: "Linux", path: "linux/linux.html" },
   { id: "dsa", label: "DSA", path: "dsa/dsa.html" },
@@ -26,7 +27,7 @@ function getBasePath() {
       path.includes("/sql/") || path.includes("/testing/") ||
       path.includes("/devops/") || path.includes("/production/") ||
       path.includes("/kafka/") || path.includes("/networking/") ||
-      path.includes("/linux/") ||
+      path.includes("/aws/") || path.includes("/linux/") ||
       path.includes("/dsa/") || path.includes("/projects/") ||
       path.includes("/system%20design/") || path.includes("/system design/")) {
     return "../";
